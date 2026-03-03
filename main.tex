@@ -1,0 +1,167 @@
+\documentclass{scrartcl}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{MacrosArt}
+
+\title{Generalized Morse theory for distance functions}
+
+\author{José Lorgeré}
+
+\begin{document}
+
+\maketitle
+
+\begin{flushleft}
+
+\tableofcontents
+
+\newpage
+
+\section{Generalities on Lipschitz Functions}
+
+\subsection{Subdifferentials}
+
+Let $f : U \subset \mathbb{R}^n \rightarrow \mathbb{R}^m$ be a Lipschitz function, where $U$ is
+open. Rademacher's (source) theorem, which states that $f$ is differentiable almost everywhere, will
+allow us to generalize differentials to this setting.
+
+\begin{defi}
+    The subdifferential of $f$ at $x$, denoted by $\partial f (x)$ is the convex hull of
+    the linear maps $l$ obtained as
+    \[ l = \lim_{i \rightarrow \infty} df(x_i) \]
+    where $f$ is differentiable at each $x_i$ and $x_i \rightarrow x$.
+\end{defi}
+
+The subdifferential is then set valued. This set is always non empty and compact, $f$ being
+Lipschitz bounds $df$ where it is defined.\newline
+By (source Clarke), we can exclude a set of measure $0$ from the possible values of $x_i$
+without changing the definition.
+
+\begin{prop}
+    $\partial f$ is the smallest convex valued upper semi-continuous function containing
+    $df$ whenever it is defined.
+\end{prop}
+
+\begin{proof}
+    First, $\partial f$ is upper semi-continuous : by compactness, is suffices to
+    show that for all $x \in U, \varepsilon > 0$, for $y$ sufficiently close to $x$.
+    \[ \partial f(y) \subset \partial f(x) + B(0, \varepsilon)\]
+    Assume for contradiction that there exists a sequence $x_i \rightarrow x$ such that for all $i$,
+    $\partial f (x_i)$ has an element out of $A := \partial f(x) + \overline{B}(0, \varepsilon/2)$.
+    $A$ being convex and closed, let $x'_i$ be such that $df(x'_i)$ is out of
+    $A$, and such that $x'_i - x_i \rightarrow 0$. Up to extraction, $df(x'_i)$ converges to an element in 
+    $\partial f (x)$, so it enters $A$, contradiction.\newline \medskip
+    The second part follow from $\partial f$ being a convex hull.
+\end{proof}
+
+We generalize the notion of Lipschitz functions to smooth manifolds
+
+\begin{defi}
+    A function $f : M \rightarrow \mathbb{R}^m$, where $M$ is a smooth manifold, is
+    locally Lipschitz if for any chart $U \subset M$ and any compact $K \subset U$,
+    there exists $C > 0$ such that, with the coordinates on $U$
+    \[\forall x, y \in K, | f(x) - f(y) | \leq C |x - y| \]
+\end{defi}
+
+The following lemma generalizes the chain rule and also ensures that we can define
+subdifferentials on manifolds unambiguously, i.e independently of the chart. For
+$x \in M$, $\partial f(x)$ is then a compact convex subset of $T^*_x M$.
+
+\begin{prop}
+    Let $h : \mathbb{R}^m \rightarrow \mathbb{R}^k$ be a $C^1$ function. For $x \in U$
+    \[ \partial (h \circ f)(x) \subset dh(f(x)) \circ \partial f(x) \]
+    If $h$ is a diffeomorpism, we have equality.
+\end{prop}
+
+\begin{proof}
+    For the first part, because $f$ is differentiable a.e, it suffices to show that
+    the leftwise term is an upper semi-continuous convex valued function that contains
+    $d(h \circ f)$ whenever $df$ is defined. This follows from the definition of $\partial f$.
+    \medskip \newline
+    If $h$ is a diffeomorphism, then for $x \in U$
+    \[ \partial f(x) = \partial (h^{-1} \circ h \circ f)(x)
+        \subset dh^{-1}(h \circ f)(x) \circ \partial (h \circ f)(x) \subset \partial f(x) \]
+    so we have equalities, and the result follows.
+\end{proof}
+
+\subsection{The inverse function theorem for Lipschitz functions}
+
+The subdifferentials allow us to generalize the idea of regular and critical points to
+Lipschitz functions as follows
+
+\begin{defi}
+    A point $x \in U$ will be called critical if there exists some $l \in \partial f(x)$
+    not of maximal rank. $x$ will be called regular if it isn't critical.
+\end{defi}
+
+We now consider the specific case of $f : U \subset \mathbb{R}^n \rightarrow \mathbb{R}^n$.
+This section is devoted to proving a generalization by Clarke (source) of the inverse function
+theorem for the case of Lipschitz functions.
+\newline \newline
+In this section, we norm the space of linear maps $\mathbb{R}^n \rightarrow \mathbb{R}^n$, which we denote
+$\mathcal{L}(\mathbb{R}^n)$, with the operator norm $\| \dot  \|$ obtained from the norm used on
+$\mathbb{R}^n$.
+
+\begin{lem}\label{invfunlem}
+    Assume $U$ is convex, and that there exists some closed convex set $C$ such that
+    \begin{itemize}
+        \item Every $l \in C$ is invertible.
+        \item $\partial f(x) \subset C$ for all $x \in U$
+    \end{itemize}
+    Then there exists some $\delta > 0$ such that for all $x, y \in U$ :
+    \[ |f(x) - f(y)| \geq \delta |x - y| \]
+\end{lem}
+
+\begin{proof}
+    Firstly, we set
+    \[ \delta = \inf\left\{ |l(h)| \mid l \in C, h \in S \right\} \]
+    where $S$ is the unit sphere in $\mathbb{R}^n$. $\delta > 0$ because all $l \in C$
+    are invertible and $C \times S$ is closed.
+    \medskip \newline
+    Let $x, y \in U$ and assume $x \neq y$. Let $\pi$ be the plane perpendicular to $y - x$
+    passing through $x$. $f$ being differentiable a.e, Fubini's theorem implies that
+    for almost all $x' \in \pi$, $f$ is differentiable almost on the whole line passing
+    through $x'$ and perpendicular to $\pi$ (i.e $f$ isn't differentiable on a subset of this line of
+    one dimensional measure $0$).\newline
+    Denoting $F : t \longmapsto f(x' + t(y-x))$, we have :
+    \begin{equation}\label{equ1}
+        f(x' + y - x) - f(x') = \int_{0}^{1} F'(t) dt = \int_{0}^1 df(x' + t(y-x))(y-x)dt
+    \end{equation}
+    Define the linear map
+    \[ L = \int_0^1 df(x'+t(y-x))dt \]
+    $C$ being convex and closed, $L \in C$. Observe that the integral on the right of
+    (\ref{equ1}) is just $L(y-x)$. So
+    \[ |f(x'+y-x) - f(x')| \geq \delta |y-x| \]
+    This inequality holds for almost all $x' \in \pi$, so by continuity of $f$, it holds for $x$
+    and we get the desired result.
+\end{proof}
+
+\begin{theorem}
+    If $x_0$ is a regular value of $f$, then there exists $V, W$, neighbourhoods of $x_0$ and $f(x_0)$
+    respectively, such that $f$ induces a bijection $f : V \rightarrow W$ where $f^{-1}$ is
+    Lipschitz too.
+\end{theorem}
+
+\begin{proof}
+    By compactness of $\partial f(x_0)$, regularity of $x_0$, and the fact that the invertible
+    linear maps form an open set, there exist some $\varepsilon > 0$ such that the set
+    \[ C := \partial f(x_0) + \overline{B}(0, \varepsilon) \]
+    is composed only of invertible maps. By upper semi-continuity of $\partial f$, there is
+    some $r > 0$ such that for $y \in B(x_0, r)$, $\partial f(y) \subset C$. We then
+    apply Lemma \ref{invfunlem} and get a corresponding $\delta > 0$.
+    \medskip \newline
+    Set $V = B(x_0, r/2)$ and $W = f(V)$. We showed in particular that $f$ is injective on
+    $\overline{V}$, by compactness $f : \overline{V} \rightarrow f(\overline{V})$ induces a homeomorphism. $W$
+    is then open. The inequality we got with $\delta$ implies that $f^{-1}$ is $\frac{1}{\delta}$
+    Lipschitz.
+\end{proof}
+
+\end{flushleft}
+ 
+\end{document}
