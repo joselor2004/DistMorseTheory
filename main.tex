@@ -16,32 +16,47 @@
 \begin{document}
 
 \maketitle
+\thispagestyle{empty}
 
 \begin{flushleft}
 
 \tableofcontents
 
 \newpage
+\setcounter{page}{1}
 
 \section{Generalities on Lipschitz Functions}
 
-\subsection{Subdifferentials}
+\subsection{Lipschitz functions on manifolds and subdifferentials}
 
-Let $f : U \subset \mathbb{R}^n \rightarrow \mathbb{R}^m$ be a Lipschitz function, where $U$ is
-open. Rademacher's (source) theorem, which states that $f$ is differentiable almost everywhere, will
-allow us to generalize differentials to this setting.
+\quad For all the following, $M$ will denote a differentiable manifold of dimension $m$.
+In this section, we generalize many definitions related to Lipschitz functions. We begin by
+extending the definition of Lipschitz functions to functions on a manifold.
 
 \begin{defi}
-    The subdifferential of $f$ at $x$, denoted by $\partial f (x)$ is the convex hull of
+    A function $f : M \rightarrow \mathbb{R}^n$, where $M$ is a smooth manifold, is
+    locally Lipschitz if for any chart $U \subset M$ and any compact $K \subset U$,
+    there exists $C > 0$ such that, with the coordinates on $U$
+    \[\forall x, y \in K, | f(x) - f(y) | \leq C |x - y| \]
+\end{defi}
+
+\quad Let $f : U \subset \mathbb{R}^m \rightarrow \mathbb{R}^n$ be a Lipschitz function, where $U$ is
+open. Rademacher's theorem, which states that $f$ is differentiable almost everywhere, will
+allow us to generalize differentials to this setting.
+
+\begin{defi}\cite{ClarkeImplicit}
+    The subdifferential of $f$ at $x$, denoted by $\partial_x f$ is the convex hull of
     the linear maps $l$ obtained as
-    \[ l = \lim_{i \rightarrow \infty} df(x_i) \]
+    \[ l = \lim_{i \rightarrow \infty} d_{x_i}f \]
     where $f$ is differentiable at each $x_i$ and $x_i \rightarrow x$.
 \end{defi}
 
 The subdifferential is then set valued. This set is always non empty and compact, $f$ being
 Lipschitz bounds $df$ where it is defined.\newline
-By (source Clarke), we can exclude a set of measure $0$ from the possible values of $x_i$
+By \cite{ClarkeFirst}, we can exclude a set of measure $0$ from the possible values of $x_i$
 without changing the definition.
+
+% Example
 
 \begin{prop}
     $\partial f$ is the smallest convex valued upper semi-continuous function containing
@@ -51,31 +66,31 @@ without changing the definition.
 \begin{proof}
     First, $\partial f$ is upper semi-continuous : by compactness, is suffices to
     show that for all $x \in U, \varepsilon > 0$, for $y$ sufficiently close to $x$.
-    \[ \partial f(y) \subset \partial f(x) + B(0, \varepsilon)\]
+    \[ \partial_y f \subset \partial_x f + B(0, \varepsilon)\]
     Assume for contradiction that there exists a sequence $x_i \rightarrow x$ such that for all $i$,
-    $\partial f (x_i)$ has an element out of $A := \partial f(x) + \overline{B}(0, \varepsilon/2)$.
-    $A$ being convex and closed, let $x'_i$ be such that $df(x'_i)$ is out of
-    $A$, and such that $x'_i - x_i \rightarrow 0$. Up to extraction, $df(x'_i)$ converges to an element in 
-    $\partial f (x)$, so it enters $A$, contradiction.\newline \medskip
+    $\partial_{x_i} f$ has an element out of $A := \partial_x f + \overline{B}(0, \varepsilon/2)$.
+    $A$ being convex and closed, let $x'_i$ be such that $d_{x'_i} f$ is out of
+    $A$, and such that $x'_i - x_i \rightarrow 0$. Up to extraction, $d_{x'_i} f$ converges to an element in 
+    $\partial_x f$, so it enters $A$, contradiction.\newline \medskip
     The second part follow from $\partial f$ being a convex hull.
 \end{proof}
 
-We generalize the notion of Lipschitz functions to smooth manifolds
+\quad The subdifferential allows us to generalize the idea of regular and critical points, which will
+be an important tool for generalizing Morse theory. The definition is as follows :
 
 \begin{defi}
-    A function $f : M \rightarrow \mathbb{R}^m$, where $M$ is a smooth manifold, is
-    locally Lipschitz if for any chart $U \subset M$ and any compact $K \subset U$,
-    there exists $C > 0$ such that, with the coordinates on $U$
-    \[\forall x, y \in K, | f(x) - f(y) | \leq C |x - y| \]
+    A point $x \in U$ will be called critical if there exists some $l \in \partial_x f$
+    not of maximal rank. $x$ will be called regular if it isn't critical.
 \end{defi}
 
-The following lemma generalizes the chain rule and also ensures that we can define
-subdifferentials on manifolds unambiguously, i.e independently of the chart. For
-$x \in M$, $\partial f(x)$ is then a compact convex subset of $T^*_x M$.
+To extend these subdifferentiability notions to manifolds, one must guarantee that for all
+charts, the definitions of $\partial f$ coincide. In this is the case, $\partial_x f$ is
+a compact convex subset of $T_x^* M$. The following generalization of the chain rule
+allows us to do that.
 
-\begin{prop}
-    Let $h : \mathbb{R}^m \rightarrow \mathbb{R}^k$ be a $C^1$ function. For $x \in U$
-    \[ \partial (h \circ f)(x) \subset dh(f(x)) \circ \partial f(x) \]
+\begin{prop}[Subdifferential chain rule]
+    Let $h : \mathbb{R}^n \rightarrow \mathbb{R}^k$ be a $C^1$ function. For $x \in U$ :
+    \[ \partial_x (h \circ f) \subset d_{f(x)} h \circ \partial_x f \]
     If $h$ is a diffeomorpism, we have equality.
 \end{prop}
 
@@ -84,35 +99,35 @@ $x \in M$, $\partial f(x)$ is then a compact convex subset of $T^*_x M$.
     the leftwise term is an upper semi-continuous convex valued function that contains
     $d(h \circ f)$ whenever $df$ is defined. This follows from the definition of $\partial f$.
     \medskip \newline
-    If $h$ is a diffeomorphism, then for $x \in U$
-    \[ \partial f(x) = \partial (h^{-1} \circ h \circ f)(x)
-        \subset dh^{-1}(h \circ f)(x) \circ \partial (h \circ f)(x) \subset \partial f(x) \]
+    If $h$ is a diffeomorphism, then for $x \in U$ :
+    \[ \partial_x f = \partial_x (h^{-1} \circ h \circ f)
+        \subset d_{h \circ f (x)} h^{-1} \circ \partial_x (h \circ f) \subset \partial_x f \]
     so we have equalities, and the result follows.
 \end{proof}
 
-\subsection{The inverse function theorem for Lipschitz functions}
+Although some important differentiablity related results can be obtained with locally
+Lipschitz functions as we'll see, a general locally Lipschitz function can have some
+pathological behaviours. As an example, it's subdifferential isn't in general a
+topological submanifold of $M$ as illustrated by Figure ??. However, the functions we'll
+study, for example continuous selections (see Section \ref{sec:ContSelec}) have much nicer
+behaviour and we retrieve this property.
 
-The subdifferentials allow us to generalize the idea of regular and critical points to
-Lipschitz functions as follows
+\subsection{Generalized differential theorems}
 
-\begin{defi}
-    A point $x \in U$ will be called critical if there exists some $l \in \partial f(x)$
-    not of maximal rank. $x$ will be called regular if it isn't critical.
-\end{defi}
+\quad We now consider the specific case of $f : U \subset \mathbb{R}^m \rightarrow \mathbb{R}^m$.
+This section is devoted to proving generalizations by Clarke \cite{ClarkeImplicit} of the inverse function
+theorem and the implicit function theorem for the case of Lipschitz functions.
+\bigskip
 
-We now consider the specific case of $f : U \subset \mathbb{R}^n \rightarrow \mathbb{R}^n$.
-This section is devoted to proving a generalization by Clarke (source) of the inverse function
-theorem for the case of Lipschitz functions.
-\newline \newline
-In this section, we norm the space of linear maps $\mathbb{R}^n \rightarrow \mathbb{R}^n$, which we denote
-$\mathcal{L}(\mathbb{R}^n)$, with the operator norm $\| \dot  \|$ obtained from the norm used on
+\quad In this section, we norm the space of linear maps $\mathbb{R}^m \rightarrow \mathbb{R}^m$, which we denote
+$\mathcal{L}(\mathbb{R}^n)$, with the operator norm $\| \cdot \|$ obtained from the norm used on
 $\mathbb{R}^n$.
 
 \begin{lem}\label{invfunlem}
     Assume $U$ is convex, and that there exists some closed convex set $C$ such that
     \begin{itemize}
         \item Every $l \in C$ is invertible.
-        \item $\partial f(x) \subset C$ for all $x \in U$
+        \item $\partial_x f \subset C$ for all $x \in U$
     \end{itemize}
     Then there exists some $\delta > 0$ such that for all $x, y \in U$ :
     \[ |f(x) - f(y)| \geq \delta |x - y| \]
@@ -130,31 +145,31 @@ $\mathbb{R}^n$.
     through $x'$ and perpendicular to $\pi$ (i.e $f$ isn't differentiable on a subset of this line of
     one dimensional measure $0$).\newline
     Denoting $F : t \longmapsto f(x' + t(y-x))$, we have :
-    \begin{equation}\label{equ1}
-        f(x' + y - x) - f(x') = \int_{0}^{1} F'(t) dt = \int_{0}^1 df(x' + t(y-x))(y-x)dt
+    \begin{equation}\label{eq:invfunlemeq}
+        f(x' + y - x) - f(x') = \int_{0}^{1} F'(t) dt = \int_{0}^1 d_{x'+t(y-x)} f (y-x)dt
     \end{equation}
     Define the linear map
-    \[ L = \int_0^1 df(x'+t(y-x))dt \]
+    \[ L = \int_0^1 d_{x'+t(y-x)} f dt \]
     $C$ being convex and closed, $L \in C$. Observe that the integral on the right of
-    (\ref{equ1}) is just $L(y-x)$. So
+    \eqref{eq:invfunlemeq} is just $L(y-x)$. So
     \[ |f(x'+y-x) - f(x')| \geq \delta |y-x| \]
     This inequality holds for almost all $x' \in \pi$, so by continuity of $f$, it holds for $x$
     and we get the desired result.
 \end{proof}
 
-\begin{theorem}
-    If $x_0$ is a regular value of $f$, then there exists $V, W$, neighbourhoods of $x_0$ and $f(x_0)$
+\begin{theorem}[Lipschitz inverse function theorem]
+    If $x_0$ is a regular point of $f$, then there exists $V, W$, neighbourhoods of $x_0$ and $f(x_0)$
     respectively, such that $f$ induces a bijection $f : V \rightarrow W$ where $f^{-1}$ is
     Lipschitz too.
 \end{theorem}
 
 \begin{proof}
-    By compactness of $\partial f(x_0)$, regularity of $x_0$, and the fact that the invertible
+    By compactness of $\partial_{x_0} f$, regularity of $x_0$, and the fact that the invertible
     linear maps form an open set, there exist some $\varepsilon > 0$ such that the set
-    \[ C := \partial f(x_0) + \overline{B}(0, \varepsilon) \]
+    \[ C := \partial_{x_0} f + \overline{B}(0, \varepsilon) \]
     is composed only of invertible maps. By upper semi-continuity of $\partial f$, there is
     some $r > 0$ such that for $y \in B(x_0, r)$, $\partial f(y) \subset C$. We then
-    apply Lemma \ref{invfunlem} and get a corresponding $\delta > 0$.
+    apply Lemma \ref{invfunlem} with $U = B(x_0, r)$ and get a corresponding $\delta > 0$.
     \medskip \newline
     Set $V = B(x_0, r/2)$ and $W = f(V)$. We showed in particular that $f$ is injective on
     $\overline{V}$, by compactness $f : \overline{V} \rightarrow f(\overline{V})$ induces a homeomorphism. $W$
@@ -162,6 +177,250 @@ $\mathbb{R}^n$.
     Lipschitz.
 \end{proof}
 
+From this theorem, follows the implicit function theorem for Lipschitz functions
+
+\begin{theorem}
+    Let $F : U \rightarrow \mathbb{R}^n$, where $U \subset \mathbb{R}^m \times \mathbb{R}^n$
+    is open and $F$ is Lipschitz. Let $(x_0, y_0) \in U$ such that $F(x_0, y_0) = 0$
+    and $y_0$ is a regular point of $y \mapsto F(x_0, y)$. Then there exist neighbourhoods
+    $(x_0, y_0) \in W \subset U$, $x_0 \in V \subset R^m$ and a Lipschitz function
+    $g : V \rightarrow \mathbb{R}^n$ such that
+    \[ (x, y) \in W \text{ and } F(x, y) = 0 \Leftrightarrow x \in V \text{ and } y = g(x) \] 
+\end{theorem}
+
+The proof is almost the same as the usual implicit function theorem, where the continuity
+of the differential is replaced by the semi continuity of $\partial F$.
+
+\subsection{First Morse lemma for locally Lipschitz functions}
+
+\quad The goal of this section is to use the generalized notion of critical points in order to
+generalize the first Morse lemma to the case of locally Lipschitz functions. Fix $M$
+an $m$-dimensional smooth manifold, $f : M \rightarrow \mathbb{R}$ a continuous function and
+define for all $c \in \mathbb{R}$ the sublevel set of $f$ of value $c$ as
+\[ M_c := f^{-1}(]-\infty, c]) \]
+The classical first Morse lemma states that if $f$ is $C^1$, and there are no critical points
+in $f^{-1}([a, b])$ (that we assume to be compact), then $M_b$ is diffeomorphic to $M_a$
+and $M_a$ is a deformation retract of $M_b$. We extend this to locally Lipschitz functions,
+following \cite{AgrachevContSelec}.
+Note that in this setting $x$ is a critical point of $f$ iff $0 \in \partial_x f \subset T_x^*M$.
+
+\begin{prop}\label{firstmorselem}
+    Let $a < b \in \mathbb{R}$ such that $f^{-1}([a, b])$ is compact and free of critical points.
+    Then $M_a$ is Lipschitz homeomorphic to $M_b$, $M_a$ is a deformation retract of $M_b$, the homotopy
+    being locally Lipschitz.
+\end{prop}
+
+\begin{proof}
+    We'll construct $V \in \operatorname*{Vec}(M)$ a smooth complete vector field on $M$
+    such that, for all $x \in M$ such that $d_x f$ is defined :
+    \begin{equation}\label{eq:Vsubgrad}
+        d_x f (V(x)) \leq 0 \text{ and } d_x f(V(x)) \leq -1 \text{ if } x \in f^{-1}([a, b])
+    \end{equation}
+    Let $x \in f^{-1}([a, b])$. $x$ being regular and $\partial_x f$ convex, we find an affine hyperplane
+    in $T^*_x M$ separating it from $0$. This gives us $v_x \in T_x M$ such that
+    $\langle \partial_x f, v_x \rangle \leq -2$. By semi continuity, there exists
+    an open neighbourhood $U_x$ of $x$ such that for all $y \in U_x$, $\langle \partial_y f, v_x \rangle \leq -1$.
+    We choose this neighbourhood such that it has compact closure.
+    \medskip \newline
+    These $U_x$ cover $f^{-1}([a, b])$. Let $U_{x_1}, ..., U_{x_r}$ be a finite subcover, and let
+    $\rho_1, ..., \rho_r$ be a partition of unity subordinated to this covering. We set
+    \[\forall x \in M, V(x) = \sum_{i=1}^r \rho_i (x) v_{x_i} \]
+    which indeed verifies \eqref{eq:Vsubgrad} : if $d_x f$ is defined, it is contained in $\partial_x f$,
+    and $V$ is of compact support so it is complete.
+    \medskip \newline
+    Now observe that for $x \in f^{-1}([a, b])$, $t \mapsto f(e^{tV}x)$ is strictly decreasing.
+    Denote by $t(x, s)$, $s \in [0, 1]$, the unique time such that $f(e^{t(x, s)V}x) = as + f(x)(1-s)$.
+    The equation defining $t(x, s)$ is locally Lipschitz in $s, x$ and $t$, so by the Lipschitz implicit
+    function theorem, $t$ is a locally Lipschitz function of $(x,s)$. The following homotopy
+    verifies what we want
+
+    \[ H : \begin{array}{cl}
+        [0, 1] \times M_b &\longrightarrow M_b\\
+        (s, x) &\longmapsto \left\{ \begin{array}{cl}
+                e^{t(x,s)V}x & \text{ if } x \in f^{-1}([a, b])\\
+                x & \text{ else}
+        \end{array} \right.
+    \end{array} \]
+
+    We can similarly define $t'$ a locally Lipschitz function of $x$ such that
+    $f(e^{t'(x)V}x) = b$ for $x$ in the orbit of some $y \in f^{-1}(b)$ by $V$. Denote
+    $O$ the set of $x \in M$ that are in such orbits.
+    The homeomorphism is then given by
+    \[ \begin{array}{cl}
+        M_b &\longrightarrow M_a\\
+        x &\longmapsto \left\{ \begin{array}{cl}
+                e^{t(e^{t'(x)V}x, 1)V}x & \text{ if } x \in O\\
+                x &\text{ else}
+            \end{array} \right.
+    \end{array} \]
+\end{proof}
+
+
+\section{Morse theory of continuous selections}\label{sec:ContSelec}
+
+\subsection{Definitions}
+
+\quad We now restrict ourselves to continuous functions that are piecewise smooth with
+finitely many pieces. Following (ref), we define those as continuous selections.
+
+\begin{defi}
+    A continuous function $f : M \rightarrow \mathbb{R}$ is a continuous selection if there
+    exists $\varphi_1, ..., \varphi_n$ "regular" functions such that
+    \[ \forall x \in M, f(x) \in \{ \varphi_1(x), ..., \varphi_n(x) \} \]
+\end{defi}
+
+The term "regular" is used loosely here to indicate that the $\varphi_i$ satisfy some
+extra condition on top of being continuous. For what follows, we'll restrict ourselves
+to continuous selections of smooth functions (but $C^2$ will suffice).
+\medskip \newline
+Note that a continous selection of locally Lipschitz functions is itself locally Lipschitz :
+if $M$ is an open set of $\mathbb{R}^m$, and we assume that the functions $\varphi_i$ are
+Lipschitz with constants $c_i$, then $f$ is Lipschitz with constant $\displaystyle \max_i c_i$.
+Because smooth functions are locally Lipschitz, the functions we'll study will be too.
+\medskip \newline
+We can then relate $\partial f$ to the differentials of the $\varphi_i$. Indeed, a limit
+of points of the form $d_x \varphi_i$ in $T^*M$ is of the same form. Define
+the set of active indices at $x$,
+\[ I(x) = \{ i \in \llbracket 1, n \rrbracket \mid \varphi_i(x) = f(x)\} \]
+$\partial_x f$ is then the convex hull of some $d_x \varphi_i$, $i \in I(x)$.
+It is possible that not all $d_x \varphi_i$ are used, if for example one of the functions isn't active
+in a neighbourhood of $x$.
+\bigskip
+
+\quad We would like to define what it means for such a continuous selection to be Morse.
+Let $f$ be a continuous selection of $\varphi_1, ..., \varphi_n$.
+Following \cite{AgrachevContSelec}, we give three conditions for a function to be considered
+Morse.
+\begin{equation}\label{eq:morseCS1}
+    \text{For all } i \neq j, \text{ the graphs of } \varphi_i \text{ and } \varphi_j \text{ are transversal.} \tag{C1}
+\end{equation}
+This condition has some important consequences :
+for a non empty $I \subset \llbracket 1, n \rrbracket$, we define $W_I := \{ x \in M \mid I(x) = I \}$.
+Condition \eqref{eq:morseCS1} implies that $W_I$ is a submanifold of $M$ of codimension
+$|I|-1$ : the intersection of the graphs of $\varphi_i, i \in I$ is a submanifold of
+$M \times \mathbb{R}$ of codimension $|I|$ and $W_I$ is the pre-image of this intersection
+through the diffeomorphism $x \mapsto (x, \varphi_i(x))$, $i \in I$, with the codomain being
+the graph of $\varphi_i$.
+\medskip \newline
+This transversality condition also implies that for $x \in M$,
+the differentials $d_x \varphi_i$ are affinely independant where $i \in I(x)$.
+In particular, $\partial_x f$ is a simplex with less than $|I(x)| - 1$ vertices.
+\medskip \newline
+Note that for all $I \subset \llbracket 1, n \rrbracket$, $f_{\mid W_I}$ is a smooth function.
+This motivates the second condition
+\begin{equation}\label{eq:morseCS2}
+    \text{For all non empty } I \subset \llbracket 1, n \rrbracket, f_{\mid W_I} \text{ is Morse} \tag{C2}
+\end{equation}
+Consider $x \in M$ a critical point of $f$. Observe that $x$ must also be a critical point
+of $f_{\mid W_{I(x)}}$. So
+$\displaystyle T_x W_{I(x)} \subset \bigcap_{i \in I(x)} d_x \varphi_i$, but the converse can fail
+if the $d_x \varphi_i$ are not linearly independant enough. The last condition fixes that
+\begin{equation}\label{eq:morseCS3}
+    \forall x \in M, \forall j \in I(x), (d_x \varphi_i)_{\substack{i \in I(x) \\ i \neq j}} \text{ are linearly independant} \tag{C3}
+\end{equation}
+Geometrically, this condition corresponds to requiring that $0$ is either outside or in the
+interior of the simplex $\operatorname*{conv}\{ d_x \varphi_i \mid i \in I(x) \}$, but not on one of its faces.
+Note (i think ??) that this condition can be relaxed by restricting it to the subset of $I(x)$ participating
+in $\partial_x f$.
+\bigskip
+
+\quad A continuous selection $f$ is then called a Morse function if it verifies all three conditions.
+Note that as in the smooth case, a generic continuous selection is Morse : \eqref{eq:morseCS1}
+is a generic condition, any two functions can be slightly perturbed in order for their graphs
+to be transversal, and any small perturbation of transversal graphs preserves transversality.
+By genericity of smooth Morse functions, \eqref{eq:morseCS2} is also a generic condition. With
+the geometric interpretation, we can also see that condition \eqref{eq:morseCS3} is generic.
+% Morse example
+
+\subsection{Normal form of a Morse continuous selection}
+
+\quad We show here an equivalent of the second Morse lemma for the case of Morse continuous
+selections. Noticing that $x \mapsto I(x)$ is upper semi-continuous and using the definitions
+yields the following result.
+
+\begin{lem}
+    If $f : M \rightarrow \mathbb{R}$ is a Morse continuous selection, all its critical points
+    are isolated.
+\end{lem}
+
+We'll then consider, up to restricting ourselves to a small enough chart,
+that $f : \mathbb{R}^m \rightarrow \mathbb{R}$ is Morse and has no critical points other than $0$. We'll
+write for shorthand $W := W_{I(0)}$, $k := |I(0)|-1$, $c := f(0)$, and assume that $I(0) = \llbracket 1, k+1 \rrbracket$.
+
+\begin{theorem}
+    If $0$ is a critical point of $f$, then there exists Lipschitz local coordinates around $0$,
+    $\psi : \mathbb{R}^k \times \mathbb{R}^{m-k} \rightarrow U$ such that
+    \[ \forall y \in \mathbb{R}^k, \forall z \in \mathbb{R}^{m-k}, f(\psi(y,z)) = \lambda(y) + q(z)\]
+    where $\lambda$ is a continuous selection of $k+1$ linear functions, and $q$ is of the form
+    \[ \forall z \in \mathbb{R}^{m-k}, q(z) = c -\sum_{i=1}^{\mu} z_i^2 + \sum_{i=\mu+1}^{m-k} z_i^2 \]
+    with $0 \leq \mu \leq m-k$.
+\end{theorem}
+
+\begin{proof}
+    We first restrict ourselves to $O$ a neighbourhood of $0$ such that $W$ can be considered
+    rectified in some smooth coordinates i.e, $W \cap O = 0 \times \mathbb{R}^{m-k}$. We
+    can also use the smooth Morse lemma to get $f(0, z) = q(z)$. For $(y, z) \in \mathbb{R}^m$,
+    write $f^0(y, z) = f(y, z) - f(0, z)$. We will build for all $z$ close enough to $0$
+    a locally invertible map $\psi_z : \mathbb{R}^k \rightarrow \mathbb{R}^k$ such that
+    $\psi_z(0) = 0$ and for $y$ close enough to $0$, $f^0(\psi_z(y), z)$ is a continuous selection of
+    linear maps independant of $z$.
+    \medskip \newline
+    For what follows we'll fix $z$ and omit it in the notations for convenience.
+    We find a neighbourhood $U$ of $0 \in \mathbb{R}^k$ such that
+    \begin{itemize}
+        \item $U$ is connected.
+        \item For all $y \in U$, $I(y) \subset \llbracket 1, k+1 \rrbracket$.
+        \item For all $j \in \llbracket 1, k+1 \rrbracket$, the set $O_j$ of points in $U$
+        such that $f(y) \neq \varphi_j(y)$ is open.
+        \item There exists $\psi_j : U \rightarrow \mathbb{R}^k$ a diffeomorphism such that for all
+        $i \neq j$, $\varphi_i(\psi_j(y)) = \varphi_i(0) + d_0 \varphi_i (y)$
+        \item For all $y \neq 0$, $\psi_1(y), ..., \psi_{k+1}(y)$ are affinely independant.
+    \end{itemize}
+    We now want to combine these to take account of the possible intersections between the $O_j$.
+    Our goal is to combine to $\psi_j$ together with a partition of unity
+    $\mu_j : U \backslash\{0\} \rightarrow \mathbb{R}$ and set our final diffeomorphism to be
+    \[ \psi(y) = \sum_{i = 1}^{k+1} \mu_i(y) \psi_i(y) \]
+    Moreover, $\psi$ should take all active $\varphi_i$ to its affine approximation.\newline
+    Let $\Omega \subset U$ be a maximal set on which this is possible.
+    Assume there exists some non zero $y \in \Omega$ verifying that all of these exist at $y$.
+    Let $j$ be such that $y \in O_j$. Set
+    \[ F : \begin{array}{cl}
+        U \times \mathbb{R}_{<1}^k &\longrightarrow \mathbb{R}^{k}\\
+        (y,(\mu_i)_{i \neq j}) &\longmapsto \left( \varphi_i \left( \displaystyle \sum_{k \neq j} \mu_k \psi_k(y) + \left(1 - \sum_{k \neq j} \mu_k \right) \psi_j(y)\right) - \varphi_i(0) - d_0 \varphi_i(y)\right)_{i \neq j}
+    \end{array}
+    \]
+    By assumption we have $F(y, (\mu_i(y)_{i \neq j})) = 0$. We can choose the $\psi_j$ to be
+    affinely independant because the $d_0 \varphi_i$ are. Then, we use linear independance
+    of the remaining $k$ $d_0 \varphi_i$ to show that the differential of $F$ along the $\mu$ coordinates
+    is invertible. So by the implicit function theorem, there exists a neighbourhood of $y$
+    on which $\mu_i$ $i \neq j$ can be extended, and because they sum up to $1$,
+    we can also define $\mu_j$. So $\Omega$ is open in $U \backslash \{0\}$.
+    \medskip \newline
+    $\Omega$ is also closed in this set : assume there is a sequence $(y_r)$ in $\Omega$ converging
+    to some non zero $y \in O_j$ for some $j$. By construction, the $\mu_i$ are bounded, so we can assume
+    up to extraction that $\mu(y_r) \rightarrow \tilde{\mu}$. Then $F(y, (\tilde{\mu_i})_{i \neq j}) = 0$,
+    and we again use the implicit function theorem to build functions $\tilde{\mu_i}$ on a ball
+    around $y$. Now take any point $y' \in \Omega$ in this ball. The implicit function theorem
+    states that the $\mu_i$ are the only functions that gives $0$ when fed into $F$ and defined on a certain
+    ball around $y'$. $\tilde{\mu_i}$ also satisfies these conditions, so $\tilde{\mu_i}(y') = \mu_i(y')$,
+    so we can extend $\mu_i$ to $y$, $y \in \Omega$.
+    \medskip \newline
+    Because $U \backslash \{0\}$ is connected, so $\Omega = U \backslash \{0\}$ because we can trivially
+    define $\mu_i$ at a point where only one index isn't active. $\psi$ is then a local diffeomorphism
+    using the fact that $d_0 \varphi_i \circ d_0 \psi = d_0 \varphi_i$ for all $i$.
+    \medskip \newline
+    We constructed for all $z$ close enough to $0$ to approximate $d_{(0, z)} \varphi_i$ by $d_0 \varphi_i$,
+    $\psi_z$. They verify the following locally Lipschitz equation :
+    $f(\psi_z(y), z) = \lambda(y) + q(z)$ where $\lambda$ is a continuous selection of $d_0 \varphi_i$.
+    So $(z,y) \mapsto \psi_z(y)$ is locally Lipschitz.
+
+\end{proof}
+
+
+
 \end{flushleft}
- 
+
+\bibliographystyle{plain}
+\bibliography{morseBib}
+
 \end{document}
