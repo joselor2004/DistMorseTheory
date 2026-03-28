@@ -206,8 +206,9 @@ Note that in this setting $x$ is a critical point of $f$ iff $0 \in \partial_x f
 
 \begin{prop}\label{firstmorselem}
     Let $a < b \in \mathbb{R}$ such that $f^{-1}([a, b])$ is compact and free of critical points.
-    Then $M_a$ is Lipschitz homeomorphic to $M_b$, $M_a$ is a deformation retract of $M_b$, the homotopy
-    being locally Lipschitz.
+    Then there exists a locally Lipschitz homotopy $H : M_b \times [0, 1] \rightarrow M_b$ such
+    that for all $s \in [0, 1]$, $H(\cdot, s)$ is a homeomorphism verifying
+    \[ H(M_b \times \{s\}) \subset M_{b(1-s) + as} \]
 \end{prop}
 
 \begin{proof}
@@ -231,25 +232,16 @@ Note that in this setting $x$ is a critical point of $f$ iff $0 \in \partial_x f
     Now observe that for $x \in f^{-1}([a, b])$, $t \mapsto f(e^{tV}x)$ is strictly decreasing.
     Denote by $t(x, s)$, $s \in [0, 1]$, the unique time such that $f(e^{t(x, s)V}x) = as + f(x)(1-s)$.
     The equation defining $t(x, s)$ is locally Lipschitz in $s, x$ and $t$, so by the Lipschitz implicit
-    function theorem, $t$ is a locally Lipschitz function of $(x,s)$. The following homotopy
-    verifies what we want
-
-    \[ H : \begin{array}{cl}
-        [0, 1] \times M_b &\longrightarrow M_b\\
-        (s, x) &\longmapsto \left\{ \begin{array}{cl}
-                e^{t(x,s)V}x & \text{ if } x \in f^{-1}([a, b])\\
-                x & \text{ else}
-        \end{array} \right.
-    \end{array} \]
-
+    function theorem, $t$ is a locally Lipschitz function of $(x,s)$.
+    \medskip \newline
     We can similarly define $t'$ a locally Lipschitz function of $x$ such that
     $f(e^{t'(x)V}x) = b$ for $x$ in the orbit of some $y \in f^{-1}(b)$ by $V$. Denote
     $O$ the set of $x \in M$ that are in such orbits.
-    The homeomorphism is then given by
-    \[ \begin{array}{cl}
-        M_b &\longrightarrow M_a\\
-        x &\longmapsto \left\{ \begin{array}{cl}
-                e^{t(e^{t'(x)V}x, 1)V}x & \text{ if } x \in O\\
+    The homotopy is then given by
+    \[ H : \begin{array}{cl}
+        M_b \times [0, 1] &\longrightarrow M_b\\
+        (x, s) &\longmapsto \left\{ \begin{array}{cl}
+                e^{t(e^{t'(x)V}x, s)V}x & \text{ if } x \in O\\
                 x &\text{ else}
             \end{array} \right.
     \end{array} \]
@@ -351,7 +343,7 @@ write for shorthand $W := W_{I(0)}$, $k := |I(0)|-1$, $c := f(0)$, and assume th
     If $0$ is a critical point of $f$, then there exists Lipschitz local coordinates around $0$,
     $\psi : \mathbb{R}^k \times \mathbb{R}^{m-k} \rightarrow U$ such that
     \[ \forall y \in \mathbb{R}^k, \forall z \in \mathbb{R}^{m-k}, f(\psi(y,z)) = \lambda(y) + q(z)\]
-    where $\lambda$ is a continuous selection of $k+1$ linear functions, and $q$ is of the form
+    where $\lambda$ is a continuous selection of $k+1$ affinely independant linear functions, and $q$ is of the form
     \[ \forall z \in \mathbb{R}^{m-k}, q(z) = c -\sum_{i=1}^{\mu} z_i^2 + \sum_{i=\mu+1}^{m-k} z_i^2 \]
     with $0 \leq \mu \leq m-k$.
 \end{theorem}
@@ -372,29 +364,30 @@ write for shorthand $W := W_{I(0)}$, $k := |I(0)|-1$, $c := f(0)$, and assume th
         \item For all $y \in U$, $I(y) \subset \llbracket 1, k+1 \rrbracket$.
         \item For all $j \in \llbracket 1, k+1 \rrbracket$, the set $O_j$ of points in $U$
         such that $f(y) \neq \varphi_j(y)$ is open.
-        \item There exists $\psi_j : U \rightarrow \mathbb{R}^k$ a diffeomorphism such that for all
-        $i \neq j$, $\varphi_i(\psi_j(y)) = \varphi_i(0) + d_0 \varphi_i (y)$
-        \item For all $y \neq 0$, $\psi_1(y), ..., \psi_{k+1}(y)$ are affinely independant.
+        \item There exists $\psi_j : U \rightarrow V_j$ a diffeomorphism such that for all
+        $i \neq j$, $\varphi_i(\psi_j(y)) = \varphi_i(0) + d_0 \varphi(y)$
     \end{itemize}
     We now want to combine these to take account of the possible intersections between the $O_j$.
-    Our goal is to combine to $\psi_j$ together with a partition of unity
+    Our goal is to combine to $\psi_j$ together with coefficients
     $\mu_j : U \backslash\{0\} \rightarrow \mathbb{R}$ and set our final diffeomorphism to be
     \[ \psi(y) = \sum_{i = 1}^{k+1} \mu_i(y) \psi_i(y) \]
     Moreover, $\psi$ should take all active $\varphi_i$ to its affine approximation.\newline
     Let $\Omega \subset U$ be a maximal set on which this is possible.
     Assume there exists some non zero $y \in \Omega$ verifying that all of these exist at $y$.
-    Let $j$ be such that $y \in O_j$. Set
+    Let $j$ be such that $y \in O_j$
     \[ F : \begin{array}{cl}
-        U \times \mathbb{R}_{<1}^k &\longrightarrow \mathbb{R}^{k}\\
-        (y,(\mu_i)_{i \neq j}) &\longmapsto \left( \varphi_i \left( \displaystyle \sum_{k \neq j} \mu_k \psi_k(y) + \left(1 - \sum_{k \neq j} \mu_k \right) \psi_j(y)\right) - \varphi_i(0) - d_0 \varphi_i(y)\right)_{i \neq j}
+        U \times \mathbb{R}_{<2}^{k+1} &\longrightarrow \mathbb{R}^{k+1}\\
+        (y, \mu_1, ..., \mu_{k+1}) &\longmapsto \left( \varphi_i \left( \displaystyle \sum_{r=1}^{k+1} \mu_r \psi_r(y) - \varphi_i(0) - d_0 \varphi_i(y)\right)_{i \neq j},
+        \displaystyle \sum_{i=1}^{k+1} \mu_i - 1 \right)
     \end{array}
     \]
-    By assumption we have $F(y, (\mu_i(y)_{i \neq j})) = 0$. We can choose the $\psi_j$ to be
-    affinely independant because the $d_0 \varphi_i$ are. Then, we use linear independance
-    of the remaining $k$ $d_0 \varphi_i$ to show that the differential of $F$ along the $\mu$ coordinates
-    is invertible. So by the implicit function theorem, there exists a neighbourhood of $y$
-    on which $\mu_i$ $i \neq j$ can be extended, and because they sum up to $1$,
-    we can also define $\mu_j$. So $\Omega$ is open in $U \backslash \{0\}$.
+    We'll assume for convenience for what follows that the $\psi_i(y)$ are affinely independant.
+    A modified version of the argument also works if the $\psi_i$ are allowed to be affinely
+    dependant but its technicality doesn't add up much to the idea of the proof.
+    \medskip \newline
+    By assumption we have $F(y, \mu_1(y), ..., \mu_{k+1}(y)) = 0$. Then by condition \ref{eq:morseCS3}, the differential of
+    $F$ along $\mu$ is invertible. So by the implicit function theorem, there exists a neighbourhood of $y$
+    on which $\mu_i$ $i \neq j$ can be extended. So $\Omega$ is open in $U \backslash \{0\}$.
     \medskip \newline
     $\Omega$ is also closed in this set : assume there is a sequence $(y_r)$ in $\Omega$ converging
     to some non zero $y \in O_j$ for some $j$. By construction, the $\mu_i$ are bounded, so we can assume
@@ -403,9 +396,9 @@ write for shorthand $W := W_{I(0)}$, $k := |I(0)|-1$, $c := f(0)$, and assume th
     around $y$. Now take any point $y' \in \Omega$ in this ball. The implicit function theorem
     states that the $\mu_i$ are the only functions that gives $0$ when fed into $F$ and defined on a certain
     ball around $y'$. $\tilde{\mu_i}$ also satisfies these conditions, so $\tilde{\mu_i}(y') = \mu_i(y')$,
-    so we can extend $\mu_i$ to $y$, $y \in \Omega$.
+    so $\tilde{\mu_i}$ extends $\mu_i$ to $y$, $y \in \Omega$.
     \medskip \newline
-    Because $U \backslash \{0\}$ is connected, so $\Omega = U \backslash \{0\}$ because we can trivially
+    Because $U \backslash \{0\}$ is connected, $\Omega = U \backslash \{0\}$ because we can trivially
     define $\mu_i$ at a point where only one index isn't active. $\psi$ is then a local diffeomorphism
     using the fact that $d_0 \varphi_i \circ d_0 \psi = d_0 \varphi_i$ for all $i$.
     \medskip \newline
@@ -416,7 +409,181 @@ write for shorthand $W := W_{I(0)}$, $k := |I(0)|-1$, $c := f(0)$, and assume th
 
 \end{proof}
 
+\quad We now try to understand better the structure of the non smooth component that appears in
+the normal form theorem. It turns out that it can be encoded in a purely
+combinatorial way, as the following theorem shows \cite{PLminmax}.
 
+\begin{theorem}\label{th:minmax}
+    Let $\lambda : \mathbb{R}^k \rightarrow \mathbb{R}$ be a continuous selection of
+    $k+1$ affinely independant linear functions, $\lambda_1, ..., \lambda_{k+1}$. Then there exists a unique family
+    $S_1, ..., S_l$ of subsets of $\llbracket 1, k+1 \rrbracket$ verifying that
+    \begin{itemize}
+        \item $S_i \not \subset S_j$, $i \neq j$
+        \item $\lambda$ can be written as
+        \[ \lambda(y) = \min_{i} \max_{j \in S_i} \lambda_j(y) \]
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    Let's first tackle uniqueness. Let $S_1, ..., S_l$, $D_1, ..., D_r$ be two such distinct families.
+    Assume without loss of generality that $S_1 \neq D_j$. We can also assume that for all
+    $1 \leq j \leq r$, $S_1 \not\supset D_j$. If it is the case, then for all $1 < i \leq l$
+    we have $D_j \not\supset S_i$ by assumption on $S$. We can then swap $S$ and $D$ to get
+    what we want.\newline
+    By affine independance, the following linear system has a solution
+    \[ \lambda_i(y) + \mu = c_i, i \in \llbracket 1, k+1 \rrbracket \]
+    where the unknowns are $y, \mu$ and $c_i = 0$ if $i \in S_1$ and $1$ otherwise.
+    It follows that, if we use the representation with $D_i$, we get $\lambda(y) = 1 - \mu$
+    and if we use the one with the $S_i$, $\lambda(y) = -\mu$.
+    \medskip \newline
+    Now for existence. For all permutation $\nu \in \mathfrak{S}_{k+1}$ define the the cone
+    \[ K_{\nu} = \{ y \in \mathbb{R}^k \mid \lambda_{\nu(1)}(y) \leq ... \leq \lambda_{\nu(k+1)}(y) \} \]
+    and the function $s : \nu \in \mathfrak{S}_{k+1} \mapsto i \in \llbracket 1, k+1 \rrbracket$ where $i$
+    is such that $\lambda_{\nu(i)} = \lambda$ on $K_{\nu}$. If we assume that for all $y$ and $\nu$ we have
+    \[ \lambda(y) \leq \max \{ \lambda_{\nu(1)}(y), ..., \lambda_{\nu(s(\nu))}(y) \} \]
+    then it suffices to consider the family of set $S_{\nu} = \{\nu(1), ..., \nu(s(\nu)) \}$
+    and simplify these by removing those who are included in one another.
+    \medskip \newline
+    We now give a broad idea of the proof of the claim. The result is true by definition
+    on $K_{\nu}$. For any $y \in \mathbb{R}^k$, set $y' \in K_{\nu}$ and consider the evolution
+    of the order of $\lambda_i$ along the line between $y$ and $y'$ : the value of each $\lambda_i$
+    evolves at a constant rate. Whenever the current $\lambda_i$ defining $\lambda$ encounters
+    another $\lambda_j$ and $\lambda$ becomes defined as $\lambda_j$ afterwards, either
+    $\lambda_j$ is smaller than $\lambda_i$ after the encounter, or the opposite. If we denote
+    $I$ the set of indices such that the functions are smaller than $\lambda_j$ before the
+    encounter, then in either case we see that $\lambda$ stays smaller than the maximum
+    of $\lambda_{i'}$ $i' \in I$. This concludes the proof because the line starts at $K_{\nu}$.
+\end{proof}
+
+\subsection{Describing the homology of sublevel sets}
+
+\quad Our goal for this section is to describe more precisely the transition that happens
+as the critical point of $f$ is passed, where $f$ is still a Morse continuous selection
+defined on $\mathbb{R}^m$ with $0$ as its only critical point.
+\medskip \newline
+The normal form of $f$ and theorem \ref{th:minmax} allows us to fully describe the behaviour
+of $f$ with purely combinatorial information, a smooth Morse index and a more complicated set
+representation. We can encode the combinatorial structure that appears in its non smooth part in a way
+that will give us topological and homotopical informations about the sublevel sets : define the
+simplical complex $C(S_1^c, ..., S_l^c)$ on $k+1$ vertices whose faces are given by the complements in
+$\llbracket 1, k+1 \rrbracket$ of the sets $S_i$ describing the non smooth part of $f$.
+\medskip \newline
+Another thing to note is that when put in normal form, $f$ is a quasi homogeneous function, i.e
+there exists some real numbers $\alpha_1, ..., \alpha_m > 0$ such that for all $t > 0, x \in \mathbb{R}^m$,
+we have
+\[ f(t^{\alpha_1} x_1, ..., t^{\alpha_m} x_m) = tf(x) \]
+In this case we have $f(ty, t^{1/2}z) = tf(y,z)$ if we assume that $f(0) = 0$, assumption we'll
+make without loss of generality. For a quasi homogenous function $h$, we'll denote $\delta_t$
+the power-scaling map such that $h(\delta_t x) = th(x)$. The following lemmas on quasi
+homogeneous functions will prove useful for describing the homotopy type of sublevel sets.
+
+\begin{lem}\label{lem:pairconehomequiv}
+    Let $h : \mathbb{R}^m \rightarrow \mathbb{R}$ be a quasi homogeneous locally Lipschitz
+    function having only $0$ as a critical point. We have the following homotopy equivalence
+    \[ (M_1, M_{-1}) \simeq (C_{h^{-1}(-1)}, h^{-1}(-1)) \]
+    where $M_1, M_{-1}$ are the sublevel sets and $C_{h^{-1}(-1)}$ is the cone over $h^{-1}(-1)$.
+\end{lem}
+
+\begin{proof}
+    Let $\mathbb{S}$ denote the unit sphere. Define a smooth $V$ over $\mathbb{S}$ such that
+    for all $x \in \mathbb{S}$, $V(x) \in \mathbb{R}^m$ and $\langle \partial_x h, V(x) \rangle \leq -1$.
+    Extend $V$ into a vector field on $\mathbb{R}$ such that it commutes with $\delta_t$ for
+    all $t > 0$, i.e for $x \in \mathbb{S}$, $V(\delta_t x) = d_x \delta_t( V(x) )$. It
+    follows that $s \mapsto h(e^{sV} x)$ is strictly decreasing for all $x \neq 0$.
+    \medskip \newline
+    From this observation, we define similarly to lemma \ref{firstmorselem}, for all
+    $x \in h^{-1}(]-\infty, 0[)$, $p(x)$, the only point of the orbit of $x$ in $h^{-1}(-1)$.
+    We also define for all $x \in h^{-1}(-1), s \in [0, 1[$, $t(x,s)$ such that it verifies
+    $h(e^{-t(x,s)V}x) = h(x) + s$. If we then denote by
+    $\pi : [0,1] \times h^{-1}(-1) \rightarrow C_{h^{-1}(-1)}$ the projection map, where the
+    top of the cone is the point at height $s = 1$, the homotopy equivalence maps are the
+    following
+    \[ F : \begin{array}{cl}
+        M_1 &\longrightarrow C_{h^{-1}(-1)}\\
+        x &\longmapsto \left\{ \begin{array}{cl}
+            \pi(0, p(x)) & x \in M_{-1}\\
+            \pi(h(x)+1, p(x)) & x \in h^{-1}([-1, 0])\\
+            \pi(1, 0) & x \in h^{-1}([0, 1]) 
+        \end{array} \right.
+    \end{array}
+    \]
+    \vspace*{0.5cm}
+    \[ G : \begin{array}{cl}
+        C_{h^{-1}(-1)} &\longrightarrow M_1\\
+        \pi(s, x) &\longmapsto e^{-t(x,s)}x
+    \end{array}
+    \]
+    We can see that $F \circ G = \operatorname{id}_{C_{h^{-1}(-1)}}$. $G \circ F$ is homotopic
+    to the identity : we can use $V$ to contract $M_{-1}$ onto $h^{-1}(-1)$, and also to
+    retract $h^{-1}([0, 1])$ onto $h^{-1}(0)$.
+\end{proof}
+
+\quad If $X$ and $Y$ are two topological spaces, we define the join of $X$ and $Y$,
+denoted by $X * Y$, as the quotient space of $X \times Y \times [0, 1]$ by the following
+equivalence relation
+\[ \forall x, x' \in X, \forall y, y' \in Y, (x,y,0) \sim (x, y', 0) \text{ and } (x,y,1) \sim (x',y,1)\]
+Intuitively, we join together the spaces $X$ and $Y$ with all possible segments between the two.
+Some examples of join include $X * \{y\}$ wich is the cone of $X$,
+$X * \mathbb{S}^0$ which is the suspension of $X$. More generally the join of $X$ with $\mathbb{S}^n$
+is an $n+1$-fold suspension. 
+\medskip \newline
+By using the same ideas as in lemma \ref{lem:pairconehomequiv}, one can prove the following
+useful lemma.
+
+\begin{lem}
+    Let $h : \mathbb{R}^k \times \mathbb{R}^{m-k} \rightarrow \mathbb{R}$ be a quasi homogeneous function such that
+    for all $(y, z) \in \mathbb{R}^m$, we have $h(y, z) = a(y) + b(z)$ where $a$ and $b$
+    are quasi-homogeneous locally Lipschitz with respective exponents $\alpha, \beta > 0$. We have the following
+    homotopy equivalence
+    \[ h^{-1}(-1) \simeq a^{-1}(-1) * b^{-1}(-1) \]
+\end{lem}
+
+\quad If we write $f(y, z) = \lambda(y) + q(z)$ as described by the normal form theorem,
+what remains to be done to understand the relative homology of $(M_1, M_{-1})$ is to
+describe $q^{-1}(-1)$ and $\lambda^{-1}(-1)$. The first one has the homotopy type of
+$\mathbb{S}^{\mu}$ where $\mu$ is the smooth Morse index of $f$, by classical Morse theory.
+\medskip \newline
+For the second, note that we have the following homotopy equivalence
+$\lambda^{-1}(-1) \simeq \lambda^{-1}(]-\infty, 0[)$. Using the min max form, we get
+\[ \lambda^{-1}(]-\infty, 0[) = \bigcup_i \bigcap_{j \in S_i} \lambda_j(]-\infty, 0[) \]
+Note that each intersection is a convex cone we'll denote by $C_i$. We'll
+relate this to the simplical complex $K(S_1^c, ..., S_l^c)$ by using the nerve of the
+family $C = (C_i)_i$, i.e we'll look at the following set
+\[ N(C) := \{ J \subset \llbracket 1, l \rrbracket \mid \bigcap_{j \in J} C_j \neq \varnothing\} \]
+The following lemma gives us that the nerve of $N(C)$ is exactly the one of the family of
+sets $S_1^c, ..., S_l^c$.
+
+\begin{lem}
+    Let $J \subset \llbracket 1, k+1 \rrbracket$. $J$ is the whole set if and only if
+    \[ \bigcap_{j \in J} \lambda_j^{-1}(]-\infty, 0[) = \varnothing \]
+\end{lem}
+
+\begin{proof}
+    We first show that if $J = \llbracket 1, k+1 \rrbracket$, we indeed get an empty intersection.
+    Recall that $0$ is a critical point of $f$, so it is a critical point of $\lambda$. We
+    then have
+    \[ 0 \in \partial_0 \lambda \subset \operatorname{conv}\{ \lambda_1, ..., \lambda_{k+1} \} \]
+    So there exists $\mu_1, ..., \mu_{k+1}$ with sum $1$ such that $0 = \sum_i \mu_i \lambda_i$.
+    We then see that all $\lambda_i$ cannot be strictly negative at the same time.
+    \medskip \newline
+    We now show that if $J \neq \llbracket 1, k+1 \rrbracket$, the intersection is not empty.
+    Condition \eqref{eq:morseCS3} gives us that the family $(\lambda_j)_{j \in J}$ is linearly
+    independant. The linear system $\lambda_j(y) = -1, j \in J$ then has a solution, where
+    the unknown is $y$.
+\end{proof}
+
+Because every $C_i$ is convex, their intersections are contractible. Applying Leray's nerve
+theorem (cite), $\lambda^{-1}(-1)$ has the homotopy type of the simplical complex given
+by the nerve. By virtue of what we discussed, this complex is exactly $K(S_1^c, ..., S_l^c)$.
+The homotopy type of $f^{-1}(-1)$ is then given by
+\[ f^{-1}(-1) \simeq K(S_1^c, ..., S_l^c) * \mathbb{S}^{\mu} \]
+
+We deduce the following result regarding homology
+
+\begin{theorem}
+    For $i \geq 0$, we have
+    \[ H_{i+\mu}(M_1, M_{-1}) = \tilde{H}_{i-1}(K(S_1^c, ..., S_k^c)) \]
+\end{theorem}
 
 \end{flushleft}
 
