@@ -51,6 +51,8 @@
 
 \subsection{Lipschitz functions on manifolds and subdifferentials}
 
+\subsubsection{General facts and definitions}
+
 \quad For all the following, $M$ will denote a differentiable manifold of dimension $m$.
 In this section, we generalize many definitions related to Lipschitz functions. We begin by
 extending the definition of Lipschitz functions to functions on a manifold.
@@ -162,6 +164,32 @@ found around the point $(0, 1)$ which is a point in the subdifferential.
 However, the functions we'll
 study, for example continuous selections (see Section \ref{sec:ContSelec}) have much nicer
 behaviour and we retrieve this property.
+
+\subsubsection{The case of convex functions}\label{sec:subdiffconvex}
+
+\quad If we consider convex Lipschitz functions $f : U \subset \mathbb{R}^m \rightarrow \mathbb{R}$,
+where $U$ is a convex open set, the subdifferential can be understood much more precisely
+(in fact, this object was first invented for convex functions).
+\medskip \newline
+Consider a point $x \in U$ where $d_x f$ exists. By convexity, we have
+\[ \forall z \in U, f(z) \geq f(x) + d_x f(z-x) \]
+Denote $C_x$ the set of all linear maps verifying such property at a point $x$.
+The function $C : x \mapsto C_x$ is convex-valued, upper semi-continuous and contains
+$d_x$ whenever it is defined. Moreover, at such points we have for $h$ small enough :
+\[ f(x+h) = f(x) + d_x f(h) + o(h) \geq f(x) + \varphi(h) \]
+where $\varphi \in C_x$. We deduce $(\varphi - d_x f)(h) = o(h)$, so $\varphi = d_x f$.
+Upper semi-continuity gives us $C \subset \partial f$, and the reciprocal is given
+by minimality of $\partial f$. So for a convex function the subdifferential can be described
+as
+\[ \partial_x f = \{ \varphi \in (\mathbb{R}^m)^* \mid \forall z \in U, f(z) \geq f(x) + \varphi(z-x) \}\]
+which gives a geometrical meaning to the name subdifferential.
+\bigskip \newline
+\quad Lastly, we connect the subdifferential to the directionnal derivatives of $f$. The
+directionnal derivative of $f$ at $x$ in direction $v \in \mathbb{R}^m$ is given by
+\[ D_x f(v) = \lim_{t \rightarrow 0^+} \frac{f(x+tv)-f(x)}{t} \]
+and is always defined since $f$ is convex. The two concepts are related by the following
+formula
+\[ D_x f(v) = \max_{l \in \partial f} \langle l, v \rangle \]
 
 \subsection{Generalized differential theorems}
 
@@ -336,7 +364,7 @@ Let $f$ be a continuous selection of $\varphi_1, ..., \varphi_n$.
 Following \cite{AgrachevContSelec}, we give three conditions for a function to be considered
 Morse.
 \begin{equation}\label{eq:morseCS1}
-    \text{For all } i \neq j, \text{ the graphs of } \varphi_i \text{ and } \varphi_j \text{ are transversal.} \tag{C1}
+    \text{The graphs of the } \varphi_i, i \in \llbracket 1, n \rrbracket, \text{ are transversal} \tag{C1}
 \end{equation}
 This condition has some important consequences :
 for a non empty $I \subset \llbracket 1, n \rrbracket$, we define $W_I := \{ x \in M \mid I(x) = I \}$.
@@ -347,8 +375,16 @@ through the diffeomorphism $x \mapsto (x, \varphi_i(x))$, $i \in I$, with the co
 the graph of $\varphi_i$.
 \medskip \newline
 This transversality condition also implies that for $x \in M$,
-the differentials $d_x \varphi_i$ are affinely independant where $i \in I(x)$.
-In particular, $\partial_x f$ is a simplex with less than $|I(x)| - 1$ vertices.
+the differentials $d_x \varphi_i$ are affinely independant where $i \in I(x)$. By affinely
+independant, we mean that one of the two equivalent conditions are satisfied :
+for some/any $j \in I(x)$, the family $(d_x \varphi_i - d_x \varphi_j)_{\substack{i \in I(x) \\ j \neq i}}$
+is linearly independant, or equivalently, the family
+\[ \begin{pmatrix}
+    d_x \varphi_i\\
+    1
+\end{pmatrix}, i \in I(x) \]
+is linearly independant. This implies that $\partial_x f$ is a simplex with less than
+$|I(x)| - 1$ vertices.
 \medskip \newline
 Note that for all $I \subset \llbracket 1, n \rrbracket$, $f_{\mid W_I}$ is a smooth function.
 This motivates the second condition
@@ -530,7 +566,7 @@ The normal form of $f$ and theorem \ref{th:minmax} allows us to fully describe t
 of $f$ with purely combinatorial information, a smooth Morse index and a more complicated set
 representation. We can encode the combinatorial structure that appears in its non smooth part in a way
 that will give us topological and homotopical informations about the sublevel sets : define the
-simplical complex $C(S_1^c, ..., S_l^c)$ on $k+1$ vertices whose faces are given by the complements in
+simplical complex $K(S_1^c, ..., S_l^c)$ on $k+1$ vertices whose faces are given by the complements in
 $\llbracket 1, k+1 \rrbracket$ of the sets $S_i$ describing the non smooth part of $f$.
 \medskip \newline
 Another thing to note is that when put in normal form, $f$ is a quasi homogeneous function, i.e
@@ -642,7 +678,7 @@ by the nerve. By virtue of what we discussed, this complex is exactly $K(S_1^c, 
 The homotopy type of $f^{-1}(-1)$ is then given by
 \[ f^{-1}(-1) \simeq K(S_1^c, ..., S_l^c) * \mathbb{S}^{\mu} \]
 
-We deduce the following result regarding homology
+By recalling that a join with a sphere is a suspension, we get the following result in homology.
 
 \begin{theorem}
     For $i \geq 0$, we have
@@ -650,6 +686,149 @@ We deduce the following result regarding homology
 \end{theorem}
 
 \end{flushleft}
+
+\newpage
+
+\section{Euclidian distance from definable sets}
+
+\quad In this section, we will work in the euclidian space $\mathbb{R}^m$. All throughout,
+$X \subset \mathbb{R}^m$ will be a smooth manifold unless specified otherwise,
+$Y \subset \mathbb{R}^m$ a closed, definable (whatever we decide it to mean) set. The
+main function we will study is the euclidian distance from $Y$ restricted to $X$, i.e
+\[ \forall x \in X, \operatorname{dist}_Y(x) = \min_{y \in Y} |x - y| \]
+where $|\cdot|$ is the euclidian norm. This function is locally Lipschitz. In what will
+follow, we identify $(\mathbb{R}^m)^*$ with $\mathbb{R}^m$ via the euclidian structure.
+$\partial_x ({\operatorname{dist}_Y}_{\mid X})$ will often be identified with a subset of $T_x X$,
+where $x \in X$.
+\medskip \newline
+Our main objectives will be to understand the subdifferential of this function and to find
+a setting where Morse theory of continuous selections can be applied. We will also study
+more closely the particular case where $Y$ is a point and $X$ is algebraic.
+
+\subsection{Computing the subdifferential}
+
+\quad We first study the easier case where $X = \mathbb{R}^m \backslash Y$, which gives rise
+to a very nice and intuitive geometric picture. We first require some results on "infinite
+continuous selections", which is indeed how $\operatorname{dist}_Y$ is defined.
+\medskip \newline
+Let $\varphi : \mathbb{R}^m \times Z \rightarrow \mathbb{R}$ be a continuous function,
+where $Z$ is a compact space. We can define a family $(\varphi_z)_{z \in Z}$ of continuous
+functions, where $\varphi_z = \varphi(\cdot, z)$. Similar to the finite case we can define
+a "compact continuous selection" as a continuous $f$ such that for all $x \in \mathbb{R}^m$
+\[ f(x) \in \{ \varphi_z(x) \mid z \in Z \} \]
+Similarly to the finite case, we define the set of active indices at $x$, $Z(x)$ as the set
+of all $z$ that take the value of $f$ at $x$. We have the following generalized results
+for these kinds of functions.
+
+\begin{lem}
+    The function $x \mapsto Z(x)$ is upper semi-continuous.
+\end{lem}
+
+\begin{proof}
+    Let $x \in \mathbb{R}^m$ and let $V$ be an open neighbourhood of $Z(x)$.
+    Consider for all $n \in \mathbb{N}$ the closed ball $B_n$ of center $x$ and radius
+    $2^{-n}$. Set
+    \[ A_n = \{ z \in Z \mid \exists y \in B_n, \varphi_z(y) = f(y)\} \]
+    $A_n$ is closed : indeed if we write $g = \varphi - f$, we can write $A_n$ as
+    $\operatorname{proj}_Z(g^{-1}(0) \cap (B_n \times Z))$, and $g^{-1}(0) \cap (B_n \times Z)$ is compact
+    so we get what we want.
+    \medskip \newline
+    Note that the intersection $\bigcap_n (A_n \backslash V)$ is empty : if there was a point $z$
+    in such intersection, there would be a sequence $x_k \rightarrow x$ along which $\varphi_z(x_k) = f(x_k)$,
+    so $z \in Z(x) \subset V$. By compactness, and because $(A_n)$ is decreasing, there is
+    some $n$ such that $A_n \subset V$. Let $y \in B_n$ for such $n$. We have
+    \[ Z(y) \subset A_n \subset V \]
+    so we get the desired result.
+\end{proof}
+
+With this result in hand, we can prove a modified version of Danskin's theorem \cite{DanskinsProof}
+that will allow to explicitly compute the subdifferential in a particular case.
+
+\begin{theorem}\label{thm:DanskinPlus}
+    Assume that for all $z$, $\varphi_z$ is $C^1$ and that for all $x$,
+    $d_x \varphi_z$ is continuous in $z$. We have the following
+    \begin{enumerate}
+        \item $f$ is locally Lipschitz and
+        \[ \partial_x f \subset \operatorname{conv}\{ d_x \varphi_z \mid z \in Z(x) \} \]
+
+        \item If for all $z$, $\varphi_z$ is convex and $f = \max_{z \in Z} \varphi_z$, then
+        $f$ is convex and the above inclusion is an equality.
+    \end{enumerate}
+
+\end{theorem}
+
+\begin{proof}
+    We first prove 1.
+    \begin{enumerate}
+    \item Let $x \in \mathbb{R}^m$. Each $\varphi_z$ is locally Lipschitz on a compact ball $B$
+    around $x$. By compactness of $Z$ and $B$, we can find a Lipschitz constant for $f$
+    inside $B$.
+    \medskip \newline
+    We now prove the inclusion. Denote $C : x \mapsto C_x$ the convex valued function such
+    that $C_x$ is the set on the right of the inclusion. By continuity of $z \mapsto d_x \varphi_z$
+    and using the semi-continuity of the active index, we can prove that $C$ is indeed semi-continuous.
+    Lastly, we show that if $d_x f$ is defined at $x$ then it is in $C_x$.
+    \medskip \newline
+    Let $h \in \mathbb{R}^m$. For all $n$, select $V_n$ a neighbourhood
+    of $Z(x)$ such that for $z \in V_n$, $f(x)$ and $\varphi_{z_n}(x)$ are $2^{-n}$ close.
+    Then by semi-continuity of the active index, select $r_n > 0$ such that for $|t| \leq r_n$,
+    $Z(x+th) \subset V_n$. We then select, up to extraction, a sequence $(t_n)$ such that $|t_n| \leq r_n$,
+    $z_n \in Z(x+t_nh)$ such that $z_n$ converges to some $z \in Z$. Because $\bigcap_n V_n = Z(x)$,
+    $z \in Z(x)$. We then compute
+    \begin{align*}
+        \frac{f(x+t_n h) - f(x)}{t_n} &= \frac{\varphi_{z_n}(x+ t_n h) - f(x)}{t_n}\\
+        &= \int_{0}^{1} d_{x + st_n h} \varphi_{z_n}(h) ds + \frac{\varphi_{z_n}(x) - f(x)}{t_n}
+    \end{align*}
+    The integral converges to $d_x \varphi_z (h)$. The whole expression converges to $d_x f (h)$,
+    so there exists a real number $l_h$ such that $d_x \varphi_z(h) + l_h = d_x f(h)$. We can apply
+    the same reasoning to a basis of $\mathbb{R}^m$ and get $d_x f(e_i) = d_x \varphi_z(e_i) + l_i$.
+    By linearity, the constants $l_i$ are all $0$ and we get $d_x f = d_x \varphi_z$.
+    \medskip \newline
+    We conclude by using the minimality of $\partial f$, so $\partial f \subset C$.
+
+    \item It is a classical result from convex analysis that $f$ is convex. By virtue of
+    the discussion in section \ref{sec:subdiffconvex}, it suffices to show that
+    $d_x \varphi_z$ verifies the following for all $x \in \mathbb{R}^m, z \in Z(x)$
+    \[ \forall y \in \mathbb{R}^m, f(y) \geq f(x) + d_x \varphi_z(y-x) \]
+    For that we use the convexity of $f$ and its definition as a maximum :
+    for $z \in Z(x), v \in \mathbb{R}^m$ we have
+    \begin{align*}
+        f(x + v) &\geq f(x) + D_x f(v)\\
+        &= f(x) + \lim_{t \rightarrow 0^+} \frac{f(x+tv) - f(x)}{t}\\
+        &\geq f(x) + \lim_{t \rightarrow 0^+} \frac{\varphi_z(x+tv) - \varphi_z(x)}{t}\\
+        &= f(x) + d_x \varphi_z(v)
+    \end{align*}
+    So we indeed get equality.
+    \end{enumerate}
+\end{proof}
+
+\quad We are finally ready to compute $\partial(\operatorname{dist}_Y)$. We will also
+denote by $Y(x)$ the set of all $y \in Y$ that are active at a point $x$.
+
+\begin{theorem}
+    Let $x \in \mathbb{R}^m \backslash Y$. We have
+    \[ \partial_x \operatorname{dist}_Y = \operatorname{conv}\left\{ \frac{x-y}{|x-y|} \mid y \in Y(x) \right\} \]
+\end{theorem}
+
+\begin{proof}
+    Let $\eta_Y = \frac{1}{2} \operatorname{dist}^2_Y$. We write for $x \in \mathbb{R}^m \backslash Y$
+    \[
+        \eta_Y(x) = \frac{1}{2} |x|^2 - \left( \max_{y \in Y} \langle x, y \rangle - \frac{1}{2} |y|^2 \right)
+    \]
+    The function $\varphi_y(x) = \langle x, y \rangle - \frac{1}{2} |y|^2$ is convex. If we denote
+    by $h(x)$ the term in parenthesis, theorem \ref{thm:DanskinPlus} yields
+    \[ \partial_x h = \operatorname{conv}\{\nabla_x \varphi_y \mid y \in Y(x)\}
+    = \operatorname{conv}(Y(x)) \]
+    But $\eta_Y = \frac{1}{2} | \cdot | - h$, so
+    \[ \partial_x \eta_Y = \{x - y \mid y \in Y(x) \} \]
+    If we now write $\operatorname{dist}_Y = \sqrt{2\eta_Y}$, and use the subdifferential chain
+    rule applied to the diffeomorphism $\sqrt{\cdot}$ (because $\eta_Y(x) \neq 0$, $x \notin Y$) we get
+    \begin{align*}
+        \partial_x \operatorname{dist}_Y &= \frac{1}{\sqrt{2\eta_Y(x)}} \operatorname{conv}\{y-x \mid y \in Y(x) \}\\
+        &= \operatorname{conv}\left\{ \frac{y-x}{|y - x|} \mid y \in Y(x) \right\}
+    \end{align*}
+    because $\eta_Y(x) = \frac{1}{2}|y-x|^2$ for all $y \in Y(x)$
+\end{proof}
 
 \bibliographystyle{plain}
 \bibliography{morseBib}
