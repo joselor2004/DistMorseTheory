@@ -9,6 +9,8 @@
 \usepackage{tikz}
 \usepackage{MacrosArt}
 
+\setlength{\parindent}{0pt}
+
 \newenvironment{R2axis}[5]{ % xmin, xmax, ymin, ymax
 \begin{tikzpicture}[scale=#5]
 
@@ -463,46 +465,44 @@ write for shorthand $W := W_{I(0)}$, $k := |I(0)|-1$, $c := f(0)$, and assume th
     \begin{itemize}
         \item $U$ is connected.
         \item For all $y \in U$, $I(y) \subset \llbracket 1, k+1 \rrbracket$.
-        \item For all $j \in \llbracket 1, k+1 \rrbracket$, the set $O_j$ of points in $U$
-        such that $f(y) \neq \varphi_j(y)$ is open.
-        \item There exists $\psi_j : U \rightarrow V_j$ a diffeomorphism such that for all
-        $i \neq j$, $\varphi_i(\psi_j(y)) = \varphi_i(0) + d_0 \varphi(y)$
+        \item For all $y \in U$, any $k$ $d_y \varphi_i$ are linearly independant
+        \item There exists diffeomorphisms $\psi_j : U \rightarrow V_j$ such that for all
+        $i \neq j$, $\psi_j(\varphi_i(y)) = \varphi_i(0) + d_0 \varphi_i(y)$, $y \in U$.
     \end{itemize}
     We now want to combine these to take account of the possible intersections between the $O_j$.
-    Our goal is to combine to $\psi_j$ together with coefficients
-    $\mu_j : U \backslash\{0\} \rightarrow \mathbb{R}$ and set our final diffeomorphism to be
+    Our goal is to combine to $\psi_j$ together with smooth coefficients
+    $\mu_j : U \backslash\{0\} \rightarrow \mathbb{R}$ of sum $1$ and set our final diffeomorphism to be
     \[ \psi(y) = \sum_{i = 1}^{k+1} \mu_i(y) \psi_i(y) \]
     Moreover, $\psi$ should take all active $\varphi_i$ to its affine approximation.\newline
-    Let $\Omega \subset U$ be a maximal set on which this is possible.
+    Let $\Omega \subset U$ be a maximal set on which we can define such functions, given by Zorn's lemma.
     Assume there exists some non zero $y \in \Omega$ verifying that all of these exist at $y$.
     Let $j$ be such that $y \in O_j$
     \[ F : \begin{array}{cl}
         U \times \mathbb{R}_{<2}^{k+1} &\longrightarrow \mathbb{R}^{k+1}\\
-        (y, \mu_1, ..., \mu_{k+1}) &\longmapsto \left( \varphi_i \left( \displaystyle \sum_{r=1}^{k+1} \mu_r \psi_r(y) - \varphi_i(0) - d_0 \varphi_i(y)\right)_{i \neq j},
+        (y, \mu_1, ..., \mu_{k+1}) &\longmapsto \left( \left( \varphi_i \left( \displaystyle \sum_{r=1}^{k+1} \mu_r \psi_r(y) \right) - \varphi_i(0) - d_0 \varphi_i(y) \right)_{i \neq j},
         \displaystyle \sum_{i=1}^{k+1} \mu_i - 1 \right)
     \end{array}
     \]
     We'll assume for convenience for what follows that the $\psi_i(y)$ are affinely independant.
     A modified version of the argument also works if the $\psi_i$ are allowed to be affinely
-    dependant but its technicality doesn't add up much to the idea of the proof.
+    dependant, where one defines $\mu$ on the closed subset of $U \backslash \{0\}$ where
+    the $\psi_i$ aren't affinely independant by setting all of them except one to be $0$.
+    This can be achieved in a smooth way with smooth interpolators that nullify all $\mu$
+    except one in this set.
     \medskip \newline
     By assumption we have $F(y, \mu_1(y), ..., \mu_{k+1}(y)) = 0$. Then by condition \ref{eq:morseCS3}, the differential of
     $F$ along $\mu$ is invertible. So by the implicit function theorem, there exists a neighbourhood of $y$
-    on which $\mu_i$ $i \neq j$ can be extended. So $\Omega$ is open in $U \backslash \{0\}$.
+    on which all $\mu_i$ can be extended. So $\Omega$ is open in $U \backslash \{0\}$.
     \medskip \newline
     $\Omega$ is also closed in this set : assume there is a sequence $(y_r)$ in $\Omega$ converging
     to some non zero $y \in O_j$ for some $j$. By construction, the $\mu_i$ are bounded, so we can assume
-    up to extraction that $\mu(y_r) \rightarrow \tilde{\mu}$. Then $F(y, (\tilde{\mu_i})_{i \neq j}) = 0$,
-    and we again use the implicit function theorem to build functions $\tilde{\mu_i}$ on a ball
-    around $y$. Now take any point $y' \in \Omega$ in this ball. The implicit function theorem
-    states that the $\mu_i$ are the only functions that gives $0$ when fed into $F$ and defined on a certain
-    ball around $y'$. $\tilde{\mu_i}$ also satisfies these conditions, so $\tilde{\mu_i}(y') = \mu_i(y')$,
-    so $\tilde{\mu_i}$ extends $\mu_i$ to $y$, $y \in \Omega$.
+    up to extraction that $\mu(y_r) \rightarrow \tilde{\mu}$. Then $F(y, \tilde{\mu_1}, ..., \tilde{\mu_{k+1}}) = 0$,
+    and we again use the implicit function theorem to extend the $\mu_i$ to $y$. This means $y \in \Omega$.
     \medskip \newline
     Because $U \backslash \{0\}$ is connected, $\Omega = U \backslash \{0\}$ because we can trivially
     define $\mu_i$ at a point where only one index isn't active. $\psi$ is then a local diffeomorphism
     using the fact that $d_0 \varphi_i \circ d_0 \psi = d_0 \varphi_i$ for all $i$.
-    \medskip \newline
+    \bigskip \newline
     We constructed for all $z$ close enough to $0$ to approximate $d_{(0, z)} \varphi_i$ by $d_0 \varphi_i$,
     $\psi_z$. They verify the following locally Lipschitz equation :
     $f(\psi_z(y), z) = \lambda(y) + q(z)$ where $\lambda$ is a continuous selection of $d_0 \varphi_i$.
@@ -691,7 +691,8 @@ By recalling that a join with a sphere is a suspension, we get the following res
 
 \section{Euclidian distance from definable sets}
 
-\quad In this section, we will work in the euclidian space $\mathbb{R}^m$. All throughout,
+\quad In this section, we will work in the euclidian space $\mathbb{R}^m$. Some of what
+we'll do here can be generalized to a more general Riemannian manifold. All throughout,
 $X \subset \mathbb{R}^m$ will be a smooth manifold unless specified otherwise,
 $Y \subset \mathbb{R}^m$ a closed, definable (whatever we decide it to mean) set. The
 main function we will study is the euclidian distance from $Y$ restricted to $X$, i.e
@@ -705,7 +706,9 @@ Our main objectives will be to understand the subdifferential of this function a
 a setting where Morse theory of continuous selections can be applied. We will also study
 more closely the particular case where $Y$ is a point and $X$ is algebraic.
 
-\subsection{Computing the subdifferential}
+\subsection{Differentiability and subdifferential of the distance function}
+
+\subsubsection{Computing the subdifferential in euclidian space}
 
 \quad We first study the easier case where $X = \mathbb{R}^m \backslash Y$, which gives rise
 to a very nice and intuitive geometric picture. We first require some results on "infinite
@@ -717,88 +720,57 @@ functions, where $\varphi_z = \varphi(\cdot, z)$. Similar to the finite case we 
 a "compact continuous selection" as a continuous $f$ such that for all $x \in \mathbb{R}^m$
 \[ f(x) \in \{ \varphi_z(x) \mid z \in Z \} \]
 Similarly to the finite case, we define the set of active indices at $x$, $Z(x)$ as the set
-of all $z$ that take the value of $f$ at $x$. We have the following generalized results
-for these kinds of functions.
-
-\begin{lem}
-    The function $x \mapsto Z(x)$ is upper semi-continuous.
-\end{lem}
-
-\begin{proof}
-    Let $x \in \mathbb{R}^m$ and let $V$ be an open neighbourhood of $Z(x)$.
-    Consider for all $n \in \mathbb{N}$ the closed ball $B_n$ of center $x$ and radius
-    $2^{-n}$. Set
-    \[ A_n = \{ z \in Z \mid \exists y \in B_n, \varphi_z(y) = f(y)\} \]
-    $A_n$ is closed : indeed if we write $g = \varphi - f$, we can write $A_n$ as
-    $\operatorname{proj}_Z(g^{-1}(0) \cap (B_n \times Z))$, and $g^{-1}(0) \cap (B_n \times Z)$ is compact
-    so we get what we want.
-    \medskip \newline
-    Note that the intersection $\bigcap_n (A_n \backslash V)$ is empty : if there was a point $z$
-    in such intersection, there would be a sequence $x_k \rightarrow x$ along which $\varphi_z(x_k) = f(x_k)$,
-    so $z \in Z(x) \subset V$. By compactness, and because $(A_n)$ is decreasing, there is
-    some $n$ such that $A_n \subset V$. Let $y \in B_n$ for such $n$. We have
-    \[ Z(y) \subset A_n \subset V \]
-    so we get the desired result.
-\end{proof}
-
-With this result in hand, we can prove a modified version of Danskin's theorem \cite{DanskinsProof}
-that will allow to explicitly compute the subdifferential in a particular case.
-
-\begin{theorem}\label{thm:DanskinPlus}
-    Assume that for all $z$, $\varphi_z$ is $C^1$ and that for all $x$,
-    $d_x \varphi_z$ is continuous in $z$. We have the following
+of all $z$ that take the value of $f$ at $x$. We have the following result for a special
+kind of these functions.
+\begin{theorem}[Danskin's \cite{DanskinsProof}]\label{thm:DanskinPlus}
+    Assume that for all $z$, $\varphi_z$ is differentiable, $z \mapsto d_x \varphi_z$ is
+    continuous and $f = \max_{z \in Z} \varphi_z$.
     \begin{enumerate}
-        \item $f$ is locally Lipschitz and
-        \[ \partial_x f \subset \operatorname{conv}\{ d_x \varphi_z \mid z \in Z(x) \} \]
+        \item $f$ is convex and for all $x, v \in \mathbb{R}^m$
+        \[ D_x f(v) = \max_{z \in Z(x)} d_x \varphi_z(v) \]
 
-        \item If for all $z$, $\varphi_z$ is convex and $f = \max_{z \in Z} \varphi_z$, then
-        $f$ is convex and the above inclusion is an equality.
+        \item $f$ is locally Lipschitz and we have
+        \[ \partial_x f = \operatorname{conv}\{ d_x \varphi_z(v) \mid z \in Z(x) \} \]
     \end{enumerate}
 
 \end{theorem}
 
 \begin{proof}
-    We first prove 1.
+    We'll need 1. for 2.
     \begin{enumerate}
-    \item Let $x \in \mathbb{R}^m$. Each $\varphi_z$ is locally Lipschitz on a compact ball $B$
-    around $x$. By compactness of $Z$ and $B$, we can find a Lipschitz constant for $f$
-    inside $B$.
-    \medskip \newline
-    We now prove the inclusion. Denote $C : x \mapsto C_x$ the convex valued function such
-    that $C_x$ is the set on the right of the inclusion. By continuity of $z \mapsto d_x \varphi_z$
-    and using the semi-continuity of the active index, we can prove that $C$ is indeed semi-continuous.
-    Lastly, we show that if $d_x f$ is defined at $x$ then it is in $C_x$.
-    \medskip \newline
-    Let $h \in \mathbb{R}^m$. For all $n$, select $V_n$ a neighbourhood
-    of $Z(x)$ such that for $z \in V_n$, $f(x)$ and $\varphi_{z_n}(x)$ are $2^{-n}$ close.
-    Then by semi-continuity of the active index, select $r_n > 0$ such that for $|t| \leq r_n$,
-    $Z(x+th) \subset V_n$. We then select, up to extraction, a sequence $(t_n)$ such that $|t_n| \leq r_n$,
-    $z_n \in Z(x+t_nh)$ such that $z_n$ converges to some $z \in Z$. Because $\bigcap_n V_n = Z(x)$,
-    $z \in Z(x)$. We then compute
+    \item The convexity of $f$ is a classical result from convex analysis. Notice that
+    for $t > 0$
+    \[ \frac{f(x + tv) - f(x)}{t} \geq \frac{\varphi_z(x+tv) - \varphi_z(x)}{t} \]
+    for $z \in Z(x)$, so we get $D_x f(v) \geq d_x \varphi_z(v)$. For the other inequality,
+    consider a positive sequence $t_n \rightarrow 0$. For all $n$, select $z_n \in Z(x+t_nv)$,
+    by compactness assume it converges to $z^* \in Z$. By maximality of $f$, we have
+    $\varphi_{z^*}(x) \geq \varphi_z(x), z \in Z$, so $z^* \in Z(x)$. By convexity of $f$
+    and $\varphi_{z_n}$, we get
     \begin{align*}
-        \frac{f(x+t_n h) - f(x)}{t_n} &= \frac{\varphi_{z_n}(x+ t_n h) - f(x)}{t_n}\\
-        &= \int_{0}^{1} d_{x + st_n h} \varphi_{z_n}(h) ds + \frac{\varphi_{z_n}(x) - f(x)}{t_n}
+        D_x f(v) &\leq \frac{f(x+t_n v) - f(x)}{t_n}\\
+        &= \frac{\varphi_{z_n}(x+t_n v) - \varphi_z^*(x)}{t_n}\\
+        &\leq \frac{\varphi_{z_n}(x+t_n v) - \varphi_{z_n}((x+ t_n v) - t_n v)}{t_n}\\
+        &\leq d_x \varphi_{z_n}(v)\\
+        &\rightarrow d_x \varphi_{z^*}(v)
     \end{align*}
-    The integral converges to $d_x \varphi_z (h)$. The whole expression converges to $d_x f (h)$,
-    so there exists a real number $l_h$ such that $d_x \varphi_z(h) + l_h = d_x f(h)$. We can apply
-    the same reasoning to a basis of $\mathbb{R}^m$ and get $d_x f(e_i) = d_x \varphi_z(e_i) + l_i$.
-    By linearity, the constants $l_i$ are all $0$ and we get $d_x f = d_x \varphi_z$.
+    so $D_x f(v)$ is indeed the maximum.
+    
+    \item Let $x \in \mathbb{R}^m$ and $B$ be an open ball around $x$. Define for all $k > 0$ the following open set
+    \[ V_k = \{ z \in Z \mid \forall x, y \in \mathbb{R}^m, |\varphi_z(x) - \varphi_z(y)| < k |x-y| \} \]
+    $B$ being of compact closure and all $\varphi_z$ being $C^1$, they are all Lipschitz on $B$.
+    Hence $\bigcup_{k > 0} V_k = Z$, so by compactness, there is $k > 0$ such that $V_k = Z$. $f$ is then
+    Lipschitz on $B$ with constant $k$.
     \medskip \newline
-    We conclude by using the minimality of $\partial f$, so $\partial f \subset C$.
-
-    \item It is a classical result from convex analysis that $f$ is convex. By virtue of
-    the discussion in section \ref{sec:subdiffconvex}, it suffices to show that
-    $d_x \varphi_z$ verifies the following for all $x \in \mathbb{R}^m, z \in Z(x)$
-    \[ \forall y \in \mathbb{R}^m, f(y) \geq f(x) + d_x \varphi_z(y-x) \]
-    For that we use the convexity of $f$ and its definition as a maximum :
-    for $z \in Z(x), v \in \mathbb{R}^m$ we have
-    \begin{align*}
-        f(x + v) &\geq f(x) + D_x f(v)\\
-        &= f(x) + \lim_{t \rightarrow 0^+} \frac{f(x+tv) - f(x)}{t}\\
-        &\geq f(x) + \lim_{t \rightarrow 0^+} \frac{\varphi_z(x+tv) - \varphi_z(x)}{t}\\
-        &= f(x) + d_x \varphi_z(v)
-    \end{align*}
-    So we indeed get equality.
+    We now show the equality involving $\partial f$. For that we use the results of the
+    discussion in section \ref{sec:subdiffconvex}. For the right to left inclusion,
+    it suffices to observe that in virtue of 1., for $z \in Z(x)$
+    \[ \forall v \in \mathbb{R}^m, f(x+v) \geq f(x) + d_x \varphi_z(v) \]
+    Assume that there is some $l \in \partial_x f$ not in the convex hull of $d_x \varphi_z$,
+    $z \in Z(x)$. Because this convex hull is compact, we choose a strictly separating
+    hyperplane : we choose $v$ and $c$ such that
+    \[ \langle l, v \rangle > c > \langle d_x \varphi_z, v \rangle, z \in Z(x) \]
+    This contradicts the fact that $D_x f (v) = \max_{h \in \partial_x f} \langle h, v \rangle$,
+    because $D_x f(v) = \max_{z \in Z(x)} \langle d_x \varphi_z, v \rangle$
     \end{enumerate}
 \end{proof}
 
@@ -819,16 +791,150 @@ denote by $Y(x)$ the set of all $y \in Y$ that are active at a point $x$.
     by $h(x)$ the term in parenthesis, theorem \ref{thm:DanskinPlus} yields
     \[ \partial_x h = \operatorname{conv}\{\nabla_x \varphi_y \mid y \in Y(x)\}
     = \operatorname{conv}(Y(x)) \]
-    But $\eta_Y = \frac{1}{2} | \cdot | - h$, so
+    We can apply the theorem because in a small neighbourhood of $x$, the active indices stay
+    confined to a compact set.\newline
+    By using that $\eta_Y = \frac{1}{2} | \cdot | - h$, we get
     \[ \partial_x \eta_Y = \{x - y \mid y \in Y(x) \} \]
     If we now write $\operatorname{dist}_Y = \sqrt{2\eta_Y}$, and use the subdifferential chain
     rule applied to the diffeomorphism $\sqrt{\cdot}$ (because $\eta_Y(x) \neq 0$, $x \notin Y$) we get
     \begin{align*}
-        \partial_x \operatorname{dist}_Y &= \frac{1}{\sqrt{2\eta_Y(x)}} \operatorname{conv}\{y-x \mid y \in Y(x) \}\\
-        &= \operatorname{conv}\left\{ \frac{y-x}{|y - x|} \mid y \in Y(x) \right\}
+        \partial_x \operatorname{dist}_Y &= \frac{1}{\sqrt{2\eta_Y(x)}} \operatorname{conv}\{x-y \mid y \in Y(x) \}\\
+        &= \operatorname{conv}\left\{ \frac{x-y}{|x-y|} \mid y \in Y(x) \right\}
     \end{align*}
     because $\eta_Y(x) = \frac{1}{2}|y-x|^2$ for all $y \in Y(x)$
 \end{proof}
+
+\subsubsection{Special points and the general case of the subdifferential}
+
+\quad We now consider $X \subset \mathbb{R}^m$ to be some non specific submanifold.
+Following \cite{AntonioMorseThEuclDist}, we define
+
+\begin{defi}[Medial axis]
+    We define $M_Y$, the medial axis of $Y$ as
+    \[ M_Y = \{ x \in \mathbb{R}^m \mid |Y(x)| \geq 2 \} \]
+\end{defi}
+
+Some other special points of the distance function include the cut-locus of $Y$, that we'll
+denote $\operatorname{CLoc}(Y)$ and the central set of $Y$ that we denote
+$C(Y)$, introduced respectively by Thom \cite{ThomCutLocus} and Milman
+cite.
+\begin{defi}[Central set]
+    An open ball $B \subset \mathbb{R}^m \backslash Y$ will be called maximal if there is no
+    open ball in $\mathbb{R}^m \backslash Y$ strictly containing $B$. The central set $C(Y)$ is
+    then the set of the centers of all maximal balls.
+\end{defi}
+
+The stratification on $Y$ (at least $C^2$), given by the fact it is definable, allows us to define the following
+
+\begin{defi}[Cut-locus]
+    The cut locus of $Y$ is defined as
+    \[ \operatorname{CLoc}(Y) = M_Y \cup \{ x \in \mathbb{R}^n \mid y \in Y \mapsto |x-y|^2 \text{ has a degenerate global minimum} \} \]
+\end{defi}
+
+\quad If we assume that $Y$ is a submanifold of $\mathbb{R}^m$, we can link these seemingly
+differents concepts : in this case, $\overline{M_Y} = \operatorname{CLoc}(Y) = C(Y)$.
+$\overline{M_Y} = C(Y)$ can be found in \cite{MilmanMedialCut}. One can prove
+$\overline{M_Y} \subset \operatorname{CLoc}(Y)$ by considering a sequence converging
+in $\overline{M_Y} \backslash M_Y$, and $\operatorname{CLoc}(Y) \subset C(Y)$ by considerations
+of oscullating circles for the case of degenerate points.
+\medskip \newline
+Returning to a more general definable set $Y$, the stratification on $Y$ allows us to show
+that these equalities still hold, again by case inspection. The main argument is that in
+the degenerate/border case, everything happens relatively to one strata of $Y$.
+\bigskip
+
+\quad These special sets of points play an important role in the differentiability of
+$\operatorname{dist}_Y$ as shown in the following proposition.
+
+\begin{prop}\label{prop:medialProp}
+    The function $\operatorname{dist}_Y$ is $C^1$ on $\mathbb{R}^m \backslash (Y \cup \overline{M_Y})$.
+    Moreover, $M_Y$ is definable and of codimension at least $1$.
+\end{prop}
+
+\begin{proof}
+    Let $x \in \mathbb{R}^m \backslash (Y \cup \overline{M_Y})$. Let $U$ be a neighbourhood of
+    $x$ contained in $Y \cup \overline{M_Y}$. On this neighbourhood, we can then define a
+    function $\eta : U \rightarrow Y$ that to each $z \in U$ associates the unique
+    $y \in Y(z)$. Because of that, we can safely assume that $Y$ is itself a manifold,
+    up to restricting ourselves to a strata. If we denote by $g : (a, b) \mapsto |a - b|^2$, and $g_a = g(a, \cdot)$,
+    this $y$ verifies the following $C^1$ equation.
+    \[ \nabla_y ({g_z}_{\mid Y}) = 0 \]
+    Because $z$ is not in $\operatorname{CLoc}(Y)$, differentiating this equality relatively
+    to $y$ yields an invertible matrix, so by the implicit function theorem $\eta$ is
+    $C^1$. It now suffices to write $\operatorname{dist}_Y(z) = \sqrt{g(\eta(z), z)}$ for $z \in U$.
+    \bigskip \newline
+    Definablity is clear, the definition of $M_Y$ can be written in first order logic by using
+    the definability of $Y$. For the codimension, we use the convexity of the distance as follows :
+    assume some $x \in M_Y$ admits a neighbourhood contained in such set. Fix $y_1 \neq y_2 \in Y(x)$.
+    Let $z \neq x$ be a point in $M_Y$ on the segment from $x$ to $y_2$. Then, there must exist
+    some $y_3 \in Y$ distinct from the other ones such that $y_3 \in Y(z)$. Then
+    \[ |x - y_2| = |x - z| + |z - y_2| = \operatorname{dist}_Y(x) \leq |x - y_3| \]
+    Because $|z - y_2| = |z - y_3|$, we get by triangle inequality that $|x - y_3| = |x - y_2|$.
+    By convexity, this must be the case on the whole segment from $x$ to $z$. But this segment
+    lies in the segment from $x$ to $y_2$, so we must have $y_2 = y_3$, which is a contradiction.
+\end{proof}
+
+As a corollary, we can now compute the subdifferential of ${\operatorname{dist}_Y}_{\mid X}$
+for a general $X$, with some transversality constraints. If $Y'$ is a definable set,
+we'll say that $Y'$ is transversal to $X$ if $X$ is transversal to each strata of $Y'$.
+
+\begin{cor}
+    If $X$ is transversal to $Y$ and $\overline{M_Y}$, then for all $x \in X$
+    \[ \partial_x ({\operatorname{dist}_Y}_{\mid X}) = \operatorname{proj}_{T_x X} (\partial_x \operatorname{dist}_Y) \]
+    where $\operatorname{proj}_{T_x X}$ is the orthogonal projection onto $T_x X$.
+\end{cor}
+
+\begin{proof}
+    Denote $g = \operatorname{dist}_Y$, and $f = {\operatorname{dist}_Y}_{\mid X}$. We make
+    the following observations :
+    \begin{itemize}
+        \item If $g$ is differentiable at a point $x \in X$, so is $f$ and
+        $d_x f = \operatorname{proj}_{T_x X} (d_x g)$.
+
+        \item $f$ and $g$ are differentiable of differential $0$ in $X \cap \operatorname{int}(Y)$.
+        Hence we can assume without loss of generality that $X \cap \operatorname{int}(Y) = \varnothing$.
+        The transversality condition then gives us that $X \cap (Y \cup \overline{M_Y})$ is of
+        codimension at least $1$ in $X$ by proposition \ref{prop:medialProp}.
+
+        \item The set of all $x \in X$ such that $g$ is differentiable at $x$ is of measure $0$
+        in $X$ by proposition \ref{prop:medialProp} and the last observation.
+    \end{itemize}
+    To compute $\partial_x f$, it then suffices to consider limits of sequences $d_{x_k} f$
+    where $x_k$ is a point of differentiability of $g$. For such a sequence converging
+    to some $x \in X$, we have, by continuity of $\operatorname{proj}$.
+    \begin{align*}
+        \lim_k d_{x_k} f &= \lim_k \operatorname{proj}_{T_{x_k} X} (d_{x_k} g)\\
+        &= \operatorname{proj}_{T_x X} (\lim_k d_{x_k} g)
+    \end{align*}
+    $\operatorname{proj}_{T_x X}$ being linear, we get
+    \[ \partial_x f = \operatorname{conv}\{ \operatorname{proj}_{T_x X}(l) \mid l \in \partial_x g\} = \operatorname{proj}_{T_x X}(\partial_x g) \]
+\end{proof}
+
+\subsection{Distance functions as locally finite continuous selections}
+
+\quad In this section, $Y \subset \mathbb{R}^m$ will be a smooth submanifold, as $X$. 
+Our goal will be to show that under certain assumptions, the distance function is
+locally a continuous selection of finitely many $C^2$ functions, and so enters the Morse theory
+framework developped in section \ref{sec:ContSelec}.
+\medskip \newline
+We'll denote by $\varphi$ the Riemannian exponential map restricted to $NY$, i.e for $(y, v) \in NY$,
+$\varphi(y, v) = y + v$. The following proposition from \cite{AntonioMorseThEuclDist} uses
+this map to find points where $\operatorname{dist}_Y$ is locally a continuous selection.
+
+\begin{prop}
+    Assume $Y$ is smooth and let $x \in \mathbb{R}^m$ be a regular value of $\varphi$.
+    Then $Y(x) = \{ y_1, ..., y_n \}$ is finite. Moreover there exists
+    \begin{itemize}
+        \item $V$ a neighbourhood of $x$
+        \item For all $i$, $W_i$ a neighbourhood of $y_i$ such that $\overline{W_i}$ are
+        disjoint
+    \end{itemize}
+    that verify
+    \[ \forall z \in V, \operatorname{dist}_Y(z) = \min_i \operatorname{dist}_{Y \cap \overline{W_i}}(z) \]
+    and all $\operatorname{dist}_{Y \cap \overline{W_i}}$ are smooth on $V$.
+\end{prop}
+
+\subsection{Euclidian distance degree}
 
 \bibliographystyle{plain}
 \bibliography{morseBib}
