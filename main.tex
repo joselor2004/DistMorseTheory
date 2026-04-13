@@ -407,7 +407,13 @@ in $\partial_x f$.
 \bigskip
 
 \quad A continuous selection $f$ is then called a Morse function if it verifies all three conditions.
-Note that as in the smooth case, a generic continuous selection is Morse : \eqref{eq:morseCS1}
+We can also impose that these conditions only hold at critical points, and we get the same
+theory.
+\medskip \newline
+Note that as in the smooth case, a generic continuous selection is Morse, i.e the set of
+all $n$-tuples $(\varphi_1, ..., \varphi_n)$ such that these conditions hold at every critical
+point is open dense in $C^2$ topology \cite{genericMorseCS}. We can see it intuitively by noticing that
+\eqref{eq:morseCS1}
 is a generic condition, any two functions can be slightly perturbed in order for their graphs
 to be transversal, and any small perturbation of transversal graphs preserves transversality.
 By genericity of smooth Morse functions, \eqref{eq:morseCS2} is also a generic condition. With
@@ -450,9 +456,9 @@ of $\mathbb{R}^m$. This observation motivates the following lemma, in the spirit
 Thom isotopy theory.
 
 \begin{lem}\label{lem:prepNormForm}
-    Let $h : \mathbb{R}^m \times \mathbb{R} \rightarrow \mathbb{R}$ be a Morse continuous selection.
+    Let $h : \mathbb{R}^k \times \mathbb{R} \rightarrow \mathbb{R}$ be a Morse continuous selection.
     There exists a neighbourhood $U$ of $0$ and $\varepsilon > 0$, a vector field
-    $X : U \times ]-\varepsilon, \varepsilon[ \rightarrow \mathbb{R}^m \times \mathbb{R}$ verifying
+    $X : U \times ]-\varepsilon, \varepsilon[ \rightarrow \mathbb{R}^k \times \mathbb{R}$ verifying
     \begin{enumerate}
         \item For $x \in U, t \in ]-\varepsilon, \varepsilon[$ we have
         \[ X(x, t) = (\tilde{X}(x, t), 1) \]
@@ -463,9 +469,46 @@ Thom isotopy theory.
     \end{enumerate}
 \end{lem}
 
-With this in hand, we can now prove the main theorem :
+The use of this lemma requires a time dependent continuous selection. For the proof of
+the main theorem, we will have to build one with some boundary conditions wich is done
+in the following way
 
-\begin{theorem}
+\begin{lem}\label{lem:extendingTimeCS}
+    Let $\varphi_1, ..., \varphi_{k+1} : \mathbb{R}^k \times \mathbb{R} \rightarrow \mathbb{R}$
+    be smooth functions verifying conditions \eqref{eq:morseCS1} to \eqref{eq:morseCS3}
+    and $h^0 : \mathbb{R}^k \rightarrow \mathbb{R}$ be a continuous selection of
+    $\varphi_1(\cdot, 0), ..., \varphi_n(\cdot, 0)$. Then there exist $U$ a neighbourhood of
+    $0$ and a continuous selection $h : U \times \mathbb{R} \rightarrow \mathbb{R}$ of $\varphi_1, ..., \varphi_{k+1}$ such that
+    $h(\cdot, 0) = h^0$.
+\end{lem}
+
+\begin{proof}
+    We denote by $W_I$ the submanifold of $\mathbb{R}^k$ where the active index set of $h^0$
+    is exactly $I$. We restrict ourselves to an open neighbourhood of $0$ in $\mathbb{R}^k$
+    of compact closure which we call $U$. Our goal will be to partition $U$ in a specific
+    way, and then trivially define $h$ with this decomposition.
+    \medskip \newline
+    For all $i \in \llbracket 1, k+1 \rrbracket$ and $I \subset \llbracket 1, k+1 \rrbracket$
+    define
+    \[ R_I^i = \{ (x, t) \in U \times \mathbb{R} \mid \{j \mid \varphi_i(x, t) = \varphi_j(x, t)\} = I\} \]
+    Note that $W_I \subset R_I^i$ but that the slice $R_I^i \cap \mathbb{R}^k$ can be larger than $W_I$.
+    We remedy that by noticing that each $R_I^i$ is a submanifold of $U \times \mathbb{R}$ with
+    no boundaries. We then find for all $W_I$ a neighbourhood $S_I$ of it in $R_I^i$ where $i \in I$.
+    This partitions $U \times J$, where $J$ is an interval containing $0$ obtained by compactness.
+    It now suffices to define $h(x, t)$ as equal to $\varphi_i(x, t)$, where $i$ is
+    such that $i \in I$, $(x, t) \in S_I$. This ensures continuity of $h$ and the
+    fact that it coincides with $h^0$.
+    \medskip \newline
+    We now want to extend this selection on the whole real line. This is a classical
+    connectedness argument : each $\varphi_i$ is defined on the whole real line so
+    if we consider an open neighbourhood of $0$ where the selection is defined, then we can
+    extend $h$ to the boundary continuously. Hence $h$ can be defined on the whole real line times
+    $U$.
+\end{proof}
+
+We are now ready to prove the main result of this section.
+
+\begin{theorem}[Normal form]
     If $0$ is a critical point of $f$, then there exists continuous local coordinates around $0$,
     $\psi : \mathbb{R}^k \times \mathbb{R}^{m-k} \rightarrow U$ such that
     \[ \forall y \in \mathbb{R}^k, \forall z \in \mathbb{R}^{m-k}, f(\psi(y,z)) = \lambda(y) + q(z)\]
@@ -491,21 +534,22 @@ With this in hand, we can now prove the main theorem :
     a neighbourhood of $0$. We want to linearize the last one and we will be done.
     For that, for all $t \in [0, 1]$ define
     \[ \varphi_{k+1}^t = (1-t)\varphi_{k+1} + t d_0 \varphi_{k+1} \]
-    We then define $h(y, t)$ for all $y$ close enough to $0$ and $t$ as a continuous selection
-    of $d_0 \varphi_1, ..., d_0 \varphi_k, \varphi_{k+1}^t$ such that it equals $f$ at $t=0$.
-    This is Morse for $y$ close enough to $0$, as the differential of $\varphi_{k+1}^t$ for
-    such $y$ is close to the one of $\varphi_{k+1}$.
+    By lemma \ref{lem:extendingTimeCS}, we define $h(y,t)$ for all $y$ close enough to $0$ and $t$ as
+    a continuous selection of $d_0 \varphi_1, ..., d_0 \varphi_k, \varphi_{k+1}^t$ such that
+    it equals $f$ at $t=0$. This is Morse for $y$ close enough to $0$, as the differential of
+    $\varphi_{k+1}^t$ for such $y$ is close to the one of $\varphi_{k+1}$.
     \medskip \newline
     We then apply lemma \ref{lem:prepNormForm}
     and get $U$ an even smaller neighbourhood and $X$ a vector field on a neighbourhood
     of $(0, 0)$. Up to shrinking $U$, we can assume that for all $t^*$ there is a
     time $s(t^*) > 0$ such that for all $y \in U$, we can integrate $(y, t^*)$ for time
     $s, |s| < s(t^*)$. To give some notation, the result of this integration, $\Phi(s, y, t^*)$,
-    is well defined. This gives a covering of $[0, 1]$, so we can still cover it
-    with finitely many of these intervals.
+    is well defined. This gives a covering of $[0, 1]$ by intervals of the form
+    $]t^*-s(t^*), t^*+s(t^*)[$, so we can still cover it with finitely many of these intervals.
     \medskip \newline
     Assume for simplicity 
-    that we can flow for time $1$ from all $(y, 0)$, $y \in U$. We construct a local
+    that we can flow for time $1$ from all $(y, 0)$, $y \in U$ i.e $[0, 1]$ can be covered with
+    only one such interval. We construct a local
     homeomorphism taking $h(y, 0)$ to $h(y, 1)$. Set
     \[ \psi(y', t) = \Phi(-t, y', t) + (0, ..., 0, t) \]
     We can then check by using properties $1.$ and $3.$ that $h \circ \psi^{-1}(y, 1) = h(y, 0)$.
@@ -602,7 +646,7 @@ homogeneous functions will prove useful for describing the homotopy type of subl
     all $t > 0$, i.e for $x \in \mathbb{S}$, $V(\delta_t x) = d_x \delta_t( V(x) )$. It
     follows that $s \mapsto h(e^{sV} x)$ is strictly decreasing for all $x \neq 0$.
     \medskip \newline
-    From this observation, we define similarly to lemma \ref{firstmorselem}, for all
+    From this observation, we define similarly to proposition \ref{firstmorselem}, for all
     $x \in h^{-1}(]-\infty, 0[)$, $p(x)$, the only point of the orbit of $x$ in $h^{-1}(-1)$.
     We also define for all $x \in h^{-1}(-1), s \in [0, 1[$, $t(x,s)$ such that it verifies
     $h(e^{-t(x,s)V}x) = h(x) + s$. If we then denote by
@@ -699,13 +743,14 @@ By recalling that a join with a sphere is a suspension, we get the following res
 
 \newpage
 
-\section{Euclidean distance from definable sets}
+\section{First properties of the euclidean distance}
 
 \quad In this section, we will work in the euclidean space $\mathbb{R}^m$. Some of what
 we'll do here can be generalized to a more general Riemannian manifold. All throughout,
 $X \subset \mathbb{R}^m$ will be a smooth manifold unless specified otherwise,
-$Y \subset \mathbb{R}^m$ a closed, definable (whatever we decide it to mean) set. The
-main function we will study is the euclidean distance from $Y$ restricted to $X$, i.e
+$Y \subset \mathbb{R}^m$ a closed set.
+\medskip \newline
+The main function we will study is the euclidean distance from $Y$ restricted to $X$, i.e
 \[ \forall x \in X, \operatorname{dist}_Y(x) = \min_{y \in Y} |x - y| \]
 where $|\cdot|$ is the euclidean norm. This function is locally Lipschitz. In what will
 follow, we identify $(\mathbb{R}^m)^*$ with $\mathbb{R}^m$ via the euclidean structure.
@@ -713,15 +758,13 @@ $\partial_x ({\operatorname{dist}_Y}_{\mid X})$ will sometimes be identified wit
 where $x \in X$.
 \medskip \newline
 Our main objectives will be to understand the subdifferential of this function and to find
-a setting where Morse theory of continuous selections can be applied. We will also study
-more closely the particular case where $Y$ is a point and $X$ is algebraic.
+a setting where Morse theory of continuous selections can be applied.
 
-\subsection{Differentiability and subdifferential of the distance function}
+\subsection{The subdifferential of the distance function}
 
-\subsubsection{Computing the subdifferential in euclidean space}
-
-\quad We first study the easier case where $X = \mathbb{R}^m \backslash Y$, which gives rise
-to a very nice and intuitive geometric picture. We first require some results on "infinite
+\quad Our goal in this section will be to compute explicitly the subdifferential of
+${\operatorname{dist}_Y}_{\mid X}$, which gives rise to a very nice and intuitive geometric
+picture. We first require some results on "infinite
 continuous selections", which is indeed how $\operatorname{dist}_Y$ is defined.
 \medskip \newline
 Let $\varphi : \mathbb{R}^m \times Z \rightarrow \mathbb{R}$ be a continuous function,
@@ -805,15 +848,19 @@ The following theorem will allow us to compute explicitly subdifferentials in a 
     \end{enumerate}
 \end{proof}
 
-\quad We are finally ready to compute $\partial(\operatorname{dist}_Y)$. We will also
-denote by $Y(x)$ the set of all $y \in Y$ that are active at a point $x$.
+\quad We are now ready to compute the subdifferential of ${\operatorname{dist}_Y}_{\mid X}$.
 
-\begin{theorem}\label{thm:subdiffdistRm}
-    Let $x \in \mathbb{R}^m \backslash Y$. We have
-    \[ \partial_x \operatorname{dist}_Y = \operatorname{conv}\left\{ \frac{x-y}{|x-y|} \mid y \in Y(x) \right\} \]
+\begin{theorem}\label{thm:subdiffdist}
+    Let $x \in X \backslash Y$. We have
+    \[ \partial_x ({\operatorname{dist}_Y}_{\mid X}) = \operatorname{proj}_{T_x X} \left( \operatorname{conv}\left\{ \frac{x-y}{|x-y|}
+        \mid y \in Y(x) \right\} \right)\]
+    where $\operatorname{proj}_{T_x X}$ is the orthogonal projection onto $T_x X$.
 \end{theorem}
 
 \begin{proof}
+    We first compute the subdifferential in the case where $X = \mathbb{R}^m$, and we
+    deduce the general case.
+    \medskip \newline
     Let $\eta_Y = \frac{1}{2} \operatorname{dist}^2_Y$. We write for $x \in \mathbb{R}^m \backslash Y$
     \[
         \eta_Y(x) = \frac{1}{2} |x|^2 - \left( \max_{y \in Y} \langle x, y \rangle - \frac{1}{2} |y|^2 \right)
@@ -832,10 +879,36 @@ denote by $Y(x)$ the set of all $y \in Y$ that are active at a point $x$.
         \partial_x \operatorname{dist}_Y &= \frac{1}{\sqrt{2\eta_Y(x)}} \operatorname{conv}\{x-y \mid y \in Y(x) \}\\
         &= \operatorname{conv}\left\{ \frac{x-y}{|x-y|} \mid y \in Y(x) \right\}
     \end{align*}
-    because $\eta_Y(x) = \frac{1}{2}|y-x|^2$ for all $y \in Y(x)$
+    because $\eta_Y(x) = \frac{1}{2}|y-x|^2$ for all $y \in Y(x)$.
+    \bigskip \newline
+    Denote $g = \operatorname{dist}_Y$, and $f = {\operatorname{dist}_Y}_{\mid X}$.
+    We will show that $\partial_x f = \operatorname{proj}_{T_x X} (\partial_x g)$.
+    \medskip \newline
+    We start from left to right.
+    We want to show that $x \mapsto \operatorname{proj}_{T_x X} (\partial_x \operatorname{dist}_Y)$
+    is upper-semi continuous (where the set is seen in $TX$), and contains $\nabla_x f$ whenever
+    defined. The first part is easy by semi-continuity of the original function. For the
+    second, we assume $\nabla_x f$ is defined for some $x \in X$. By the computations made
+    earlier and Danskin's theorem, we write
+    \[ D_x g (v) = \min_{y \in Y(x)} \langle \nabla_x g_y, v \rangle \]
+    where $g_y(x) = |x - y|$. Note that because $\nabla_x f$ exists, this is linear if
+    restricted to $T_x X$. By using linearity, we find that there is $y \in Y(x)$ such that for all
+    $v \in T_x X$
+    \[ D_x g (v) = \langle \nabla_x g_y, v \rangle = \langle \nabla_x f, v \rangle \]
+    Hence $\nabla_x g_y$ projects onto $\nabla_x f$, so we have what we want. The inclusion
+    then follows from minimality of subdifferentials.
+    \medskip \newline
+    For the inclusion from right to left, we consider $x_k \rightarrow x \in X$ a sequence
+    such that $\nabla_{x_k} g$ is well defined and converges, and we will show that it
+    is a subgradient of ${\operatorname{dist}_{Y}}_{\mid X}$ up to projection. We consider
+    up to restricting to a neighbourhood of $x$, that $X = \mathbb{R}^{n}$ where $n = \dim(X)$.
+    Let $(V_k)_k$ be a decrasing sequence of open neighbourhoods of $\partial_x f$ converging
+    to it. By semi-continuity of $\partial g$ and up to extracting, $\nabla_{x_k} g \in V_k \times \mathbb{R}^{m-n}$,
+    So the projection of $\nabla_{x_k} g$ converges to a point in $\partial_x f$, we got
+    equality.
 \end{proof}
 
-\subsubsection{Special points and the general case of the subdifferential}
+\subsection{Special points of the distance function}
 
 \quad We now consider $X \subset \mathbb{R}^m$ to be some non specific submanifold.
 Following \cite{AntonioMorseThEuclDist}, we define
@@ -854,100 +927,44 @@ $C(Y)$, introduced respectively by Thom \cite{ThomCutLocus} and Milman \cite{Mil
     then the set of the centers of all maximal balls.
 \end{defi}
 
-The stratification on $Y$ (at least $C^2$), given by the fact it is definable, allows us to define the following
+If $Y$ is smooth we can also define the following set
 
-(define for definable)
 \begin{defi}[Cut-locus]
-    The cut locus of $Y$ is defined as
+The cut-locus of $Y$ is defined as follows
     \[ \operatorname{CLoc}(Y) = M_Y \cup \{ x \in \mathbb{R}^n \mid y \in Y \mapsto |x-y|^2 \text{ has a degenerate global minimum} \} \]
 \end{defi}
 
-\quad If we assume that $Y$ is a submanifold of $\mathbb{R}^m$, we can link these seemingly
+If we assume that $Y$ is a submanifold of $\mathbb{R}^m$, we can link these seemingly
 differents concepts : in this case, $\overline{M_Y} = \operatorname{CLoc}(Y) = C(Y)$.
-$\overline{M_Y} = C(Y)$ can be found in \cite{MilmanMedialCut}. One can prove
-$\overline{M_Y} \subset \operatorname{CLoc}(Y)$ by considering a sequence converging
-in $\overline{M_Y} \backslash M_Y$, and $\operatorname{CLoc}(Y) \subset C(Y)$ by considerations
-of oscullating circles for the case of degenerate points.
-\medskip \newline
-(to adjust here)
-Returning to a more general definable set $Y$, the stratification on $Y$ allows us to show
-that these equalities still hold, again by case inspection. The main argument is that in
-the degenerate/border case, everything happens relatively to one strata of $Y$.
+$\overline{M_Y} = C(Y)$ is proved for $Y$ defined as the border of a bounded domain in \cite{MilmanMedialCut},
+but the arguments can be adapted to a more general case. The same kind of arguments involving
+curvatures give us that $\operatorname{CLoc}(Y) \subset C(Y)$. Lastly by considering
+a sequence with limit in $\overline{M_Y} \backslash M_Y$, one can show that
+$\overline{M_Y} \subset \operatorname{CLoc}(Y)$.
 \bigskip
 
-\quad Because of theorem \ref{thm:subdiffdistRm}, we can link these special sets of points to the differentiability
-of $\operatorname{dist}_Y$ : more precisely, outside of $Y \cup M_Y$, $\operatorname{dist}_Y$
-is differentiable. In fact we the following stronger statement.
+\quad Using similar computations as in theorem \ref{thm:subdiffdist}, we can show,
+because $\operatorname{dist}_Y$ and its square have the same differentiability points
+out of $Y$, that outside of $Y \cup M_Y$ by Danskin's theorem, $\operatorname{dist}_Y$
+is differentiable. In fact we have the following stronger statement.
 
 \begin{prop}\label{prop:medialProp}
     The function $\operatorname{dist}_Y$ is $C^1$ on $\mathbb{R}^m \backslash (Y \cup \overline{M_Y})$.
-    Moreover, $M_Y$ is definable and of codimension at least $1$.
 \end{prop}
 
 \begin{proof}
     Let $x \in \mathbb{R}^m \backslash (Y \cup \overline{M_Y})$. Let $U$ be a neighbourhood of
     $x$ contained in $Y \cup \overline{M_Y}$. On this neighbourhood, we can then define a
-    function $\eta : U \rightarrow Y$ that to each $z^* \in U$ associates the unique
-    $y^* \in Y(z^*)$. By semi-continuity of the active index, we can safely assume that $Y$ is itself a manifold,
-    up to restricting ourselves to a strata. If we denote by $g : (a, b) \mapsto |a - b|^2$, and $g_a = g(a, \cdot)$,
-    the pair $(z^*, y^*)$ is a zero of the following function
-    \[ F : \begin{array}{cl}
-        \mathbb{R}^m \times Y &\longrightarrow \mathbb{R}^{\dim(Y)}\\
-        (z, y) &\longmapsto \nabla_y({g_z}_{\mid Y})
-    \end{array}\]
-    where we fix a trivialization of $TY$ around $y^*$.
-    Because $z^*$ is not in $\operatorname{CLoc}(Y)$, differentiating this equality relatively
-    to $y$ yields an invertible matrix, so by the implicit function theorem $\eta$ is
-    $C^1$. It now suffices to write $\operatorname{dist}_Y(z) = \sqrt{g(\eta(z), z)}$ for $z \in U$.
-    \bigskip \newline
-    Definablity is clear, the definition of $M_Y$ can be written in first order logic by using
-    the definability of $Y$. For the codimension, we use the convexity of the distance as follows :
-    assume some $x \in M_Y$ admits a neighbourhood contained in such set. Fix $y_1 \neq y_2 \in Y(x)$.
-    Let $z \neq x$ be a point in $M_Y$ on the segment from $x$ to $y_2$. Then, there must exist
-    some $y_3 \in Y$ distinct from the other ones such that $y_3 \in Y(z)$. Then
-    \[ |x - y_2| = |x - z| + |z - y_2| = \operatorname{dist}_Y(x) \leq |x - y_3| \]
-    Because $|z - y_2| = |z - y_3|$, we get by triangle inequality that $|x - y_3| = |x - y_2|$.
-    By convexity, this must be the case on the whole segment from $x$ to $z$. But this segment
-    lies in the segment from $x$ to $y_2$, so we must have $y_2 = y_3$, which is a contradiction.
+    function $\eta : U \rightarrow Y$ that to each $z \in U$ associates the unique
+    $y \in Y(z)$. It follows from semi-continuity of the active index that $\eta$ is
+    continuous. Denote by $g : (a, b) \mapsto |a - b|$ and $g_a = g(a, \cdot)$.
+    $\operatorname{dist}_Y$ is differentiable on $U$. Using the first part of
+    Danskin's theorem and similar computations to theorem \ref{thm:subdiffdist}, we get
+    \[ d_z \operatorname{dist}_Y = d_z g_{\eta(z)} \]
+    From this, we deduce that $d \operatorname{dist}_Y$ is continuous on $U$.
 \end{proof}
 
-\quad As a corollary, we can now compute the subdifferential of ${\operatorname{dist}_Y}_{\mid X}$
-for a general $X$, with some transversality constraints. If $Y'$ is a definable set,
-we'll say that $Y'$ is transversal to $X$ if $X$ is transversal to each strata of $Y'$.
-
-\begin{cor}\label{cor:subdiffdistX}
-    If $X$ is transversal to $Y$ and $\overline{M_Y}$, then for all $x \in X$
-    \[ \partial_x ({\operatorname{dist}_Y}_{\mid X}) = \operatorname{proj}_{T_x X} (\partial_x \operatorname{dist}_Y) \]
-    where $\operatorname{proj}_{T_x X}$ is the orthogonal projection onto $T_x X$.
-\end{cor}
-
-\begin{proof}
-    Denote $g = \operatorname{dist}_Y$, and $f = {\operatorname{dist}_Y}_{\mid X}$. We make
-    the following observations :
-    \begin{itemize}
-        \item If $g$ is differentiable at a point $x \in X$, so is $f$ and
-        $d_x f = \operatorname{proj}_{T_x X} (d_x g)$.
-
-        \item $f$ and $g$ are differentiable of differential $0$ in $X \cap \operatorname{int}(Y)$.
-        Hence we can assume without loss of generality that $X \cap \operatorname{int}(Y) = \varnothing$.
-        The transversality condition then gives us that $X \cap (Y \cup \overline{M_Y})$ is of
-        codimension at least $1$ in $X$ by proposition \ref{prop:medialProp}.
-
-        \item The set of all $x \in X$ such that $g$ is differentiable at $x$ is of measure $0$
-        in $X$ by proposition \ref{prop:medialProp} and the last observation.
-    \end{itemize}
-    To compute $\partial_x f$, it then suffices to consider limits of sequences $d_{x_k} f$
-    where $x_k$ is a point of differentiability of $g$. For such a sequence converging
-    to some $x \in X$, we have, by continuity of $\operatorname{proj}$.
-    \begin{align*}
-        \lim_k d_{x_k} f &= \lim_k \operatorname{proj}_{T_{x_k} X} (d_{x_k} g)\\
-        &= \operatorname{proj}_{T_x X} (\lim_k d_{x_k} g)
-    \end{align*}
-    $\operatorname{proj}_{T_x X}$ being linear, we get
-    \[ \partial_x f = \operatorname{conv}\{ \operatorname{proj}_{T_x X}(l) \mid l \in \partial_x g\} = \operatorname{proj}_{T_x X}(\partial_x g) \]
-\end{proof}
-
-\subsection{Distance functions as local continuous selections}
+\subsection{Reducing to local continuous selections}
 
 \quad In this section, $Y \subset \mathbb{R}^m$ will be a smooth submanifold, as $X$. 
 Our goal will be to show that under certain assumptions, the distance function is
@@ -997,49 +1014,174 @@ this map to find points where $\operatorname{dist}_Y$ is locally a continuous se
     \[ \operatorname{dist}_Y(z) = \min_i \operatorname{dist}_{Y \cap \overline{W_i}}(z) \]
 \end{proof}
 
-(connect critical points of $\varphi$ to other sets ?)
-
-\quad If we relax some of the assumptions by allowing $x \in \mathbb{R}^m \backslash Y$ to
-be a critical value of $\varphi$, we can still show using the semi-continuity of the active
+\quad A natural question following this result would be to consider how restrictive is
+the condition of being a regular value of $\varphi$, i.e what are these points,
+is it likely that a critical point of ${\operatorname{dist}_Y}_{\mid X}$ is not a regular
+value and what can we say in this case.
+\medskip \newline
+We can first observe that critical values of $\varphi$ are points in $\mathbb{R}^m$
+verifying a degeneracy condition similar to the one defining the cut-locus $\operatorname{CLoc}(Y)$ :
+$x$ is a critical value if there is $y \in Y(x)$ that is a degenerate minimum of the
+function $y' \in Y \mapsto |x-y'|$. These points do not match $\operatorname{CLoc}(Y)$
+though, as a regular value $x$ of $\varphi$ can be such that $Y(x)$ is not a singleton.
+\medskip \newline
+If we try to generalize the statement by dropping the regular value condition,
+we can still show using the semi-continuity of the active
 index and compactness that there is finitely many neighbourhoods $W_i$ such that for
 $z$ close enough to $x$, $\operatorname{dist}_Y(z)$ can still be obtained by minimizing
-over $\operatorname{dist}_{Y \cap \overline{W_i}}(z)$.
-\medskip \newline
-We cannot guarantee smoothness of these distances near $x$ for arbitrary $Y$, a counterexample
+over $\operatorname{dist}_{Y \cap \overline{W_i}}(z)$.\newline
+We do not get smoothness of these distances near $x$ for arbitrary $Y$, a counterexample
 is given by $Y = \mathbb{S}^{m-1}$ and $x = 0$ : if for some choice of $W_i$, the distances
 were smooth, then $\partial_0 (\operatorname{dist}_{\mathbb{S}^{m-1} \cap \overline{W_i}})$ would
-consist of a single point, which is not the case by theorem \ref{thm:subdiffdistRm}.
-This does not pose too much of a problem, as for a generic $Y$, $\varphi$ has no
-critical values (cite ?).
+consist of a single point, which is not the case by theorem \ref{thm:subdiffdist}.
+\medskip \newline
+On the "likelyhood" side, it is shown that when $Y$ is algebraic, then
+in the generic case, critical points of the distance do not intersect critical values of
+$\varphi$ \cite{AntonioMorseThEuclDist}.
+
+\newpage
+
+\section{Algebraic point of view on the euclidean distance}
+
+\quad In this section, we still place ourselves in the euclidean space $\mathbb{R}^m$.
+We will consider $X, Y \subset \mathbb{R}^m$ algebraic manifolds or varieties.
+We still study the distance from $Y$ restricted to $X$, ${\operatorname{dist}_Y}_{\mid X}$.
+Our goal will be to study the critical points of this function from an algebraic point of view.
+
+\subsection{The critical point equation}
+
+\quad We first introduce some notation : $Y$ is defined by the zero set of polynomials
+$q_1, ..., q_n$, while $X$ is defined by the zero set of $p_1, ..., p_r$. We assume
+that these are manifolds, which can be done without much trouble for what will come
+by restricting to the smooth locus of $X$ and $Y$.
+\bigskip \newline
+From theorem \ref{thm:subdiffdist} proved in the last section, we now that a point $x \in X$ is critical for the distance function
+iff there exists a number $k \geq 1$, $y_1, ..., y_k \in Y$ and $\lambda_1, ..., \lambda_k \in \mathbb{R}$
+such that :
+\begin{enumerate}
+    \item The $y_i$ are all distinct
+    \item $|x - y_i| = \operatorname{dist}_Y(x)$ for all $i$
+    \item $\sum_i \lambda_i \frac{x - y_i}{|x - y_i|} \in N_x X$
+    \item For all $i$, $\lambda_i \geq 0$ and $\sum_i \lambda_i = 1$.
+\end{enumerate}
+We want to transform these into algebraic equations, such that the solutions of these new
+equations include true critical points of the distance function. The following equations
+with unknowns $x, y_1, ..., y_k$ accomplish that
+
+\begin{equation}\label{eq:KCP}\tag{KCP}
+    \begin{array}{cl}
+        \text{1.} & \text{The } y_i \text{ are all distinct}\\
+        \text{2.} & \forall i, j, |x-y_i|^2 = |x-y_j|^2 \text{ and } x-y_i \in N_{y_i} Y\\
+        \text{3.} & \text{The family } (x - y_i)_i \text{ is linearly dependent in } \mathbb{K}^m / N_x X
+    \end{array}
+\end{equation}
+
+where $\mathbb{K} = \mathbb{R}$ for now.\newline
+The first condition is an open one. The second one is algebraic because $N_{y_i} Y$
+is spanned by $\nabla_{y_i} q_1, ..., \nabla_{y_i} q_n$, so $x-y_i \in N_{y_i} Y$ is equivalent
+to asking that the family $\{x-y_i, \nabla_{y_i} q_1, ..., \nabla_{y_i} q_n\}$ is linearly
+dependent. For similar reasons we can show that the last condition is also agebraic.\newline
+It is also easy to check that true critical points provide a solution to these equations,
+as for $y_i$ to minimize the distance from $x$ to $Y$, one needs $x-y_i \in N_{y_i} Y$.
+\bigskip
+
+\quad The next step to better understand these polynomials equations is to view them
+as complex. For that, we consider the complexification of $X$ and $Y$ : $X_{\mathbb{C}}$
+is the submanifold of $\mathbb{C}^m$ defined as the zero set of the complex polynomials
+$p_1, ..., p_r$, and similarly for $Y_{\mathbb{C}}$. We also need to define what it means
+for some complex vector to be in the normal bundle of $X_{\mathbb{C}}$ (or $Y_{\mathbb{C}}$) :
+the normal bundle over $X_{\mathbb{C}}$ is defined as the vector bundle whose fiber at all
+$x \in X_{\mathbb{C}}$ are
+\[ N_x X_{\mathbb{C}} = \{ v \in \mathbb{C}^m \mid \forall w \in T_x X_{\mathbb{C}}, \sum_{i=1}^m v_i w_i = 0 \} \]
+Note that the product involved is not an inner product on $\mathbb{C}^m$ but has the
+advantage of being algebraic. It can be checked that this vector space is spanned
+by the gradients of $p_1, ..., p_r$, so the observations made in the real case still hold.
+With these definitions, we can then replace $\mathbb{K}$ with $\mathbb{C}$ in \eqref{eq:KCP},
+and for what follows we will exclusively study this complex version. We will then
+shorten $X_{\mathbb{C}}, Y_{\mathbb{C}}$ by $X, Y$, considering them as already complexified.
+\bigskip
+
+\quad In what follows, we will study particular cases of these equations and connect them to already existing notions
+on algebraic varietes/manifolds (?). The case where $Y = \{y\}$ will lead to the notion
+of \textit{euclidiean distance degree}, and when $k = 2$ and $X = \mathbb{C}^m$ we will get
+the notion of \textit{bottleneck degree}.
 
 \subsection{Euclidean distance degree}
 
-\quad We consider the particular case where $Y$ is a point and $X$ is an algebraic manifold
-(or variety). We will study in this section the critical points of
-${\operatorname{dist}_Y}_{\mid X}$.
+\subsubsection{Definition and examples}
+
+\quad As stated earlier, we consider the case where $Y = \{y\}$ and $X$ is some algebraic
+submanifold of $\mathbb{C}^m$. \eqref{eq:KCP} then simplifies to
+\[ x - y \in N_x X \]
+where the unknown is $x$. This is equivalent to asking that $y \in x + N_x X$. We set
+$\hat{N}_x X := x + N_x X$ and define the following bundle on $X$
+\[ \hat{N}X = \{ (x, v) \mid x \in X, v \in \hat{N}_x X \} \subset X \times \mathbb{C}^m \]
+This bundle has two natural projections $\pi_1 : \hat{N}X \rightarrow X$ and $\pi_2 : \hat{N}X \rightarrow \mathbb{C}^m$.
+The set of solutions to \eqref{eq:KCP} is then $\pi_1(\pi_2^{-1}(y))$. Using the fact
+that $\hat{N}X$ is of dimension $m$, one can show the following property.
+
+\begin{prop}
+    For generic $y \in \mathbb{C}^m$, the set $\pi_1(\pi_2^{-1}(y))$ is finite and it has
+    a constant number of elements.
+\end{prop}
+
+The \textit{euclidean distance degree} (EDD) of $X$ is then defined as this generic number of solutions
+to the critical point equation. It then gives an upper bound on the number of real solutions
+to \eqref{eq:KCP}.
 \medskip \newline
-First note that in this case, $M_Y = \varnothing$, so ${\operatorname{dist}_Y}_{\mid X}$
-is differentiable everywhere if we assume $Y \cap X = \varnothing$ (which is a generic case).
-By virtue of corollary \ref{cor:subdiffdistX}, a point $x \in X$ is critical for
-${\operatorname{dist}_Y}_{\mid X}$ iff $y - x \in N_x X$. Because $X$ is algebraic i.e
-a zero set of a family of polynomials $p_1, ..., p_r$ and $N_x X$ the span of the gradients
-of these at $x$, this equation rewrites as
-\begin{equation}\label{eq:criticalPtEqu}
-    \operatorname{rk}\begin{pmatrix}
-    y - x, \nabla_x p_1,  \dots, \nabla_x p_r
-\end{pmatrix}
-\leq \operatorname{codim}(X)
-\end{equation}
-wich rewrites as a system of polynomial equations in $x$.
+Consider the example where $X \subset \mathbb{C}^2$ is an ellipse. It is then defined by a
+degree $2$ polynomial and we will show later that the euclidean distance degree of $X$ is $4$.
+We see that for generic points $y$ in the bounded region of the plane $\mathbb{R}^2$ created
+by $X$, we get the maximum amount, $4$ real critical points, and only $2$ when $y$ is in the
+unbounded one.\newline
+Not all submanifolds $X$ can have as many real critical point as the euclidean distance degree,
+as can be seen with the parabola, of euclidean distance degree $4$ : for all points $y$,
+we have at most $3$ real critical points.
+
+(draw something)
+
+\subsubsection{Chow ring and useful classes}
+
+\quad We now present some tools that will help us compute the euclidean distance degree
+of a reduced, irreducible complex projective variety $X \subset \mathbb{P}^m$ (correct if this is wrong).
+Let it be defined as the projective zero set of some polynomials, $p_1, ..., p_{m-n}$. $X$
+is then of dimension $n$.
+
+\begin{defi}
+    The group of $k$-cycles of $X$, where $k \leq n$ is the free abelian group generated
+    by the $Y \subset X$ that are closed, $k$-dimensional subvarieties denoted $Z_k(X)$.
+\end{defi}
+
+Consider $W \subset X$ a $k+1$-dimensional subvariety of $X$ and $f$ a rationnal function
+over $W$. One can, for $Z \subset W$ a $k$-dimensional variety, define the order of vanishing
+of $f$ along $Z$, denoted $\operatorname{ord}_Z(f)$ (cite) : intuitively it corresponds to
+the exponent $c \in \mathbb{Z}$ such that near a generic point $x$ in $Z$, $f$ behaves
+as some non zero factor times a degree $c$ monomial. One then defines the divisor of $f$
+as
+\[ \operatorname{div}(f) = \sum_{\substack{Z \subset W \\ \dim(Z) = k}} \operatorname{ord}_Z(f) Z \]
+If we denote $R_k(X)$ the subgroup of $Z_k(X)$ generated by the divisors of rationnal
+functions over some $k+1$ dimensional $W \subset X$, we get the following definition of
+the Chow group.
+
+\begin{defi}
+    The Chow group of $X$ is defined as
+    \[ A(X) = \bigoplus_k A_k(X) \]
+    where for all $k$, $A_k(X) = Z_k(X)/R_k(X)$
+\end{defi}
+
+As an example, if $X = \mathbb{P}^2$ then, $[\{x^2 + y^2 - z^2 = 0\}] = 2 [\{x = 0\}]$
+in $A(\mathbb{P}^2)$ because the following function, $f(x, y, z) = \frac{x^2 + y^2 - z^2}{x^2}$
+is a rationnal function over a subvariety of $\mathbb{P}^2$ such that its divisor
+gives exactly the difference of these two terms.
 \medskip \newline
-Now consider $X$ as complexified, i.e
-$X \subset \mathbb{C}^m$ is the submanifold consisting of all points that solve the
-system of complex polynomials given by $p_1, ..., p_r$. In this case and for generic $Y$,
-the number of solutions to equation \eqref{eq:criticalPtEqu} is constant and called the
-\textit{euclidean distance degree} of $X$.
-\medskip \newline
-We also define it in the case where $X$ is an algebraic variety by restricting to the
-non singular locus of $X$.
+We now make this group a ring via the following theorem (cite)
+\begin{theorem}
+    
+\end{theorem}
+
+\subsubsection{Computing the EDD}
+
+\subsection{Bottleneck degree}
 
 \bibliographystyle{plain}
 \bibliography{morseBib}
