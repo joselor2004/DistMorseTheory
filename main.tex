@@ -1142,8 +1142,8 @@ we have at most $3$ real critical points.
 
 \subsubsection{Chow ring and useful classes}
 
-\quad We now present some tools that will help us compute the euclidean distance degree
-of a reduced, irreducible complex projective variety $X \subset \mathbb{P}^m$ (correct if this is wrong).
+\quad We now present some tools that will help us compute the euclidean distance degree.
+Let $X \subset \mathbb{P}^m$ be a reduced, irreducible complex projective variety (correct if this is wrong).
 Let it be defined as the projective zero set of some polynomials, $p_1, ..., p_{m-n}$. $X$
 is then of dimension $n$.
 
@@ -1174,12 +1174,71 @@ in $A(\mathbb{P}^2)$ because the following function, $f(x, y, z) = \frac{x^2 + y
 is a rationnal function over a subvariety of $\mathbb{P}^2$ such that its divisor
 gives exactly the difference of these two terms.
 \medskip \newline
-We now make this group a ring via the following theorem (cite)
-\begin{theorem}
-    
-\end{theorem}
+For our purpose, wich is computing the EDD, equivalently solving an intersection problem,
+we will denote $A^k(X) := A_{n-k}(X)$, the classes of cycles of codimension $k$. We say that
+two subvarieties, $Y, Z \subset X$ are generically transverse if for the generic intersection
+smooth point, we indeed have transversality. The following proposition allows us to turn the
+Chow group into the Chow ring with a structure compatible with intersection problems.
+\begin{prop}[Chow ring]
+    There is a unique multiplication making $A(X)$ into a ring such that for
+    $Y, Z \subset X$ subvarieties that are generically transverse, we have
+    \[ [Y] \cdot [Z] = [Y \cap Z] \]
+    Moreover the multiplication respects the grading of $A(X)$ i.e it sends
+    $A^i(X) \times A^j(X)$ onto $A^{i+j}(X)$ for all $i, j$.
+\end{prop}
+
+With the notion of the Chow ring, we can now introduce some useful classes that
+will live in the Chow ring of some variety. The first are the Chern classes.
+\bigskip
+
+\quad Consider a (complex) vector bundle over $X$, $E \rightarrow X$ of rank $r$ where $X$
+is assumed to be smooth. We define the Chern classes of this bundle with the following
+proposition.
+\begin{prop}[Chern classes]
+    There is a unique way to assign a class $c(E) = c_0(E) + ... + c_r(E) \in A(X)$, where
+    $c_i(E) \in A^i(X)$ for all $i$, such that :
+    \begin{enumerate}
+        \item If $E$ is a line bundle, then $c(E) = 1 + c_1(E)$ and $c_1(E) = [\operatorname{div}(\tau)]$
+        where $\tau$ is a rationnal section of $E$
+        \item Let $s_1, ..., s_{r+k-1}$ be global sections of $E$. Their degeneracy locus
+        is the variety $W \subset X$ consisting of the points where all of these sections are
+        linearly dependant. If $\operatorname{codim}(W) = k$ (i.e the expected one), then $[W] = c_k(E)$.
+        \item (Whitney's formula) If we have an exact sequence
+        \[ 0 \rightarrow F \rightarrow G \rightarrow H \rightarrow 0\]
+        of vector bundles over $X$, then $c(F)c(H) = c(G)$.
+        \item (Functoriality) If $f : Y \rightarrow X$ is a morphism of smooth varieties,
+        then $f^*(c(E)) = c(f^*E)$ where $f^* E$ is the pullback bundle of $E$ and
+        \[ f^{*} : \begin{array}{cl}
+            A(Y) &\longrightarrow A(X)\\
+            \left[ V \right] &\longmapsto \left[ f^{-1}(V) \right]
+        \end{array}
+        \]
+    \end{enumerate}
+\end{prop}
+
+We will mostly use properties $1., 2.$ and $3.$ of this definition.
+\medskip \newline
+One other class of interest are polar classes : consider a projective subspace $L$ of $\mathbb{P}^m$.
+We define the polar variety of $X$, that we assume to be smooth, relatively to $L$ as
+\[ P(X, L) = \overline{\{ x \in X \backslash L \mid x + L \text{ intersects } X \text{ at } x \text{ non transversally} \}} \subset X \]
+where $x + L$ is the projective span of the subspaces $x$ and $V$ : we first lift $x$ and 
+$L$ to $\mathbb{C}^{m+1}$ then take the sum and project back. There is an intuitive picture
+when $L$ is a point and $X$ an ellipsoid : place yourself at point $L$, and consider all the
+light rays arriving at your position. The light rays that form the "contour" of $X$ from
+your perspective intersect $X$ exactly at $P(X, L)$.
+\medskip \newline
+For generic $L$ of codimension $n+2-k$ (number right ?), the class $[P(X, L)] \in A^k(X)$ is constant,
+and we define the $k$-th polar class of $X$ as $p_k(X) = [P(X, L)]$
+
+(Proof that $c_k(\hat{T}X) = p_k(X)$, maybe use other def of $P(X, L)$ ?)
+
+(Segre def.)
 
 \subsubsection{Computing the EDD}
+
+Projectify, define euclidean normal bundle, orth general, computation -> big thm,
+two philosophies of deprojectification
+
 
 \subsection{Bottleneck degree}
 
