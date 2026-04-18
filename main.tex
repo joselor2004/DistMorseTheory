@@ -7,6 +7,7 @@
 \usepackage{hyperref}
 \usepackage{color}
 \usepackage{tikz}
+\usepackage{tikz-cd}
 \usepackage{MacrosArt}
 
 \setlength{\parindent}{0pt}
@@ -106,27 +107,28 @@ without changing the definition.
 \end{prop}
 
 \begin{proof}
-    First, $\partial f$ is upper semi-continuous : by compactness, is suffices to
+    First, $\partial f$ is upper semi-continuous : by compactness, it suffices to
     show that for all $x \in U, \varepsilon > 0$, for $y$ sufficiently close to $x$.
     \[ \partial_y f \subset \partial_x f + B(0, \varepsilon)\]
     Assume for contradiction that there exists a sequence $x_i \rightarrow x$ such that for all $i$,
     $\partial_{x_i} f$ has an element out of $A := \partial_x f + \overline{B}(0, \varepsilon/2)$.
     $A$ being convex and closed, let $x'_i$ be such that $d_{x'_i} f$ is out of
     $A$, and such that $x'_i - x_i \rightarrow 0$. Up to extraction, $d_{x'_i} f$ converges to an element in 
-    $\partial_x f$, so it enters $A$, contradiction.\newline \medskip
-    The second part follow from $\partial f$ being a convex hull.
+    $\partial_x f$, so it enters $A$, contradiction.
+    \medskip \newline
+    The minimality of $\partial f$ follows from the fact that it is a convex hull.
 \end{proof}
 
 \quad The subdifferential allows us to generalize the idea of regular and critical points, which will
-be an important tool for generalizing Morse theory. The definition is as follows :
+be an important tool for generalizing Morse theory.
 
 \begin{defi}
     A point $x \in U$ will be called critical if there exists some $l \in \partial_x f$
     not of maximal rank. $x$ will be called regular if it isn't critical.
 \end{defi}
 
-To extend these subdifferentiability notions to manifolds, one must guarantee that for all
-charts, the definitions of $\partial f$ coincide. In this is the case, $\partial_x f$ is
+To extend these subdifferentiability notions to manifolds, one must ensure that for all
+charts, the definitions of $\partial f$ coincide. If this is the case, $\partial_x f$ is
 a compact convex subset of $T_x^* M$. The following generalization of the chain rule
 allows us to do that.
 
@@ -177,7 +179,7 @@ Consider a point $x \in U$ where $d_x f$ exists. By convexity, we have
 \[ \forall z \in U, f(z) \geq f(x) + d_x f(z-x) \]
 Denote $C_x$ the set of all linear maps verifying such property at a point $x$.
 The function $C : x \mapsto C_x$ is convex-valued, upper semi-continuous and contains
-$d_x$ whenever it is defined. Moreover, at such points we have for $h$ small enough :
+$d_x f$ whenever it is defined. Moreover, at such points we have for $h$ small enough :
 \[ f(x+h) = f(x) + d_x f(h) + o(h) \geq f(x) + \varphi(h) \]
 where $\varphi \in C_x$. We deduce $(\varphi - d_x f)(h) = o(h)$, so $\varphi = d_x f$.
 Upper semi-continuity gives us $C \subset \partial f$, and the reciprocal is given
@@ -366,15 +368,16 @@ Let $f$ be a continuous selection of $\varphi_1, ..., \varphi_n$.
 Following \cite{AgrachevContSelec}, we give three conditions for a function to be considered
 Morse.
 \begin{equation}\label{eq:morseCS1}
-    \text{The graphs of the } \varphi_i, i \in \llbracket 1, n \rrbracket, \text{ are transversal} \tag{C1}
+    \underline{\text{The graphs of the } \varphi_i, i \in \llbracket 1, n \rrbracket, \text{ are transversal}} \tag{C1}
 \end{equation}
 This condition has some important consequences :
-for a non empty $I \subset \llbracket 1, n \rrbracket$, we define $W_I := \{ x \in M \mid I(x) = I \}$.
+for a non empty $I \subset \llbracket 1, n \rrbracket$, we define
+\[ W_I := \{ x \in M \mid I(x) = I \} \]
 Condition \eqref{eq:morseCS1} implies that $W_I$ is a submanifold of $M$ of codimension
 $|I|-1$ : the intersection of the graphs of $\varphi_i, i \in I$ is a submanifold of
 $M \times \mathbb{R}$ of codimension $|I|$ and $W_I$ is the pre-image of this intersection
-through the diffeomorphism $x \mapsto (x, \varphi_i(x))$, $i \in I$, with the codomain being
-the graph of $\varphi_i$.
+through the diffeomorphism $x \mapsto (x, \varphi_i(x))$, $i \in I$, minus the closed set
+$\bigcup_{J \supset I} W_J$.
 \medskip \newline
 This transversality condition also implies that for $x \in M$,
 the differentials $d_x \varphi_i$ are affinely independant where $i \in I(x)$. By affinely
@@ -391,14 +394,17 @@ $|I(x)| - 1$ vertices.
 Note that for all $I \subset \llbracket 1, n \rrbracket$, $f_{\mid W_I}$ is a smooth function.
 This motivates the second condition
 \begin{equation}\label{eq:morseCS2}
-    \text{For all non empty } I \subset \llbracket 1, n \rrbracket, f_{\mid W_I} \text{ is Morse} \tag{C2}
+    \underline{\text{For all non empty } I \subset \llbracket 1, n \rrbracket, f_{\mid W_I} \text{ is Morse}} \tag{C2}
 \end{equation}
 Consider $x \in M$ a critical point of $f$. Observe that $x$ must also be a critical point
 of $f_{\mid W_{I(x)}}$. So
-$\displaystyle T_x W_{I(x)} \subset \bigcap_{i \in I(x)} d_x \varphi_i$, but the converse can fail
-if the $d_x \varphi_i$ are not linearly independant enough. The last condition fixes that
+\[ \displaystyle T_x W_{I(x)} \subset \bigcap_{i \in I(x)} d_x \varphi_i \]
+but the converse can fail if the $d_x \varphi_i$ are not linearly independant enough.
+If this intersection is indeed larger, the geometry of the graph of $f$ does not correspond to what we
+intuitively picture as a "non degenerate critical point" (see \ref{fig:morseCS3Illustr} for a 1
+dimensional example). We then impose the following condition, ensuring equality.
 \begin{equation}\label{eq:morseCS3}
-    \forall x \in M, \forall j \in I(x), (d_x \varphi_i)_{\substack{i \in I(x) \\ i \neq j}} \text{ are linearly independant} \tag{C3}
+    \underline{\forall x \in M, \forall j \in I(x), (d_x \varphi_i)_{\substack{i \in I(x) \\ i \neq j}} \text{ are linearly independant}} \tag{C3}
 \end{equation}
 Geometrically, this condition corresponds to requiring that $0$ is either outside or in the
 interior of the simplex $\operatorname*{conv}\{ d_x \varphi_i \mid i \in I(x) \}$, but not on one of its faces.
@@ -419,7 +425,7 @@ to be transversal, and any small perturbation of transversal graphs preserves tr
 By genericity of smooth Morse functions, \eqref{eq:morseCS2} is also a generic condition. With
 the geometric interpretation, we can also see that condition \eqref{eq:morseCS3} is generic.
 
-\begin{figure}[h]
+\begin{figure}[h]\label{fig:morseCS3Illustr}
     \caption{Example and counterexample of condition \eqref{eq:morseCS3}}
     \begin{center}
     \begin{R2axis}{-3}{3}{-2}{3}{1}
@@ -456,7 +462,8 @@ of $\mathbb{R}^m$. This observation motivates the following lemma, in the spirit
 Thom isotopy theory.
 
 \begin{lem}\label{lem:prepNormForm}
-    Let $h : \mathbb{R}^k \times \mathbb{R} \rightarrow \mathbb{R}$ be a Morse continuous selection.
+    Let $h : \mathbb{R}^k \times \mathbb{R} \rightarrow \mathbb{R}$ be a continuous selection
+    of at most $k+1$ smooth functions verifying condition \eqref{eq:morseCS1}.
     There exists a neighbourhood $U$ of $0$ and $\varepsilon > 0$, a vector field
     $X : U \times ]-\varepsilon, \varepsilon[ \rightarrow \mathbb{R}^k \times \mathbb{R}$ verifying
     \begin{enumerate}
@@ -469,41 +476,44 @@ Thom isotopy theory.
     \end{enumerate}
 \end{lem}
 
-The use of this lemma requires a time dependent continuous selection. For the proof of
+The use of this lemma requires a parameter dependent continuous selection. For the proof of
 the main theorem, we will have to build one with some boundary conditions wich is done
 in the following way
 
 \begin{lem}\label{lem:extendingTimeCS}
     Let $\varphi_1, ..., \varphi_{k+1} : \mathbb{R}^k \times \mathbb{R} \rightarrow \mathbb{R}$
-    be smooth functions verifying conditions \eqref{eq:morseCS1} to \eqref{eq:morseCS3}
-    and $h^0 : \mathbb{R}^k \rightarrow \mathbb{R}$ be a continuous selection of
-    $\varphi_1(\cdot, 0), ..., \varphi_n(\cdot, 0)$. Then there exist $U$ a neighbourhood of
-    $0$ and a continuous selection $h : U \times \mathbb{R} \rightarrow \mathbb{R}$ of $\varphi_1, ..., \varphi_{k+1}$ such that
-    $h(\cdot, 0) = h^0$.
+    be smooth functions verifying conditions \eqref{eq:morseCS1} and of value $0$ on $\{0\}^k \times \mathbb{R}$.
+    Let $h^0 : \mathbb{R}^k \rightarrow \mathbb{R}$ be a continuous selection of
+    $\varphi_1(\cdot, 0), ..., \varphi_{k+1}(\cdot, 0)$. Then there exist a neighbourhood $U$
+    of $0$ and
+    a continuous selection $h : U \times [0, 1] \rightarrow \mathbb{R}$ of
+    $\varphi_1, ..., \varphi_{k+1}$ such that $h(\cdot, 0) = h^0$.
 \end{lem}
 
 \begin{proof}
-    We denote by $W_I$ the submanifold of $\mathbb{R}^k$ where the active index set of $h^0$
-    is exactly $I$. We restrict ourselves to an open neighbourhood of $0$ in $\mathbb{R}^k$
-    of compact closure which we call $U$. Our goal will be to partition $U$ in a specific
-    way, and then trivially define $h$ with this decomposition.
+    For all $i < k+1$ define $g_i(x, t) = \varphi_i(x, t) - \varphi_{k+1}(x,t)$. By
+    affine independance the family $(d_0 g_i)_i$ is linearly independant. Using the
+    implicit function theorem, there are coordinates on a neighbourhood $U \times J$
+    of $0$ linearizing all $g_i$, while sending $\mathbb{R}^k \times \{0\}$ to a hyperplane.
+    We assume without loss of generality that this hyperplane is $\mathbb{R}^k \times \{0\}$.
+    It follow that for every $i, j$, $\varphi_i - \varphi_j$ is a linear function in these
+    new coordinates.
     \medskip \newline
-    For all $i \in \llbracket 1, k+1 \rrbracket$ and $I \subset \llbracket 1, k+1 \rrbracket$
-    define
-    \[ R_I^i = \{ (x, t) \in U \times \mathbb{R} \mid \{j \mid \varphi_i(x, t) = \varphi_j(x, t)\} = I\} \]
-    Note that $W_I \subset R_I^i$ but that the slice $R_I^i \cap \mathbb{R}^k$ can be larger than $W_I$.
-    We remedy that by noticing that each $R_I^i$ is a submanifold of $U \times \mathbb{R}$ with
-    no boundaries. We then find for all $W_I$ a neighbourhood $S_I$ of it in $R_I^i$ where $i \in I$.
-    This partitions $U \times J$, where $J$ is an interval containing $0$ obtained by compactness.
-    It now suffices to define $h(x, t)$ as equal to $\varphi_i(x, t)$, where $i$ is
-    such that $i \in I$, $(x, t) \in S_I$. This ensures continuity of $h$ and the
-    fact that it coincides with $h^0$.
+    Denote $W_I \subset \mathbb{R}^k \times \{0\}$ the set of points $(x, 0)$ such that the active
+    index of $h^0$ at $x$ is equal to $I \subset \llbracket 1, k+1 \rrbracket$. We also define
+    $L = \{ g_i = 0 \mid i \in \llbracket 1, k+1 \rrbracket \}$ which is a linear subspace of
+    dimension $1$. If we now define for all $I$, $C_I = W_I + L$, it defines a partition
+    of $\mathbb{R}^{k+1}$.
     \medskip \newline
-    We now want to extend this selection on the whole real line. This is a classical
-    connectedness argument : each $\varphi_i$ is defined on the whole real line so
-    if we consider an open neighbourhood of $0$ where the selection is defined, then we can
-    extend $h$ to the boundary continuously. Hence $h$ can be defined on the whole real line times
-    $U$.
+    Observe that for $z = (x, 0) + u$, $(x, 0) \in W_I, u \in L$ we have for $i, j \in I$ that
+    \[ \varphi_i(z) - \varphi_j(z) = \varphi_i(x, 0) - \varphi_j(x, 0) = 0 \]
+    by linearity. We can then define for all $(x, t) \in C_I$ the function $h(x, t) = \varphi_i(x, t)$
+    for any $i \in I$. This $h$ defines a continuous selection coinciding with $h^0$ on
+    $\mathbb{R}^k \times \{0\}$ in the new coordinates.
+    \medskip \newline
+    We now want to extend this selection on the interval $[0, 1]$. By repeating the
+    argument for some starting time different than $0$, connectedness and
+    compactness yield that there is a neighbourhood $U$ of $0$ such that we can define $h$ on $U \times [0, 1]$.
 \end{proof}
 
 We are now ready to prove the main result of this section.
@@ -519,48 +529,57 @@ We are now ready to prove the main result of this section.
 
 \begin{proof}
     We first restrict ourselves to $O$ a neighbourhood of $0$ such that $W$ can be considered
-    rectified in some smooth coordinates i.e, $W \cap O = 0 \times \mathbb{R}^{m-k}$. We
-    can also use the smooth Morse lemma to get $f(0, z) = q(z)$. For $(y, z) \in \mathbb{R}^m$,
-    write $f^0(y, z) = f(y, z) - f(0, z)$. We will build for all $z$ close enough to $0$
-    a locally invertible map $\psi_z : \mathbb{R}^k \rightarrow \mathbb{R}^k$ such that
-    $\psi_z(0) = 0$ and for $y$ close enough to $0$, $f^0(\psi_z(y), z)$ is a continuous selection of
+    rectified in some smooth coordinates i.e, $W \cap O = 0 \times \mathbb{R}^{m-k}$. By \eqref{eq:morseCS2}
+    we can also use the smooth Morse lemma to get $f(0, z) = q(z)$. For $(y, z) \in \mathbb{R}^m$,
+    write $f^0(y, z) = f(y, z) - f(0, z)$. We will build
+    a locally invertible map $\psi : \mathbb{R}^m \rightarrow \mathbb{R}^m$ such that
+    $\psi(0) = 0$ and for $(y,z)$ close enough to $0$, $f^0 \circ \psi (y, z)$ is a continuous selection of
     linear maps independant of $z$.
+    \bigskip \newline
+    Assume that all $\varphi_i$ are of value $0$ at $0$, up to replacing $f$ by $f^0$.
+    We will show that up to coordinate change, $f^0$ is only a function of $y$ and not of $z$.
+    This can be done in the following way : first, by condition \eqref{eq:morseCS3}, we can
+    assume that the $k$ first $\varphi_i$ are linearized, i.e equal to $dy_i$ in
+    a neighbourhood of $0$. The last $\varphi_{k+1}$ could still depend on $z$.
     \medskip \newline
-    For what follows we'll fix $z$ and omit it in the notations for convenience. We also
-    assume without loss of generality that $f(0) = 0$, up to replacing it by $f^0$.
-    \medskip \newline
-    First, by condition \eqref{eq:morseCS3}, we can by the implicit function theorem assume
-    that the $k$ first $\varphi_i$ are linearized, i.e equal to $d_0 \varphi_i$ in
-    a neighbourhood of $0$. We want to linearize the last one and we will be done.
+    To fix this we apply lemma \ref{lem:prepNormForm} to
+    $f^0 : \mathbb{R}^{m+k-1} \times \mathbb{R} \rightarrow \mathbb{R}$.
+    Denote $\Phi(s, y, z)$ the point obtained by integrating $X$ for time $s$ starting at
+    $(y, z)$. The following local homeomorphism
+    \begin{equation}\label{eq:constrPhiNormform}
+        \phi(y, z) = \Phi(-z_{m-k}, y, z) + (0, ..., 0, z_{m-k})
+    \end{equation}
+    verifies $f^0 \circ \phi^{-1}(y, z) = f^0(y, z_1, ..., z_{m-k-1}, 0)$. By repeating the process
+    we eliminiate the dependance in $z$.
+    \bigskip \newline
+    Note that in the new coordinates, $\varphi_i = dy_i$ for $i < k + 1$. To write $f^0$ as
+    a continuous selection of linear functions, it suffices to linearize $\varphi_{k+1}$.
     For that, for all $t \in [0, 1]$ define
     \[ \varphi_{k+1}^t = (1-t)\varphi_{k+1} + t d_0 \varphi_{k+1} \]
-    By lemma \ref{lem:extendingTimeCS}, we define $h(y,t)$ for all $y$ close enough to $0$ and $t$ as
-    a continuous selection of $d_0 \varphi_1, ..., d_0 \varphi_k, \varphi_{k+1}^t$ such that
-    it equals $f$ at $t=0$. This is Morse for $y$ close enough to $0$, as the differential of
-    $\varphi_{k+1}^t$ for such $y$ is close to the one of $\varphi_{k+1}$.
+    Note that for $y$ close enough to $0$ and any $t\in [0, 1]$, $d_y \varphi_{k+1}^t$ is close
+    to $d_y \varphi_{k+1}$, hence the functions $dy_1, ..., dy_k, \varphi_{k+1}^t$ verify
+    \eqref{eq:morseCS1}.
+    By lemma \ref{lem:extendingTimeCS}, we define $h(y,t)$ for all $y$ close enough to $0$ and $t \in [0, 1]$ as
+    a continuous selection of $dy_1, ..., dy_k, \varphi_{k+1}^t$ such that
+    it equals $f^0$ at $t=0$.
     \medskip \newline
     We then apply lemma \ref{lem:prepNormForm}
     and get $U$ an even smaller neighbourhood and $X$ a vector field on a neighbourhood
     of $(0, 0)$. Up to shrinking $U$, we can assume that for all $t^*$ there is a
     time $s(t^*) > 0$ such that for all $y \in U$, we can integrate $(y, t^*)$ for time
-    $s, |s| < s(t^*)$. To give some notation, the result of this integration, $\Phi(s, y, t^*)$,
-    is well defined. This gives a covering of $[0, 1]$ by intervals of the form
+    $s, |s| < s(t^*)$. This gives a covering of $[0, 1]$ by intervals of the form
     $]t^*-s(t^*), t^*+s(t^*)[$, so we can still cover it with finitely many of these intervals.
     \medskip \newline
     Assume for simplicity 
     that we can flow for time $1$ from all $(y, 0)$, $y \in U$ i.e $[0, 1]$ can be covered with
-    only one such interval. We construct a local
-    homeomorphism taking $h(y, 0)$ to $h(y, 1)$. Set
-    \[ \psi(y', t) = \Phi(-t, y', t) + (0, ..., 0, t) \]
-    We can then check by using properties $1.$ and $3.$ that $h \circ \psi^{-1}(y, 1) = h(y, 0)$.
-    To sum up, $f \circ \psi(y, 0) = h(y, 1)$ i.e a continuous selection of $k+1$ affinely
-    independant linear functions. If we need more than one interval to cover $[0, 1]$ we
-    can decompose this into finitely many homeomorphisms going from $0$ to $1$ in successive steps.
-    \medskip \newline
-    We constructed $\psi_z$ for all $z$ close enough to $0$ to approximate the behaviours
-    of the $\varphi_i$ by what happens at $(0, 0)$. We can also easily see that if we add
-    back the $z$, the construction is continuous in $z$ too. Then $(y, z) \mapsto (\psi_z(y), z)$
-    is a local homeomorphism, and we have what we want.
+    only one such interval. We construct a local 
+    homeomorphism $\phi$ similarly to \eqref{eq:constrPhiNormform} such that 
+    \[ f^0(y) = h(y, 0) = h \circ \phi^{-1} (y, 1) \]
+    so $f^0$ can be written in some coordinates as a continuous selection of linear functions.
+    If we need more than one interval to cover $[0, 1]$ we can decompose this into finitely many
+    homeomorphisms going from $0$ to $1$ in successive steps.
+    \bigskip \newline
+    By composing all the steps, we indeed constructed the local homeomorphism $\psi$.
 
 \end{proof}
 
@@ -591,13 +610,13 @@ combinatorial way, as the following theorem shows \cite{PLminmax}.
     It follows that, if we use the representation with $D_i$, we get $\lambda(y) = 1 - \mu$
     and if we use the one with the $S_i$, $\lambda(y) = -\mu$.
     \medskip \newline
-    Now for existence. For all permutation $\nu \in \mathfrak{S}_{k+1}$ define the the cone
+    Now for existence. For all permutation $\nu \in \mathfrak{S}_{k+1}$ define the cone
     \[ K_{\nu} = \{ y \in \mathbb{R}^k \mid \lambda_{\nu(1)}(y) \leq ... \leq \lambda_{\nu(k+1)}(y) \} \]
     and the function $s : \nu \in \mathfrak{S}_{k+1} \mapsto i \in \llbracket 1, k+1 \rrbracket$ where $i$
     is such that $\lambda_{\nu(i)} = \lambda$ on $K_{\nu}$. If we assume that for all $y$ and $\nu$ we have
     \[ \lambda(y) \leq \max \{ \lambda_{\nu(1)}(y), ..., \lambda_{\nu(s(\nu))}(y) \} \]
-    then it suffices to consider the family of set $S_{\nu} = \{\nu(1), ..., \nu(s(\nu)) \}$
-    and simplify these by removing those who are included in one another.
+    then it suffices to consider the family of sets $S_{\nu} = \{\nu(1), ..., \nu(s(\nu)) \}$
+    and simplify these by removing those who are contained in one another.
     \medskip \newline
     We now give a broad idea of the proof of the claim. The result is true by definition
     on $K_{\nu}$. For any $y \in \mathbb{R}^k$, set $y' \in K_{\nu}$ and consider the evolution
@@ -670,7 +689,7 @@ homogeneous functions will prove useful for describing the homotopy type of subl
     \]
     We can see that $F \circ G = \operatorname{id}_{C_{h^{-1}(-1)}}$. $G \circ F$ is homotopic
     to the identity : we can use $V$ to contract $M_{-1}$ onto $h^{-1}(-1)$, and also to
-    retract $h^{-1}([0, 1])$ onto $h^{-1}(0)$.
+    contract $h^{-1}([0, 1])$ onto $h^{-1}(0)$.
 \end{proof}
 
 \quad If $X$ and $Y$ are two topological spaces, we define the join of $X$ and $Y$,
@@ -727,7 +746,7 @@ sets $S_1^c, ..., S_l^c$.
 \end{proof}
 
 Because every $C_i$ is convex, their intersections are contractible. Applying Leray's nerve
-theorem (cite), $\lambda^{-1}(-1)$ has the homotopy type of the simplical complex given
+theorem, $\lambda^{-1}(-1)$ has the homotopy type of the simplical complex given
 by the nerve. By virtue of what we discussed, this complex is exactly $K(S_1^c, ..., S_l^c)$.
 The homotopy type of $f^{-1}(-1)$ is then given by
 \[ f^{-1}(-1) \simeq K(S_1^c, ..., S_l^c) * \mathbb{S}^{\mu} \]
@@ -785,7 +804,7 @@ a property of finite continuous selections.
     Consider for all $n \in \mathbb{N}$ the closed ball $B_n$ of center $x$ and radius
     $2^{-n}$. Set
     \[ A_n = \{ z \in Z \mid \exists y \in B_n, \varphi_z(y) = f(y)\} \]
-    $A_n$ is closed : indeed if we write $g = \varphi - f$, we can write $A_n$ as
+    $A_n$ is closed : indeed if we write $g := \varphi - f$, we can write $A_n$ as
     $\operatorname{proj}_Z(g^{-1}(0) \cap (B_n \times Z))$, and $g^{-1}(0) \cap (B_n \times Z)$ is compact
     so we get what we want.
     \medskip \newline
@@ -797,10 +816,11 @@ a property of finite continuous selections.
     so we get the desired result.
 \end{proof}
 
-The following theorem will allow us to compute explicitly subdifferentials in a particular case.
+The following theorem, which is a slightly modified version of Danskin's theorem,
+will allow us to compute explicitly subdifferentials in a particular case.
 
 \begin{theorem}[Danskin's \cite{DanskinsProof}]\label{thm:DanskinPlus}
-    Assume that for all $z$, $\varphi_z$ is differentiable, $z \mapsto d_x \varphi_z$ is
+    Assume that for all $z$, $\varphi_z$ is $C^1$, $z \mapsto d_x \varphi_z$ is
     continuous and $f = \max_{z \in Z} \varphi_z$.
     \begin{enumerate}
         \item $f$ is convex and for all $x, v \in \mathbb{R}^m$
@@ -911,6 +931,8 @@ The following theorem will allow us to compute explicitly subdifferentials in a 
 \subsection{Special points of the distance function}
 
 \quad We now consider $X \subset \mathbb{R}^m$ to be some non specific submanifold.
+We denote in this section $g : (a, b) \mapsto |a - b|^2$ and $g_a : x \mapsto |a - x|^2$
+for all $a \in \mathbb{R}^m$.\newline
 Following \cite{AntonioMorseThEuclDist}, we define
 
 \begin{defi}[Medial axis]
@@ -931,19 +953,75 @@ If $Y$ is smooth we can also define the following set
 
 \begin{defi}[Cut-locus]
 The cut-locus of $Y$ is defined as follows
-    \[ \operatorname{CLoc}(Y) = M_Y \cup \{ x \in \mathbb{R}^n \mid y \in Y \mapsto |x-y|^2 \text{ has a degenerate global minimum} \} \]
+\[ \operatorname{CLoc}(Y) = M_Y \cup \{ x \in \mathbb{R}^n \mid {g_x}_{\mid Y} \text{ has a degenerate global minimum} \} \]
 \end{defi}
 
 If we assume that $Y$ is a submanifold of $\mathbb{R}^m$, we can link these seemingly
-differents concepts : in this case, $\overline{M_Y} = \operatorname{CLoc}(Y) = C(Y)$.
-$\overline{M_Y} = C(Y)$ is proved for $Y$ defined as the border of a bounded domain in \cite{MilmanMedialCut},
-but the arguments can be adapted to a more general case. The same kind of arguments involving
-curvatures give us that $\operatorname{CLoc}(Y) \subset C(Y)$. Lastly by considering
-a sequence with limit in $\overline{M_Y} \backslash M_Y$, one can show that
-$\overline{M_Y} \subset \operatorname{CLoc}(Y)$.
-\bigskip
+differents concepts by the following proposition, generalizing the arguments from \cite{MilmanMedialCut}.
 
-\quad Using similar computations as in theorem \ref{thm:subdiffdist}, we can show,
+\begin{prop}\label{prop:equalitySpecialPoints}
+    Assume $Y$ is a smooth submanifold of $\mathbb{R}^m$. Then $\overline{M_Y} = \operatorname{CLoc}(Y) = C(Y)$
+\end{prop}
+
+\begin{proof}
+    We first show $\overline{M_Y} \subset \operatorname{CLoc}(Y)$. Consider a sequence
+    $x_k \rightarrow x$, where $x_k \in M_Y$ and $x$ is not. Let $y$ be the single element in $Y(x)$,
+    and for all $k$, $y_k, y'_k \in Y(x_k)$ two different minimizers.
+    Then for all $k$, $\nabla_{y_k} g_{x_k} - \nabla_{y'_k} g_{x_k} = 0$
+    and we can show that $\operatorname{Hess}_y ({g_x}_{\mid Y})$ vanishes in some direction $u \in T_y Y$, defined as
+    an extracted limit of $\frac{y_k - y'_k}{|y_k - y'_k|}$. Hence $x \in \operatorname{CLoc}(Y)$.
+    \bigskip \newline
+    We now show $\operatorname{CLoc}(Y) \subset C(Y)$. We have $M_Y \subset C(Y)$ : indeed
+    if for $x \in M_Y$ there is a ball $B'$ containing $B := B(x, \operatorname{dist}_Y(x))$,
+    then $\partial B'$ and $\partial B$ must intersect tangentially at $Y(x)$. This set has
+    at least two points so we find that the center of $B'$ must be $x$, so $x \in C(Y)$.
+    \medskip \newline
+    Let $x \in \operatorname{CLoc}(Y)$ such that $x \notin M_Y$. So ${g_x}_{\mid Y}$ has a degenerate
+    global minimum. Let $y$ be this minimum, $R = |x-y|$ and denote
+    \[ \nu = \frac{x-y}{R} \in N_y Y \]
+    Minimality gives us $\operatorname{Hess}_y ({g_x}_{\mid Y}) \succeq 0$, hence if we denote by $\kappa_i$
+    the principal curvatures in direction $\nu$ of $Y$ i.e the eigenvalues of
+    the second fondamental form in direction $\nu$ at $y$,
+    then $\kappa_i \leq \frac{1}{R}$. By \cite{centerOfCurvMilnor},
+    $\operatorname{Hess}_y ({g_x}_{\mid Y})$ being degenerate implies that for some $i$,
+    $\kappa_i = \frac{1}{R}$.
+    \medskip \newline
+    If we now assume that there is a strictly larger maximal ball $B'$ containing $B(x, R)$,
+    $B'$ must also be tangent to $\partial B(x, R)$ at $y$. The center of $B'$ then lies
+    on a line with $y$ and $x$. Denote $R' > R$ the radius of $B'$. Applying the same arguments
+    to $B'$, $\kappa_j \leq \frac{1}{R'}$ for all $j$. But for some $i$, $\kappa_i = \frac{1}{R} > \frac{1}{R'}$,
+    contradiction. So $B(x, R)$ is a maximal ball, $x \in C(Y)$.
+    \bigskip \newline
+    Lastly, we show that $C(Y) \subset \overline{M_Y}$. Assume for contradiction that there
+    is some $x \in C(Y)$ not in $\overline{M_Y}$. We find $\varepsilon > 0$ such that for
+    $z \in B := B(x, \varepsilon)$, $Y(z)$ is a singleton. We can define
+    $\eta : B \rightarrow Y$ that to a point $z$ associates the unique point
+    in $Y(z)$. This is a continuous function by semi continuity of $Y(z)$.
+    \medskip \newline
+    Denote $z_0, z_1 \in \partial B$ respectively the closest and farthest intersection of
+    the line passing through $y$ and $x$. Observe that because $x \in C(Y)$,
+    $\eta(z_1) \neq y$ and $\eta(z_0) = y$. Up to shrinking $B$, we find a
+    neighbourhood $V \subset Y$ of $y$ containing $\eta(B)$, and a section
+    $s : V \rightarrow NY$ such that for all $y' \in V$, the line passing through $y'$
+    in direction $s(y')$ goes through $\partial B$, and in particular, the one at $y$
+    passes through $z_0$ and $z_1$. We denote by $S \subset \partial B$ the set of these
+    intersection points. From now on every topological operation happens in $S$.
+    \medskip \newline
+    Note that by our assumptions, $\eta$ is a homeomorphism on the hemisphere of $S$
+    containing $z_0$ over its image. We denote the open hemisphere $U$.
+    We now show that there is a point $z' \in S \backslash U$ such that $\eta(z') = y$.
+    This will conclude the proof, as the only normal line to $y$ intersecting $S$ goes through
+    $z_0$ and $z_1$, so $z' = z_1$ and this is a contradiction.
+    \medskip \newline
+    Assume there is no such point $z'$. Because $y \in \eta(U)$ is not in the image of
+    $\eta_{\mid S \backslash U}$ and $\eta$ sends the cycle $\partial U$ to $\partial(\eta(U))$,
+    this last cycle is not homologically trivial. But $\partial U = \partial (S \backslash U)$,
+    so the cycle $\partial U$ is homologically trivial in $S \backslash U$, which contradicts
+    what we found.
+\end{proof}
+
+\quad We now relate these special sets of points to differentiability of $\operatorname{dist}_Y$.
+Using similar computations as in theorem \ref{thm:subdiffdist}, we can show,
 because $\operatorname{dist}_Y$ and its square have the same differentiability points
 out of $Y$, that outside of $Y \cup M_Y$ by Danskin's theorem, $\operatorname{dist}_Y$
 is differentiable. In fact we have the following stronger statement.
@@ -954,11 +1032,9 @@ is differentiable. In fact we have the following stronger statement.
 
 \begin{proof}
     Let $x \in \mathbb{R}^m \backslash (Y \cup \overline{M_Y})$. Let $U$ be a neighbourhood of
-    $x$ contained in $Y \cup \overline{M_Y}$. On this neighbourhood, we can then define a
-    function $\eta : U \rightarrow Y$ that to each $z \in U$ associates the unique
-    $y \in Y(z)$. It follows from semi-continuity of the active index that $\eta$ is
-    continuous. Denote by $g : (a, b) \mapsto |a - b|$ and $g_a = g(a, \cdot)$.
-    $\operatorname{dist}_Y$ is differentiable on $U$. Using the first part of
+    $x$ contained in $Y \cup \overline{M_Y}$. Similarly to proposition \ref{prop:equalitySpecialPoints}
+    we can then define a continuous function $\eta : U \rightarrow Y$ that to each $z \in U$ associates the unique
+    $y \in Y(z)$. $\operatorname{dist}_Y$ is differentiable on $U$. Using the first part of
     Danskin's theorem and similar computations to theorem \ref{thm:subdiffdist}, we get
     \[ d_z \operatorname{dist}_Y = d_z g_{\eta(z)} \]
     From this, we deduce that $d \operatorname{dist}_Y$ is continuous on $U$.
@@ -1115,7 +1191,9 @@ submanifold of $\mathbb{C}^m$. \eqref{eq:KCP} then simplifies to
 \[ x - y \in N_x X \]
 where the unknown is $x$. This is equivalent to asking that $y \in x + N_x X$. We set
 $\hat{N}_x X := x + N_x X$ and define the following bundle on $X$
-\[ \hat{N}X = \{ (x, v) \mid x \in X, v \in \hat{N}_x X \} \subset X \times \mathbb{C}^m \]
+\begin{equation}\label{eq:hatNX}
+    \hat{N}X = \{ (x, v) \mid x \in X, v \in \hat{N}_x X \} \subset X \times \mathbb{C}^m
+\end{equation}
 This bundle has two natural projections $\pi_1 : \hat{N}X \rightarrow X$ and $\pi_2 : \hat{N}X \rightarrow \mathbb{C}^m$.
 The set of solutions to \eqref{eq:KCP} is then $\pi_1(\pi_2^{-1}(y))$. Using the fact
 that $\hat{N}X$ is of dimension $m$, one can show the following property.
@@ -1179,6 +1257,7 @@ we will denote $A^k(X) := A_{n-k}(X)$, the classes of cycles of codimension $k$.
 two subvarieties, $Y, Z \subset X$ are generically transverse if for the generic intersection
 smooth point, we indeed have transversality. The following proposition allows us to turn the
 Chow group into the Chow ring with a structure compatible with intersection problems.
+
 \begin{prop}[Chow ring]
     There is a unique multiplication making $A(X)$ into a ring such that for
     $Y, Z \subset X$ subvarieties that are generically transverse, we have
@@ -1187,8 +1266,22 @@ Chow group into the Chow ring with a structure compatible with intersection prob
     $A^i(X) \times A^j(X)$ onto $A^{i+j}(X)$ for all $i, j$.
 \end{prop}
 
+An important and motivating example is the case where $X = \mathbb{P}^m$ : the Chow ring is then
+exactly $\mathbb{Z}[h] / (h^{n+1})$ where $h$ is the class of a hyperplane. A
+subvariety $Y \subset \mathbb{P}^m$ of degree $d$ and codimension $k$ has the following
+class $[Y] = d.h^c$. We can for example retrive Bezout's theorem by multiplying the classes
+of two transversal curves. One can be more general and define a notion of degree for
+certain elements in the Chow ring.
+
+\begin{prop}[Degree of a class]
+    There is a unique morphism, $\deg : A_0 (X) \rightarrow \mathbb{Z}$ such
+    that $\deg([\p \cdot \p]) = 1$ and for all $Y, Z \subset X$ subvarieties of summed codimensions
+    $n$, we have
+    \[ |Y \cap Z| = \deg([Y][Z]) \]
+\end{prop}
+
 With the notion of the Chow ring, we can now introduce some useful classes that
-will live in the Chow ring of some variety. The first are the Chern classes.
+live in the Chow ring of some variety. The first are the Chern classes.
 \bigskip
 
 \quad Consider a (complex) vector bundle over $X$, $E \rightarrow X$ of rank $r$ where $X$
@@ -1209,36 +1302,167 @@ proposition.
         \item (Functoriality) If $f : Y \rightarrow X$ is a morphism of smooth varieties,
         then $f^*(c(E)) = c(f^*E)$ where $f^* E$ is the pullback bundle of $E$ and
         \[ f^{*} : \begin{array}{cl}
-            A(Y) &\longrightarrow A(X)\\
+            A(X) &\longrightarrow A(Y)\\
             \left[ V \right] &\longmapsto \left[ f^{-1}(V) \right]
         \end{array}
         \]
     \end{enumerate}
 \end{prop}
 
-We will mostly use properties $1., 2.$ and $3.$ of this definition.
-\medskip \newline
-One other class of interest are polar classes : consider a projective subspace $L$ of $\mathbb{P}^m$.
-We define the polar variety of $X$, that we assume to be smooth, relatively to $L$ as
-\[ P(X, L) = \overline{\{ x \in X \backslash L \mid x + L \text{ intersects } X \text{ at } x \text{ non transversally} \}} \subset X \]
-where $x + L$ is the projective span of the subspaces $x$ and $V$ : we first lift $x$ and 
-$L$ to $\mathbb{C}^{m+1}$ then take the sum and project back. There is an intuitive picture
+\bigskip
+
+\quad One other class of interest are polar classes. We define the embedded tangent bundle
+of $X \subset \mathbb{P}^m$ as
+\begin{equation}\label{eq:embeddedTX}
+    \hat{T}X = \{ (x, v) \mid x \in X, v \in \ker (\nabla_x p_1 \mid ... \mid \nabla_x p_{m-n})\} \subset X \times \mathbb{C}^{m+1}
+\end{equation}
+Also denote for $x \in X$, $\mathbb{P}(\hat{T}_x X)$ the projective embedding of $\hat{T}_x X$.
+Then for $L \subset \mathbb{P}^m$ a subspace, define the polar variety of $X$ with respect to $L$ as
+\[ P(X, L) = \overline{\{ x \in X \mid \dim(\mathbb{P}(\hat{T}_x X) \cap L) > n - \operatorname{codim}(L) \}} \subset X \]
+There is an intuitive example
 when $L$ is a point and $X$ an ellipsoid : place yourself at point $L$, and consider all the
 light rays arriving at your position. The light rays that form the "contour" of $X$ from
 your perspective intersect $X$ exactly at $P(X, L)$.
 \medskip \newline
-For generic $L$ of codimension $n+2-k$ (number right ?), the class $[P(X, L)] \in A^k(X)$ is constant,
-and we define the $k$-th polar class of $X$ as $p_k(X) = [P(X, L)]$
+For generic $L$ of codimension $n+2-k$, the class $[P(X, L)] \in A^k(X)$ is constant,
+and we define the $k$-th polar class of $X$ as $p_k(X) = [P(X, L)]$. It turns out that
+polar classes are Chern classes of some bundle, more precisely $c_k(\hat{T}^*X) = p_k(X)$,
+where $\hat{T}^* X$ is the rank $n+1$ vector bundle whose fibers are dual to those of
+$\hat{T}X$.
+\medskip \newline
+To see it, we write $L = \bigcap_i \ker \alpha_i$ with $\alpha_1, ..., \alpha_{n+2-k} \in (\mathbb{C}^{m+1})^*$.
+For all $i$, the function
+\[ \begin{array}{cl}
+    X &\longrightarrow \hat{T}^*X\\
+    x &\longmapsto {\alpha_i}_{\mid \hat{T}_x X}
+\end{array} \]
+is a section of $\hat{T}^*X$. The degeneracy locus of all these sections is the set $W$ of
+all $x \in X$ such that ${\alpha_i}_{\mid \hat{T}_x X}$ are linearly dependant.
+This is equivalent to asking that $L \cap \mathbb{P}(\hat{T}X)$ has dimension
+greater than expected, i.e greater than $n - \operatorname{codim}(L)$. By condition $2.$,
+$c_k(\hat{T}^*X) = [W] = p_k(X)$.
+\bigskip
 
-(Proof that $c_k(\hat{T}X) = p_k(X)$, maybe use other def of $P(X, L)$ ?)
+\quad Lastly, we present Segre classes and link them to the other ones. Consider again
+a vector bundle $E \rightarrow X$ of rank $r$. We construct a projective bundle on
+$X$ i.e whose fibers are projective spaces of dimension $r-1$,
+$\mathbb{P}(E) \rightarrow X$, with projection map $p$, by projectifying the fiber over
+each point $x \in X$. In this way, we have for all $x \in X$, $p^{-1}(x) = \mathbb{P}(E_x)$.
+\medskip \newline
+From this projective bundle, we can construct a new vector bundle, the tautological line bundle
+over $\mathbb{P}(E)$
+\[ \mathcal{O}_{\mathbb{P}(E)}(-1) = \{ ((x, L), w) \in \mathbb{P}(E) \times \mathbb{C}^{m+1} \mid w \in L \} \]
+and $\mathcal{O}_{\mathbb{P}(E)}(1)$ its dual bundle.
+\medskip \newline
+Denote by $\xi = c_1(\mathcal{O}_{\mathbb{P}(E)}(1)) \in A^1(\mathbb{P}(E))$. We define
+the $k$-th Segre class of $E$ for $k \in \llbracket 0, r \rrbracket$ as
+\[ s_k(E) = p_{*}(\xi^{r-1+k}) \in A^k(X) \]
+where the pushforward $p_*$ is defined as follows : $p$ must be a proper map. If this is the case,
+$p_*$ is a linear map such that for $Y \subset X$ a subvariety, if $p(Y)$ has dimension strictly smaller than $Y$ then $p_*[Y] = 0$,
+if not $p_*[Y] = d [p(Y)]$ where $d$ is the degree of the map $p_{\mid Y}$.
+\newline
+Again, we have relations to the other classes : Segre classes are inverses of Chern classes i.e
+$s(E)c(E) = 1 \in A(X)$. Another important thing to note is that the bundle map $p$ embeds
+$A(X)$ into $A(\mathbb{P}(E))$ through $p^*$. Moreover we have
 
-(Segre def.)
+\[ A(\mathbb{P}(E)) = A(X)[\xi] / (c_r(E) + c_{r-1}(E)\xi + ... + c_0(E)\xi^r) \]
 
 \subsubsection{Computing the EDD}
 
-Projectify, define euclidean normal bundle, orth general, computation -> big thm,
-two philosophies of deprojectification
+\quad We now return to the topic of computing the EDD of a smooth complexified algebraic
+manifold $X \subset \mathbb{C}^m$, defined by polynomials $p_1, ..., p_{m-n}$.
+Our tools for solving intersection problems requiring
+projective manifolds, we will take the "projective closure" of $X$ and its bundles
+of interest.
+\medskip \newline
+For that we consider the canonical embedding (we will discuss this choice later on)
+$\mathbb{C}^m \hookrightarrow \mathbb{P}^m$. The hyperplane at infinity $H_{\infty}$ is the set $\mathbb{P}^m \backslash \mathbb{C}^m$.
+The isotopic quadric at infinity is defined as
+\[ Q_{\infty} = \{ [x_1 : ... : x_n : 0] \in H_{\infty} \mid x_1^2 + ... + x_n^2 = 0\} \]
+Using the canonical embedding, $X$ is embedded in its projective closure $\overline{X}$,
+and we denote $X_{\infty} = \overline{X} \backslash X$.
+\medskip \newline
+Embedding $\hat{N}X$ as defined in \eqref{eq:hatNX} requires a bit more care and is done properly in
+(ref section) following (cite). For that we need $X$ the be orthogonally general which means
+that $\overline{X}$ is smooth, $\overline{X}$ is tranvsersal to $H_{\infty}$ and $X_{\infty}$ is transversal to
+$Q_{\infty}$. Denote $\overline{\hat{N}X}$ the projective closure in
+$\overline{X} \times \mathbb{P}^m$ of $\hat{N}X$. In this situation, this is a projective
+bundle, and we can define a vector bundle $\hat{N} \overline{X}$
+over $\overline{X}$ that we call the euclidean normal bundle such that
+$\overline{\hat{N}X} = \mathbb{P}(\hat{N}\overline{X})$. We have the following maps
 
+\begin{center}
+\begin{tikzcd}
+    \mathbb{P}(\hat{N}\overline{X}) \arrow[rr, "\iota \p=\p \operatorname{id}_{\overline{X}} \times \pi_2"] \arrow[dr, "\pi_1"']
+    & & \mathbb{P}(\overline{X} \times \mathbb{C}^{m+1}) \arrow[dl, "\pi'_1"]\\
+    & \overline{X}
+\end{tikzcd}
+\end{center}
+
+\quad We now compute the EDD of $X$. It was defined as the number of elements of
+$\pi_1(\pi_2^{-1}(y)) \subset \mathbb{C}^m \hookrightarrow \mathbb{P}^m$ for generic $y$.
+To find this number we use the $\deg : A(\mathbb{P}^m) \rightarrow \mathbb{Z}$ map, the
+degree of a finite set being its size. We have
+\begin{align*}
+    \operatorname{EDD}(X) &= \deg([\pi_1(\pi_2^{-1}(y))])\\
+    &= \deg([\pi_1(\iota^{-1}(\overline{X} \times \{y\}))])
+\end{align*}
+
+Denote $\xi = c_1(\mathcal{O}_{\mathbb{P}(\overline{X} \times \mathbb{C}^{m+1})}(1))$. It can
+be shown that $\xi = [\overline{X} \times H]$, where $H$ is any hyperplane of $\mathbb{P}^m$,
+using property 1. of Chern classes. Because $H$ can be any hyperplane, one has
+$\xi^m = [\overline{X} \times \{y\}]$.\newline
+We also define $\eta = c_1(\mathcal{O}_{\mathbb{P}(\hat{N}\overline{X})}(1))$, and property
+4. of Chern classes gives us $\iota^*(\xi) = \eta$. Rewriting what we had, because $\pi_1$
+is of degree $1$, we obtain
+\begin{align*}
+    \operatorname{EDD}(X) &= \deg((\pi_1)_* \iota^*(\xi^m)))\\
+    &= \deg((\pi_1)_* \eta^m)\\
+    &= \deg(s_n(\hat{N}\overline{X}))
+\end{align*}
+by definition of Segre classes. To finish, we need some more information about the euclidean
+normal bundle.
+\medskip \newline
+The tautological bundle over $\overline{X}$ is the bundle $\mathcal{O}_{\overline{X}}(-1)$
+whose fiber at $[x] \in \overline{X}$ is the line $\mathbb{C}x \subset \mathbb{C}^{m+1}$.
+The normal bundle of $\overline{X}$, $\mathcal{N}_{\overline{X}}$ is a bundle verifying
+the following exact sequence
+
+\begin{center}
+    \begin{tikzcd}
+        0 \arrow[r] & \hat{T}\overline{X} \arrow[r] & \overline{X} \times \mathbb{C}^{m+1} \arrow[r]
+        & \mathcal{N}_{\overline{X}} \arrow[r] & 0
+    \end{tikzcd}
+\end{center}
+
+where $\hat{T} \overline{X}$ is defined in \eqref{eq:embeddedTX}. By (cite), we
+have $\hat{N}\overline{X} \simeq \mathcal{N}^*_{\overline{X}} \oplus \mathcal{O}_{\overline{X}}(-1)$.
+\medskip \newline
+Property 3. of Chern classes and the fact that Segre classes are their inverses yields
+$s(\hat{N}\overline{X}) = s(\mathcal{N}^*_{\overline{X}})s(\mathcal{O}_{\overline{X}}(-1))$.
+By dualizing the exact sequence, and applying property 3. of Chern classes again, we get
+\[ s(\mathcal{N}^*_{\overline{X}})s(\hat{T}^* \overline{X}) = s(\overline{X} \times \mathbb{C}^{m+1}) \]
+For all $k \neq n$, $s_k(\overline{X} \times \mathbb{C}^{m+1}) = 0$, because $\xi^{m+1} = 0$.
+So $s(\overline{X} \times \mathbb{C}^{m+1}) = 1$, and we get
+$s(\mathcal{N}^*_{\overline{X}}) = c(\hat{T}^* \overline{X})$.\newline
+Lastly, by property 1., one can compute
+\[ c(\mathcal{O}_{\overline{X}}(-1)) = 1 - c_1(\mathcal{O}_{\overline{X}}(1)) = 1 - \xi \]
+and deduce
+\[ s(\mathcal{O}_{\overline{X}}(-1)) = \sum_{k=0}^m \xi^k \]
+We then get
+\begin{align*}
+    s_n(\hat{N}\overline{X}) &= (c(\hat{T}^*\overline{X}) s(\mathcal{O}_{\overline{X}}(-1)))_n\\
+    &= \sum_{k=0}^n c_k(\hat{T}^*\overline{X}) \xi^{n-k}\\
+    &= \sum_{k=0}^n p_k(X) \xi^{n-k}
+\end{align*}
+so we conclude
+\[ \operatorname{EDD}(X) = \sum_{k=0}^n \deg(p_k(X)) \]
+After computing the polar classes we get the following result
+\begin{theorem}
+    If $X \subset \mathbb{C}^m$ is a smooth submanifold defined by polynomials (+ hypothesis ?) $p_1, ..., p_{m-n}$ of degrees
+    $d_1 \leq ... \leq d_{m-n}$, then
+    \[ \operatorname{EDD}(X) = d_1 ... d_{m-n} \sum_{i_1 + ... + i_{m-n} \leq n+1} (d_{i_1} - 1)^{i_1} ... (d_{i_{m-n} - 1})^{i_{m-n}} \]
+\end{theorem}
 
 \subsection{Bottleneck degree}
 
