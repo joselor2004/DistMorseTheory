@@ -401,7 +401,7 @@ of $f_{\mid W_{I(x)}}$. So
 \[ \displaystyle T_x W_{I(x)} \subset \bigcap_{i \in I(x)} d_x \varphi_i \]
 but the converse can fail if the $d_x \varphi_i$ are not linearly independant enough.
 If this intersection is indeed larger, the geometry of the graph of $f$ does not correspond to what we
-intuitively picture as a "non degenerate critical point" (see \ref{fig:morseCS3Illustr} for a 1
+intuitively picture as a "non degenerate critical point" (see figure \ref{fig:morseCS3Illustr} for a 1
 dimensional example). We then impose the following condition, ensuring equality.
 \begin{equation}\label{eq:morseCS3}
     \underline{\forall x \in M, \forall j \in I(x), (d_x \varphi_i)_{\substack{i \in I(x) \\ i \neq j}} \text{ are linearly independant}} \tag{C3}
@@ -425,8 +425,8 @@ to be transversal, and any small perturbation of transversal graphs preserves tr
 By genericity of smooth Morse functions, \eqref{eq:morseCS2} is also a generic condition. With
 the geometric interpretation, we can also see that condition \eqref{eq:morseCS3} is generic.
 
-\begin{figure}[h]\label{fig:morseCS3Illustr}
-    \caption{Example and counterexample of condition \eqref{eq:morseCS3}}
+\begin{figure}[h]
+    \caption{Example and counterexample of condition \eqref{eq:morseCS3}}\label{fig:morseCS3Illustr}
     \begin{center}
     \begin{R2axis}{-3}{3}{-2}{3}{1}
         \draw[thick, blue] (-3, 3) -- (0, 0) -- (3, 3);
@@ -476,6 +476,8 @@ Thom isotopy theory.
     \end{enumerate}
 \end{lem}
 
+\bigskip
+
 The use of this lemma requires a parameter dependent continuous selection. For the proof of
 the main theorem, we will have to build one with some boundary conditions wich is done
 in the following way
@@ -515,6 +517,8 @@ in the following way
     argument for some starting time different than $0$, connectedness and
     compactness yield that there is a neighbourhood $U$ of $0$ such that we can define $h$ on $U \times [0, 1]$.
 \end{proof}
+
+\bigskip
 
 We are now ready to prove the main result of this section.
 
@@ -928,6 +932,13 @@ will allow us to compute explicitly subdifferentials in a particular case.
     equality.
 \end{proof}
 
+\begin{figure}[h]
+\caption{Illustration of theorem \ref{thm:subdiffdist}}
+    \begin{tikzpicture}
+    
+    \end{tikzpicture}
+\end{figure}
+
 \subsection{Special points of the distance function}
 
 \quad We now consider $X \subset \mathbb{R}^m$ to be some non specific submanifold.
@@ -1134,17 +1145,20 @@ by restricting to the smooth locus of $X$ and $Y$.
 From theorem \ref{thm:subdiffdist} proved in the last section, we now that a point $x \in X$ is critical for the distance function
 iff there exists a number $k \geq 1$, $y_1, ..., y_k \in Y$ and $\lambda_1, ..., \lambda_k \in \mathbb{R}$
 such that :
-\begin{enumerate}
-    \item The $y_i$ are all distinct
-    \item $|x - y_i| = \operatorname{dist}_Y(x)$ for all $i$
-    \item $\sum_i \lambda_i \frac{x - y_i}{|x - y_i|} \in N_x X$
-    \item For all $i$, $\lambda_i \geq 0$ and $\sum_i \lambda_i = 1$.
-\end{enumerate}
-We want to transform these into algebraic equations, such that the solutions of these new
+\begin{equation}\label{eq:TCP}\tag{TCP}
+    \begin{array}{cl}
+        \text{1.} & \text{The } y_i \text{ are all distinct}\\
+        \text{2.} & \forall i, |x - y_i| = \operatorname{dist}_Y(x)\\
+        \text{3.} & \sum_i \lambda_i \frac{x - y_i}{|x - y_i|} \in N_x X\\
+        \text{4.} & \forall i, \lambda_i \geq 0 \text{ and } \sum_i \lambda_i = 1
+    \end{array}
+\end{equation}
+
+We want to transform these into mostly algebraic equations, such that the solutions of these new
 equations include true critical points of the distance function. The following equations
 with unknowns $x, y_1, ..., y_k$ accomplish that
 
-\begin{equation}\label{eq:KCP}\tag{KCP}
+\begin{equation}\label{eq:ACP}\tag{ACP}
     \begin{array}{cl}
         \text{1.} & \text{The } y_i \text{ are all distinct}\\
         \text{2.} & \forall i, j, |x-y_i|^2 = |x-y_j|^2 \text{ and } x-y_i \in N_{y_i} Y\\
@@ -1172,14 +1186,14 @@ $x \in X_{\mathbb{C}}$ are
 Note that the product involved is not an inner product on $\mathbb{C}^m$ but has the
 advantage of being algebraic. It can be checked that this vector space is spanned
 by the gradients of $p_1, ..., p_r$, so the observations made in the real case still hold.
-With these definitions, we can then replace $\mathbb{K}$ with $\mathbb{C}$ in \eqref{eq:KCP},
+With these definitions, we can then replace $\mathbb{K}$ with $\mathbb{C}$ in \eqref{eq:ACP},
 and for what follows we will exclusively study this complex version. We will then
 shorten $X_{\mathbb{C}}, Y_{\mathbb{C}}$ by $X, Y$, considering them as already complexified.
 \bigskip
 
 \quad In what follows, we will study particular cases of these equations and connect them to already existing notions
 on algebraic varietes/manifolds (?). The case where $Y = \{y\}$ will lead to the notion
-of \textit{euclidiean distance degree}, and when $k = 2$ and $X = \mathbb{C}^m$ we will get
+of \textit{euclidean distance degree}, and when $k = 2$ and $X = \mathbb{C}^m$ we will get
 the notion of \textit{bottleneck degree}.
 
 \subsection{Euclidean distance degree}
@@ -1187,15 +1201,16 @@ the notion of \textit{bottleneck degree}.
 \subsubsection{Definition and examples}
 
 \quad As stated earlier, we consider the case where $Y = \{y\}$ and $X$ is some algebraic
-submanifold of $\mathbb{C}^m$. \eqref{eq:KCP} then simplifies to
+submanifold of $\mathbb{C}^m$. \eqref{eq:ACP} then simplifies to
 \[ x - y \in N_x X \]
 where the unknown is $x$. This is equivalent to asking that $y \in x + N_x X$. We set
 $\hat{N}_x X := x + N_x X$ and define the following bundle on $X$
+
 \begin{equation}\label{eq:hatNX}
     \hat{N}X = \{ (x, v) \mid x \in X, v \in \hat{N}_x X \} \subset X \times \mathbb{C}^m
 \end{equation}
 This bundle has two natural projections $\pi_1 : \hat{N}X \rightarrow X$ and $\pi_2 : \hat{N}X \rightarrow \mathbb{C}^m$.
-The set of solutions to \eqref{eq:KCP} is then $\pi_1(\pi_2^{-1}(y))$. Using the fact
+The set of solutions to \eqref{eq:ACP} is then $\pi_1(\pi_2^{-1}(y))$. Using the fact
 that $\hat{N}X$ is of dimension $m$, one can show the following property.
 
 \begin{prop}
@@ -1205,7 +1220,7 @@ that $\hat{N}X$ is of dimension $m$, one can show the following property.
 
 The \textit{euclidean distance degree} (EDD) of $X$ is then defined as this generic number of solutions
 to the critical point equation. It then gives an upper bound on the number of real solutions
-to \eqref{eq:KCP}.
+to \eqref{eq:ACP}.
 \medskip \newline
 Consider the example where $X \subset \mathbb{C}^2$ is an ellipse. It is then defined by a
 degree $2$ polynomial and we will show later that the euclidean distance degree of $X$ is $4$.
@@ -1216,7 +1231,77 @@ Not all submanifolds $X$ can have as many real critical point as the euclidean d
 as can be seen with the parabola, of euclidean distance degree $4$ : for all points $y$,
 we have at most $3$ real critical points.
 
-(draw something)
+\begin{figure}[h]
+    \caption{Examples of real solutions to the EDD equations}
+    \vspace*{0.5cm}
+    \begin{center}
+    \begin{tabular}{cc}
+    \begin{tikzpicture}
+        \draw[very thick] (0,0) ellipse (3cm and 2cm);
+
+        \node at (-2, 2) {$X$};
+        
+        \coordinate (P) at (0, 0.5);
+        \coordinate (U) at (0,2);
+        \coordinate (D) at (0, -2);
+        \coordinate (L) at (-2.98, -1/5);
+        \coordinate (R) at (2.98, -1/5);
+
+        \draw[dashed] (P) -- (U);
+        \draw[dashed] (P) -- (D);
+        \draw[dashed] (P) -- (L);
+        \draw[dashed] (P) -- (R);
+
+        \fill[color = blue] (P) circle (2pt) node[above right] {$y$};
+        \fill (U) circle (2pt) node[above] {$x_1$};
+        \fill (D) circle (2pt) node[below] {$x_3$};
+        \fill (L) circle (2pt) node[left] {$x_2$};
+        \fill (R) circle (2pt) node[right] {$x_4$};
+    \end{tikzpicture}
+    &
+    \hspace*{0.5cm}
+    \begin{tikzpicture}
+        \draw[very thick] (0,0) ellipse (3cm and 2cm);
+
+        \node at (-2, 2) {$X$};
+    
+        \coordinate (P) at (3, 2);
+        \coordinate (U) at (2.3558736,1.23825317);
+        \coordinate (D) at (-2.88143784,-0.55670299);
+
+        \draw[dashed] (P) -- (U);
+        \draw[dashed] (P) -- (D);
+
+        \fill[color = blue] (P) circle (2pt) node[below right] {$y$};
+        \fill (U) circle (2pt) node[right] {$x_1$};
+        \fill (D) circle (2pt) node[left] {$x_2$};
+    \end{tikzpicture}
+
+    \end{tabular}
+    \vspace*{0.2cm}
+
+    \begin{tikzpicture}
+        \draw[very thick, domain=-3:3, samples=100]
+            plot ({\x}, {-0.5*\x*\x});
+
+        \node[above left] at (-2.5, -0.5*2.5*2.5) {$X$};
+
+        \coordinate (P) at (0, -2);
+        \coordinate (O) at (0, 0);
+        \coordinate (L) at (-1.41421, -1);
+        \coordinate (R) at (1.41421, -1);
+
+        \draw[dashed] (P) -- (L);
+        \draw[dashed] (P) -- (R);
+        \draw[dashed] (P) -- (O);
+
+        \fill[color = blue] (P) circle (2pt) node[below right] {$y$};
+        \fill (L) circle (2pt) node[left] {$x_1$};
+        \fill (O) circle (2pt) node[above] {$x_2$};
+        \fill (R) circle (2pt) node[right] {$x_3$};
+    \end{tikzpicture}
+    \end{center}
+\end{figure}
 
 \subsubsection{Chow ring and useful classes}
 
@@ -1370,8 +1455,23 @@ $A(X)$ into $A(\mathbb{P}(E))$ through $p^*$. Moreover we have
 \subsubsection{Computing the EDD}
 
 \quad We now return to the topic of computing the EDD of a smooth complexified algebraic
-manifold $X \subset \mathbb{C}^m$, defined by polynomials $p_1, ..., p_{m-n}$.
-Our tools for solving intersection problems requiring
+manifold $X \subset \mathbb{C}^m$, defined by polynomials $p_1, ..., p_{m-n}$. We will
+give two ways of computing it, the first one will involve the degrees of the polynomials
+$p_1, ..., p_{m-n}$ via a Bezout type argument. The second will use Chern, Segre and polar
+classes following \cite{PieneEDD} \cite{CataneseTrifogliNX}.
+\medskip \newline
+If $X$ and $y$ are in generic positions, and because computing the EDD amounts to solving
+an intersection problem, $\operatorname{EDD}(X)$ can be expressed as the product of
+the degree of $X$ and the degree of the equation $x - y \in N_x X$. Writing it down in terms
+of the gradients, one has the following result
+
+\begin{theorem}\cite{Breiding2024Metric}
+    If $X$ is a generic complete intersection, defined by polynomials $p_1, ..., p_{m-n}$
+    of degrees $d_1, ..., d_{m-n}$, then
+    \[ \operatorname{EDD}(X) = d_1 ... d_{m-n} \sum_{i_1 + ... + i_{m-n} \leq n} (d_1 - 1)^{i_1} ... (d_{m-n}-1)^{i_{m-n}} \]
+\end{theorem}
+
+\quad We now compute the EDD in terms of classes. Our tools for this requiring
 projective manifolds, we will take the "projective closure" of $X$ and its bundles
 of interest.
 \medskip \newline
@@ -1383,11 +1483,15 @@ Using the canonical embedding, $X$ is embedded in its projective closure $\overl
 and we denote $X_{\infty} = \overline{X} \backslash X$.
 \medskip \newline
 Embedding $\hat{N}X$ as defined in \eqref{eq:hatNX} requires a bit more care and is done properly in
-(ref section) following (cite). For that we need $X$ the be orthogonally general which means
-that $\overline{X}$ is smooth, $\overline{X}$ is tranvsersal to $H_{\infty}$ and $X_{\infty}$ is transversal to
-$Q_{\infty}$. Denote $\overline{\hat{N}X}$ the projective closure in
-$\overline{X} \times \mathbb{P}^m$ of $\hat{N}X$. In this situation, this is a projective
-bundle, and we can define a vector bundle $\hat{N} \overline{X}$
+(ref section) following (cite). For that we need $X$ the satisfy some generic condition.
+
+\begin{defi}
+    $X$ is orthogonally general if $\overline{X}$ is smooth, transversal to $H_{\infty}$ and
+    $X_{\infty}$ is transversal to $Q_{\infty}$.
+\end{defi}
+Denote $\overline{\hat{N}X}$ the projective closure in
+$\overline{X} \times \mathbb{P}^m$ of $\hat{N}X$. If $X$ is orthogonally general,
+this is a projective bundle, and we can define a vector bundle $\hat{N} \overline{X}$
 over $\overline{X}$ that we call the euclidean normal bundle such that
 $\overline{\hat{N}X} = \mathbb{P}(\hat{N}\overline{X})$. We have the following maps
 
@@ -1401,7 +1505,7 @@ $\overline{\hat{N}X} = \mathbb{P}(\hat{N}\overline{X})$. We have the following m
 
 \quad We now compute the EDD of $X$. It was defined as the number of elements of
 $\pi_1(\pi_2^{-1}(y)) \subset \mathbb{C}^m \hookrightarrow \mathbb{P}^m$ for generic $y$.
-To find this number we use the $\deg : A(\mathbb{P}^m) \rightarrow \mathbb{Z}$ map, the
+To find this number we use the $\deg : A_0(\overline{X}) \rightarrow \mathbb{Z}$ map, the
 degree of a finite set being its size. We have
 \begin{align*}
     \operatorname{EDD}(X) &= \deg([\pi_1(\pi_2^{-1}(y))])\\
@@ -1435,7 +1539,7 @@ the following exact sequence
     \end{tikzcd}
 \end{center}
 
-where $\hat{T} \overline{X}$ is defined in \eqref{eq:embeddedTX}. By (cite), we
+where $\hat{T} \overline{X}$ is defined in \eqref{eq:embeddedTX}. By (cite section), we
 have $\hat{N}\overline{X} \simeq \mathcal{N}^*_{\overline{X}} \oplus \mathcal{O}_{\overline{X}}(-1)$.
 \medskip \newline
 Property 3. of Chern classes and the fact that Segre classes are their inverses yields
@@ -1456,15 +1560,241 @@ We then get
     &= \sum_{k=0}^n p_k(X) \xi^{n-k}
 \end{align*}
 so we conclude
-\[ \operatorname{EDD}(X) = \sum_{k=0}^n \deg(p_k(X)) \]
-After computing the polar classes we get the following result
-\begin{theorem}
-    If $X \subset \mathbb{C}^m$ is a smooth submanifold defined by polynomials (+ hypothesis ?) $p_1, ..., p_{m-n}$ of degrees
-    $d_1 \leq ... \leq d_{m-n}$, then
-    \[ \operatorname{EDD}(X) = d_1 ... d_{m-n} \sum_{i_1 + ... + i_{m-n} \leq n+1} (d_{i_1} - 1)^{i_1} ... (d_{i_{m-n} - 1})^{i_{m-n}} \]
-\end{theorem}
+\[ \operatorname{EDD}(X) = \sum_{k=0}^n \deg_{\mathbb{P}^m}(p_k(X)) \]
+where $\deg_{\mathbb{P}^m}$ can be defined by the fact that $A(\mathbb{P}^m) = \mathbb{Z}[\xi]/(\xi^{m+1})$.
+\bigskip \bigskip
+
+\quad We now discuss some of the conditions and choices made earlier.
+When defining the euclidean normal bundle $\hat{N}\overline{X}$, we required $X$ to be
+orthogonally general, which involved $\overline{X}$ being smooth, the intersection of $\overline{X}$
+with $H_{\infty}$ being transversal and the intersection between $X_{\infty}$ and $Q_{\infty}$
+as well. We now discuss this condition, and its dependences.
+\medskip \newline
+By choosing the canonical embedding $\mathbb{C}^m \hookrightarrow \mathbb{P}^m$ we essentially
+fixed the hyperplane at infinity $H_{\infty}$, but we could have chosen others, changing
+the transversality condition. We also note that the construction of $\hat{N}\overline{X}$
+depended on the choice of the product $x_1y_1 + ... + x_my_m$ that was put on $\mathbb{C}^m$
+through the isotopic quadric at infinity $Q_{\infty}$.
+\medskip \newline
+Another thing to note is that the "orthogonally general" condition isn't canonical, there are
+other assumptions that can be made and that allow us to define the euclidean normal bundle.
+If $X$ is smooth, and $\overline{X}$ is transversal to the isotopic quadric
+$Q = \{ x_1^2 + ... + x_m^2 = 0 \}$, then we can still define the euclidean normal bundle.
+We used the first philosophy as it seemed more natural to us when going from a complex
+variety to a projective one, but there is no canonical choice, even less when considering
+projective varieties not as coming from a complex one.
 
 \subsection{Bottleneck degree}
+
+\quad This section will be similar to the last one : we will define the
+bottleneck degree and then give an expression of it involving classes in a certain Chow ring.
+We will also reuse some notations from the last section.
+
+\subsubsection{Blow-ups}
+
+\quad Consider $X \subset \mathbb{C}^m$ a complex variety and $Y \subset X$ a subvariety
+of $X$. The blow-up of $X$ at $Y$ is a construction involving of a variety
+$\operatorname{Bl}_Y(X)$ together with a birationnal
+map $\pi : \operatorname{Bl}_Y(X) \rightarrow X$ such that $\operatorname{bl}$
+is an isomorphism away from $Y$ but can have non trivial fibers over $Y$.
+The algebraic construction of the-blow up is as follows : consider $q_0, ..., q_r$ homogeneous
+polynomials of the same degree and generating an ideal of saturation $I(Y)$ (the ideal of $Y$).
+Then $\operatorname{Bl}_Y(X)$ is the graph of the rationnal maps $[q_0 : ... : q_r]$.
+\bigskip
+
+\quad For what follows, we will consider $X$ and $Y$ to be smooth, although it is not strictly
+necessary. But by restricting to manifolds, we can give a more geometric description
+(and equivalent definition) of the blow-up. $\operatorname{Bl}_Y(X)$ is made of two kinds of points :
+\begin{itemize}
+    \item The usual points $x \in X \backslash Y$
+    \item And the blown-up/special points, of the form $(y, v)$, where $y \in Y$ and $v \in \mathbb{P}(N_y Y)$.
+\end{itemize}
+The $\pi$ map sends $x$ to $x$ and $(y, v)$ to $y$. More precisely, we begin by defining
+the blow-up of a complex polydisc $B \subset \mathbb{C}^m$ along a coordinate subspace
+$V = \{z_1 = ... = z_k = 0 \}$ as the following manifold
+\[ \operatorname{Bl}_V(B) = \{((z_1, ..., z_m), [w_1 : ... : w_k : 0 : ... : 0]) \mid \forall i, j,  z_iw_j = z_jw_i\}
+\subset B \times \mathbb{P}^{m-1}\]
+We can see that for $z$ outside of $V$, the second coordinate can only be $[z_1 : ...: z_k : 0 : ... : 0]$,
+and for $z \in V$, any normal direction to $V$ can be taken, which corresponds to the
+description given earlier. One important thing to note is that if we have an isomorphism
+(biholomoric map) $f : B \rightarrow B$ taking $V$ to itself, it lifts uniquely into
+$f : \operatorname{Bl}_V(B) \rightarrow \operatorname{Bl}_V(B)$\newline
+We generalize this to $X$ and $Y$ by considering a covering of $X$ by open sets $U_i$,
+all isomorphic to $B$ via a chart sending $Y$ to a coordinate subspace. We then define
+the blow-up of $X$ at $Y$ by gluing $X \backslash Y, \operatorname{Bl}_Y(U_i)$ for all $i$ :
+$X \backslash Y$ and $\operatorname{Bl}_Y(U_i)$ are glued together via $U_i \backslash Y$,
+and $\operatorname{Bl}_Y(U_i)$ is glued to $\operatorname{Bl}_Y(U_j)$ along the inverse
+image of $U_i \cap U_j$ via the induced map on blow-ups. 
+\medskip \newline
+The prototypical example of a blow-up was given when defining the blow up of a polydisc.
+An important example that will be useful to us, is the blow-up of $X \times X$ along its
+diagonal $\Delta_X$.
+$\operatorname{Bl}_{\Delta_X}(X \times X)$ has again two kinds of points, the usual points
+$(x, x') \notin \Delta_X$ and the special points $(x, v)$ where $x \in X$ and $v \in \mathbb{P}(T_x X)$.
+Intuitively, the special points give a context where it makes sense to talk about "infinitesimally
+close points" as they appear when taking limits of sequences of increasingly close points.
+
+\subsubsection{The bottleneck equation and a formula}
+
+\quad Set $X = \mathbb{C}^m$ and $Y$ be an arbitrary algebraic manifold. A \textit{bottleneck}
+of $Y$ is a solution $x$ of \eqref{eq:TCP} when $k = 2$. To study these equations more easily,
+one studies the \textit{algebraic bottlenecks} of $Y$, i.e the solutions of \eqref{eq:ACP} when
+$k = 2$. In this situation, \eqref{eq:ACP} rewrites as follows
+\[ \begin{array}{cl}
+    \text{1.} & y_1 \neq y_2\\
+    \text{2.} & y_1 - y_2 \in N_{y_2} Y \text{ and } y_2 - y_1 \in N_{y_1} Y
+\end{array}
+\]
+We would like to find a class in the Chow ring of some variety such that its
+degree relates to the number of algebraic bottlenecks of $Y$.
+\medskip \newline
+These equations have the issue of involving an open condition, but our tools for
+solving intersection problems via the Chow ring require the conditions to be algebraic and closed. 
+To solve this, we will relax these equations in order to allow $y_1$ to be equal to $y_2$
+in a certain sense.
+\bigskip
+
+\quad Suppose $f : M \rightarrow N$ is a morphism between algebraic projective
+manifolds, and that we wish to count the number of tuples
+$(y_1, y_2) \in M$, $y_1 \neq y_2$ such that $f(y_1) = f(y_2)$. We can frame this as counting
+the number of elements in $(f \times f)^{-1}(\Delta_N) \backslash \Delta_M$.
+\medskip \newline
+To achieve that we define the subvariety $\tilde{D}(f) \subset \operatorname{Bl}_{\Delta_M}(M \times M)$ as
+follows : if
+\[ h = (f \times f) \circ \pi : \operatorname{Bl}_{\Delta_M}(M \times M) \rightarrow N \times N \]
+where
+$\pi : \operatorname{Bl}_{\Delta_M}(M \times M) \rightarrow M \times M$, then $\tilde{D}(f)$
+is the residual of $\pi^{-1}(\Delta_X)$ in $h^{-1}(\Delta_Y)$ (cite Fulton).
+$\tilde{D}(f)$ has two kinds of points
+\begin{itemize}
+    \item $(y_1, y_2) \in M \backslash \Delta_M$ such that $f(y_1) = f(y_2)$
+    \item $(y, v)$ where $y \in M$ and $v \in \mathbb{P}(T_y M)$ such that $d_y f(v) = 0$.
+\end{itemize}
+Lastly if we denote $\eta = \pi_1 \circ \pi$ where $\pi_1 : M \times M \rightarrow M$,
+we obtain a class in $A(M)$, $\mathbb{D}(f) := \eta_*[\tilde{D}(f)]$ such that its degree gives the
+number of tuples $(y_1, y_2) \notin \Delta_M$ such that $f(y_1) = f(y_2)$ plus the number
+of tuples $(y, v)$ where $y \in M$ and $v \in T_y M$ is a vanishing direction of $d_y f$.
+\bigskip
+
+\quad For what follows, we will need some genericity assumptions on $Y$, more specifically,
+we will need to strengthen the "orthogonally general" condition given in the last section.
+
+\begin{defi}
+    $Y$ is bottleneck general if $\overline{Y}$ is smooth and intersects the isotopic quadric
+    $Q$ transversally
+\end{defi}
+
+If this condition (fix the condition) stated in section (?), one can define a the vector bundle
+of "normal vectors at infinity" $N^{\infty} \overline{Y}$ verifying that for all
+$y \in \overline{Y}$
+\[ \mathbb{P}(N^{\infty}_y \overline{Y}) = \mathbb{P}(\hat{N}_y \overline{Y}) \cap H_{\infty} \]
+where $\hat{N} \overline{Y}$ is the euclidean normal bundle. Recall that when $y \in Y$,
+$\mathbb{P}(\hat{N}_y Y) = \overline{N_y Y}$. The bottleneck general condition gives us
+that for all $(y, v) \in NY$, $y \in \mathbb{C}^{m+1}$ and $v \neq 0$ are not proportional (cite).
+\medskip \newline
+$\mathbb{P}(N^{\infty} \overline{Y})$ is then a projective bundle over $\overline{Y}$. With it, we introduce the following map
+\[ f : \begin{array}{cl}
+    \mathbb{P}(N^{\infty} \overline{Y}) & \longrightarrow G(2, m+1)\\
+    (y, v) & \longmapsto \operatorname{span}\{y, v\}
+\end{array} \]
+where $G(2, m+1)$ is the Grassmannian of lines in $\mathbb{P}^m$ and the span of $x$ and $v$
+is the unique projective line passing through both points. Note that we can rephrase the
+algebraic bottleneck equations with $f$ : for $y_1 \neq y_2 \in \overline{Y}$, there exists
+$v_1 \in \mathbb{P}(N^{\infty}_{y_1} \overline{Y})$ and
+$v_2 \in \mathbb{P}(N^{\infty}_{y_2} \overline{Y})$ such that
+$f(y_1, v_1) = f(y_2, v_2)$ iff $(y_1, y_2)$ is a solution to the algebraic bottleneck
+equations. Moreover, $v_1, v_2$ are uniquely determined by $y_1, y_2$.Hence counting
+the number of algebraic bottlenecks amounts to counting non injective pairs of $f$.
+\medskip \newline
+By the previous discussion, we can relate the number of algebraic bottlenecks of $\overline{Y}$
+to $\deg \mathbb{D}(f)$. This number then counts
+\begin{itemize}
+    \item Tuples $(y_1, v_1), (y_2, v_2)$ such that $f(y_1, v_1) = f(y_2, v_2)$ i.e algebraic bottlenecks of $\overline{Y}$
+    \item Points $(y, v, w)$, where $(y, v) \in \mathbb{P}(N^{\infty} \overline{Y})$ and $w$ a tangent line to $N_{\infty} \overline{Y}$
+    at $(y, v)$ such that $d_{(y,v)}f (w) = 0$.  
+\end{itemize}
+
+The following proposition allows us to give a geometric interpretation of the second kind of points.
+Note that, denoting $p : \mathbb{C}^{m+1} \backslash \{0\} \rightarrow \mathbb{P}^m$ the usual projection,
+we have
+\[ T_{(y,v)} \mathbb{P}(N^{\infty} \overline{Y}) \cong T_y \overline{Y} \oplus d_v p(N_y^{\infty} \overline{Y}) \]
+
+\begin{prop}
+    Let $(y, v) \in \mathbb{P}(N^{\infty} \overline{Y})$ such that $y \in Y \subset \mathbb{C}^m$. We have
+    \[ \ker d_{(y,v)} f = \{ \lambda v \mid \lambda v \in Q\} \oplus 0 \subset T_{(y,v)} \mathbb{P}(N^{\infty} \overline{Y}) \]
+\end{prop}
+
+\begin{proof}
+    We start by recalling how the canonical embedding $\mathbb{C}^m \hookrightarrow \mathbb{P}^m$ is
+    defined : we start by embedding $\mathbb{C}^m \hookrightarrow \mathbb{C}^m \times \{1\}$ then taking
+    the projection. Hence $y \in Y \subset \mathbb{C}^{m+1}$ can be written as $y = (\tilde{y}, 1)$.
+    With that in mind and denoting $(NY)_0$ the image of the zero section, we can define the following
+    projection
+    \[ g : \begin{array}{cl}
+        NY \backslash (NY)_0 &\longrightarrow \mathbb{P}(N^{\infty} \overline{Y})\\
+        (y, v) &\longmapsto ([y], [\tilde{v} : 0])
+    \end{array} \]
+    as $v$ can be written as $v = (\tilde{v}, *)$ where $\tilde{v}$ is a normal vector to $Y$
+    seen in $\mathbb{C}^m$. If we write $V(2, m+1) \subset \mathcal{M}_{m+1,2}(\mathbb{C})$ the
+    submanifold of matrices of rank $2$, we get the following commutative diagram
+    \begin{center}
+    \begin{tikzcd}
+        NY \backslash (NY)_0 \arrow[r, "\tilde{f}"] \arrow[d, "g"] & V(2, m+1) \arrow[d, "q"]\\
+        \mathbb{P}(N^{\infty}\overline{Y}) \arrow[r, "f"] & G(2, m+1)
+    \end{tikzcd}
+    \end{center}
+    where $q$ is the canonical projection and $\tilde{f} : (y, v) \mapsto (y \mid v)$. This is well
+    defined as $y$ and $v$ are not proportional.
+    \medskip \newline
+    Let $w \in \ker d_{(y,[v])} f$ where $(y, [v]) \in \mathbb{P}(N^{\infty} \overline{Y})$.
+    Because $g$ is a surjective submersion, we find $y \in Y$ and $v \in N_y Y$ of the form $v = (\tilde{v}, 0)$,
+    and
+    \[ u := u_t + u_n \in T_{(y,v)} (NY) \cong T_y Y \oplus N_y Y \]
+    such that $w = d_{(y,v)}g(u_t + u_n)$. It now suffices to show that $u_n$
+    and $u_t$ are proportional to $v$ and $u_t$ is in the isotopic quadric.
+    \medskip \newline
+    $\tilde{f}$ being an embedding, we see $u$ as an element of $V(2, m+1)$. $w$ being in
+    the kernel of $df$ at $(y,[v])$, $u$ is in the kernel of $dq$ at $(y \mid v)$, so
+    it is of the form $(y \mid v)M$ where $M \in \mathcal{M}_{2}(\mathbb{C})$.
+    $u_t$ and $u_n$ being respectively tangent and normal to $Y \subset \mathbb{C}^{m+1}$, we have
+    \[ u = \begin{pmatrix}
+        \tilde{u}_t & \tilde{u}_n\\
+        0 & \lambda
+    \end{pmatrix} =
+    \begin{pmatrix}
+        \tilde{y} & \tilde{v}\\
+        1 & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+        a & b\\
+        c & d
+    \end{pmatrix}\]
+
+    We easily get $a = 0$, $b = \lambda$. Then $\lambda\tilde{y} + d \tilde{v} = \tilde{u}_n$
+    and so $\lambda\tilde{y} = \tilde{u}_n - d \tilde{v}$ is a normal vector to $Y$ in
+    seen in $\mathbb{C}^m$. By the bottleneck general condition, $\lambda$ must be $0$,
+    so $u_n$ is proportional to $v$. Lastly, $c \tilde{v} = \tilde{u}_t$ which is in $N_y Y$ and
+    $T_y Y$ if seen in $\mathbb{C}^m$, so this vector is in the isotopic quadric. We showed what we wanted.
+    \bigskip \newline
+    One can check by similar computations that if $u_t$ and $u_n$ verify such conditions,
+    $w$ is in the kernel of $df$ at $(y, [v])$.
+\end{proof}
+
+With the help of this result, we see that the second kind of points counted in $\mathbb{D}(f)$
+are a purely complex phenomenon, as the isotopic quadric is not reduced to $0$ thanks to
+the complex structure.
+\bigskip
+
+\quad Thanks to the previous discussion, we can define the \textit{bottleneck degree} of
+$\overline{Y}$ as
+$\operatorname{BND}(\overline{Y}) = \deg \mathbb{D}(f)$. Because the points $y_1, y_2$
+might lie in $Y_{\infty}$, this doesn't give us the bottleneck degree of $Y$. However
+one can fix that in the following way, as $Y_{\infty} \subset \mathbb{P}^{m-1}$
+
+\begin{defi}[Affine bottleneck degree]
+    If $Y \subset \mathbb{C}^m$ is bottleneck general, we define its bottleneck degree as
+    \[ \operatorname{BND}(Y) = \operatorname{BND}(\overline{Y}) - \operatorname{BND}(Y_{\infty}) \]
+\end{defi}
 
 \bibliographystyle{plain}
 \bibliography{morseBib}
