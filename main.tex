@@ -32,7 +32,18 @@
 \end{tikzpicture}
 }
 
+\newcommand*{\iso}{\xrightarrow{\sim}}
 
+\newcommand*{\bbC}{\mathbb{C}}
+\newcommand*{\bbP}{\mathbb{P}}
+\newcommand*{\bbR}{\mathbb{R}}
+
+\newcommand*{\calO}{\mathcal{O}}
+\newcommand*{\calN}{\mathcal{N}}
+\newcommand*{\calT}{\mathcal{T}}
+
+\DeclareMathOperator{\img}{im}
+\DeclareMathOperator{\Ann}{Ann}
 
 \title{Generalized Morse theory for distance functions}
 
@@ -45,718 +56,718 @@
 
 \begin{flushleft}
 
-\tableofcontents
+    \tableofcontents
 
-\newpage
-\setcounter{page}{1}
+    \newpage
+    \setcounter{page}{1}
 
-\section{Generalities on Lipschitz Functions}
+    \section{Generalities on Lipschitz Functions}
 
-\subsection{Lipschitz functions on manifolds and subdifferentials}
+    \subsection{Lipschitz functions on manifolds and subdifferentials}
 
-\subsubsection{General facts and definitions}
+    \subsubsection{General facts and definitions}
 
-\quad For all the following, $M$ will denote a differentiable manifold of dimension $m$.
-In this section, we generalize many definitions related to Lipschitz functions. We begin by
-extending the definition of Lipschitz functions to functions on a manifold.
+    \quad For all the following, $M$ will denote a differentiable manifold of dimension $m$.
+    In this section, we generalize many definitions related to Lipschitz functions. We begin by
+    extending the definition of Lipschitz functions to functions on a manifold.
 
-\begin{defi}
-    A function $f : M \rightarrow \mathbb{R}^n$, where $M$ is a smooth manifold, is
-    locally Lipschitz if for any chart $U \subset M$ and any compact $K \subset U$,
-    there exists $C > 0$ such that, with the coordinates on $U$
-    \[\forall x, y \in K, | f(x) - f(y) | \leq C |x - y| \]
-\end{defi}
+    \begin{defi}
+        A function $f : M \rightarrow \mathbb{R}^n$, where $M$ is a smooth manifold, is
+        locally Lipschitz if for any chart $U \subset M$ and any compact $K \subset U$,
+        there exists $C > 0$ such that, with the coordinates on $U$
+        \[\forall x, y \in K, | f(x) - f(y) | \leq C |x - y| \]
+    \end{defi}
 
-\quad Let $f : U \subset \mathbb{R}^m \rightarrow \mathbb{R}^n$ be a Lipschitz function, where $U$ is
-open. Rademacher's theorem, which states that $f$ is differentiable almost everywhere, will
-allow us to generalize differentials to this setting.
+    \quad Let $f : U \subset \mathbb{R}^m \rightarrow \mathbb{R}^n$ be a Lipschitz function, where $U$ is
+    open. Rademacher's theorem, which states that $f$ is differentiable almost everywhere, will
+    allow us to generalize differentials to this setting.
 
-\begin{defi}\cite{ClarkeImplicit}
-    The subdifferential of $f$ at $x$, denoted by $\partial_x f$ is the convex hull of
-    the linear maps $l$ obtained as
-    \[ l = \lim_{i \rightarrow \infty} d_{x_i}f \]
-    where $f$ is differentiable at each $x_i$ and $x_i \rightarrow x$.
-\end{defi}
+    \begin{defi}\cite{ClarkeImplicit}
+        The subdifferential of $f$ at $x$, denoted by $\partial_x f$ is the convex hull of
+        the linear maps $l$ obtained as
+        \[ l = \lim_{i \rightarrow \infty} d_{x_i}f \]
+        where $f$ is differentiable at each $x_i$ and $x_i \rightarrow x$.
+    \end{defi}
 
-The subdifferential is then set valued. This set is always non empty and compact, $f$ being
-Lipschitz bounds $df$ where it is defined.\newline
-By \cite{ClarkeFirst}, we can exclude a set of measure $0$ from the possible values of $x_i$
-without changing the definition.
+    The subdifferential is then set valued. This set is always non empty and compact, $f$ being
+    Lipschitz bounds $df$ where it is defined.\newline
+    By \cite{ClarkeFirst}, we can exclude a set of measure $0$ from the possible values of $x_i$
+    without changing the definition.
 
-\begin{figure}[h]
-    \caption{The absolute value and its subdifferential represented in the plane}
-    \begin{center}
-    The set on the right is $\bigcup_{l \in \partial f} l$\\
-    \begin{R2axis}{-3}{3}{-3}{3}{1}
-        \draw[thick, black] (-3, 3) -- (0, 0) -- (3, 3);
-    \end{R2axis}
-    \hspace*{1cm}
-    \begin{R2axis}{-3}{3}{-3}{3}{1}
-        \draw[thick, blue] (-3, -1) -- (0, -1) -- (0, 1) -- (3, 1);
-        \draw (0, -1) node[below right] {$-1$};
-        \draw (0, 1) node[above left] {$1$};
-    \end{R2axis}
-    \end{center}
-\end{figure}
+    \begin{figure}[h]
+        \caption{The absolute value and its subdifferential represented in the plane}
+        \begin{center}
+            The set on the right is $\bigcup_{l \in \partial f} l$\\
+            \begin{R2axis}{-3}{3}{-3}{3}{1}
+                \draw[thick, black] (-3, 3) -- (0, 0) -- (3, 3);
+            \end{R2axis}
+            \hspace*{1cm}
+            \begin{R2axis}{-3}{3}{-3}{3}{1}
+                \draw[thick, blue] (-3, -1) -- (0, -1) -- (0, 1) -- (3, 1);
+                \draw (0, -1) node[below right] {$-1$};
+                \draw (0, 1) node[above left] {$1$};
+            \end{R2axis}
+        \end{center}
+    \end{figure}
 
-% Example
+    % Example
 
-\begin{prop}
-    $\partial f$ is the smallest convex valued upper semi-continuous function containing
-    $df$ whenever it is defined.
-\end{prop}
+    \begin{prop}
+        $\partial f$ is the smallest convex valued upper semi-continuous function containing
+        $df$ whenever it is defined.
+    \end{prop}
 
-\begin{proof}
-    First, $\partial f$ is upper semi-continuous : by compactness, it suffices to
-    show that for all $x \in U, \varepsilon > 0$, for $y$ sufficiently close to $x$.
-    \[ \partial_y f \subset \partial_x f + B(0, \varepsilon)\]
-    Assume for contradiction that there exists a sequence $x_i \rightarrow x$ such that for all $i$,
-    $\partial_{x_i} f$ has an element out of $A := \partial_x f + \overline{B}(0, \varepsilon/2)$.
-    $A$ being convex and closed, let $x'_i$ be such that $d_{x'_i} f$ is out of
-    $A$, and such that $x'_i - x_i \rightarrow 0$. Up to extraction, $d_{x'_i} f$ converges to an element in 
-    $\partial_x f$, so it enters $A$, contradiction.
+    \begin{proof}
+        First, $\partial f$ is upper semi-continuous : by compactness, it suffices to
+        show that for all $x \in U, \varepsilon > 0$, for $y$ sufficiently close to $x$.
+        \[ \partial_y f \subset \partial_x f + B(0, \varepsilon)\]
+        Assume for contradiction that there exists a sequence $x_i \rightarrow x$ such that for all $i$,
+        $\partial_{x_i} f$ has an element out of $A := \partial_x f + \overline{B}(0, \varepsilon/2)$.
+        $A$ being convex and closed, let $x'_i$ be such that $d_{x'_i} f$ is out of
+        $A$, and such that $x'_i - x_i \rightarrow 0$. Up to extraction, $d_{x'_i} f$ converges to an element in
+        $\partial_x f$, so it enters $A$, contradiction.
+        \medskip \newline
+        The minimality of $\partial f$ follows from the fact that it is a convex hull.
+    \end{proof}
+
+    \quad The subdifferential allows us to generalize the idea of regular and critical points, which will
+    be an important tool for generalizing Morse theory.
+
+    \begin{defi}
+        A point $x \in U$ will be called critical if there exists some $l \in \partial_x f$
+        not of maximal rank. $x$ will be called regular if it isn't critical.
+    \end{defi}
+
+    To extend these subdifferentiability notions to manifolds, one must ensure that for all
+    charts, the definitions of $\partial f$ coincide. If this is the case, $\partial_x f$ is
+    a compact convex subset of $T_x^* M$. The following generalization of the chain rule
+    allows us to do that.
+
+    \begin{prop}[Subdifferential chain rule]
+        Let $h : \mathbb{R}^n \rightarrow \mathbb{R}^k$ be a $C^1$ function. For $x \in U$ :
+        \[ \partial_x (h \circ f) \subset d_{f(x)} h \circ \partial_x f \]
+        If $h$ is a diffeomorpism, we have equality.
+    \end{prop}
+
+    \begin{proof}
+        For the first part, because $f$ is differentiable a.e, it suffices to show that
+        the leftwise term is an upper semi-continuous convex valued function that contains
+        $d(h \circ f)$ whenever $df$ is defined. This follows from the definition of $\partial f$.
+        \medskip \newline
+        If $h$ is a diffeomorphism, then for $x \in U$ :
+        \[ \partial_x f = \partial_x (h^{-1} \circ h \circ f)
+            \subset d_{h \circ f (x)} h^{-1} \circ \partial_x (h \circ f) \subset \partial_x f \]
+        so we have equalities, and the result follows.
+    \end{proof}
+
+    Although some important differentiablity related results can be obtained with locally
+    Lipschitz functions as we'll see, a general locally Lipschitz function can have some
+    pathological behaviours. As an example, it's subdifferential isn't in general a
+    topological submanifold of $M$ : define
+    \[ A = \bigcup_{n \geq 0} \left[ \frac{1}{2^{2n+1}}, \frac{1}{2^{2n}} \right[,
+        B = \bigcup_{n \geq 0} \left[ \frac{1}{2^{2n+2}}, \frac{1}{2^{2n+1}} \right[ \]
+                The integral of the following function constitutes a counterexample, no chart can be
+                found around the point $(0, 1)$ which is a point in the subdifferential.
+                \[ \begin{array}{cl}
+                        \mathbb{R} & \longrightarrow \mathbb{R}                            \\
+                        x          & \longmapsto \left\{ \begin{array}{cl}
+                                                             2 & x \in A                       \\
+                                                             1 & x \in B                       \\
+                                                             0 & x \leq 0 \text{ or } x \geq 1
+                                                         \end{array} \right.
+                    \end{array} \]
+                However, the functions we'll
+                study, for example continuous selections (see Section \ref{sec:ContSelec}) have much nicer
+                behaviour and we retrieve this property.
+
+                \subsubsection{The case of convex functions}\label{sec:subdiffconvex}
+
+                \quad If we consider convex Lipschitz functions $f : U \subset \mathbb{R}^m \rightarrow \mathbb{R}$,
+                where $U$ is a convex open set, the subdifferential can be understood much more precisely
+                (in fact, this object was first invented for convex functions).
+                \medskip \newline
+                Consider a point $x \in U$ where $d_x f$ exists. By convexity, we have
+                \[ \forall z \in U, f(z) \geq f(x) + d_x f(z-x) \]
+                Denote $C_x$ the set of all linear maps verifying such property at a point $x$.
+                The function $C : x \mapsto C_x$ is convex-valued, upper semi-continuous and contains
+                $d_x f$ whenever it is defined. Moreover, at such points we have for $h$ small enough :
+                \[ f(x+h) = f(x) + d_x f(h) + o(h) \geq f(x) + \varphi(h) \]
+                where $\varphi \in C_x$. We deduce $(\varphi - d_x f)(h) = o(h)$, so $\varphi = d_x f$.
+                Upper semi-continuity gives us $C \subset \partial f$, and the reciprocal is given
+                by minimality of $\partial f$. So for a convex function the subdifferential can be described
+                as
+                \[ \partial_x f = \{ \varphi \in (\mathbb{R}^m)^* \mid \forall z \in U, f(z) \geq f(x) + \varphi(z-x) \}\]
+                which gives a geometrical meaning to the name subdifferential.
+                \bigskip \newline
+                \quad Lastly, we connect the subdifferential to the directionnal derivatives of $f$. The
+                directionnal derivative of $f$ at $x$ in direction $v \in \mathbb{R}^m$ is given by
+                \[ D_x f(v) = \lim_{t \rightarrow 0^+} \frac{f(x+tv)-f(x)}{t} \]
+                and is always defined since $f$ is convex. The two concepts are related by the following
+                formula
+                \[ D_x f(v) = \max_{l \in \partial f} \langle l, v \rangle \]
+
+                \subsection{Generalized differential theorems}
+
+                \quad We now consider the specific case of $f : U \subset \mathbb{R}^m \rightarrow \mathbb{R}^m$.
+                This section is devoted to proving generalizations by Clarke \cite{ClarkeImplicit} of the inverse function
+                theorem and the implicit function theorem for the case of Lipschitz functions.
+                \bigskip
+
+                \quad In this section, we norm the space of linear maps $\mathbb{R}^m \rightarrow \mathbb{R}^m$, which we denote
+                $\mathcal{L}(\mathbb{R}^n)$, with the operator norm $\| \cdot \|$ obtained from the norm used on
+                $\mathbb{R}^n$.
+
+                \begin{lem}\label{invfunlem}
+                    Assume $U$ is convex, and that there exists some closed convex set $C$ such that
+                    \begin{itemize}
+                        \item Every $l \in C$ is invertible.
+                        \item $\partial_x f \subset C$ for all $x \in U$
+                    \end{itemize}
+                    Then there exists some $\delta > 0$ such that for all $x, y \in U$ :
+                    \[ |f(x) - f(y)| \geq \delta |x - y| \]
+                \end{lem}
+
+                \begin{proof}
+                    Firstly, we set
+                    \[ \delta = \inf\left\{ |l(h)| \mid l \in C, h \in S \right\} \]
+                    where $S$ is the unit sphere in $\mathbb{R}^n$. $\delta > 0$ because all $l \in C$
+                    are invertible and $C \times S$ is closed.
+                    \medskip \newline
+                    Let $x, y \in U$ and assume $x \neq y$. Let $\pi$ be the plane perpendicular to $y - x$
+                    passing through $x$. $f$ being differentiable a.e, Fubini's theorem implies that
+                    for almost all $x' \in \pi$, $f$ is differentiable almost on the whole line passing
+                    through $x'$ and perpendicular to $\pi$ (i.e $f$ isn't differentiable on a subset of this line of
+                    one dimensional measure $0$).\newline
+                    Denoting $F : t \longmapsto f(x' + t(y-x))$, we have :
+                    \begin{equation}\label{eq:invfunlemeq}
+                        f(x' + y - x) - f(x') = \int_{0}^{1} F'(t) dt = \int_{0}^1 d_{x'+t(y-x)} f (y-x)dt
+                    \end{equation}
+                    Define the linear map
+                    \[ L = \int_0^1 d_{x'+t(y-x)} f dt \]
+                    $C$ being convex and closed, $L \in C$. Observe that the integral on the right of
+                    \eqref{eq:invfunlemeq} is just $L(y-x)$. So
+                    \[ |f(x'+y-x) - f(x')| \geq \delta |y-x| \]
+                    This inequality holds for almost all $x' \in \pi$, so by continuity of $f$, it holds for $x$
+                    and we get the desired result.
+                \end{proof}
+
+                \begin{theorem}[Lipschitz inverse function theorem]
+                    If $x_0$ is a regular point of $f$, then there exists $V, W$, neighbourhoods of $x_0$ and $f(x_0)$
+                    respectively, such that $f$ induces a bijection $f : V \rightarrow W$ where $f^{-1}$ is
+                    Lipschitz too.
+                \end{theorem}
+
+                \begin{proof}
+                    By compactness of $\partial_{x_0} f$, regularity of $x_0$, and the fact that the invertible
+                    linear maps form an open set, there exist some $\varepsilon > 0$ such that the set
+                    \[ C := \partial_{x_0} f + \overline{B}(0, \varepsilon) \]
+                    is composed only of invertible maps. By upper semi-continuity of $\partial f$, there is
+                    some $r > 0$ such that for $y \in B(x_0, r)$, $\partial f(y) \subset C$. We then
+                    apply Lemma \ref{invfunlem} with $U = B(x_0, r)$ and get a corresponding $\delta > 0$.
+                    \medskip \newline
+                    Set $V = B(x_0, r/2)$ and $W = f(V)$. We showed in particular that $f$ is injective on
+                    $\overline{V}$, by compactness $f : \overline{V} \rightarrow f(\overline{V})$ induces a homeomorphism. $W$
+                    is then open. The inequality we got with $\delta$ implies that $f^{-1}$ is $\frac{1}{\delta}$
+                    Lipschitz.
+                \end{proof}
+
+                From this theorem, follows the implicit function theorem for Lipschitz functions
+
+                \begin{theorem}
+                    Let $F : U \rightarrow \mathbb{R}^n$, where $U \subset \mathbb{R}^m \times \mathbb{R}^n$
+                    is open and $F$ is Lipschitz. Let $(x_0, y_0) \in U$ such that $F(x_0, y_0) = 0$
+                    and $y_0$ is a regular point of $y \mapsto F(x_0, y)$. Then there exist neighbourhoods
+                    $(x_0, y_0) \in W \subset U$, $x_0 \in V \subset R^m$ and a Lipschitz function
+                    $g : V \rightarrow \mathbb{R}^n$ such that
+                    \[ (x, y) \in W \text{ and } F(x, y) = 0 \Leftrightarrow x \in V \text{ and } y = g(x) \]
+                \end{theorem}
+
+                The proof is almost the same as the usual implicit function theorem, where the continuity
+                of the differential is replaced by the semi continuity of $\partial F$.
+
+                \subsection{First Morse lemma for locally Lipschitz functions}
+
+                \quad The goal of this section is to use the generalized notion of critical points in order to
+                generalize the first Morse lemma to the case of locally Lipschitz functions. Fix $M$
+                an $m$-dimensional smooth manifold, $f : M \rightarrow \mathbb{R}$ a continuous function and
+                define for all $c \in \mathbb{R}$ the sublevel set of $f$ of value $c$ as
+                \[ M_c := f^{-1}(]-\infty, c]) \]
+    The classical first Morse lemma states that if $f$ is $C^1$, and there are no critical points
+    in $f^{-1}([a, b])$ (that we assume to be compact), then $M_b$ is diffeomorphic to $M_a$
+    and $M_a$ is a deformation retract of $M_b$. We extend this to locally Lipschitz functions,
+    following \cite{AgrachevContSelec}.
+    Note that in this setting $x$ is a critical point of $f$ iff $0 \in \partial_x f \subset T_x^*M$.
+
+    \begin{prop}\label{firstmorselem}
+        Let $a < b \in \mathbb{R}$ such that $f^{-1}([a, b])$ is compact and free of critical points.
+        Then there exists a locally Lipschitz homotopy $H : M_b \times [0, 1] \rightarrow M_b$ such
+        that for all $s \in [0, 1]$, $H(\cdot, s)$ is a homeomorphism verifying
+        \[ H(M_b \times \{s\}) \subset M_{b(1-s) + as} \]
+    \end{prop}
+
+    \begin{proof}
+        We'll construct $V \in \operatorname*{Vec}(M)$ a smooth complete vector field on $M$
+        such that, for all $x \in M$ such that $d_x f$ is defined :
+        \begin{equation}\label{eq:Vsubgrad}
+            d_x f (V(x)) \leq 0 \text{ and } d_x f(V(x)) \leq -1 \text{ if } x \in f^{-1}([a, b])
+        \end{equation}
+        Let $x \in f^{-1}([a, b])$. $x$ being regular and $\partial_x f$ convex, we find an affine hyperplane
+        in $T^*_x M$ separating it from $0$. This gives us $v_x \in T_x M$ such that
+        $\langle \partial_x f, v_x \rangle \leq -2$. By semi continuity, there exists
+        an open neighbourhood $U_x$ of $x$ such that for all $y \in U_x$, $\langle \partial_y f, v_x \rangle \leq -1$.
+        We choose this neighbourhood such that it has compact closure.
+        \medskip \newline
+        These $U_x$ cover $f^{-1}([a, b])$. Let $U_{x_1}, ..., U_{x_r}$ be a finite subcover, and let
+        $\rho_1, ..., \rho_r$ be a partition of unity subordinated to this covering. We set
+        \[\forall x \in M, V(x) = \sum_{i=1}^r \rho_i (x) v_{x_i} \]
+        which indeed verifies \eqref{eq:Vsubgrad} : if $d_x f$ is defined, it is contained in $\partial_x f$,
+        and $V$ is of compact support so it is complete.
+        \medskip \newline
+        Now observe that for $x \in f^{-1}([a, b])$, $t \mapsto f(e^{tV}x)$ is strictly decreasing.
+        Denote by $t(x, s)$, $s \in [0, 1]$, the unique time such that $f(e^{t(x, s)V}x) = as + f(x)(1-s)$.
+        The equation defining $t(x, s)$ is locally Lipschitz in $s, x$ and $t$, so by the Lipschitz implicit
+        function theorem, $t$ is a locally Lipschitz function of $(x,s)$.
+        \medskip \newline
+        We can similarly define $t'$ a locally Lipschitz function of $x$ such that
+        $f(e^{t'(x)V}x) = b$ for $x$ in the orbit of some $y \in f^{-1}(b)$ by $V$. Denote
+        $O$ the set of $x \in M$ that are in such orbits.
+        The homotopy is then given by
+        \[ H : \begin{array}{cl}
+                M_b \times [0, 1] & \longrightarrow M_b                                                                   \\
+                (x, s)            & \longmapsto \left\{ \begin{array}{cl}
+                                                            e^{t(e^{t'(x)V}x, s)V}x & \text{ if } x \in O \\
+                                                            x                       & \text{ else}
+                                                        \end{array} \right.
+            \end{array} \]
+    \end{proof}
+
+    \newpage
+
+    \section{Morse theory of continuous selections}\label{sec:ContSelec}
+
+    \subsection{Definitions}
+
+    \quad We now restrict ourselves to continuous functions that are piecewise smooth with
+    finitely many pieces. We define those as continuous selections.
+
+    \begin{defi}
+        A continuous function $f : M \rightarrow \mathbb{R}$ is a continuous selection if there
+        exists $\varphi_1, ..., \varphi_n$ "regular" functions such that
+        \[ \forall x \in M, f(x) \in \{ \varphi_1(x), ..., \varphi_n(x) \} \]
+    \end{defi}
+
+    The term "regular" is used loosely here to indicate that the $\varphi_i$ satisfy some
+    extra condition on top of being continuous. For what follows, we'll restrict ourselves
+    to continuous selections of smooth functions (but $C^2$ will suffice).
     \medskip \newline
-    The minimality of $\partial f$ follows from the fact that it is a convex hull.
-\end{proof}
-
-\quad The subdifferential allows us to generalize the idea of regular and critical points, which will
-be an important tool for generalizing Morse theory.
-
-\begin{defi}
-    A point $x \in U$ will be called critical if there exists some $l \in \partial_x f$
-    not of maximal rank. $x$ will be called regular if it isn't critical.
-\end{defi}
-
-To extend these subdifferentiability notions to manifolds, one must ensure that for all
-charts, the definitions of $\partial f$ coincide. If this is the case, $\partial_x f$ is
-a compact convex subset of $T_x^* M$. The following generalization of the chain rule
-allows us to do that.
-
-\begin{prop}[Subdifferential chain rule]
-    Let $h : \mathbb{R}^n \rightarrow \mathbb{R}^k$ be a $C^1$ function. For $x \in U$ :
-    \[ \partial_x (h \circ f) \subset d_{f(x)} h \circ \partial_x f \]
-    If $h$ is a diffeomorpism, we have equality.
-\end{prop}
-
-\begin{proof}
-    For the first part, because $f$ is differentiable a.e, it suffices to show that
-    the leftwise term is an upper semi-continuous convex valued function that contains
-    $d(h \circ f)$ whenever $df$ is defined. This follows from the definition of $\partial f$.
+    Note that a continous selection of locally Lipschitz functions is itself locally Lipschitz :
+    if $M$ is an open set of $\mathbb{R}^m$, and we assume that the functions $\varphi_i$ are
+    Lipschitz with constants $c_i$, then $f$ is Lipschitz with constant $\displaystyle \max_i c_i$.
+    Because smooth functions are locally Lipschitz, the functions we'll study will be too.
     \medskip \newline
-    If $h$ is a diffeomorphism, then for $x \in U$ :
-    \[ \partial_x f = \partial_x (h^{-1} \circ h \circ f)
-        \subset d_{h \circ f (x)} h^{-1} \circ \partial_x (h \circ f) \subset \partial_x f \]
-    so we have equalities, and the result follows.
-\end{proof}
+    We can then relate $\partial f$ to the differentials of the $\varphi_i$. Indeed, a limit
+    of points of the form $d_x \varphi_i$ in $T^*M$ is of the same form. Define
+    the set of active indices at $x$,
+    \[ I(x) = \{ i \in \llbracket 1, n \rrbracket \mid \varphi_i(x) = f(x)\} \]
+    $\partial_x f$ is then the convex hull of some $d_x \varphi_i$, $i \in I(x)$.
+    It is possible that not all $d_x \varphi_i$ are used, if for example one of the functions isn't active
+    in a neighbourhood of $x$.
+    \bigskip
 
-Although some important differentiablity related results can be obtained with locally
-Lipschitz functions as we'll see, a general locally Lipschitz function can have some
-pathological behaviours. As an example, it's subdifferential isn't in general a
-topological submanifold of $M$ : define
-\[ A = \bigcup_{n \geq 0} \left[ \frac{1}{2^{2n+1}}, \frac{1}{2^{2n}} \right[,
-B = \bigcup_{n \geq 0} \left[ \frac{1}{2^{2n+2}}, \frac{1}{2^{2n+1}} \right[ \]
-The integral of the following function constitutes a counterexample, no chart can be
-found around the point $(0, 1)$ which is a point in the subdifferential.
-\[ \begin{array}{cl}
-    \mathbb{R} &\longrightarrow \mathbb{R}\\
-    x &\longmapsto \left\{ \begin{array}{cl}
-        2 & x \in A\\
-        1 & x \in B\\
-        0 & x \leq 0 \text{ or } x \geq 1
-    \end{array} \right.
-\end{array} \]
-However, the functions we'll
-study, for example continuous selections (see Section \ref{sec:ContSelec}) have much nicer
-behaviour and we retrieve this property.
-
-\subsubsection{The case of convex functions}\label{sec:subdiffconvex}
-
-\quad If we consider convex Lipschitz functions $f : U \subset \mathbb{R}^m \rightarrow \mathbb{R}$,
-where $U$ is a convex open set, the subdifferential can be understood much more precisely
-(in fact, this object was first invented for convex functions).
-\medskip \newline
-Consider a point $x \in U$ where $d_x f$ exists. By convexity, we have
-\[ \forall z \in U, f(z) \geq f(x) + d_x f(z-x) \]
-Denote $C_x$ the set of all linear maps verifying such property at a point $x$.
-The function $C : x \mapsto C_x$ is convex-valued, upper semi-continuous and contains
-$d_x f$ whenever it is defined. Moreover, at such points we have for $h$ small enough :
-\[ f(x+h) = f(x) + d_x f(h) + o(h) \geq f(x) + \varphi(h) \]
-where $\varphi \in C_x$. We deduce $(\varphi - d_x f)(h) = o(h)$, so $\varphi = d_x f$.
-Upper semi-continuity gives us $C \subset \partial f$, and the reciprocal is given
-by minimality of $\partial f$. So for a convex function the subdifferential can be described
-as
-\[ \partial_x f = \{ \varphi \in (\mathbb{R}^m)^* \mid \forall z \in U, f(z) \geq f(x) + \varphi(z-x) \}\]
-which gives a geometrical meaning to the name subdifferential.
-\bigskip \newline
-\quad Lastly, we connect the subdifferential to the directionnal derivatives of $f$. The
-directionnal derivative of $f$ at $x$ in direction $v \in \mathbb{R}^m$ is given by
-\[ D_x f(v) = \lim_{t \rightarrow 0^+} \frac{f(x+tv)-f(x)}{t} \]
-and is always defined since $f$ is convex. The two concepts are related by the following
-formula
-\[ D_x f(v) = \max_{l \in \partial f} \langle l, v \rangle \]
-
-\subsection{Generalized differential theorems}
-
-\quad We now consider the specific case of $f : U \subset \mathbb{R}^m \rightarrow \mathbb{R}^m$.
-This section is devoted to proving generalizations by Clarke \cite{ClarkeImplicit} of the inverse function
-theorem and the implicit function theorem for the case of Lipschitz functions.
-\bigskip
-
-\quad In this section, we norm the space of linear maps $\mathbb{R}^m \rightarrow \mathbb{R}^m$, which we denote
-$\mathcal{L}(\mathbb{R}^n)$, with the operator norm $\| \cdot \|$ obtained from the norm used on
-$\mathbb{R}^n$.
-
-\begin{lem}\label{invfunlem}
-    Assume $U$ is convex, and that there exists some closed convex set $C$ such that
-    \begin{itemize}
-        \item Every $l \in C$ is invertible.
-        \item $\partial_x f \subset C$ for all $x \in U$
-    \end{itemize}
-    Then there exists some $\delta > 0$ such that for all $x, y \in U$ :
-    \[ |f(x) - f(y)| \geq \delta |x - y| \]
-\end{lem}
-
-\begin{proof}
-    Firstly, we set
-    \[ \delta = \inf\left\{ |l(h)| \mid l \in C, h \in S \right\} \]
-    where $S$ is the unit sphere in $\mathbb{R}^n$. $\delta > 0$ because all $l \in C$
-    are invertible and $C \times S$ is closed.
-    \medskip \newline
-    Let $x, y \in U$ and assume $x \neq y$. Let $\pi$ be the plane perpendicular to $y - x$
-    passing through $x$. $f$ being differentiable a.e, Fubini's theorem implies that
-    for almost all $x' \in \pi$, $f$ is differentiable almost on the whole line passing
-    through $x'$ and perpendicular to $\pi$ (i.e $f$ isn't differentiable on a subset of this line of
-    one dimensional measure $0$).\newline
-    Denoting $F : t \longmapsto f(x' + t(y-x))$, we have :
-    \begin{equation}\label{eq:invfunlemeq}
-        f(x' + y - x) - f(x') = \int_{0}^{1} F'(t) dt = \int_{0}^1 d_{x'+t(y-x)} f (y-x)dt
+    \quad We would like to define what it means for such a continuous selection to be Morse.
+    Let $f$ be a continuous selection of $\varphi_1, ..., \varphi_n$.
+    Following \cite{AgrachevContSelec}, we give three conditions for a function to be considered
+    Morse.
+    \begin{equation}\label{eq:morseCS1}
+        \underline{\text{The graphs of the } \varphi_i, i \in \llbracket 1, n \rrbracket, \text{ are transversal}} \tag{C1}
     \end{equation}
-    Define the linear map
-    \[ L = \int_0^1 d_{x'+t(y-x)} f dt \]
-    $C$ being convex and closed, $L \in C$. Observe that the integral on the right of
-    \eqref{eq:invfunlemeq} is just $L(y-x)$. So
-    \[ |f(x'+y-x) - f(x')| \geq \delta |y-x| \]
-    This inequality holds for almost all $x' \in \pi$, so by continuity of $f$, it holds for $x$
-    and we get the desired result.
-\end{proof}
-
-\begin{theorem}[Lipschitz inverse function theorem]
-    If $x_0$ is a regular point of $f$, then there exists $V, W$, neighbourhoods of $x_0$ and $f(x_0)$
-    respectively, such that $f$ induces a bijection $f : V \rightarrow W$ where $f^{-1}$ is
-    Lipschitz too.
-\end{theorem}
-
-\begin{proof}
-    By compactness of $\partial_{x_0} f$, regularity of $x_0$, and the fact that the invertible
-    linear maps form an open set, there exist some $\varepsilon > 0$ such that the set
-    \[ C := \partial_{x_0} f + \overline{B}(0, \varepsilon) \]
-    is composed only of invertible maps. By upper semi-continuity of $\partial f$, there is
-    some $r > 0$ such that for $y \in B(x_0, r)$, $\partial f(y) \subset C$. We then
-    apply Lemma \ref{invfunlem} with $U = B(x_0, r)$ and get a corresponding $\delta > 0$.
+    This condition has some important consequences :
+    for a non empty $I \subset \llbracket 1, n \rrbracket$, we define
+    \[ W_I := \{ x \in M \mid I(x) = I \} \]
+    Condition \eqref{eq:morseCS1} implies that $W_I$ is a submanifold of $M$ of codimension
+    $|I|-1$ : the intersection of the graphs of $\varphi_i, i \in I$ is a submanifold of
+    $M \times \mathbb{R}$ of codimension $|I|$ and $W_I$ is the pre-image of this intersection
+    through the diffeomorphism $x \mapsto (x, \varphi_i(x))$, $i \in I$, minus the closed set
+    $\bigcup_{J \supset I} W_J$.
     \medskip \newline
-    Set $V = B(x_0, r/2)$ and $W = f(V)$. We showed in particular that $f$ is injective on
-    $\overline{V}$, by compactness $f : \overline{V} \rightarrow f(\overline{V})$ induces a homeomorphism. $W$
-    is then open. The inequality we got with $\delta$ implies that $f^{-1}$ is $\frac{1}{\delta}$
-    Lipschitz.
-\end{proof}
-
-From this theorem, follows the implicit function theorem for Lipschitz functions
-
-\begin{theorem}
-    Let $F : U \rightarrow \mathbb{R}^n$, where $U \subset \mathbb{R}^m \times \mathbb{R}^n$
-    is open and $F$ is Lipschitz. Let $(x_0, y_0) \in U$ such that $F(x_0, y_0) = 0$
-    and $y_0$ is a regular point of $y \mapsto F(x_0, y)$. Then there exist neighbourhoods
-    $(x_0, y_0) \in W \subset U$, $x_0 \in V \subset R^m$ and a Lipschitz function
-    $g : V \rightarrow \mathbb{R}^n$ such that
-    \[ (x, y) \in W \text{ and } F(x, y) = 0 \Leftrightarrow x \in V \text{ and } y = g(x) \] 
-\end{theorem}
-
-The proof is almost the same as the usual implicit function theorem, where the continuity
-of the differential is replaced by the semi continuity of $\partial F$.
-
-\subsection{First Morse lemma for locally Lipschitz functions}
-
-\quad The goal of this section is to use the generalized notion of critical points in order to
-generalize the first Morse lemma to the case of locally Lipschitz functions. Fix $M$
-an $m$-dimensional smooth manifold, $f : M \rightarrow \mathbb{R}$ a continuous function and
-define for all $c \in \mathbb{R}$ the sublevel set of $f$ of value $c$ as
-\[ M_c := f^{-1}(]-\infty, c]) \]
-The classical first Morse lemma states that if $f$ is $C^1$, and there are no critical points
-in $f^{-1}([a, b])$ (that we assume to be compact), then $M_b$ is diffeomorphic to $M_a$
-and $M_a$ is a deformation retract of $M_b$. We extend this to locally Lipschitz functions,
-following \cite{AgrachevContSelec}.
-Note that in this setting $x$ is a critical point of $f$ iff $0 \in \partial_x f \subset T_x^*M$.
-
-\begin{prop}\label{firstmorselem}
-    Let $a < b \in \mathbb{R}$ such that $f^{-1}([a, b])$ is compact and free of critical points.
-    Then there exists a locally Lipschitz homotopy $H : M_b \times [0, 1] \rightarrow M_b$ such
-    that for all $s \in [0, 1]$, $H(\cdot, s)$ is a homeomorphism verifying
-    \[ H(M_b \times \{s\}) \subset M_{b(1-s) + as} \]
-\end{prop}
-
-\begin{proof}
-    We'll construct $V \in \operatorname*{Vec}(M)$ a smooth complete vector field on $M$
-    such that, for all $x \in M$ such that $d_x f$ is defined :
-    \begin{equation}\label{eq:Vsubgrad}
-        d_x f (V(x)) \leq 0 \text{ and } d_x f(V(x)) \leq -1 \text{ if } x \in f^{-1}([a, b])
+    This transversality condition also implies that for $x \in M$,
+    the differentials $d_x \varphi_i$ are affinely independant where $i \in I(x)$. By affinely
+    independant, we mean that one of the two equivalent conditions are satisfied :
+    for some/any $j \in I(x)$, the family $(d_x \varphi_i - d_x \varphi_j)_{\substack{i \in I(x) \\ j \neq i}}$
+    is linearly independant, or equivalently, the family
+    \[ \begin{pmatrix}
+            d_x \varphi_i \\
+            1
+        \end{pmatrix}, i \in I(x) \]
+    is linearly independant. This implies that $\partial_x f$ is a simplex with less than
+    $|I(x)| - 1$ vertices.
+    \medskip \newline
+    Note that for all $I \subset \llbracket 1, n \rrbracket$, $f_{\mid W_I}$ is a smooth function.
+    This motivates the second condition
+    \begin{equation}\label{eq:morseCS2}
+        \underline{\text{For all non empty } I \subset \llbracket 1, n \rrbracket, f_{\mid W_I} \text{ is Morse}} \tag{C2}
     \end{equation}
-    Let $x \in f^{-1}([a, b])$. $x$ being regular and $\partial_x f$ convex, we find an affine hyperplane
-    in $T^*_x M$ separating it from $0$. This gives us $v_x \in T_x M$ such that
-    $\langle \partial_x f, v_x \rangle \leq -2$. By semi continuity, there exists
-    an open neighbourhood $U_x$ of $x$ such that for all $y \in U_x$, $\langle \partial_y f, v_x \rangle \leq -1$.
-    We choose this neighbourhood such that it has compact closure.
-    \medskip \newline
-    These $U_x$ cover $f^{-1}([a, b])$. Let $U_{x_1}, ..., U_{x_r}$ be a finite subcover, and let
-    $\rho_1, ..., \rho_r$ be a partition of unity subordinated to this covering. We set
-    \[\forall x \in M, V(x) = \sum_{i=1}^r \rho_i (x) v_{x_i} \]
-    which indeed verifies \eqref{eq:Vsubgrad} : if $d_x f$ is defined, it is contained in $\partial_x f$,
-    and $V$ is of compact support so it is complete.
-    \medskip \newline
-    Now observe that for $x \in f^{-1}([a, b])$, $t \mapsto f(e^{tV}x)$ is strictly decreasing.
-    Denote by $t(x, s)$, $s \in [0, 1]$, the unique time such that $f(e^{t(x, s)V}x) = as + f(x)(1-s)$.
-    The equation defining $t(x, s)$ is locally Lipschitz in $s, x$ and $t$, so by the Lipschitz implicit
-    function theorem, $t$ is a locally Lipschitz function of $(x,s)$.
-    \medskip \newline
-    We can similarly define $t'$ a locally Lipschitz function of $x$ such that
-    $f(e^{t'(x)V}x) = b$ for $x$ in the orbit of some $y \in f^{-1}(b)$ by $V$. Denote
-    $O$ the set of $x \in M$ that are in such orbits.
-    The homotopy is then given by
-    \[ H : \begin{array}{cl}
-        M_b \times [0, 1] &\longrightarrow M_b\\
-        (x, s) &\longmapsto \left\{ \begin{array}{cl}
-                e^{t(e^{t'(x)V}x, s)V}x & \text{ if } x \in O\\
-                x &\text{ else}
-            \end{array} \right.
-    \end{array} \]
-\end{proof}
-
-\newpage
-
-\section{Morse theory of continuous selections}\label{sec:ContSelec}
-
-\subsection{Definitions}
-
-\quad We now restrict ourselves to continuous functions that are piecewise smooth with
-finitely many pieces. We define those as continuous selections.
-
-\begin{defi}
-    A continuous function $f : M \rightarrow \mathbb{R}$ is a continuous selection if there
-    exists $\varphi_1, ..., \varphi_n$ "regular" functions such that
-    \[ \forall x \in M, f(x) \in \{ \varphi_1(x), ..., \varphi_n(x) \} \]
-\end{defi}
-
-The term "regular" is used loosely here to indicate that the $\varphi_i$ satisfy some
-extra condition on top of being continuous. For what follows, we'll restrict ourselves
-to continuous selections of smooth functions (but $C^2$ will suffice).
-\medskip \newline
-Note that a continous selection of locally Lipschitz functions is itself locally Lipschitz :
-if $M$ is an open set of $\mathbb{R}^m$, and we assume that the functions $\varphi_i$ are
-Lipschitz with constants $c_i$, then $f$ is Lipschitz with constant $\displaystyle \max_i c_i$.
-Because smooth functions are locally Lipschitz, the functions we'll study will be too.
-\medskip \newline
-We can then relate $\partial f$ to the differentials of the $\varphi_i$. Indeed, a limit
-of points of the form $d_x \varphi_i$ in $T^*M$ is of the same form. Define
-the set of active indices at $x$,
-\[ I(x) = \{ i \in \llbracket 1, n \rrbracket \mid \varphi_i(x) = f(x)\} \]
-$\partial_x f$ is then the convex hull of some $d_x \varphi_i$, $i \in I(x)$.
-It is possible that not all $d_x \varphi_i$ are used, if for example one of the functions isn't active
-in a neighbourhood of $x$.
-\bigskip
-
-\quad We would like to define what it means for such a continuous selection to be Morse.
-Let $f$ be a continuous selection of $\varphi_1, ..., \varphi_n$.
-Following \cite{AgrachevContSelec}, we give three conditions for a function to be considered
-Morse.
-\begin{equation}\label{eq:morseCS1}
-    \underline{\text{The graphs of the } \varphi_i, i \in \llbracket 1, n \rrbracket, \text{ are transversal}} \tag{C1}
-\end{equation}
-This condition has some important consequences :
-for a non empty $I \subset \llbracket 1, n \rrbracket$, we define
-\[ W_I := \{ x \in M \mid I(x) = I \} \]
-Condition \eqref{eq:morseCS1} implies that $W_I$ is a submanifold of $M$ of codimension
-$|I|-1$ : the intersection of the graphs of $\varphi_i, i \in I$ is a submanifold of
-$M \times \mathbb{R}$ of codimension $|I|$ and $W_I$ is the pre-image of this intersection
-through the diffeomorphism $x \mapsto (x, \varphi_i(x))$, $i \in I$, minus the closed set
-$\bigcup_{J \supset I} W_J$.
-\medskip \newline
-This transversality condition also implies that for $x \in M$,
-the differentials $d_x \varphi_i$ are affinely independant where $i \in I(x)$. By affinely
-independant, we mean that one of the two equivalent conditions are satisfied :
-for some/any $j \in I(x)$, the family $(d_x \varphi_i - d_x \varphi_j)_{\substack{i \in I(x) \\ j \neq i}}$
-is linearly independant, or equivalently, the family
-\[ \begin{pmatrix}
-    d_x \varphi_i\\
-    1
-\end{pmatrix}, i \in I(x) \]
-is linearly independant. This implies that $\partial_x f$ is a simplex with less than
-$|I(x)| - 1$ vertices.
-\medskip \newline
-Note that for all $I \subset \llbracket 1, n \rrbracket$, $f_{\mid W_I}$ is a smooth function.
-This motivates the second condition
-\begin{equation}\label{eq:morseCS2}
-    \underline{\text{For all non empty } I \subset \llbracket 1, n \rrbracket, f_{\mid W_I} \text{ is Morse}} \tag{C2}
-\end{equation}
-Consider $x \in M$ a critical point of $f$. Observe that $x$ must also be a critical point
-of $f_{\mid W_{I(x)}}$. So
-\[ \displaystyle T_x W_{I(x)} \subset \bigcap_{i \in I(x)} d_x \varphi_i \]
-but the converse can fail if the $d_x \varphi_i$ are not linearly independant enough.
-If this intersection is indeed larger, the geometry of the graph of $f$ does not correspond to what we
-intuitively picture as a "non degenerate critical point" (see \ref{fig:morseCS3Illustr} for a 1
-dimensional example). We then impose the following condition, ensuring equality.
-\begin{equation}\label{eq:morseCS3}
-    \underline{\forall x \in M, \forall j \in I(x), (d_x \varphi_i)_{\substack{i \in I(x) \\ i \neq j}} \text{ are linearly independant}} \tag{C3}
-\end{equation}
-Geometrically, this condition corresponds to requiring that $0$ is either outside or in the
-interior of the simplex $\operatorname*{conv}\{ d_x \varphi_i \mid i \in I(x) \}$, but not on one of its faces.
-Note that this condition can be relaxed by restricting it to the subset of $I(x)$ participating
-in $\partial_x f$.
-\bigskip
-
-\quad A continuous selection $f$ is then called a Morse function if it verifies all three conditions.
-We can also impose that these conditions only hold at critical points, and we get the same
-theory.
-\medskip \newline
-Note that as in the smooth case, a generic continuous selection is Morse, i.e the set of
-all $n$-tuples $(\varphi_1, ..., \varphi_n)$ such that these conditions hold at every critical
-point is open dense in $C^2$ topology \cite{genericMorseCS}. We can see it intuitively by noticing that
-\eqref{eq:morseCS1}
-is a generic condition, any two functions can be slightly perturbed in order for their graphs
-to be transversal, and any small perturbation of transversal graphs preserves transversality.
-By genericity of smooth Morse functions, \eqref{eq:morseCS2} is also a generic condition. With
-the geometric interpretation, we can also see that condition \eqref{eq:morseCS3} is generic.
-
-\begin{figure}[h]\label{fig:morseCS3Illustr}
-    \caption{Example and counterexample of condition \eqref{eq:morseCS3}}
-    \begin{center}
-    \begin{R2axis}{-3}{3}{-2}{3}{1}
-        \draw[thick, blue] (-3, 3) -- (0, 0) -- (3, 3);
-    \end{R2axis}
-    \hspace*{1cm}
-    \begin{R2axis}{-3}{3}{-2}{3}{1}
-        \draw[thick, blue] (-3, 3) -- (0, 0) -- (3, 0);
-    \end{R2axis}
-    \end{center}
-\end{figure}
-
-
-\subsection{Normal form of a Morse continuous selection}
-
-\quad We show here an equivalent of the second Morse lemma for the case of Morse continuous
-selections. Noticing that $x \mapsto I(x)$ is upper semi-continuous and using the definitions
-yields the following result.
-
-\begin{lem}
-    If $f : M \rightarrow \mathbb{R}$ is a Morse continuous selection, all its critical points
-    are isolated.
-\end{lem}
-
-We'll then consider, up to restricting ourselves to a small enough chart,
-that $f : \mathbb{R}^m \rightarrow \mathbb{R}$ is Morse and has no critical points other than $0$. We'll
-write for shorthand $W := W_{I(0)}$, $k := |I(0)|-1$, $c := f(0)$, and assume that $I(0) = \llbracket 1, k+1 \rrbracket$.
-Semi-continuity of the active index also allows us to assume that for $x \in \mathbb{R}^m$,
-$I(x) \subset \llbracket 1, k+1 \rrbracket$.
-\medskip \newline
-Notice that because of condition \eqref{eq:morseCS1} and semi-continuity of the active
-index, the family $(W_I)_{I \subset \llbracket 1, k+1 \rrbracket}$ gives a Whitney stratification
-of $\mathbb{R}^m$. This observation motivates the following lemma, in the spirit of
-Thom isotopy theory.
-
-\begin{lem}\label{lem:prepNormForm}
-    Let $h : \mathbb{R}^k \times \mathbb{R} \rightarrow \mathbb{R}$ be a continuous selection
-    of at most $k+1$ smooth functions verifying condition \eqref{eq:morseCS1}.
-    There exists a neighbourhood $U$ of $0$ and $\varepsilon > 0$, a vector field
-    $X : U \times ]-\varepsilon, \varepsilon[ \rightarrow \mathbb{R}^k \times \mathbb{R}$ verifying
-    \begin{enumerate}
-        \item For $x \in U, t \in ]-\varepsilon, \varepsilon[$ we have
-        \[ X(x, t) = (\tilde{X}(x, t), 1) \]
-        \item If $(x,t) \in W_I$ for some active index set $I$, then $X$
-        is tangent to $W_I$ at all times and the restriction to $W_I$ is $C^1$
-        \item $(x, t) \mapsto h(x, t)$ is constant along integral curves of $X$
-        \item The flow of $X$ is continuous.
-    \end{enumerate}
-\end{lem}
-
-The use of this lemma requires a parameter dependent continuous selection. For the proof of
-the main theorem, we will have to build one with some boundary conditions wich is done
-in the following way
-
-\begin{lem}\label{lem:extendingTimeCS}
-    Let $\varphi_1, ..., \varphi_{k+1} : \mathbb{R}^k \times \mathbb{R} \rightarrow \mathbb{R}$
-    be smooth functions verifying conditions \eqref{eq:morseCS1} and of value $0$ on $\{0\}^k \times \mathbb{R}$.
-    Let $h^0 : \mathbb{R}^k \rightarrow \mathbb{R}$ be a continuous selection of
-    $\varphi_1(\cdot, 0), ..., \varphi_{k+1}(\cdot, 0)$. Then there exist a neighbourhood $U$
-    of $0$ and
-    a continuous selection $h : U \times [0, 1] \rightarrow \mathbb{R}$ of
-    $\varphi_1, ..., \varphi_{k+1}$ such that $h(\cdot, 0) = h^0$.
-\end{lem}
-
-\begin{proof}
-    For all $i < k+1$ define $g_i(x, t) = \varphi_i(x, t) - \varphi_{k+1}(x,t)$. By
-    affine independance the family $(d_0 g_i)_i$ is linearly independant. Using the
-    implicit function theorem, there are coordinates on a neighbourhood $U \times J$
-    of $0$ linearizing all $g_i$, while sending $\mathbb{R}^k \times \{0\}$ to a hyperplane.
-    We assume without loss of generality that this hyperplane is $\mathbb{R}^k \times \{0\}$.
-    It follow that for every $i, j$, $\varphi_i - \varphi_j$ is a linear function in these
-    new coordinates.
-    \medskip \newline
-    Denote $W_I \subset \mathbb{R}^k \times \{0\}$ the set of points $(x, 0)$ such that the active
-    index of $h^0$ at $x$ is equal to $I \subset \llbracket 1, k+1 \rrbracket$. We also define
-    $L = \{ g_i = 0 \mid i \in \llbracket 1, k+1 \rrbracket \}$ which is a linear subspace of
-    dimension $1$. If we now define for all $I$, $C_I = W_I + L$, it defines a partition
-    of $\mathbb{R}^{k+1}$.
-    \medskip \newline
-    Observe that for $z = (x, 0) + u$, $(x, 0) \in W_I, u \in L$ we have for $i, j \in I$ that
-    \[ \varphi_i(z) - \varphi_j(z) = \varphi_i(x, 0) - \varphi_j(x, 0) = 0 \]
-    by linearity. We can then define for all $(x, t) \in C_I$ the function $h(x, t) = \varphi_i(x, t)$
-    for any $i \in I$. This $h$ defines a continuous selection coinciding with $h^0$ on
-    $\mathbb{R}^k \times \{0\}$ in the new coordinates.
-    \medskip \newline
-    We now want to extend this selection on the interval $[0, 1]$. By repeating the
-    argument for some starting time different than $0$, connectedness and
-    compactness yield that there is a neighbourhood $U$ of $0$ such that we can define $h$ on $U \times [0, 1]$.
-\end{proof}
-
-We are now ready to prove the main result of this section.
-
-\begin{theorem}[Normal form]
-    If $0$ is a critical point of $f$, then there exists continuous local coordinates around $0$,
-    $\psi : \mathbb{R}^k \times \mathbb{R}^{m-k} \rightarrow U$ such that
-    \[ \forall y \in \mathbb{R}^k, \forall z \in \mathbb{R}^{m-k}, f(\psi(y,z)) = \lambda(y) + q(z)\]
-    where $\lambda$ is a continuous selection of $k+1$ affinely independant linear functions, and $q$ is of the form
-    \[ \forall z \in \mathbb{R}^{m-k}, q(z) = c -\sum_{i=1}^{\mu} z_i^2 + \sum_{i=\mu+1}^{m-k} z_i^2 \]
-    with $0 \leq \mu \leq m-k$.
-\end{theorem}
-
-\begin{proof}
-    We first restrict ourselves to $O$ a neighbourhood of $0$ such that $W$ can be considered
-    rectified in some smooth coordinates i.e, $W \cap O = 0 \times \mathbb{R}^{m-k}$. By \eqref{eq:morseCS2}
-    we can also use the smooth Morse lemma to get $f(0, z) = q(z)$. For $(y, z) \in \mathbb{R}^m$,
-    write $f^0(y, z) = f(y, z) - f(0, z)$. We will build
-    a locally invertible map $\psi : \mathbb{R}^m \rightarrow \mathbb{R}^m$ such that
-    $\psi(0) = 0$ and for $(y,z)$ close enough to $0$, $f^0 \circ \psi (y, z)$ is a continuous selection of
-    linear maps independant of $z$.
-    \bigskip \newline
-    Assume that all $\varphi_i$ are of value $0$ at $0$, up to replacing $f$ by $f^0$.
-    We will show that up to coordinate change, $f^0$ is only a function of $y$ and not of $z$.
-    This can be done in the following way : first, by condition \eqref{eq:morseCS3}, we can
-    assume that the $k$ first $\varphi_i$ are linearized, i.e equal to $dy_i$ in
-    a neighbourhood of $0$. The last $\varphi_{k+1}$ could still depend on $z$.
-    \medskip \newline
-    To fix this we apply lemma \ref{lem:prepNormForm} to
-    $f^0 : \mathbb{R}^{m+k-1} \times \mathbb{R} \rightarrow \mathbb{R}$.
-    Denote $\Phi(s, y, z)$ the point obtained by integrating $X$ for time $s$ starting at
-    $(y, z)$. The following local homeomorphism
-    \begin{equation}\label{eq:constrPhiNormform}
-        \phi(y, z) = \Phi(-z_{m-k}, y, z) + (0, ..., 0, z_{m-k})
+    Consider $x \in M$ a critical point of $f$. Observe that $x$ must also be a critical point
+    of $f_{\mid W_{I(x)}}$. So
+    \[ \displaystyle T_x W_{I(x)} \subset \bigcap_{i \in I(x)} d_x \varphi_i \]
+    but the converse can fail if the $d_x \varphi_i$ are not linearly independant enough.
+    If this intersection is indeed larger, the geometry of the graph of $f$ does not correspond to what we
+    intuitively picture as a "non degenerate critical point" (see \ref{fig:morseCS3Illustr} for a 1
+    dimensional example). We then impose the following condition, ensuring equality.
+    \begin{equation}\label{eq:morseCS3}
+        \underline{\forall x \in M, \forall j \in I(x), (d_x \varphi_i)_{\substack{i \in I(x) \\ i \neq j}} \text{ are linearly independant}} \tag{C3}
     \end{equation}
-    verifies $f^0 \circ \phi^{-1}(y, z) = f^0(y, z_1, ..., z_{m-k-1}, 0)$. By repeating the process
-    we eliminiate the dependance in $z$.
-    \bigskip \newline
-    Note that in the new coordinates, $\varphi_i = dy_i$ for $i < k + 1$. To write $f^0$ as
-    a continuous selection of linear functions, it suffices to linearize $\varphi_{k+1}$.
-    For that, for all $t \in [0, 1]$ define
-    \[ \varphi_{k+1}^t = (1-t)\varphi_{k+1} + t d_0 \varphi_{k+1} \]
-    Note that for $y$ close enough to $0$ and any $t\in [0, 1]$, $d_y \varphi_{k+1}^t$ is close
-    to $d_y \varphi_{k+1}$, hence the functions $dy_1, ..., dy_k, \varphi_{k+1}^t$ verify
-    \eqref{eq:morseCS1}.
-    By lemma \ref{lem:extendingTimeCS}, we define $h(y,t)$ for all $y$ close enough to $0$ and $t \in [0, 1]$ as
-    a continuous selection of $dy_1, ..., dy_k, \varphi_{k+1}^t$ such that
-    it equals $f^0$ at $t=0$.
+    Geometrically, this condition corresponds to requiring that $0$ is either outside or in the
+    interior of the simplex $\operatorname*{conv}\{ d_x \varphi_i \mid i \in I(x) \}$, but not on one of its faces.
+    Note that this condition can be relaxed by restricting it to the subset of $I(x)$ participating
+    in $\partial_x f$.
+    \bigskip
+
+    \quad A continuous selection $f$ is then called a Morse function if it verifies all three conditions.
+    We can also impose that these conditions only hold at critical points, and we get the same
+    theory.
     \medskip \newline
-    We then apply lemma \ref{lem:prepNormForm}
-    and get $U$ an even smaller neighbourhood and $X$ a vector field on a neighbourhood
-    of $(0, 0)$. Up to shrinking $U$, we can assume that for all $t^*$ there is a
-    time $s(t^*) > 0$ such that for all $y \in U$, we can integrate $(y, t^*)$ for time
-    $s, |s| < s(t^*)$. This gives a covering of $[0, 1]$ by intervals of the form
-    $]t^*-s(t^*), t^*+s(t^*)[$, so we can still cover it with finitely many of these intervals.
+    Note that as in the smooth case, a generic continuous selection is Morse, i.e the set of
+    all $n$-tuples $(\varphi_1, ..., \varphi_n)$ such that these conditions hold at every critical
+    point is open dense in $C^2$ topology \cite{genericMorseCS}. We can see it intuitively by noticing that
+    \eqref{eq:morseCS1}
+    is a generic condition, any two functions can be slightly perturbed in order for their graphs
+    to be transversal, and any small perturbation of transversal graphs preserves transversality.
+    By genericity of smooth Morse functions, \eqref{eq:morseCS2} is also a generic condition. With
+    the geometric interpretation, we can also see that condition \eqref{eq:morseCS3} is generic.
+
+    \begin{figure}[h]\label{fig:morseCS3Illustr}
+        \caption{Example and counterexample of condition \eqref{eq:morseCS3}}
+        \begin{center}
+            \begin{R2axis}{-3}{3}{-2}{3}{1}
+                \draw[thick, blue] (-3, 3) -- (0, 0) -- (3, 3);
+            \end{R2axis}
+            \hspace*{1cm}
+            \begin{R2axis}{-3}{3}{-2}{3}{1}
+                \draw[thick, blue] (-3, 3) -- (0, 0) -- (3, 0);
+            \end{R2axis}
+        \end{center}
+    \end{figure}
+
+
+    \subsection{Normal form of a Morse continuous selection}
+
+    \quad We show here an equivalent of the second Morse lemma for the case of Morse continuous
+    selections. Noticing that $x \mapsto I(x)$ is upper semi-continuous and using the definitions
+    yields the following result.
+
+    \begin{lem}
+        If $f : M \rightarrow \mathbb{R}$ is a Morse continuous selection, all its critical points
+        are isolated.
+    \end{lem}
+
+    We'll then consider, up to restricting ourselves to a small enough chart,
+    that $f : \mathbb{R}^m \rightarrow \mathbb{R}$ is Morse and has no critical points other than $0$. We'll
+    write for shorthand $W := W_{I(0)}$, $k := |I(0)|-1$, $c := f(0)$, and assume that $I(0) = \llbracket 1, k+1 \rrbracket$.
+    Semi-continuity of the active index also allows us to assume that for $x \in \mathbb{R}^m$,
+    $I(x) \subset \llbracket 1, k+1 \rrbracket$.
     \medskip \newline
-    Assume for simplicity 
-    that we can flow for time $1$ from all $(y, 0)$, $y \in U$ i.e $[0, 1]$ can be covered with
-    only one such interval. We construct a local 
-    homeomorphism $\phi$ similarly to \eqref{eq:constrPhiNormform} such that 
-    \[ f^0(y) = h(y, 0) = h \circ \phi^{-1} (y, 1) \]
-    so $f^0$ can be written in some coordinates as a continuous selection of linear functions.
-    If we need more than one interval to cover $[0, 1]$ we can decompose this into finitely many
-    homeomorphisms going from $0$ to $1$ in successive steps.
-    \bigskip \newline
-    By composing all the steps, we indeed constructed the local homeomorphism $\psi$.
+    Notice that because of condition \eqref{eq:morseCS1} and semi-continuity of the active
+    index, the family $(W_I)_{I \subset \llbracket 1, k+1 \rrbracket}$ gives a Whitney stratification
+    of $\mathbb{R}^m$. This observation motivates the following lemma, in the spirit of
+    Thom isotopy theory.
 
-\end{proof}
+    \begin{lem}\label{lem:prepNormForm}
+        Let $h : \mathbb{R}^k \times \mathbb{R} \rightarrow \mathbb{R}$ be a continuous selection
+        of at most $k+1$ smooth functions verifying condition \eqref{eq:morseCS1}.
+        There exists a neighbourhood $U$ of $0$ and $\varepsilon > 0$, a vector field
+        $X : U \times ]-\varepsilon, \varepsilon[ \rightarrow \mathbb{R}^k \times \mathbb{R}$ verifying
+        \begin{enumerate}
+            \item For $x \in U, t \in ]-\varepsilon, \varepsilon[$ we have
+                  \[ X(x, t) = (\tilde{X}(x, t), 1) \]
+            \item If $(x,t) \in W_I$ for some active index set $I$, then $X$
+                  is tangent to $W_I$ at all times and the restriction to $W_I$ is $C^1$
+            \item $(x, t) \mapsto h(x, t)$ is constant along integral curves of $X$
+            \item The flow of $X$ is continuous.
+        \end{enumerate}
+    \end{lem}
 
-\quad We now try to understand better the structure of the non smooth component that appears in
-the normal form theorem. It turns out that it can be encoded in a purely
-combinatorial way, as the following theorem shows \cite{PLminmax}.
+    The use of this lemma requires a parameter dependent continuous selection. For the proof of
+    the main theorem, we will have to build one with some boundary conditions wich is done
+    in the following way
 
-\begin{theorem}\label{th:minmax}
-    Let $\lambda : \mathbb{R}^k \rightarrow \mathbb{R}$ be a continuous selection of
-    $k+1$ affinely independant linear functions, $\lambda_1, ..., \lambda_{k+1}$. Then there exists a unique family
-    $S_1, ..., S_l$ of subsets of $\llbracket 1, k+1 \rrbracket$ verifying that
-    \begin{itemize}
-        \item $S_i \not \subset S_j$, $i \neq j$
-        \item $\lambda$ can be written as
-        \[ \lambda(y) = \min_{i} \max_{j \in S_i} \lambda_j(y) \]
-    \end{itemize}
-\end{theorem}
+    \begin{lem}\label{lem:extendingTimeCS}
+        Let $\varphi_1, ..., \varphi_{k+1} : \mathbb{R}^k \times \mathbb{R} \rightarrow \mathbb{R}$
+        be smooth functions verifying conditions \eqref{eq:morseCS1} and of value $0$ on $\{0\}^k \times \mathbb{R}$.
+        Let $h^0 : \mathbb{R}^k \rightarrow \mathbb{R}$ be a continuous selection of
+        $\varphi_1(\cdot, 0), ..., \varphi_{k+1}(\cdot, 0)$. Then there exist a neighbourhood $U$
+        of $0$ and
+        a continuous selection $h : U \times [0, 1] \rightarrow \mathbb{R}$ of
+        $\varphi_1, ..., \varphi_{k+1}$ such that $h(\cdot, 0) = h^0$.
+    \end{lem}
 
-\begin{proof}
-    Let's first tackle uniqueness. Let $S_1, ..., S_l$, $D_1, ..., D_r$ be two such distinct families.
-    Assume without loss of generality that $S_1 \neq D_j$. We can also assume that for all
-    $1 \leq j \leq r$, $S_1 \not\supset D_j$. If it is the case, then for all $1 < i \leq l$
-    we have $D_j \not\supset S_i$ by assumption on $S$. We can then swap $S$ and $D$ to get
-    what we want.\newline
-    By affine independance, the following linear system has a solution
-    \[ \lambda_i(y) + \mu = c_i, i \in \llbracket 1, k+1 \rrbracket \]
-    where the unknowns are $y, \mu$ and $c_i = 0$ if $i \in S_1$ and $1$ otherwise.
-    It follows that, if we use the representation with $D_i$, we get $\lambda(y) = 1 - \mu$
-    and if we use the one with the $S_i$, $\lambda(y) = -\mu$.
+    \begin{proof}
+        For all $i < k+1$ define $g_i(x, t) = \varphi_i(x, t) - \varphi_{k+1}(x,t)$. By
+        affine independance the family $(d_0 g_i)_i$ is linearly independant. Using the
+        implicit function theorem, there are coordinates on a neighbourhood $U \times J$
+        of $0$ linearizing all $g_i$, while sending $\mathbb{R}^k \times \{0\}$ to a hyperplane.
+        We assume without loss of generality that this hyperplane is $\mathbb{R}^k \times \{0\}$.
+        It follow that for every $i, j$, $\varphi_i - \varphi_j$ is a linear function in these
+        new coordinates.
+        \medskip \newline
+        Denote $W_I \subset \mathbb{R}^k \times \{0\}$ the set of points $(x, 0)$ such that the active
+        index of $h^0$ at $x$ is equal to $I \subset \llbracket 1, k+1 \rrbracket$. We also define
+        $L = \{ g_i = 0 \mid i \in \llbracket 1, k+1 \rrbracket \}$ which is a linear subspace of
+        dimension $1$. If we now define for all $I$, $C_I = W_I + L$, it defines a partition
+        of $\mathbb{R}^{k+1}$.
+        \medskip \newline
+        Observe that for $z = (x, 0) + u$, $(x, 0) \in W_I, u \in L$ we have for $i, j \in I$ that
+        \[ \varphi_i(z) - \varphi_j(z) = \varphi_i(x, 0) - \varphi_j(x, 0) = 0 \]
+        by linearity. We can then define for all $(x, t) \in C_I$ the function $h(x, t) = \varphi_i(x, t)$
+        for any $i \in I$. This $h$ defines a continuous selection coinciding with $h^0$ on
+        $\mathbb{R}^k \times \{0\}$ in the new coordinates.
+        \medskip \newline
+        We now want to extend this selection on the interval $[0, 1]$. By repeating the
+        argument for some starting time different than $0$, connectedness and
+        compactness yield that there is a neighbourhood $U$ of $0$ such that we can define $h$ on $U \times [0, 1]$.
+    \end{proof}
+
+    We are now ready to prove the main result of this section.
+
+    \begin{theorem}[Normal form]
+        If $0$ is a critical point of $f$, then there exists continuous local coordinates around $0$,
+        $\psi : \mathbb{R}^k \times \mathbb{R}^{m-k} \rightarrow U$ such that
+        \[ \forall y \in \mathbb{R}^k, \forall z \in \mathbb{R}^{m-k}, f(\psi(y,z)) = \lambda(y) + q(z)\]
+        where $\lambda$ is a continuous selection of $k+1$ affinely independant linear functions, and $q$ is of the form
+        \[ \forall z \in \mathbb{R}^{m-k}, q(z) = c -\sum_{i=1}^{\mu} z_i^2 + \sum_{i=\mu+1}^{m-k} z_i^2 \]
+        with $0 \leq \mu \leq m-k$.
+    \end{theorem}
+
+    \begin{proof}
+        We first restrict ourselves to $O$ a neighbourhood of $0$ such that $W$ can be considered
+        rectified in some smooth coordinates i.e, $W \cap O = 0 \times \mathbb{R}^{m-k}$. By \eqref{eq:morseCS2}
+        we can also use the smooth Morse lemma to get $f(0, z) = q(z)$. For $(y, z) \in \mathbb{R}^m$,
+        write $f^0(y, z) = f(y, z) - f(0, z)$. We will build
+        a locally invertible map $\psi : \mathbb{R}^m \rightarrow \mathbb{R}^m$ such that
+        $\psi(0) = 0$ and for $(y,z)$ close enough to $0$, $f^0 \circ \psi (y, z)$ is a continuous selection of
+        linear maps independant of $z$.
+        \bigskip \newline
+        Assume that all $\varphi_i$ are of value $0$ at $0$, up to replacing $f$ by $f^0$.
+        We will show that up to coordinate change, $f^0$ is only a function of $y$ and not of $z$.
+        This can be done in the following way : first, by condition \eqref{eq:morseCS3}, we can
+        assume that the $k$ first $\varphi_i$ are linearized, i.e equal to $dy_i$ in
+        a neighbourhood of $0$. The last $\varphi_{k+1}$ could still depend on $z$.
+        \medskip \newline
+        To fix this we apply lemma \ref{lem:prepNormForm} to
+        $f^0 : \mathbb{R}^{m+k-1} \times \mathbb{R} \rightarrow \mathbb{R}$.
+        Denote $\Phi(s, y, z)$ the point obtained by integrating $X$ for time $s$ starting at
+        $(y, z)$. The following local homeomorphism
+        \begin{equation}\label{eq:constrPhiNormform}
+            \phi(y, z) = \Phi(-z_{m-k}, y, z) + (0, ..., 0, z_{m-k})
+        \end{equation}
+        verifies $f^0 \circ \phi^{-1}(y, z) = f^0(y, z_1, ..., z_{m-k-1}, 0)$. By repeating the process
+        we eliminiate the dependance in $z$.
+        \bigskip \newline
+        Note that in the new coordinates, $\varphi_i = dy_i$ for $i < k + 1$. To write $f^0$ as
+        a continuous selection of linear functions, it suffices to linearize $\varphi_{k+1}$.
+        For that, for all $t \in [0, 1]$ define
+        \[ \varphi_{k+1}^t = (1-t)\varphi_{k+1} + t d_0 \varphi_{k+1} \]
+        Note that for $y$ close enough to $0$ and any $t\in [0, 1]$, $d_y \varphi_{k+1}^t$ is close
+        to $d_y \varphi_{k+1}$, hence the functions $dy_1, ..., dy_k, \varphi_{k+1}^t$ verify
+        \eqref{eq:morseCS1}.
+        By lemma \ref{lem:extendingTimeCS}, we define $h(y,t)$ for all $y$ close enough to $0$ and $t \in [0, 1]$ as
+        a continuous selection of $dy_1, ..., dy_k, \varphi_{k+1}^t$ such that
+        it equals $f^0$ at $t=0$.
+        \medskip \newline
+        We then apply lemma \ref{lem:prepNormForm}
+        and get $U$ an even smaller neighbourhood and $X$ a vector field on a neighbourhood
+        of $(0, 0)$. Up to shrinking $U$, we can assume that for all $t^*$ there is a
+        time $s(t^*) > 0$ such that for all $y \in U$, we can integrate $(y, t^*)$ for time
+        $s, |s| < s(t^*)$. This gives a covering of $[0, 1]$ by intervals of the form
+        $]t^*-s(t^*), t^*+s(t^*)[$, so we can still cover it with finitely many of these intervals.
+        \medskip \newline
+        Assume for simplicity
+        that we can flow for time $1$ from all $(y, 0)$, $y \in U$ i.e $[0, 1]$ can be covered with
+        only one such interval. We construct a local
+        homeomorphism $\phi$ similarly to \eqref{eq:constrPhiNormform} such that
+        \[ f^0(y) = h(y, 0) = h \circ \phi^{-1} (y, 1) \]
+        so $f^0$ can be written in some coordinates as a continuous selection of linear functions.
+        If we need more than one interval to cover $[0, 1]$ we can decompose this into finitely many
+        homeomorphisms going from $0$ to $1$ in successive steps.
+        \bigskip \newline
+        By composing all the steps, we indeed constructed the local homeomorphism $\psi$.
+
+    \end{proof}
+
+    \quad We now try to understand better the structure of the non smooth component that appears in
+    the normal form theorem. It turns out that it can be encoded in a purely
+    combinatorial way, as the following theorem shows \cite{PLminmax}.
+
+    \begin{theorem}\label{th:minmax}
+        Let $\lambda : \mathbb{R}^k \rightarrow \mathbb{R}$ be a continuous selection of
+        $k+1$ affinely independant linear functions, $\lambda_1, ..., \lambda_{k+1}$. Then there exists a unique family
+        $S_1, ..., S_l$ of subsets of $\llbracket 1, k+1 \rrbracket$ verifying that
+        \begin{itemize}
+            \item $S_i \not \subset S_j$, $i \neq j$
+            \item $\lambda$ can be written as
+                  \[ \lambda(y) = \min_{i} \max_{j \in S_i} \lambda_j(y) \]
+        \end{itemize}
+    \end{theorem}
+
+    \begin{proof}
+        Let's first tackle uniqueness. Let $S_1, ..., S_l$, $D_1, ..., D_r$ be two such distinct families.
+        Assume without loss of generality that $S_1 \neq D_j$. We can also assume that for all
+        $1 \leq j \leq r$, $S_1 \not\supset D_j$. If it is the case, then for all $1 < i \leq l$
+        we have $D_j \not\supset S_i$ by assumption on $S$. We can then swap $S$ and $D$ to get
+        what we want.\newline
+        By affine independance, the following linear system has a solution
+        \[ \lambda_i(y) + \mu = c_i, i \in \llbracket 1, k+1 \rrbracket \]
+        where the unknowns are $y, \mu$ and $c_i = 0$ if $i \in S_1$ and $1$ otherwise.
+        It follows that, if we use the representation with $D_i$, we get $\lambda(y) = 1 - \mu$
+        and if we use the one with the $S_i$, $\lambda(y) = -\mu$.
+        \medskip \newline
+        Now for existence. For all permutation $\nu \in \mathfrak{S}_{k+1}$ define the cone
+        \[ K_{\nu} = \{ y \in \mathbb{R}^k \mid \lambda_{\nu(1)}(y) \leq ... \leq \lambda_{\nu(k+1)}(y) \} \]
+        and the function $s : \nu \in \mathfrak{S}_{k+1} \mapsto i \in \llbracket 1, k+1 \rrbracket$ where $i$
+        is such that $\lambda_{\nu(i)} = \lambda$ on $K_{\nu}$. If we assume that for all $y$ and $\nu$ we have
+        \[ \lambda(y) \leq \max \{ \lambda_{\nu(1)}(y), ..., \lambda_{\nu(s(\nu))}(y) \} \]
+        then it suffices to consider the family of sets $S_{\nu} = \{\nu(1), ..., \nu(s(\nu)) \}$
+        and simplify these by removing those who are contained in one another.
+        \medskip \newline
+        We now give a broad idea of the proof of the claim. The result is true by definition
+        on $K_{\nu}$. For any $y \in \mathbb{R}^k$, set $y' \in K_{\nu}$ and consider the evolution
+        of the order of $\lambda_i$ along the line between $y$ and $y'$ : the value of each $\lambda_i$
+        evolves at a constant rate. Whenever the current $\lambda_i$ defining $\lambda$ encounters
+        another $\lambda_j$ and $\lambda$ becomes defined as $\lambda_j$ afterwards, either
+        $\lambda_j$ is smaller than $\lambda_i$ after the encounter, or the opposite. If we denote
+        $I$ the set of indices such that the functions are smaller than $\lambda_j$ before the
+        encounter, then in either case we see that $\lambda$ stays smaller than the maximum
+        of $\lambda_{i'}$ $i' \in I$. This concludes the proof because the line starts at $K_{\nu}$.
+    \end{proof}
+
+    \subsection{Describing the homology of sublevel sets}
+
+    \quad Our goal for this section is to describe more precisely the transition that happens
+    as the critical point of $f$ is passed, where $f$ is still a Morse continuous selection
+    defined on $\mathbb{R}^m$ with $0$ as its only critical point.
     \medskip \newline
-    Now for existence. For all permutation $\nu \in \mathfrak{S}_{k+1}$ define the cone
-    \[ K_{\nu} = \{ y \in \mathbb{R}^k \mid \lambda_{\nu(1)}(y) \leq ... \leq \lambda_{\nu(k+1)}(y) \} \]
-    and the function $s : \nu \in \mathfrak{S}_{k+1} \mapsto i \in \llbracket 1, k+1 \rrbracket$ where $i$
-    is such that $\lambda_{\nu(i)} = \lambda$ on $K_{\nu}$. If we assume that for all $y$ and $\nu$ we have
-    \[ \lambda(y) \leq \max \{ \lambda_{\nu(1)}(y), ..., \lambda_{\nu(s(\nu))}(y) \} \]
-    then it suffices to consider the family of sets $S_{\nu} = \{\nu(1), ..., \nu(s(\nu)) \}$
-    and simplify these by removing those who are contained in one another.
+    The normal form of $f$ and theorem \ref{th:minmax} allows us to fully describe the behaviour
+    of $f$ with purely combinatorial information, a smooth Morse index and a more complicated set
+    representation. We can encode the combinatorial structure that appears in its non smooth part in a way
+    that will give us topological and homotopical informations about the sublevel sets : define the
+    simplical complex $K(S_1^c, ..., S_l^c)$ on $k+1$ vertices whose faces are given by the complements in
+    $\llbracket 1, k+1 \rrbracket$ of the sets $S_i$ describing the non smooth part of $f$.
     \medskip \newline
-    We now give a broad idea of the proof of the claim. The result is true by definition
-    on $K_{\nu}$. For any $y \in \mathbb{R}^k$, set $y' \in K_{\nu}$ and consider the evolution
-    of the order of $\lambda_i$ along the line between $y$ and $y'$ : the value of each $\lambda_i$
-    evolves at a constant rate. Whenever the current $\lambda_i$ defining $\lambda$ encounters
-    another $\lambda_j$ and $\lambda$ becomes defined as $\lambda_j$ afterwards, either
-    $\lambda_j$ is smaller than $\lambda_i$ after the encounter, or the opposite. If we denote
-    $I$ the set of indices such that the functions are smaller than $\lambda_j$ before the
-    encounter, then in either case we see that $\lambda$ stays smaller than the maximum
-    of $\lambda_{i'}$ $i' \in I$. This concludes the proof because the line starts at $K_{\nu}$.
-\end{proof}
+    Another thing to note is that when put in normal form, $f$ is a quasi homogeneous function, i.e
+    there exists some real numbers $\alpha_1, ..., \alpha_m > 0$ such that for all $t > 0, x \in \mathbb{R}^m$,
+    we have
+    \[ f(t^{\alpha_1} x_1, ..., t^{\alpha_m} x_m) = tf(x) \]
+    In this case we have $f(ty, t^{1/2}z) = tf(y,z)$ if we assume that $f(0) = 0$, assumption we'll
+    make without loss of generality. For a quasi homogenous function $h$, we'll denote $\delta_t$
+    the power-scaling map such that $h(\delta_t x) = th(x)$. The following lemmas on quasi
+    homogeneous functions will prove useful for describing the homotopy type of sublevel sets.
 
-\subsection{Describing the homology of sublevel sets}
+    \begin{lem}\label{lem:pairconehomequiv}
+        Let $h : \mathbb{R}^m \rightarrow \mathbb{R}$ be a quasi homogeneous locally Lipschitz
+        function having only $0$ as a critical point. We have the following homotopy equivalence
+        \[ (M_1, M_{-1}) \simeq (C_{h^{-1}(-1)}, h^{-1}(-1)) \]
+        where $M_1, M_{-1}$ are the sublevel sets and $C_{h^{-1}(-1)}$ is the cone over $h^{-1}(-1)$.
+    \end{lem}
 
-\quad Our goal for this section is to describe more precisely the transition that happens
-as the critical point of $f$ is passed, where $f$ is still a Morse continuous selection
-defined on $\mathbb{R}^m$ with $0$ as its only critical point.
-\medskip \newline
-The normal form of $f$ and theorem \ref{th:minmax} allows us to fully describe the behaviour
-of $f$ with purely combinatorial information, a smooth Morse index and a more complicated set
-representation. We can encode the combinatorial structure that appears in its non smooth part in a way
-that will give us topological and homotopical informations about the sublevel sets : define the
-simplical complex $K(S_1^c, ..., S_l^c)$ on $k+1$ vertices whose faces are given by the complements in
-$\llbracket 1, k+1 \rrbracket$ of the sets $S_i$ describing the non smooth part of $f$.
-\medskip \newline
-Another thing to note is that when put in normal form, $f$ is a quasi homogeneous function, i.e
-there exists some real numbers $\alpha_1, ..., \alpha_m > 0$ such that for all $t > 0, x \in \mathbb{R}^m$,
-we have
-\[ f(t^{\alpha_1} x_1, ..., t^{\alpha_m} x_m) = tf(x) \]
-In this case we have $f(ty, t^{1/2}z) = tf(y,z)$ if we assume that $f(0) = 0$, assumption we'll
-make without loss of generality. For a quasi homogenous function $h$, we'll denote $\delta_t$
-the power-scaling map such that $h(\delta_t x) = th(x)$. The following lemmas on quasi
-homogeneous functions will prove useful for describing the homotopy type of sublevel sets.
+    \begin{proof}
+        Let $\mathbb{S}$ denote the unit sphere. Define a smooth $V$ over $\mathbb{S}$ such that
+        for all $x \in \mathbb{S}$, $V(x) \in \mathbb{R}^m$ and $\langle \partial_x h, V(x) \rangle \leq -1$.
+        Extend $V$ into a vector field on $\mathbb{R}$ such that it commutes with $\delta_t$ for
+        all $t > 0$, i.e for $x \in \mathbb{S}$, $V(\delta_t x) = d_x \delta_t( V(x) )$. It
+        follows that $s \mapsto h(e^{sV} x)$ is strictly decreasing for all $x \neq 0$.
+        \medskip \newline
+        From this observation, we define similarly to proposition \ref{firstmorselem}, for all
+        $x \in h^{-1}(]-\infty, 0[)$, $p(x)$, the only point of the orbit of $x$ in $h^{-1}(-1)$.
+        We also define for all $x \in h^{-1}(-1), s \in [0, 1[$, $t(x,s)$ such that it verifies
+        $h(e^{-t(x,s)V}x) = h(x) + s$. If we then denote by
+        $\pi : [0,1] \times h^{-1}(-1) \rightarrow C_{h^{-1}(-1)}$ the projection map, where the
+        top of the cone is the point at height $s = 1$, the homotopy equivalence maps are the
+        following
+        \[ F : \begin{array}{cl}
+                M_1 & \longrightarrow C_{h^{-1}(-1)}                                \\
+                x   & \longmapsto \left\{ \begin{array}{cl}
+                                              \pi(0, p(x))      & x \in M_{-1}          \\
+                                              \pi(h(x)+1, p(x)) & x \in h^{-1}([-1, 0]) \\
+                                              \pi(1, 0)         & x \in h^{-1}([0, 1])
+                                          \end{array} \right.
+            \end{array}
+        \]
+        \vspace*{0.5cm}
+        \[ G : \begin{array}{cl}
+                C_{h^{-1}(-1)} & \longrightarrow M_1      \\
+                \pi(s, x)      & \longmapsto e^{-t(x,s)}x
+            \end{array}
+        \]
+        We can see that $F \circ G = \operatorname{id}_{C_{h^{-1}(-1)}}$. $G \circ F$ is homotopic
+        to the identity : we can use $V$ to contract $M_{-1}$ onto $h^{-1}(-1)$, and also to
+        contract $h^{-1}([0, 1])$ onto $h^{-1}(0)$.
+    \end{proof}
 
-\begin{lem}\label{lem:pairconehomequiv}
-    Let $h : \mathbb{R}^m \rightarrow \mathbb{R}$ be a quasi homogeneous locally Lipschitz
-    function having only $0$ as a critical point. We have the following homotopy equivalence
-    \[ (M_1, M_{-1}) \simeq (C_{h^{-1}(-1)}, h^{-1}(-1)) \]
-    where $M_1, M_{-1}$ are the sublevel sets and $C_{h^{-1}(-1)}$ is the cone over $h^{-1}(-1)$.
-\end{lem}
-
-\begin{proof}
-    Let $\mathbb{S}$ denote the unit sphere. Define a smooth $V$ over $\mathbb{S}$ such that
-    for all $x \in \mathbb{S}$, $V(x) \in \mathbb{R}^m$ and $\langle \partial_x h, V(x) \rangle \leq -1$.
-    Extend $V$ into a vector field on $\mathbb{R}$ such that it commutes with $\delta_t$ for
-    all $t > 0$, i.e for $x \in \mathbb{S}$, $V(\delta_t x) = d_x \delta_t( V(x) )$. It
-    follows that $s \mapsto h(e^{sV} x)$ is strictly decreasing for all $x \neq 0$.
+    \quad If $X$ and $Y$ are two topological spaces, we define the join of $X$ and $Y$,
+    denoted by $X * Y$, as the quotient space of $X \times Y \times [0, 1]$ by the following
+    equivalence relation
+    \[ \forall x, x' \in X, \forall y, y' \in Y, (x,y,0) \sim (x, y', 0) \text{ and } (x,y,1) \sim (x',y,1)\]
+    Intuitively, we join together the spaces $X$ and $Y$ with all possible segments between the two.
+    Some examples of join include $X * \{y\}$ wich is the cone of $X$,
+    $X * \mathbb{S}^0$ which is the suspension of $X$. More generally the join of $X$ with $\mathbb{S}^n$
+    is an $n+1$-fold suspension.
     \medskip \newline
-    From this observation, we define similarly to proposition \ref{firstmorselem}, for all
-    $x \in h^{-1}(]-\infty, 0[)$, $p(x)$, the only point of the orbit of $x$ in $h^{-1}(-1)$.
-    We also define for all $x \in h^{-1}(-1), s \in [0, 1[$, $t(x,s)$ such that it verifies
-    $h(e^{-t(x,s)V}x) = h(x) + s$. If we then denote by
-    $\pi : [0,1] \times h^{-1}(-1) \rightarrow C_{h^{-1}(-1)}$ the projection map, where the
-    top of the cone is the point at height $s = 1$, the homotopy equivalence maps are the
-    following
-    \[ F : \begin{array}{cl}
-        M_1 &\longrightarrow C_{h^{-1}(-1)}\\
-        x &\longmapsto \left\{ \begin{array}{cl}
-            \pi(0, p(x)) & x \in M_{-1}\\
-            \pi(h(x)+1, p(x)) & x \in h^{-1}([-1, 0])\\
-            \pi(1, 0) & x \in h^{-1}([0, 1]) 
-        \end{array} \right.
-    \end{array}
-    \]
-    \vspace*{0.5cm}
-    \[ G : \begin{array}{cl}
-        C_{h^{-1}(-1)} &\longrightarrow M_1\\
-        \pi(s, x) &\longmapsto e^{-t(x,s)}x
-    \end{array}
-    \]
-    We can see that $F \circ G = \operatorname{id}_{C_{h^{-1}(-1)}}$. $G \circ F$ is homotopic
-    to the identity : we can use $V$ to contract $M_{-1}$ onto $h^{-1}(-1)$, and also to
-    contract $h^{-1}([0, 1])$ onto $h^{-1}(0)$.
-\end{proof}
+    By using the same ideas as in lemma \ref{lem:pairconehomequiv}, one can prove the following
+    useful lemma.
 
-\quad If $X$ and $Y$ are two topological spaces, we define the join of $X$ and $Y$,
-denoted by $X * Y$, as the quotient space of $X \times Y \times [0, 1]$ by the following
-equivalence relation
-\[ \forall x, x' \in X, \forall y, y' \in Y, (x,y,0) \sim (x, y', 0) \text{ and } (x,y,1) \sim (x',y,1)\]
-Intuitively, we join together the spaces $X$ and $Y$ with all possible segments between the two.
-Some examples of join include $X * \{y\}$ wich is the cone of $X$,
-$X * \mathbb{S}^0$ which is the suspension of $X$. More generally the join of $X$ with $\mathbb{S}^n$
-is an $n+1$-fold suspension. 
-\medskip \newline
-By using the same ideas as in lemma \ref{lem:pairconehomequiv}, one can prove the following
-useful lemma.
+    \begin{lem}
+        Let $h : \mathbb{R}^k \times \mathbb{R}^{m-k} \rightarrow \mathbb{R}$ be a quasi homogeneous function such that
+        for all $(y, z) \in \mathbb{R}^m$, we have $h(y, z) = a(y) + b(z)$ where $a$ and $b$
+        are quasi-homogeneous locally Lipschitz with respective exponents $\alpha, \beta > 0$. We have the following
+        homotopy equivalence
+        \[ h^{-1}(-1) \simeq a^{-1}(-1) * b^{-1}(-1) \]
+    \end{lem}
 
-\begin{lem}
-    Let $h : \mathbb{R}^k \times \mathbb{R}^{m-k} \rightarrow \mathbb{R}$ be a quasi homogeneous function such that
-    for all $(y, z) \in \mathbb{R}^m$, we have $h(y, z) = a(y) + b(z)$ where $a$ and $b$
-    are quasi-homogeneous locally Lipschitz with respective exponents $\alpha, \beta > 0$. We have the following
-    homotopy equivalence
-    \[ h^{-1}(-1) \simeq a^{-1}(-1) * b^{-1}(-1) \]
-\end{lem}
-
-\quad If we write $f(y, z) = \lambda(y) + q(z)$ as described by the normal form theorem,
-what remains to be done to understand the relative homology of $(M_1, M_{-1})$ is to
-describe $q^{-1}(-1)$ and $\lambda^{-1}(-1)$. The first one has the homotopy type of
-$\mathbb{S}^{\mu}$ where $\mu$ is the smooth Morse index of $f$, by classical Morse theory.
-\medskip \newline
-For the second, note that we have the following homotopy equivalence
-$\lambda^{-1}(-1) \simeq \lambda^{-1}(]-\infty, 0[)$. Using the min max form, we get
-\[ \lambda^{-1}(]-\infty, 0[) = \bigcup_i \bigcap_{j \in S_i} \lambda_j(]-\infty, 0[) \]
-Note that each intersection is a convex cone we'll denote by $C_i$. We'll
-relate this to the simplical complex $K(S_1^c, ..., S_l^c)$ by using the nerve of the
-family $C = (C_i)_i$, i.e we'll look at the following set
-\[ N(C) := \{ J \subset \llbracket 1, l \rrbracket \mid \bigcap_{j \in J} C_j \neq \varnothing\} \]
-From the next lemma, it follows that the nerve of $N(C)$ is exactly the one of the family of
-sets $S_1^c, ..., S_l^c$.
-
-\begin{lem}
-    Let $J \subset \llbracket 1, k+1 \rrbracket$. $J$ is the whole set if and only if
-    \[ \bigcap_{j \in J} \lambda_j^{-1}(]-\infty, 0[) = \varnothing \]
-\end{lem}
-
-\begin{proof}
-    We first show that if $J = \llbracket 1, k+1 \rrbracket$, we indeed get an empty intersection.
-    Recall that $0$ is a critical point of $f$, so it is a critical point of $\lambda$. We
-    then have
-    \[ 0 \in \partial_0 \lambda \subset \operatorname{conv}\{ \lambda_1, ..., \lambda_{k+1} \} \]
-    So there exists $\mu_1, ..., \mu_{k+1}$ with sum $1$ such that $0 = \sum_i \mu_i \lambda_i$.
-    We then see that all $\lambda_i$ cannot be strictly negative at the same time.
+    \quad If we write $f(y, z) = \lambda(y) + q(z)$ as described by the normal form theorem,
+    what remains to be done to understand the relative homology of $(M_1, M_{-1})$ is to
+    describe $q^{-1}(-1)$ and $\lambda^{-1}(-1)$. The first one has the homotopy type of
+    $\mathbb{S}^{\mu}$ where $\mu$ is the smooth Morse index of $f$, by classical Morse theory.
     \medskip \newline
-    We now show that if $J \neq \llbracket 1, k+1 \rrbracket$, the intersection is not empty.
-    Condition \eqref{eq:morseCS3} gives us linear independance of the family $(\lambda_j)_{j \in J}$.
-    The linear system $\lambda_j(y) = -1, j \in J$ then has a solution, where the unknown is $y$.
-\end{proof}
+    For the second, note that we have the following homotopy equivalence
+    $\lambda^{-1}(-1) \simeq \lambda^{-1}(]-\infty, 0[)$. Using the min max form, we get
+    \[ \lambda^{-1}(]-\infty, 0[) = \bigcup_i \bigcap_{j \in S_i} \lambda_j(]-\infty, 0[) \]
+    Note that each intersection is a convex cone we'll denote by $C_i$. We'll
+    relate this to the simplical complex $K(S_1^c, ..., S_l^c)$ by using the nerve of the
+    family $C = (C_i)_i$, i.e we'll look at the following set
+    \[ N(C) := \{ J \subset \llbracket 1, l \rrbracket \mid \bigcap_{j \in J} C_j \neq \varnothing\} \]
+    From the next lemma, it follows that the nerve of $N(C)$ is exactly the one of the family of
+    sets $S_1^c, ..., S_l^c$.
 
-Because every $C_i$ is convex, their intersections are contractible. Applying Leray's nerve
-theorem, $\lambda^{-1}(-1)$ has the homotopy type of the simplical complex given
-by the nerve. By virtue of what we discussed, this complex is exactly $K(S_1^c, ..., S_l^c)$.
-The homotopy type of $f^{-1}(-1)$ is then given by
-\[ f^{-1}(-1) \simeq K(S_1^c, ..., S_l^c) * \mathbb{S}^{\mu} \]
+    \begin{lem}
+        Let $J \subset \llbracket 1, k+1 \rrbracket$. $J$ is the whole set if and only if
+        \[ \bigcap_{j \in J} \lambda_j^{-1}(]-\infty, 0[) = \varnothing \]
+    \end{lem}
 
-By recalling that a join with a sphere is a suspension, we get the following result in homology.
+    \begin{proof}
+        We first show that if $J = \llbracket 1, k+1 \rrbracket$, we indeed get an empty intersection.
+        Recall that $0$ is a critical point of $f$, so it is a critical point of $\lambda$. We
+        then have
+        \[ 0 \in \partial_0 \lambda \subset \operatorname{conv}\{ \lambda_1, ..., \lambda_{k+1} \} \]
+        So there exists $\mu_1, ..., \mu_{k+1}$ with sum $1$ such that $0 = \sum_i \mu_i \lambda_i$.
+        We then see that all $\lambda_i$ cannot be strictly negative at the same time.
+        \medskip \newline
+        We now show that if $J \neq \llbracket 1, k+1 \rrbracket$, the intersection is not empty.
+        Condition \eqref{eq:morseCS3} gives us linear independance of the family $(\lambda_j)_{j \in J}$.
+        The linear system $\lambda_j(y) = -1, j \in J$ then has a solution, where the unknown is $y$.
+    \end{proof}
 
-\begin{theorem}
-    For $i \geq 0$, we have
-    \[ H_{i+\mu}(M_1, M_{-1}) = \tilde{H}_{i-1}(K(S_1^c, ..., S_k^c)) \]
-\end{theorem}
+    Because every $C_i$ is convex, their intersections are contractible. Applying Leray's nerve
+    theorem, $\lambda^{-1}(-1)$ has the homotopy type of the simplical complex given
+    by the nerve. By virtue of what we discussed, this complex is exactly $K(S_1^c, ..., S_l^c)$.
+    The homotopy type of $f^{-1}(-1)$ is then given by
+    \[ f^{-1}(-1) \simeq K(S_1^c, ..., S_l^c) * \mathbb{S}^{\mu} \]
+
+    By recalling that a join with a sphere is a suspension, we get the following result in homology.
+
+    \begin{theorem}
+        For $i \geq 0$, we have
+        \[ H_{i+\mu}(M_1, M_{-1}) = \tilde{H}_{i-1}(K(S_1^c, ..., S_k^c)) \]
+    \end{theorem}
 
 \end{flushleft}
 
@@ -824,10 +835,10 @@ will allow us to compute explicitly subdifferentials in a particular case.
     continuous and $f = \max_{z \in Z} \varphi_z$.
     \begin{enumerate}
         \item $f$ is convex and for all $x, v \in \mathbb{R}^m$
-        \[ D_x f(v) = \max_{z \in Z(x)} d_x \varphi_z(v) \]
+              \[ D_x f(v) = \max_{z \in Z(x)} d_x \varphi_z(v) \]
 
         \item $f$ is locally Lipschitz and we have
-        \[ \partial_x f = \operatorname{conv}\{ d_x \varphi_z(v) \mid z \in Z(x) \} \]
+              \[ \partial_x f = \operatorname{conv}\{ d_x \varphi_z(v) \mid z \in Z(x) \} \]
     \end{enumerate}
 
 \end{theorem}
@@ -835,36 +846,36 @@ will allow us to compute explicitly subdifferentials in a particular case.
 \begin{proof}
     We'll need 1. for 2.
     \begin{enumerate}
-    \item The convexity of $f$ is a classical result from convex analysis. Notice that
-    for $t > 0$
-    \[ \frac{f(x + tv) - f(x)}{t} \geq \frac{\varphi_z(x+tv) - \varphi_z(x)}{t} \]
-    for $z \in Z(x)$, so we get $D_x f(v) \geq d_x \varphi_z(v)$. For the other inequality,
-    consider a positive sequence $t_n \rightarrow 0$. For all $n$, select $z_n \in Z(x+t_nv)$,
-    by compactness assume it converges to $z^* \in Z$. By maximality of $f$, we have
-    $\varphi_{z^*}(x) \geq \varphi_z(x), z \in Z$, so $z^* \in Z(x)$. By convexity of $f$
-    and $\varphi_{z_n}$, we get
-    \begin{align*}
-        D_x f(v) &\leq \frac{f(x+t_n v) - f(x)}{t_n}\\
-        &= \frac{\varphi_{z_n}(x+t_n v) - \varphi_z^*(x)}{t_n}\\
-        &\leq \frac{\varphi_{z_n}(x+t_n v) - \varphi_{z_n}((x+ t_n v) - t_n v)}{t_n}\\
-        &\leq d_x \varphi_{z_n}(v)\\
-        &\rightarrow d_x \varphi_{z^*}(v)
-    \end{align*}
-    so $D_x f(v)$ is indeed the maximum.
-    
-    \item All $\varphi_z$ are locally Lipschitz. By compactness of $Z$, we can find a Lipschitz
-    constant for $f$.
-    \medskip \newline
-    We now show the equality involving $\partial f$. For that we use the results of the
-    discussion in section \ref{sec:subdiffconvex}. For the right to left inclusion,
-    it suffices to observe that in virtue of 1., for $z \in Z(x)$
-    \[ \forall v \in \mathbb{R}^m, f(x+v) \geq f(x) + d_x \varphi_z(v) \]
-    Assume that there is some $l \in \partial_x f$ not in the convex hull of $d_x \varphi_z$,
-    $z \in Z(x)$. Because this convex hull is compact, we choose a strictly separating
-    hyperplane : we choose $v$ and $c$ such that
-    \[ \langle l, v \rangle > c > \langle d_x \varphi_z, v \rangle, z \in Z(x) \]
-    This contradicts the fact that $D_x f (v) = \max_{h \in \partial_x f} \langle h, v \rangle$,
-    because $D_x f(v) = \max_{z \in Z(x)} \langle d_x \varphi_z, v \rangle$
+        \item The convexity of $f$ is a classical result from convex analysis. Notice that
+              for $t > 0$
+              \[ \frac{f(x + tv) - f(x)}{t} \geq \frac{\varphi_z(x+tv) - \varphi_z(x)}{t} \]
+              for $z \in Z(x)$, so we get $D_x f(v) \geq d_x \varphi_z(v)$. For the other inequality,
+              consider a positive sequence $t_n \rightarrow 0$. For all $n$, select $z_n \in Z(x+t_nv)$,
+              by compactness assume it converges to $z^* \in Z$. By maximality of $f$, we have
+              $\varphi_{z^*}(x) \geq \varphi_z(x), z \in Z$, so $z^* \in Z(x)$. By convexity of $f$
+              and $\varphi_{z_n}$, we get
+              \begin{align*}
+                  D_x f(v) & \leq \frac{f(x+t_n v) - f(x)}{t_n}                                          \\
+                           & = \frac{\varphi_{z_n}(x+t_n v) - \varphi_z^*(x)}{t_n}                       \\
+                           & \leq \frac{\varphi_{z_n}(x+t_n v) - \varphi_{z_n}((x+ t_n v) - t_n v)}{t_n} \\
+                           & \leq d_x \varphi_{z_n}(v)                                                   \\
+                           & \rightarrow d_x \varphi_{z^*}(v)
+              \end{align*}
+              so $D_x f(v)$ is indeed the maximum.
+
+        \item All $\varphi_z$ are locally Lipschitz. By compactness of $Z$, we can find a Lipschitz
+              constant for $f$.
+              \medskip \newline
+              We now show the equality involving $\partial f$. For that we use the results of the
+              discussion in section \ref{sec:subdiffconvex}. For the right to left inclusion,
+              it suffices to observe that in virtue of 1., for $z \in Z(x)$
+              \[ \forall v \in \mathbb{R}^m, f(x+v) \geq f(x) + d_x \varphi_z(v) \]
+              Assume that there is some $l \in \partial_x f$ not in the convex hull of $d_x \varphi_z$,
+              $z \in Z(x)$. Because this convex hull is compact, we choose a strictly separating
+              hyperplane : we choose $v$ and $c$ such that
+              \[ \langle l, v \rangle > c > \langle d_x \varphi_z, v \rangle, z \in Z(x) \]
+              This contradicts the fact that $D_x f (v) = \max_{h \in \partial_x f} \langle h, v \rangle$,
+              because $D_x f(v) = \max_{z \in Z(x)} \langle d_x \varphi_z, v \rangle$
     \end{enumerate}
 \end{proof}
 
@@ -888,7 +899,7 @@ will allow us to compute explicitly subdifferentials in a particular case.
     The function $\varphi_y(x) = \langle x, y \rangle - \frac{1}{2} |y|^2$ is convex. If we denote
     by $h(x)$ the term in parenthesis, theorem \ref{thm:DanskinPlus} yields
     \[ \partial_x h = \operatorname{conv}\{\nabla_x \varphi_y \mid y \in Y(x)\}
-    = \operatorname{conv}(Y(x)) \]
+        = \operatorname{conv}(Y(x)) \]
     We can apply the theorem because in a small neighbourhood of $x$, the active indices stay
     confined to a compact set.\newline
     By using that $\eta_Y = \frac{1}{2} | \cdot | - h$, we get
@@ -896,8 +907,8 @@ will allow us to compute explicitly subdifferentials in a particular case.
     If we now write $\operatorname{dist}_Y = \sqrt{2\eta_Y}$, and use the subdifferential chain
     rule applied to the diffeomorphism $\sqrt{\cdot}$ (because $\eta_Y(x) \neq 0$, $x \notin Y$) we get
     \begin{align*}
-        \partial_x \operatorname{dist}_Y &= \frac{1}{\sqrt{2\eta_Y(x)}} \operatorname{conv}\{x-y \mid y \in Y(x) \}\\
-        &= \operatorname{conv}\left\{ \frac{x-y}{|x-y|} \mid y \in Y(x) \right\}
+        \partial_x \operatorname{dist}_Y & = \frac{1}{\sqrt{2\eta_Y(x)}} \operatorname{conv}\{x-y \mid y \in Y(x) \} \\
+                                         & = \operatorname{conv}\left\{ \frac{x-y}{|x-y|} \mid y \in Y(x) \right\}
     \end{align*}
     because $\eta_Y(x) = \frac{1}{2}|y-x|^2$ for all $y \in Y(x)$.
     \bigskip \newline
@@ -952,8 +963,8 @@ $C(Y)$, introduced respectively by Thom \cite{ThomCutLocus} and Milman \cite{Mil
 If $Y$ is smooth we can also define the following set
 
 \begin{defi}[Cut-locus]
-The cut-locus of $Y$ is defined as follows
-\[ \operatorname{CLoc}(Y) = M_Y \cup \{ x \in \mathbb{R}^n \mid {g_x}_{\mid Y} \text{ has a degenerate global minimum} \} \]
+    The cut-locus of $Y$ is defined as follows
+    \[ \operatorname{CLoc}(Y) = M_Y \cup \{ x \in \mathbb{R}^n \mid {g_x}_{\mid Y} \text{ has a degenerate global minimum} \} \]
 \end{defi}
 
 If we assume that $Y$ is a submanifold of $\mathbb{R}^m$, we can link these seemingly
@@ -1042,7 +1053,7 @@ is differentiable. In fact we have the following stronger statement.
 
 \subsection{Reducing to local continuous selections}
 
-\quad In this section, $Y \subset \mathbb{R}^m$ will be a smooth submanifold, as $X$. 
+\quad In this section, $Y \subset \mathbb{R}^m$ will be a smooth submanifold, as $X$.
 Our goal will be to show that under certain assumptions, the distance function is
 locally a continuous selection of finitely many $C^2$ functions, and so enters the Morse theory
 framework developped in section \ref{sec:ContSelec}.
@@ -1057,7 +1068,7 @@ this map to find points where $\operatorname{dist}_Y$ is locally a continuous se
     \begin{itemize}
         \item $V$ a neighbourhood of $x$
         \item For all $i$, $W_i$ a neighbourhood of $y_i$ such that $\overline{W_i}$ are
-        disjoint
+              disjoint
     \end{itemize}
     that verify
     \[ \forall z \in V, \operatorname{dist}_Y(z) = \min_i \operatorname{dist}_{Y \cap \overline{W_i}}(z) \]
@@ -1146,8 +1157,8 @@ with unknowns $x, y_1, ..., y_k$ accomplish that
 
 \begin{equation}\label{eq:KCP}\tag{KCP}
     \begin{array}{cl}
-        \text{1.} & \text{The } y_i \text{ are all distinct}\\
-        \text{2.} & \forall i, j, |x-y_i|^2 = |x-y_j|^2 \text{ and } x-y_i \in N_{y_i} Y\\
+        \text{1.} & \text{The } y_i \text{ are all distinct}                                              \\
+        \text{2.} & \forall i, j, |x-y_i|^2 = |x-y_j|^2 \text{ and } x-y_i \in N_{y_i} Y                  \\
         \text{3.} & \text{The family } (x - y_i)_i \text{ is linearly dependent in } \mathbb{K}^m / N_x X
     \end{array}
 \end{equation}
@@ -1292,20 +1303,20 @@ proposition.
     $c_i(E) \in A^i(X)$ for all $i$, such that :
     \begin{enumerate}
         \item If $E$ is a line bundle, then $c(E) = 1 + c_1(E)$ and $c_1(E) = [\operatorname{div}(\tau)]$
-        where $\tau$ is a rationnal section of $E$
+              where $\tau$ is a rationnal section of $E$
         \item Let $s_1, ..., s_{r+k-1}$ be global sections of $E$. Their degeneracy locus
-        is the variety $W \subset X$ consisting of the points where all of these sections are
-        linearly dependant. If $\operatorname{codim}(W) = k$ (i.e the expected one), then $[W] = c_k(E)$.
+              is the variety $W \subset X$ consisting of the points where all of these sections are
+              linearly dependant. If $\operatorname{codim}(W) = k$ (i.e the expected one), then $[W] = c_k(E)$.
         \item (Whitney's formula) If we have an exact sequence
-        \[ 0 \rightarrow F \rightarrow G \rightarrow H \rightarrow 0\]
-        of vector bundles over $X$, then $c(F)c(H) = c(G)$.
+              \[ 0 \rightarrow F \rightarrow G \rightarrow H \rightarrow 0\]
+              of vector bundles over $X$, then $c(F)c(H) = c(G)$.
         \item (Functoriality) If $f : Y \rightarrow X$ is a morphism of smooth varieties,
-        then $f^*(c(E)) = c(f^*E)$ where $f^* E$ is the pullback bundle of $E$ and
-        \[ f^{*} : \begin{array}{cl}
-            A(X) &\longrightarrow A(Y)\\
-            \left[ V \right] &\longmapsto \left[ f^{-1}(V) \right]
-        \end{array}
-        \]
+              then $f^*(c(E)) = c(f^*E)$ where $f^* E$ is the pullback bundle of $E$ and
+              \[ f^{*} : \begin{array}{cl}
+                      A(X)             & \longrightarrow A(Y)                 \\
+                      \left[ V \right] & \longmapsto \left[ f^{-1}(V) \right]
+                  \end{array}
+              \]
     \end{enumerate}
 \end{prop}
 
@@ -1333,9 +1344,9 @@ $\hat{T}X$.
 To see it, we write $L = \bigcap_i \ker \alpha_i$ with $\alpha_1, ..., \alpha_{n+2-k} \in (\mathbb{C}^{m+1})^*$.
 For all $i$, the function
 \[ \begin{array}{cl}
-    X &\longrightarrow \hat{T}^*X\\
-    x &\longmapsto {\alpha_i}_{\mid \hat{T}_x X}
-\end{array} \]
+        X & \longrightarrow \hat{T}^*X                \\
+        x & \longmapsto {\alpha_i}_{\mid \hat{T}_x X}
+    \end{array} \]
 is a section of $\hat{T}^*X$. The degeneracy locus of all these sections is the set $W$ of
 all $x \in X$ such that ${\alpha_i}_{\mid \hat{T}_x X}$ are linearly dependant.
 This is equivalent to asking that $L \cap \mathbb{P}(\hat{T}X)$ has dimension
@@ -1392,11 +1403,11 @@ over $\overline{X}$ that we call the euclidean normal bundle such that
 $\overline{\hat{N}X} = \mathbb{P}(\hat{N}\overline{X})$. We have the following maps
 
 \begin{center}
-\begin{tikzcd}
-    \mathbb{P}(\hat{N}\overline{X}) \arrow[rr, "\iota \p=\p \operatorname{id}_{\overline{X}} \times \pi_2"] \arrow[dr, "\pi_1"']
-    & & \mathbb{P}(\overline{X} \times \mathbb{C}^{m+1}) \arrow[dl, "\pi'_1"]\\
-    & \overline{X}
-\end{tikzcd}
+    \begin{tikzcd}
+        \mathbb{P}(\hat{N}\overline{X}) \arrow[rr, "\iota \p=\p \operatorname{id}_{\overline{X}} \times \pi_2"] \arrow[dr, "\pi_1"']
+        & & \mathbb{P}(\overline{X} \times \mathbb{C}^{m+1}) \arrow[dl, "\pi'_1"]\\
+        & \overline{X}
+    \end{tikzcd}
 \end{center}
 
 \quad We now compute the EDD of $X$. It was defined as the number of elements of
@@ -1404,8 +1415,8 @@ $\pi_1(\pi_2^{-1}(y)) \subset \mathbb{C}^m \hookrightarrow \mathbb{P}^m$ for gen
 To find this number we use the $\deg : A(\mathbb{P}^m) \rightarrow \mathbb{Z}$ map, the
 degree of a finite set being its size. We have
 \begin{align*}
-    \operatorname{EDD}(X) &= \deg([\pi_1(\pi_2^{-1}(y))])\\
-    &= \deg([\pi_1(\iota^{-1}(\overline{X} \times \{y\}))])
+    \operatorname{EDD}(X) & = \deg([\pi_1(\pi_2^{-1}(y))])                         \\
+                          & = \deg([\pi_1(\iota^{-1}(\overline{X} \times \{y\}))])
 \end{align*}
 
 Denote $\xi = c_1(\mathcal{O}_{\mathbb{P}(\overline{X} \times \mathbb{C}^{m+1})}(1))$. It can
@@ -1416,9 +1427,9 @@ We also define $\eta = c_1(\mathcal{O}_{\mathbb{P}(\hat{N}\overline{X})}(1))$, a
 4. of Chern classes gives us $\iota^*(\xi) = \eta$. Rewriting what we had, because $\pi_1$
 is of degree $1$, we obtain
 \begin{align*}
-    \operatorname{EDD}(X) &= \deg((\pi_1)_* \iota^*(\xi^m)))\\
-    &= \deg((\pi_1)_* \eta^m)\\
-    &= \deg(s_n(\hat{N}\overline{X}))
+    \operatorname{EDD}(X) & = \deg((\pi_1)_* \iota^*(\xi^m))) \\
+                          & = \deg((\pi_1)_* \eta^m)          \\
+                          & = \deg(s_n(\hat{N}\overline{X}))
 \end{align*}
 by definition of Segre classes. To finish, we need some more information about the euclidean
 normal bundle.
@@ -1451,9 +1462,9 @@ and deduce
 \[ s(\mathcal{O}_{\overline{X}}(-1)) = \sum_{k=0}^m \xi^k \]
 We then get
 \begin{align*}
-    s_n(\hat{N}\overline{X}) &= (c(\hat{T}^*\overline{X}) s(\mathcal{O}_{\overline{X}}(-1)))_n\\
-    &= \sum_{k=0}^n c_k(\hat{T}^*\overline{X}) \xi^{n-k}\\
-    &= \sum_{k=0}^n p_k(X) \xi^{n-k}
+    s_n(\hat{N}\overline{X}) & = (c(\hat{T}^*\overline{X}) s(\mathcal{O}_{\overline{X}}(-1)))_n \\
+                             & = \sum_{k=0}^n c_k(\hat{T}^*\overline{X}) \xi^{n-k}              \\
+                             & = \sum_{k=0}^n p_k(X) \xi^{n-k}
 \end{align*}
 so we conclude
 \[ \operatorname{EDD}(X) = \sum_{k=0}^n \deg(p_k(X)) \]
@@ -1465,6 +1476,258 @@ After computing the polar classes we get the following result
 \end{theorem}
 
 \subsection{Bottleneck degree}
+
+\subsection{Tangency and normality in projective space}
+
+For an embedded submanifold $i\colon X\hookrightarrow\bbR^m$ the concepts of embedded tangent and normal spaces are clear:
+for any point $x\in X$ we have $d_xi\colon T_xX\hookrightarrow T_{i(x)}\bbR^m\simeq\bbR^m$,
+so we can consider $T_xX\subseteq\bbR^m$ and thus the tangent bundle $TX$
+as a sub-bundle of the trivial bundle $X\times\bbR^m$.
+The normal bundle is then defined as
+\[NX=\{(x,v)\in X\times\bbR^m\mid v\in(T_xX)^\perp\},\]
+where ${}^\perp$ denotes the orthogonal subspace induced by the ordinary inner product $x\cdot y:=x_1y_1+\dots+x_my_m$.
+Then, the affine tangent and normal bundles $\hat TX,\hat NX\subseteq X\times\bbR^m$ are affine bundles
+whose fibers at any $x\in X$ are affine spaces centered at $x$:
+\[\hat T_xX:=T_xX+x,\quad\hat N_xX:=N_xX+x.\]
+
+Suppose now that $X\subseteq\bbR^m$ is a nonsingular algebraic variety
+\[X=\{x\in\bbR^m\mid p_1(x)=\dots=p_r(x)=0\}\subseteq\bbR^m\]
+where $p_1,\dots,p_r\in\bbR[x_1,\dots,x_m]$ are real polynomials.
+In algebraic geometry, it is often easier to study complex varieties,
+and moreover their compactification in projective space.
+We define the complexification
+\[X_{\bbC}:=\{x\in\bbC^m\mid p_1(x)=\dots=p_r(x)=0\}\subseteq\bbC^m\]
+where we now consider the polynomials $p_i\in\bbR[x_1,\dots,x_m]\subset\bbC[x_1,\dots,x_m]$ as complex polynomials,
+and then take the projective closure $\overline{X_{\bbC}}$ of $X_{\bbC}$ inside $\bbC^m\subset\bbP^m$.
+
+We can similarly complexify the tangent and normal bundles: since
+\begin{equation}\label{eq:TX}
+    TX=\left\{(x,v)\in X\times\bbR^m\mid v\in\ker\begin{pmatrix}\nabla p_1(x)\\\vdots\\\nabla p_r(x)\end{pmatrix}\right\}
+\end{equation}
+is an algebraic variety, we can simply define $T(X_\bbC):=(TX)_{\bbC}$,
+and similarly $N(X_\bbC):=(NX)_{\bbC}$.
+This last step hides an important detail: $N(X_\bbC)$ is defined as the vector bundle whose fiber at any $x\in X_\bbC$ is
+\begin{equation}\label{eq:NX}
+    N_x X_{\mathbb{C}} = \{ v \in \mathbb{C}^m \mid \forall w \in T_x X_{\mathbb{C}}, \sum_{i=1}^m v_i w_i = 0 \}.
+\end{equation}
+Note that the product involved is not an inner product on $\mathbb{C}^m$,
+but instead the complexification of an inner product on $\bbR^m$.
+This is the approach commonly followed in metric algebraic geometry for two reasons:
+\begin{enumerate}
+    \item a hermitian inner product such as $\langle x, y\rangle=\bar x_1y_1+\dots+\bar x_my_m$
+          is not algebraic over $\bbC$, which would undermine the usage of algebraic geometry for these problems;
+    \item even after complexification, in applications we are usually only interested in the real solutions,
+          which are still captured by this definition.
+\end{enumerate}
+We similarly define $\hat T(X_\bbC):=(\hat TX)_{\bbC}$ and $\hat N(X_\bbC):=(\hat NX)_{\bbC}$.
+In the following, we shorten $X_\bbC$ by $X$, considering it as already complexified.
+
+More troublesome is the compactification step.
+In particular, when taking the projective closure $\overline{\hat TX}$, $\overline{\hat NX}$ of the affine tangent and normal bundles,
+we would like there to exist vector bundles $\hat T\bar X$, $\hat N\bar X$ over $\bar X$ such that
+\[\overline{\hat TX}=\bbP(\hat T\bar X),\quad \overline{\hat NX}=\bbP(\hat N\bar X).\]
+Calling $\hat T\bar X$ the embedded tangend bundle and $\hat N\bar X$ the euclidean normal bundle,
+we would like moreover to have a definition of these bundles for any projective variety,
+independently of whether they come from an affine variety or not.
+
+Suppose we are given a nonsingular projective variety
+\[X=\{x\in\bbP^m\mid p_1(x)=\dots=p_r(x)=0\}\subseteq\bbP^m\]
+where $p_1,\dots,p_r\in\bbC[x_1,\dots,x_m]$ are homogeneous polynomials,
+then the only natural way to define the embedded tangent bundle $\hat TX\subseteq X\times\bbP^m$
+is through the same equations as \eqref{eq:TX}.
+
+On the other hand, for the Euclidean normal bundle there are at least two options:
+\begin{enumerate}
+    \item Fix a non-degenerate quadric $Q\subset\bbP^m$.
+          We can identify the projective variety $X\subseteq\bbP^m$ with the affine cone $C(X)\subseteq\bbC^{m+1}$,
+          and using the definition of tangent space of an affine variety we have $\hat T^c_{[x]}X=T_xC(X)$ and can define
+          \[\hat N^c_{[x]}X:=\langle x\rangle+(T_xC(X))^\perp\]
+          for any $x\in\bbC^{m+1}\setminus0$, where ${}^\perp$ is the $Q_\infty$-orthogonal in $\bbC^{m+1}$.
+          This is the same as defining $\hat NX$ through the same equations as \eqref{eq:NX} and adding the subspace $\langle x\rangle$.
+
+    \item Fix a hyperplane $H_\infty\subset\bbP^m$ and a non-degenerate quadric $Q_\infty\subset H_\infty$.
+          Starting from a tangent plane $\bbP(\hat T_xX)$ meeting $H_\infty$ transversely,
+          we can define
+          \[\bbP(\hat N_xX):=\langle x\rangle+(\bbP(\hat T_xX)\cap H_\infty)^\perp\]
+          where ${}^\perp$ is the $Q$-orthogonal in $H_\infty$.
+          When
+          \[H_\infty=\bbP^m\setminus\bbC^m=\{x\in\bbP^m\mid x_0\neq0\},\quad Q_\infty=\{x\in H_\infty\mid x_1^2+\dots+x_m^2=0\}\]
+          and $Y\subseteq\bbC^m$ is an affine variety such that $X=\bar Y$,
+          then this definition of $\bbP(\hat N_xX)$ agrees with $\overline{\hat N_xY}$.
+\end{enumerate}
+
+In general $\hat N_xX\neq\hat N^c_xX$,
+but under the right hypotheses they both form bundles $\hat NX$, $\hat N^cX$ which are isomorphic.
+The first intepretation is used in \cite{draisma2016euclidean,di2020bottleneck} and leads to beautiful duality theorems.
+The second interpretation is defined and used in \cite{catanese2000focal,piene2015polar}
+and is more natural when considering projective varieties constructed as projective closures of affine varieties.
+To distinguish them, we will call $\hat N^cX$ the cone Euclidean normal bundle.
+
+\paragraph{Embedded tangent bundle}
+
+Let $V$ be an $(m+1)$-dimensional vector space over $\bbC$, and denote by $\bbP^m:=\bbP(V)$.
+Let $X\subset\bbP^m$ be a nonsingular variety of dimension $n$ and codimension $c:=m-n$.
+
+We first define the \textbf{embedded tangent bundle} as follows. Consider the Euler sequence
+\[0\to\calO_{\bbP^m}(-1)\to V_{\bbP^m}\to\calT_{\bbP^m}(-1)\to0\]
+where $V_{\bbP^m}:=\bbP^m\times V$.
+Each of these terms has a clear geometric meaning: for any $x\in\bbP^n$ the fibers are
+\[0\to\langle x\rangle\to V\to V/\langle x\rangle\to0.\]
+The restriction of the Euler sequence yields
+\[0\to\calO_X(-1)\to V_X\to\calT_{\bbP^m}(-1)|_X\to0\]
+where $V_X:=X\times V$, and the fibers look the same as before.
+Consider the tangent bundle $\calT_X$ and normal bundle $\calN_X$ in the exact sequence
+\[0\to\calT_X(-1)\to\calT_{\bbP^m}(-1)|_X\to\calN_X(-1)\to0\]
+with fibers at $x\in X$
+\[0\to T_xX\to V/\langle x\rangle\to\frac{V/\langle x\rangle}{T_xX}\to0.\]
+By considering the pullback of the inclusion $\calT_X(-1)\hookrightarrow\calT_{\bbP^m}(-1)|_X$
+through the quotient $V_X\twoheadrightarrow\calT_{\bbP^m}(-1)|_X$
+we obtain the \textit{embedded tangent bundle} $\hat TX$ fitting the following exact diagram:
+% https://q.uiver.app/#q=WzAsMTYsWzAsMSwiMCJdLFsxLDEsIlxcY2FsT19YKC0xKSJdLFsyLDEsIlxcaGF0IFRYIl0sWzMsMSwiXFxjYWxUX1goLTEpIl0sWzQsMSwiMCJdLFswLDIsIjAiXSxbMSwyLCJcXGNhbE9fWCgtMSkiXSxbMiwyLCJWX1giXSxbMywyLCJcXGNhbFRfe1xcYmJQXm19KC0xKXxfWCJdLFs0LDIsIjAiXSxbMiwzLCJcXGNhbE5fWCgtMSkiXSxbMywzLCJcXGNhbE5fWCgtMSkiXSxbMiw0LCIwIl0sWzMsNCwiMCJdLFsyLDAsIjAiXSxbMywwLCIwIl0sWzEsNiwiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMyw4XSxbMiw3XSxbMCwxXSxbNSw2XSxbMSwyXSxbNiw3XSxbMiwzXSxbNyw4XSxbOCw5XSxbMyw0XSxbNywxMF0sWzEwLDEyXSxbOCwxMV0sWzExLDEzXSxbMTQsMl0sWzE1LDNdLFsxMCwxMSwiIiwxLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+\begin{equation}\label{diag:exactgrid}
+    \begin{tikzcd}
+        && 0 & 0 & \\
+        0 & {\calO_X(-1)} & {\hat TX} & {\calT_X(-1)} & 0 \\
+        0 & {\calO_X(-1)} & {V_X} & {\calT_{\bbP^m}(-1)|_X} & 0 \\
+        && {\calN_X(-1)} & {\calN_X(-1)} \\
+        && 0 & 0
+        \arrow[from=1-3, to=2-3]
+        \arrow[from=1-4, to=2-4]
+        \arrow[from=2-1, to=2-2]
+        \arrow[from=2-2, to=2-3]
+        \arrow[equals, from=2-2, to=3-2]
+        \arrow[from=2-3, to=2-4]
+        \arrow[from=2-3, to=3-3]
+        \arrow[from=2-4, to=2-5]
+        \arrow[from=2-4, to=3-4]
+        \arrow[from=3-1, to=3-2]
+        \arrow[from=3-2, to=3-3]
+        \arrow[from=3-3, to=3-4]
+        \arrow[from=3-3, to=4-3]
+        \arrow[from=3-4, to=3-5]
+        \arrow[from=3-4, to=4-4]
+        \arrow[equals, from=4-3, to=4-4]
+        \arrow[from=4-3, to=5-3]
+        \arrow[from=4-4, to=5-4]
+    \end{tikzcd}
+\end{equation}
+By definition the fiber is
+\[\hat T_xX=(V\twoheadrightarrow V/\langle x\rangle)^{-1}(T_xX)\subseteq V.\]
+Its projectivization $\bbP(\hat T_xX)\subseteq\bbP^m$ is what we geometrically consider to be the tangent space at $x$ of $X$:
+if $X=\{x\in\bbP^m\mid p_1(x)=\dots=p_r(x)=0\}$ then
+% \[\bbP(\hat T_{X,\bar x})=V(d_{\bar x}f_1,\dots,d_{\bar x}f_m),\qquad\text{where}\qquad d_{\bar x}f:=\sum_{i=0}^n\partial_if(\bar x)x_i.\]
+\[\hat T_xX=\ker\begin{pmatrix}\nabla p_1(x)\\\vdots\\\nabla p_r(x)\end{pmatrix}.\]
+The bundle $\hat TX$ has rank $n+1$.
+We observe \cite{holme1988geometric}[(1)] that $\hat TX$ fits the same exact sequence (and thus is isomorphic to) the dual of the first jet bundle $J^1(\calO_X(1))$.
+% To define the embedded tangent bundle in general, take the closure of the bundle over $X_{\mathrm{sm}}$.
+
+\paragraph{Euclidean normal bundle}
+
+We first need to fix a hyperplane $V'\subset V$ and a non-degenerate bilinear form $B$ on $V'$,
+which induces an isomorphism $L_{V'}\colon V'\iso(V')^\vee$. These define the \textit{hyperplane at infinity}
+\[H_\infty:=\bbP(V')\subset\bbP^m\]
+and the \textit{isotropic quadric at infinity}
+\[Q_\infty:=\{x\in H_\infty\mid B(x,x)=0\}.\]
+Geometrically it is equivalent to directly fix $(H_\infty,Q_\infty)$
+which is the same as fixing $B$ up to a non-zero scalar factor.
+But it is handy to have the bilinear form available for what we are about to do.
+Set $X_\infty:=X\cap H_\infty$. Consider the composition
+\begin{equation}\label{eq:compNX}
+    \calN_X^\vee(1)\hookrightarrow V_X^\vee\twoheadrightarrow(V')_X^\vee\iso V'_X
+\end{equation}
+where the first arrow comes from taking duals in \eqref{diag:exactgrid},
+the second is the dual of the inclusion $V'\subset V$ and the third is $L_{V'}^{-1}$.
+Fiberwise for any $x\in X$ the composition looks like
+\[\Ann(\hat T_xX)\hookrightarrow V^\vee\twoheadrightarrow(V')^\vee\iso V'\]
+and fails to be injective precisely when the second map is not injective.
+Since its kernel is $\Ann(V')$, this happens if and only if
+\begin{align*}
+    \Ann(\hat T_xX)\cap\Ann(V')\neq0 & \Leftrightarrow \hat T_xX+V'\neq V           \\
+                                     & \Leftrightarrow \hat T_xX \subseteq V'       \\
+                                     & \Leftrightarrow X \not\pitchfork_x H_\infty.
+\end{align*}
+Thus, the composition \eqref{eq:compNX} is an embedding if and only if $X\pitchfork H_\infty$.
+In this case, the image is a sub-bundle of $(V')_X$ of rank $c$ which we call the \textit{bundle of normal directions} $N^\infty X$.
+By definition, $N^\infty X\simeq\calN_X^\vee(1)$.
+For any $x\in X$, by definition the fiber $N^\infty_xX=\{v'\in V'\mid B(v,\hat T_xX\cap V')=0\}=(\hat T_xX\cap V')^\perp$.
+
+Another case which will be of interest to us is when the composition \eqref{eq:compNX} is not an embedding,
+but the image is still a sub-bundle of $(V')_X$: this is the case when $\hat T_xX\subseteq V'$ for all $x\in X$,
+which is equivalent to the condition $X\subseteq H_\infty$. In this situation,
+we still denote the image by $N^\infty X$, which is a sub-bundle of $(V')_X$ of rank $c-1$.
+
+Next, consider the natural map of bundles
+\begin{equation}\label{eq:sumNX}
+    \begin{split}
+        \calO_X(-1)\oplus N^\infty X & \to V_X      \\
+        (v,w)                        & \mapsto v+w.
+    \end{split}
+\end{equation}
+If this is an embedding (i.e.\ $x\notin N^\infty_x X$) we call its image the \textit{Euclidean normal bundle} $\hat NX$,
+which is then a sub-bundle of $V_X$ of rank $c+1$ isomorphic to $\calO_X(-1)\oplus\calN_X^\vee(1)$
+(or of rank $c$ if $X\subseteq H_\infty$).
+The fiber at $x\in X$ is given by
+\[\hat N_xX=\langle x\rangle+N_x^\infty X=\langle x\rangle+(\hat T_xX\cap V')^\perp.\]
+To give a geometric interpretation of when \eqref{eq:sumNX} is actually an embedding,
+notice first that for any $x\in Q_\infty$, $\hat T_xQ_\infty=\{y\in H_\infty\mid B(x,y)=0\}$.
+We show that $x\notin N_x^\infty X$ if and only $X_\infty \pitchfork_x Q_\infty$:
+suppose that $x\notin Q_\infty$, then $B(x,x)\neq0$,
+and since $x\in\hat T_xX_\infty=\hat T_xX\cap V'$, we have $x\notin N_x^\infty X$.
+Suppose now that $x\in X\cap Q_\infty$. Then
+\begin{align*}
+    \hat T_xX \pitchfork_x \hat T_xQ_\infty & \Leftrightarrow \hat T_xX\cap V'\notin \hat T_xQ_\infty                           \\
+                                            & \Leftrightarrow \exists v\in \hat T_xX\cap V',\;Q(x,v)\neq0                       \\
+                                            & \Leftrightarrow x \notin \{v'\in V'\mid Q(v',w)=0\;\forall w\in\hat T_xX\cap V'\} \\
+                                            & \Leftrightarrow x \notin N^\infty_xX.
+\end{align*}
+
+Thus, the conditions for $\hat NX$ to be a bundle are the following:
+\begin{defi}
+    A variety $X\subset\bbP^m$ is $(H_\infty,Q_\infty)$-\textit{orthogonally general} \cite{catanese2000focal} if
+    \begin{enumerate}
+        \item $X$ is nonsingular;
+        \item $X\pitchfork H_\infty$;
+        \item $X_\infty \pitchfork H_\infty$, where $X_\infty=X\cap H_\infty$.
+    \end{enumerate}
+\end{defi}
+% It is trivial to see that according to this definition, if $X$ is orthogonally general then $X_\infty$ also is.
+
+\paragraph{Cone Euclidean normal bundle}
+
+Let $V$ be an $(m+1)$-dimensional vector space over $\bbC$, and denote by $\bbP^m:=\bbP(V)$.
+Fix a non-degenerate symmetric bilinear form $B$ on $V$, defining the \textit{isotropic quadric}
+\[Q:=\{x\in H_\infty\mid B(x,x)=0\}.\]
+
+Then, the composition
+\[\calN_X^\vee(1)\hookrightarrow V_X^\vee\iso V_X\]
+is an embedding, whose image $N^cX$ is a sub-bundle of $V_X$ of rank $c$.
+For any $x\in X$, $N^cX=\Ann(\hat T_xX)$.
+
+The natural map of bundles
+\begin{equation}\label{eq:sumNcX}
+    \begin{split}
+        \calO_X(-1)\oplus N^c X & \to V_X      \\
+        (v,w)                   & \mapsto v+w.
+    \end{split}
+\end{equation}
+is injective at $x\in X$ if and only if $B(x,\cdot)\notin\Ann(\hat T_xX)$, which is the same as $X \pitchfork_x Q$.
+In fact, if we consider $V$ as a hyperplane of a $(m+2)$-dimensional vector space $W$, and let $H_\infty=\bbP(V)\subset\bbP(W)$,
+we see that this is precisely the case in which $X\subseteq H_\infty$ discussed before.
+
+In this case, the image of \eqref{eq:sumNcX} the \textbf{cone Euclidean normal bundle} $\hat N^cX$,
+which is a sub-bundle of $V_X$ of rank $c+1$ isomorphic to $\calO_X(1)\oplus\calN_X^\vee(1)$.
+
+Fix now the hyperplane at infinity $H_\infty$ such that $Q\pitchfork H_\infty$ and let $Q_\infty=Q\cap H_\infty$.
+Then, in general the conditions that $X$ is $(H_\infty,Q_\infty)$-orthogonally general and that $X\pitchfork Q_\infty$ are independent,
+but if both conditions are satisfied then $\hat NX\simeq\calO_X(1)\oplus\calN_X^\vee(1)\simeq\hat N^cX$.
+Moreover,
+
+% We now construct the \textbf{Euclidean normal bundle}.
+% There are at least two possible interpretations for what constitutes the Euclidean normal bundle of a projective variety:
+% \begin{enumerate}
+%     \item Start from an affine variety $Y\subset\bbC^m$ and fix a bilinear form $B$ on $\bbC^m$.
+%           Then, it is reasonable
+% \end{enumerate}
 
 \bibliographystyle{plain}
 \bibliography{morseBib}
