@@ -1145,6 +1145,9 @@ $\varphi$ \cite{AntonioMorseThEuclDist}.
 We will consider $X, Y \subset \mathbb{R}^m$ algebraic manifolds.
 We still study the distance from $Y$ restricted to $X$, ${\operatorname{dist}_Y}_{\mid X}$, and
 more precisely, the critical points of this function from an algebraic point of view.
+We will consider $X, Y \subset \mathbb{R}^m$ algebraic manifolds.
+We still study the distance from $Y$ restricted to $X$, ${\operatorname{dist}_Y}_{\mid X}$, and
+more precisely, the critical points of this function from an algebraic point of view.
 
 \subsection{The critical point equation}
 
@@ -1191,6 +1194,38 @@ in $\mathbb{R}^m / N_x X$.
 \bigskip
 
 \quad The next step to better understand these polynomials equations is to view them
+as complex. For that, we consider the complexification of $X$ and $Y$ : if we view
+$p_1, ..., p_r \in \mathbb{R}[x_1, ..., x_m] \subset \mathbb{C}[x_1, ..., x_m]$ as complex
+polynomials, we define $X_{\mathbb{C}}$ as the submanifold of $\mathbb{C}^m$ defined as the
+complex zero set of $p_1, ...p_r$, and similarly for $Y_{\mathbb{C}}$.\newline
+We also need to define what it means
+for some complex vector to be tangent or normal $X_{\mathbb{C}}$. We define the tangent bundle of
+$X_{\mathbb{C}}$ as follows :
+\begin{equation}\label{eq:TX}
+    T(X_{\mathbb{C}}) = \left\{ (x, v) \mid x \in X, v \in \ker \begin{pmatrix}\nabla_x p_1 \\ \vdots \\ \nabla_x p_r \end{pmatrix} \right\}
+\end{equation}
+and the normal bundle
+\begin{equation}\label{eq:NX}
+    N (X_{\mathbb{C}}) = \{ v \in \mathbb{C}^m \mid \forall w \in T_x X_{\mathbb{C}}, \sum_{i=1}^m v_i w_i = 0 \}
+\end{equation}
+Note that the product involved is not an inner product on $\mathbb{C}^m$. In particular, one has
+$N_x (X_{\bbC}) \cap T_x (X_{\bbC}) \neq 0$ for all $x \in X_{\bbC}$, as there is a whole $m-1$ dimensional quadric called
+the \textit{isotopic quadric} where this product vanishes :
+\[ Q = \{ (x_1, ..., x_m) \in \mathbb{C}^m \mid \sum_{i=1}^{m} x_i^2 = 0 \} \]
+Using this product to define $N(X_{\bbC})$ is the approach commonly followed in metric algebraic geometry for two reasons:
+\begin{enumerate}
+    \item A hermitian inner product such as $(x,y) \mapsto \bar x_1y_1+\dots+\bar x_my_m$
+          is not algebraic over $\bbC$, which would undermine the usage of algebraic geometry for these problems;
+    \item Even after complexification, in applications we are usually only interested in the real solutions,
+          which are still captured by this definition.
+\end{enumerate}
+This algebraic product has the added benefit that it generalizes the following identity
+\[ N_x (X_{\mathbb{C}})= \operatorname{span} \{\nabla_x p_1, ... \nabla_x p_n \} \]
+for all $x \in X$. For what follows, we omit the subscript and directly write $X, Y \subset \mathbb{C}^m$,
+considering them as already complexified.
+\medskip \newline
+With these definitions and the generalized expression of the normal bundle, we can then replace $\mathbb{K}$ with $\mathbb{C}$ in \eqref{eq:ACP},
+and for what follows we will exclusively study this complex version.
 as complex. For that, we consider the complexification of $X$ and $Y$ : if we view
 $p_1, ..., p_r \in \mathbb{R}[x_1, ..., x_m] \subset \mathbb{C}[x_1, ..., x_m]$ as complex
 polynomials, we define $X_{\mathbb{C}}$ as the submanifold of $\mathbb{C}^m$ defined as the
@@ -1576,6 +1611,7 @@ we have at most $3$ real critical points.
 
 \quad We now present some tools that will help us compute the euclidean distance degree.
 Let $X \subset \mathbb{P}^m$ be a reduced, irreducible complex projective variety.
+Let $X \subset \mathbb{P}^m$ be a reduced, irreducible complex projective variety.
 Let it be defined as the projective zero set of some polynomials, $p_1, ..., p_{m-n}$. $X$
 is then of dimension $n$.
 
@@ -1639,6 +1675,7 @@ live in the Chow ring of some variety. The first are the Chern classes.
 \bigskip
 
 \quad Consider a complex vector bundle over $X$, $E \rightarrow X$ of rank $r$ where $X$
+\quad Consider a complex vector bundle over $X$, $E \rightarrow X$ of rank $r$ where $X$
 is assumed to be smooth. We define the Chern classes of this bundle with the following
 proposition.
 \begin{prop}[Chern classes]
@@ -1665,6 +1702,8 @@ proposition.
 
 \bigskip
 
+\quad One other class of interest are polar classes. Recall $\hat{T}X$ the embedded tangent
+bundle defined in \eqref{eq:embeddedTX}.
 \quad One other class of interest are polar classes. Recall $\hat{T}X$ the embedded tangent
 bundle defined in \eqref{eq:embeddedTX}.
 Also denote for $x \in X$, $\mathbb{P}(\hat{T}_x X)$ the projective embedding of $\hat{T}_x X$.
@@ -1715,6 +1754,7 @@ if not $p_*[Y] = d [p(Y)]$ where $d$ is the degree of the map $p_{\mid Y}$.
 Again, we have relations to the other classes : Segre classes are inverses of Chern classes i.e
 $s(E)c(E) = 1 \in A(X)$. Another important thing to note is that the bundle map $p$ embeds
 $A(X)$ into $A(\mathbb{P}(E))$ through $p^*$.
+$A(X)$ into $A(\mathbb{P}(E))$ through $p^*$.
 
 \subsubsection{Computing the EDD}
 
@@ -1723,7 +1763,28 @@ manifold $X \subset \mathbb{C}^m$, defined by polynomials $p_1, ..., p_{m-n}$. W
 give two ways of computing it, the first one will involve the degrees of the polynomials
 $p_1, ..., p_{m-n}$ via a Bezout type argument. The second will use Chern, Segre and polar
 classes following \cite{piene2015polar} \cite{catanese2000focal}.
+manifold $X \subset \mathbb{C}^m$, defined by polynomials $p_1, ..., p_{m-n}$. We will
+give two ways of computing it, the first one will involve the degrees of the polynomials
+$p_1, ..., p_{m-n}$ via a Bezout type argument. The second will use Chern, Segre and polar
+classes following \cite{piene2015polar} \cite{catanese2000focal}.
 \medskip \newline
+If $X$ and $y$ are in generic positions, and because computing the EDD amounts to solving
+an intersection problem, $\operatorname{EDD}(X)$ can be expressed as the product of
+the degree of $X$ and the degree of the equation $x - y \in N_x X$. Writing it down in terms
+of the gradients, one has the following result
+
+\begin{theorem}\cite{Breiding2024Metric}
+    If $X$ is a generic complete intersection, defined by polynomials $p_1, ..., p_{m-n}$
+    of degrees $d_1, ..., d_{m-n}$, then
+    \[ \operatorname{EDD}(X) = d_1 ... d_{m-n} \sum_{i_1 + ... + i_{m-n} \leq n} (d_1 - 1)^{i_1} ... (d_{m-n}-1)^{i_{m-n}} \]
+\end{theorem}
+
+\quad We now compute the EDD in terms of classes. Our tools for this requiring
+projective manifolds, we will take the "projective closure" of $X$ and its bundles
+of interest, as constructed in section \ref{sec:tangnormInProj}. In what follows,
+we assume that $\bar X$ is orthogonally general relative to the canonical embedding
+$\mathbb{C}^m \hookrightarrow \mathbb{P}^m$ and the canonical isotopic quadric used to define
+$NX$. We have the following maps from the euclidean normal bundle $\hat N \bar X$.
 If $X$ and $y$ are in generic positions, and because computing the EDD amounts to solving
 an intersection problem, $\operatorname{EDD}(X)$ can be expressed as the product of
 the degree of $X$ and the degree of the equation $x - y \in N_x X$. Writing it down in terms
@@ -1778,8 +1839,22 @@ The tautological bundle over $\bar{X}$ is the bundle $\mathcal{O}_{\bar{X}}(-1)$
 whose fiber at $[x] \in \bar{X}$ is the line $\mathbb{C}x \subset \mathbb{C}^{m+1}$.
 By section \ref{sec:tangnormInProj} we have
 $\hat{N}\bar{X} \cong N^{\infty} \bar X \oplus \mathcal{O}_{\bar{X}}(-1)$.
+The tautological bundle over $\bar{X}$ is the bundle $\mathcal{O}_{\bar{X}}(-1)$
+whose fiber at $[x] \in \bar{X}$ is the line $\mathbb{C}x \subset \mathbb{C}^{m+1}$.
+By section \ref{sec:tangnormInProj} we have
+$\hat{N}\bar{X} \cong N^{\infty} \bar X \oplus \mathcal{O}_{\bar{X}}(-1)$.
 \medskip \newline
 Property 3. of Chern classes and the fact that Segre classes are their inverses yields
+$s(\hat{N}\bar{X}) = s(N^{\infty} \bar X)s(\mathcal{O}_{\bar{X}}(-1))$. One can show
+using the content of section \ref{sec:tangnormInProj} that $N^{\infty} \bar X$ verifies
+the following exact sequence
+\[ 0 \to N^{\infty} \bar X \to \bar X \times \mathbb{C}^{m+1} \to \hat{T}^* \bar X \to 0\]
+and from property 3. of Chern classes and the fact that Segre and Chern classes are inverses,
+we get
+\[ s(N^{\infty} \bar X)s(\hat{T}^* \bar{X}) = s(\bar{X} \times \mathbb{C}^{m+1}) \]
+For all $k \neq n$, $s_k(\bar{X} \times \mathbb{C}^{m+1}) = 0$, because $\xi^{m+1} = 0$.
+So $s(\bar{X} \times \mathbb{C}^{m+1}) = 1$, and we get
+$s(N^{\infty} \bar X) = c(\hat{T}^* \bar{X})$.\newline
 $s(\hat{N}\bar{X}) = s(N^{\infty} \bar X)s(\mathcal{O}_{\bar{X}}(-1))$. One can show
 using the content of section \ref{sec:tangnormInProj} that $N^{\infty} \bar X$ verifies
 the following exact sequence
@@ -2006,6 +2081,47 @@ one can fix that in the following way, as $Y_{\infty} \subset \mathbb{P}^{m-1}$
     If $Y \subset \mathbb{C}^m$ is bottleneck general, we define its bottleneck degree as
     \[ \operatorname{BND}(Y) = \operatorname{BND}(\bar{Y}) - \operatorname{BND}(Y_{\infty}) \]
 \end{defi}
+
+\subsection{Linear optimization: the easy case}
+
+Let $X\subseteq\bbC^m$ be an affine nonsingular variety such that $\bar X\pitchfork H_\infty$ in $\bbP^m$.
+We define the linear optimization (LO) degree $\operatorname{LOdeg}(X)$ as the number of critical points
+of a generic linear functional $\alpha\in(\bbC^m)^*$ restricted to $X$.
+Later on we will be able to drop both the smoothness and transversality conditions,
+but we can illustrate this simple case through the tools we already have available.
+
+% We immediately observe that the LO degree coincides with the degree of the second projection
+% \[NX\to\bbC^m,\]
+% so to express this number in terms of characteristic classes,
+% we can proceed as before by taking the appropriate compactification in $\bbP^m$ of $X$ and its bundles.
+As before, to express the LO degree in terms of characteristic classes we can proceed as before
+by taking the appropriate compactification in $\bbP^m$ of $X$ and its bundles.
+In particular, the original problem can be framed as follows: given a generic vector hyperplane $H\subset\bbC^n$,
+we want to count for how many points $x\in X$ we have $H\supseteq T_xX$.
+This is the same as asking that $\bar H\supseteq\overline{T_xX}$ and equivalently that
+$\bar H\cap H_\infty\supseteq\overline{T_xX}\cap H_\infty$.
+Defining $T^\infty\bar X:=(\hat T\bar X)\cap(\bar X\times V')$ (which is a bundle of rank $n$ by the transversality condition)
+so that
+\[\overline{T_xX}\cap H_\infty=\overline{\hat T_xX}\cap H_\infty=\bbP(\hat T_x\bar X)\cap H_\infty=\bbP(T^\infty_x\bar X)\]
+we have reduced the problem to the following:
+given a generic linear functional $\alpha\in(V')^*$, count for how many points $x\in X$ we have that the corresponding
+section $\alpha\in(T^\infty_x\bar X)^*$ vanishes.
+Generically, there is no point at infinity $x\in\bar X\setminus X$ for which this is true,
+so that the number to be number to be computed is really the degree of the zero locus of a generic section of $T^\infty\bar X$,
+which we know by Property 2.\ of Chern classes to be $\deg(c_n(T^\infty\bar X))$.
+
+To calculate this value, notice that we have the exact sequence
+\[0\to T^\infty\bar X\to\hat T\bar X\to(V/V')_{\bar X}\simeq\calO_{\bar X}\to0\]
+where fiberwise we use the isomorphism $\hat T_x\bar X/(\hat T_x\bar X\cap V')\simeq V/V'$.
+Then, by Property 3.\ of Chern classes it follows that $c(\hat T\bar X)=c(T^\infty\bar X)c(\calO_{\bar X})=c(T^\infty\bar X)$
+and thus we conclude
+\[\operatorname{LOdeg}(X)=\deg(c_n(\hat T\bar X))=\deg(p_n(\bar X)),\]
+i.e.\ the LO degree is the degree of the top polar class of $\bar X$.
+
+% given a generic linear functional $\alpha\in(\bbC^m)^*$,
+% which induces a section $\alpha\in(T_xX)^*$, we want to find out in how many points this section vanishes.
+% This is equivalent to taking a generic linear functional $\alpha\in(V')^*$ which induces a section
+% $\alpha\in\overline{\hat TX}$
 
 
 \bibliographystyle{plain}
