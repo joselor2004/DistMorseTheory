@@ -8,6 +8,7 @@
 \usepackage{color}
 \usepackage{tikz}
 \usepackage{tikz-cd}
+\usepackage{float}
 \usepackage{MacrosArt}
 
 \setlength{\parindent}{0pt}
@@ -45,7 +46,7 @@
 \DeclareMathOperator{\img}{im}
 \DeclareMathOperator{\Ann}{Ann}
 
-\title{Generalized Morse theory for distance functions}
+\title{Metric algebraic critical point theory}
 
 \author{José Lorgeré}
 
@@ -531,247 +532,279 @@ in $\partial_x f$.
 
 \bigskip
 
-    We are now ready to prove the main result of this section.
+We are now ready to prove the main result of this section.
 
-    \begin{theorem}[Normal form]
-        If $0$ is a critical point of $f$, then there exists continuous local coordinates around $0$,
-        $\psi : \mathbb{R}^k \times \mathbb{R}^{m-k} \rightarrow U$ such that
-        \[ \forall y \in \mathbb{R}^k, \forall z \in \mathbb{R}^{m-k}, f(\psi(y,z)) = \lambda(y) + q(z)\]
-        where $\lambda$ is a continuous selection of $k+1$ affinely independant linear functions, and $q$ is of the form
-        \[ \forall z \in \mathbb{R}^{m-k}, q(z) = c -\sum_{i=1}^{\mu} z_i^2 + \sum_{i=\mu+1}^{m-k} z_i^2 \]
-        with $0 \leq \mu \leq m-k$.
-    \end{theorem}
+\begin{theorem}[Normal form]
+    If $0$ is a critical point of $f$, then there exists continuous local coordinates around $0$,
+    $\psi : \mathbb{R}^k \times \mathbb{R}^{m-k} \rightarrow U$ such that
+    \[ \forall y \in \mathbb{R}^k, \forall z \in \mathbb{R}^{m-k}, f(\psi(y,z)) = \lambda(y) + q(z)\]
+    where $\lambda$ is a continuous selection of $k+1$ affinely independant linear functions, and $q$ is of the form
+    \[ \forall z \in \mathbb{R}^{m-k}, q(z) = c -\sum_{i=1}^{\mu} z_i^2 + \sum_{i=\mu+1}^{m-k} z_i^2 \]
+    with $0 \leq \mu \leq m-k$.
+\end{theorem}
 
-    \begin{proof}
-        We first restrict ourselves to $O$ a neighbourhood of $0$ such that $W$ can be considered
-        rectified in some smooth coordinates i.e, $W \cap O = 0 \times \mathbb{R}^{m-k}$. By \eqref{eq:morseCS2}
-        we can also use the smooth Morse lemma to get $f(0, z) = q(z)$. For $(y, z) \in \mathbb{R}^m$,
-        write $f^0(y, z) = f(y, z) - f(0, z)$. We will build
-        a locally invertible map $\psi : \mathbb{R}^m \rightarrow \mathbb{R}^m$ such that
-        $\psi(0) = 0$ and for $(y,z)$ close enough to $0$, $f^0 \circ \psi (y, z)$ is a continuous selection of
-        linear maps independant of $z$.
-        \bigskip \newline
-        Assume that all $\varphi_i$ are of value $0$ at $0$, up to replacing $f$ by $f^0$.
-        We will show that up to coordinate change, $f^0$ is only a function of $y$ and not of $z$.
-        This can be done in the following way : first, by condition \eqref{eq:morseCS3}, we can
-        assume that the $k$ first $\varphi_i$ are linearized, i.e equal to $dy_i$ in
-        a neighbourhood of $0$. The last $\varphi_{k+1}$ could still depend on $z$.
-        \medskip \newline
-        To fix this we apply lemma \ref{lem:prepNormForm} to
-        $f^0 : \mathbb{R}^{m+k-1} \times \mathbb{R} \rightarrow \mathbb{R}$.
-        Denote $\Phi(s, y, z)$ the point obtained by integrating $X$ for time $s$ starting at
-        $(y, z)$. The following local homeomorphism
-        \begin{equation}\label{eq:constrPhiNormform}
-            \phi(y, z) = \Phi(-z_{m-k}, y, z) + (0, ..., 0, z_{m-k})
-        \end{equation}
-        verifies $f^0 \circ \phi^{-1}(y, z) = f^0(y, z_1, ..., z_{m-k-1}, 0)$. By repeating the process
-        we eliminiate the dependance in $z$.
-        \bigskip \newline
-        Note that in the new coordinates, $\varphi_i = dy_i$ for $i < k + 1$. To write $f^0$ as
-        a continuous selection of linear functions, it suffices to linearize $\varphi_{k+1}$.
-        For that, for all $t \in [0, 1]$ define
-        \[ \varphi_{k+1}^t = (1-t)\varphi_{k+1} + t d_0 \varphi_{k+1} \]
-        Note that for $y$ close enough to $0$ and any $t\in [0, 1]$, $d_y \varphi_{k+1}^t$ is close
-        to $d_y \varphi_{k+1}$, hence the functions $dy_1, ..., dy_k, \varphi_{k+1}^t$ verify
-        \eqref{eq:morseCS1}.
-        By lemma \ref{lem:extendingTimeCS}, we define $h(y,t)$ for all $y$ close enough to $0$ and $t \in [0, 1]$ as
-        a continuous selection of $dy_1, ..., dy_k, \varphi_{k+1}^t$ such that
-        it equals $f^0$ at $t=0$.
-        \medskip \newline
-        We then apply lemma \ref{lem:prepNormForm}
-        and get $U$ an even smaller neighbourhood and $X$ a vector field on a neighbourhood
-        of $(0, 0)$. Up to shrinking $U$, we can assume that for all $t^*$ there is a
-        time $s(t^*) > 0$ such that for all $y \in U$, we can integrate $(y, t^*)$ for time
-        $s, |s| < s(t^*)$. This gives a covering of $[0, 1]$ by intervals of the form
-        $]t^*-s(t^*), t^*+s(t^*)[$, so we can still cover it with finitely many of these intervals.
-        \medskip \newline
-        Assume for simplicity
-        that we can flow for time $1$ from all $(y, 0)$, $y \in U$ i.e $[0, 1]$ can be covered with
-        only one such interval. We construct a local
-        homeomorphism $\phi$ similarly to \eqref{eq:constrPhiNormform} such that
-        \[ f^0(y) = h(y, 0) = h \circ \phi^{-1} (y, 1) \]
-        so $f^0$ can be written in some coordinates as a continuous selection of linear functions.
-        If we need more than one interval to cover $[0, 1]$ we can decompose this into finitely many
-        homeomorphisms going from $0$ to $1$ in successive steps.
-        \bigskip \newline
-        By composing all the steps, we indeed constructed the local homeomorphism $\psi$.
-
-    \end{proof}
-
-    \quad We now try to understand better the structure of the non smooth component that appears in
-    the normal form theorem. It turns out that it can be encoded in a purely
-    combinatorial way, as the following theorem shows \cite{PLminmax}.
-
-    \begin{theorem}\label{th:minmax}
-        Let $\lambda : \mathbb{R}^k \rightarrow \mathbb{R}$ be a continuous selection of
-        $k+1$ affinely independant linear functions, $\lambda_1, ..., \lambda_{k+1}$. Then there exists a unique family
-        $S_1, ..., S_l$ of subsets of $\llbracket 1, k+1 \rrbracket$ verifying that
-        \begin{itemize}
-            \item $S_i \not \subset S_j$, $i \neq j$
-            \item $\lambda$ can be written as
-                  \[ \lambda(y) = \min_{i} \max_{j \in S_i} \lambda_j(y) \]
-        \end{itemize}
-    \end{theorem}
-
-    \begin{proof}
-        Let's first tackle uniqueness. Let $S_1, ..., S_l$, $D_1, ..., D_r$ be two such distinct families.
-        Assume without loss of generality that $S_1 \neq D_j$. We can also assume that for all
-        $1 \leq j \leq r$, $S_1 \not\supset D_j$. If it is the case, then for all $1 < i \leq l$
-        we have $D_j \not\supset S_i$ by assumption on $S$. We can then swap $S$ and $D$ to get
-        what we want.\newline
-        By affine independance, the following linear system has a solution
-        \[ \lambda_i(y) + \mu = c_i, i \in \llbracket 1, k+1 \rrbracket \]
-        where the unknowns are $y, \mu$ and $c_i = 0$ if $i \in S_1$ and $1$ otherwise.
-        It follows that, if we use the representation with $D_i$, we get $\lambda(y) = 1 - \mu$
-        and if we use the one with the $S_i$, $\lambda(y) = -\mu$.
-        \medskip \newline
-        Now for existence. For all permutation $\nu \in \mathfrak{S}_{k+1}$ define the cone
-        \[ K_{\nu} = \{ y \in \mathbb{R}^k \mid \lambda_{\nu(1)}(y) \leq ... \leq \lambda_{\nu(k+1)}(y) \} \]
-        and the function $s : \nu \in \mathfrak{S}_{k+1} \mapsto i \in \llbracket 1, k+1 \rrbracket$ where $i$
-        is such that $\lambda_{\nu(i)} = \lambda$ on $K_{\nu}$. If we assume that for all $y$ and $\nu$ we have
-        \[ \lambda(y) \leq \max \{ \lambda_{\nu(1)}(y), ..., \lambda_{\nu(s(\nu))}(y) \} \]
-        then it suffices to consider the family of sets $S_{\nu} = \{\nu(1), ..., \nu(s(\nu)) \}$
-        and simplify these by removing those who are contained in one another.
-        \medskip \newline
-        We now give a broad idea of the proof of the claim. The result is true by definition
-        on $K_{\nu}$. For any $y \in \mathbb{R}^k$, set $y' \in K_{\nu}$ and consider the evolution
-        of the order of $\lambda_i$ along the line between $y$ and $y'$ : the value of each $\lambda_i$
-        evolves at a constant rate. Whenever the current $\lambda_i$ defining $\lambda$ encounters
-        another $\lambda_j$ and $\lambda$ becomes defined as $\lambda_j$ afterwards, either
-        $\lambda_j$ is smaller than $\lambda_i$ after the encounter, or the opposite. If we denote
-        $I$ the set of indices such that the functions are smaller than $\lambda_j$ before the
-        encounter, then in either case we see that $\lambda$ stays smaller than the maximum
-        of $\lambda_{i'}$ $i' \in I$. This concludes the proof because the line starts at $K_{\nu}$.
-    \end{proof}
-
-    \subsection{Describing the homology of sublevel sets}
-
-    \quad Our goal for this section is to describe more precisely the transition that happens
-    as the critical point of $f$ is passed, where $f$ is still a Morse continuous selection
-    defined on $\mathbb{R}^m$ with $0$ as its only critical point.
+\begin{proof}
+    We first restrict ourselves to $O$ a neighbourhood of $0$ such that $W$ can be considered
+    rectified in some smooth coordinates i.e, $W \cap O = 0 \times \mathbb{R}^{m-k}$. By \eqref{eq:morseCS2}
+    we can also use the smooth Morse lemma to get $f(0, z) = q(z)$. For $(y, z) \in \mathbb{R}^m$,
+    write $f^0(y, z) = f(y, z) - f(0, z)$. We will build
+    a locally invertible map $\psi : \mathbb{R}^m \rightarrow \mathbb{R}^m$ such that
+    $\psi(0) = 0$ and for $(y,z)$ close enough to $0$, $f^0 \circ \psi (y, z)$ is a continuous selection of
+    linear maps independant of $z$.
+    \bigskip \newline
+    Assume that all $\varphi_i$ are of value $0$ at $0$, up to replacing $f$ by $f^0$.
+    We will show that up to coordinate change, $f^0$ is only a function of $y$ and not of $z$.
+    This can be done in the following way : first, by condition \eqref{eq:morseCS3}, we can
+    assume that the $k$ first $\varphi_i$ are linearized, i.e equal to $dy_i$ in
+    a neighbourhood of $0$. The last $\varphi_{k+1}$ could still depend on $z$.
     \medskip \newline
-    The normal form of $f$ and theorem \ref{th:minmax} allows us to fully describe the behaviour
-    of $f$ with purely combinatorial information, a smooth Morse index and a more complicated set
-    representation. We can encode the combinatorial structure that appears in its non smooth part in a way
-    that will give us topological and homotopical informations about the sublevel sets : define the
-    simplical complex $K(S_1^c, ..., S_l^c)$ on $k+1$ vertices whose faces are given by the complements in
-    $\llbracket 1, k+1 \rrbracket$ of the sets $S_i$ describing the non smooth part of $f$.
+    To fix this we apply lemma \ref{lem:prepNormForm} to
+    $f^0 : \mathbb{R}^{m+k-1} \times \mathbb{R} \rightarrow \mathbb{R}$.
+    Denote $\Phi(s, y, z)$ the point obtained by integrating $X$ for time $s$ starting at
+    $(y, z)$. The following local homeomorphism
+    \begin{equation}\label{eq:constrPhiNormform}
+        \phi(y, z) = \Phi(-z_{m-k}, y, z) + (0, ..., 0, z_{m-k})
+    \end{equation}
+    verifies $f^0 \circ \phi^{-1}(y, z) = f^0(y, z_1, ..., z_{m-k-1}, 0)$. By repeating the process
+    we eliminiate the dependance in $z$.
+    \bigskip \newline
+    Note that in the new coordinates, $\varphi_i = dy_i$ for $i < k + 1$. To write $f^0$ as
+    a continuous selection of linear functions, it suffices to linearize $\varphi_{k+1}$.
+    For that, for all $t \in [0, 1]$ define
+    \[ \varphi_{k+1}^t = (1-t)\varphi_{k+1} + t d_0 \varphi_{k+1} \]
+    Note that for $y$ close enough to $0$ and any $t\in [0, 1]$, $d_y \varphi_{k+1}^t$ is close
+    to $d_y \varphi_{k+1}$, hence the functions $dy_1, ..., dy_k, \varphi_{k+1}^t$ verify
+    \eqref{eq:morseCS1}.
+    By lemma \ref{lem:extendingTimeCS}, we define $h(y,t)$ for all $y$ close enough to $0$ and $t \in [0, 1]$ as
+    a continuous selection of $dy_1, ..., dy_k, \varphi_{k+1}^t$ such that
+    it equals $f^0$ at $t=0$.
     \medskip \newline
-    Another thing to note is that when put in normal form, $f$ is a quasi homogeneous function, i.e
-    there exists some real numbers $\alpha_1, ..., \alpha_m > 0$ such that for all $t > 0, x \in \mathbb{R}^m$,
-    we have
-    \[ f(t^{\alpha_1} x_1, ..., t^{\alpha_m} x_m) = tf(x) \]
-    In this case we have $f(ty, t^{1/2}z) = tf(y,z)$ if we assume that $f(0) = 0$, assumption we'll
-    make without loss of generality. For a quasi homogenous function $h$, we'll denote $\delta_t$
-    the power-scaling map such that $h(\delta_t x) = th(x)$. The following lemmas on quasi
-    homogeneous functions will prove useful for describing the homotopy type of sublevel sets.
-
-    \begin{lem}\label{lem:pairconehomequiv}
-        Let $h : \mathbb{R}^m \rightarrow \mathbb{R}$ be a quasi homogeneous locally Lipschitz
-        function having only $0$ as a critical point. We have the following homotopy equivalence
-        \[ (M_1, M_{-1}) \simeq (C_{h^{-1}(-1)}, h^{-1}(-1)) \]
-        where $M_1, M_{-1}$ are the sublevel sets and $C_{h^{-1}(-1)}$ is the cone over $h^{-1}(-1)$.
-    \end{lem}
-
-    \begin{proof}
-        Let $\mathbb{S}$ denote the unit sphere. Define a smooth $V$ over $\mathbb{S}$ such that
-        for all $x \in \mathbb{S}$, $V(x) \in \mathbb{R}^m$ and $\langle \partial_x h, V(x) \rangle \leq -1$.
-        Extend $V$ into a vector field on $\mathbb{R}$ such that it commutes with $\delta_t$ for
-        all $t > 0$, i.e for $x \in \mathbb{S}$, $V(\delta_t x) = d_x \delta_t( V(x) )$. It
-        follows that $s \mapsto h(e^{sV} x)$ is strictly decreasing for all $x \neq 0$.
-        \medskip \newline
-        From this observation, we define similarly to proposition \ref{firstmorselem}, for all
-        $x \in h^{-1}(]-\infty, 0[)$, $p(x)$, the only point of the orbit of $x$ in $h^{-1}(-1)$.
-        We also define for all $x \in h^{-1}(-1), s \in [0, 1[$, $t(x,s)$ such that it verifies
-        $h(e^{-t(x,s)V}x) = h(x) + s$. If we then denote by
-        $\pi : [0,1] \times h^{-1}(-1) \rightarrow C_{h^{-1}(-1)}$ the projection map, where the
-        top of the cone is the point at height $s = 1$, the homotopy equivalence maps are the
-        following
-        \[ F : \begin{array}{cl}
-                M_1 & \longrightarrow C_{h^{-1}(-1)}                                \\
-                x   & \longmapsto \left\{ \begin{array}{cl}
-                                              \pi(0, p(x))      & x \in M_{-1}          \\
-                                              \pi(h(x)+1, p(x)) & x \in h^{-1}([-1, 0]) \\
-                                              \pi(1, 0)         & x \in h^{-1}([0, 1])
-                                          \end{array} \right.
-            \end{array}
-        \]
-        \vspace*{0.5cm}
-        \[ G : \begin{array}{cl}
-                C_{h^{-1}(-1)} & \longrightarrow M_1      \\
-                \pi(s, x)      & \longmapsto e^{-t(x,s)}x
-            \end{array}
-        \]
-        We can see that $F \circ G = \operatorname{id}_{C_{h^{-1}(-1)}}$. $G \circ F$ is homotopic
-        to the identity : we can use $V$ to contract $M_{-1}$ onto $h^{-1}(-1)$, and also to
-        contract $h^{-1}([0, 1])$ onto $h^{-1}(0)$.
-    \end{proof}
-
-    \quad If $X$ and $Y$ are two topological spaces, we define the join of $X$ and $Y$,
-    denoted by $X * Y$, as the quotient space of $X \times Y \times [0, 1]$ by the following
-    equivalence relation
-    \[ \forall x, x' \in X, \forall y, y' \in Y, (x,y,0) \sim (x, y', 0) \text{ and } (x,y,1) \sim (x',y,1)\]
-    Intuitively, we join together the spaces $X$ and $Y$ with all possible segments between the two.
-    Some examples of join include $X * \{y\}$ wich is the cone of $X$,
-    $X * \mathbb{S}^0$ which is the suspension of $X$. More generally the join of $X$ with $\mathbb{S}^n$
-    is an $n+1$-fold suspension.
+    We then apply lemma \ref{lem:prepNormForm}
+    and get $U$ an even smaller neighbourhood and $X$ a vector field on a neighbourhood
+    of $(0, 0)$. Up to shrinking $U$, we can assume that for all $t^*$ there is a
+    time $s(t^*) > 0$ such that for all $y \in U$, we can integrate $(y, t^*)$ for time
+    $s, |s| < s(t^*)$. This gives a covering of $[0, 1]$ by intervals of the form
+    $]t^*-s(t^*), t^*+s(t^*)[$, so we can still cover it with finitely many of these intervals.
     \medskip \newline
-    By using the same ideas as in lemma \ref{lem:pairconehomequiv}, one can prove the following
-    useful lemma.
+    Assume for simplicity
+    that we can flow for time $1$ from all $(y, 0)$, $y \in U$ i.e $[0, 1]$ can be covered with
+    only one such interval. We construct a local
+    homeomorphism $\phi$ similarly to \eqref{eq:constrPhiNormform} such that
+    \[ f^0(y) = h(y, 0) = h \circ \phi^{-1} (y, 1) \]
+    so $f^0$ can be written in some coordinates as a continuous selection of linear functions.
+    If we need more than one interval to cover $[0, 1]$ we can decompose this into finitely many
+    homeomorphisms going from $0$ to $1$ in successive steps.
+    \bigskip \newline
+    By composing all the steps, we indeed constructed the local homeomorphism $\psi$.
 
-    \begin{lem}
-        Let $h : \mathbb{R}^k \times \mathbb{R}^{m-k} \rightarrow \mathbb{R}$ be a quasi homogeneous function such that
-        for all $(y, z) \in \mathbb{R}^m$, we have $h(y, z) = a(y) + b(z)$ where $a$ and $b$
-        are quasi-homogeneous locally Lipschitz with respective exponents $\alpha, \beta > 0$. We have the following
-        homotopy equivalence
-        \[ h^{-1}(-1) \simeq a^{-1}(-1) * b^{-1}(-1) \]
-    \end{lem}
+\end{proof}
 
-    \quad If we write $f(y, z) = \lambda(y) + q(z)$ as described by the normal form theorem,
-    what remains to be done to understand the relative homology of $(M_1, M_{-1})$ is to
-    describe $q^{-1}(-1)$ and $\lambda^{-1}(-1)$. The first one has the homotopy type of
-    $\mathbb{S}^{\mu}$ where $\mu$ is the smooth Morse index of $f$, by classical Morse theory.
+\quad We now try to understand better the structure of the non smooth component that appears in
+the normal form theorem. It turns out that it can be encoded in a purely
+combinatorial way, as the following theorem shows \cite{PLminmax}.
+
+\begin{theorem}\label{th:minmax}
+    Let $\lambda : \mathbb{R}^k \rightarrow \mathbb{R}$ be a continuous selection of
+    $k+1$ affinely independant linear functions, $\lambda_1, ..., \lambda_{k+1}$. Then there exists a unique family
+    $S_1, ..., S_l$ of subsets of $\llbracket 1, k+1 \rrbracket$ verifying that
+    \begin{itemize}
+        \item $S_i \not \subset S_j$, $i \neq j$
+        \item $\lambda$ can be written as
+                \[ \lambda(y) = \min_{i} \max_{j \in S_i} \lambda_j(y) \]
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    Let's first tackle uniqueness. Let $S_1, ..., S_l$, $D_1, ..., D_r$ be two such distinct families.
+    Assume without loss of generality that $S_1 \neq D_j$. We can also assume that for all
+    $1 \leq j \leq r$, $S_1 \not\supset D_j$. If it is the case, then for all $1 < i \leq l$
+    we have $D_j \not\supset S_i$ by assumption on $S$. We can then swap $S$ and $D$ to get
+    what we want.\newline
+    By affine independance, the following linear system has a solution
+    \[ \lambda_i(y) + \mu = c_i, i \in \llbracket 1, k+1 \rrbracket \]
+    where the unknowns are $y, \mu$ and $c_i = 0$ if $i \in S_1$ and $1$ otherwise.
+    It follows that, if we use the representation with $D_i$, we get $\lambda(y) = 1 - \mu$
+    and if we use the one with the $S_i$, $\lambda(y) = -\mu$.
     \medskip \newline
-    For the second, note that we have the following homotopy equivalence
-    $\lambda^{-1}(-1) \simeq \lambda^{-1}(]-\infty, 0[)$. Using the min max form, we get
-    \[ \lambda^{-1}(]-\infty, 0[) = \bigcup_i \bigcap_{j \in S_i} \lambda_j(]-\infty, 0[) \]
-    Note that each intersection is a convex cone we'll denote by $C_i$. We'll
-    relate this to the simplical complex $K(S_1^c, ..., S_l^c)$ by using the nerve of the
-    family $C = (C_i)_i$, i.e we'll look at the following set
-    \[ N(C) := \{ J \subset \llbracket 1, l \rrbracket \mid \bigcap_{j \in J} C_j \neq \varnothing\} \]
-    From the next lemma, it follows that the nerve of $N(C)$ is exactly the one of the family of
-    sets $S_1^c, ..., S_l^c$.
+    Now for existence. For all permutation $\nu \in \mathfrak{S}_{k+1}$ define the cone
+    \[ K_{\nu} = \{ y \in \mathbb{R}^k \mid \lambda_{\nu(1)}(y) \leq ... \leq \lambda_{\nu(k+1)}(y) \} \]
+    and the function $s : \nu \in \mathfrak{S}_{k+1} \mapsto i \in \llbracket 1, k+1 \rrbracket$ where $i$
+    is such that $\lambda_{\nu(i)} = \lambda$ on $K_{\nu}$. If we assume that for all $y$ and $\nu$ we have
+    \[ \lambda(y) \leq \max \{ \lambda_{\nu(1)}(y), ..., \lambda_{\nu(s(\nu))}(y) \} \]
+    then it suffices to consider the family of sets $S_{\nu} = \{\nu(1), ..., \nu(s(\nu)) \}$
+    and simplify these by removing those who are contained in one another.
+    \medskip \newline
+    We now give a broad idea of the proof of the claim. The result is true by definition
+    on $K_{\nu}$. For any $y \in \mathbb{R}^k$, set $y' \in K_{\nu}$ and consider the evolution
+    of the order of $\lambda_i$ along the line between $y$ and $y'$ : the value of each $\lambda_i$
+    evolves at a constant rate. Whenever the current $\lambda_i$ defining $\lambda$ encounters
+    another $\lambda_j$ and $\lambda$ becomes defined as $\lambda_j$ afterwards, either
+    $\lambda_j$ is smaller than $\lambda_i$ after the encounter, or the opposite. If we denote
+    $I$ the set of indices such that the functions are smaller than $\lambda_j$ before the
+    encounter, then in either case we see that $\lambda$ stays smaller than the maximum
+    of $\lambda_{i'}$ $i' \in I$. This concludes the proof because the line starts at $K_{\nu}$.
+\end{proof}
 
-    \begin{lem}
-        Let $J \subset \llbracket 1, k+1 \rrbracket$. $J$ is the whole set if and only if
-        \[ \bigcap_{j \in J} \lambda_j^{-1}(]-\infty, 0[) = \varnothing \]
-    \end{lem}
+\subsection{Homology of sublevel sets and inequalities}
 
-    \begin{proof}
-        We first show that if $J = \llbracket 1, k+1 \rrbracket$, we indeed get an empty intersection.
-        Recall that $0$ is a critical point of $f$, so it is a critical point of $\lambda$. We
-        then have
-        \[ 0 \in \partial_0 \lambda \subset \operatorname{conv}\{ \lambda_1, ..., \lambda_{k+1} \} \]
-        So there exists $\mu_1, ..., \mu_{k+1}$ with sum $1$ such that $0 = \sum_i \mu_i \lambda_i$.
-        We then see that all $\lambda_i$ cannot be strictly negative at the same time.
-        \medskip \newline
-        We now show that if $J \neq \llbracket 1, k+1 \rrbracket$, the intersection is not empty.
-        Condition \eqref{eq:morseCS3} gives us linear independance of the family $(\lambda_j)_{j \in J}$.
-        The linear system $\lambda_j(y) = -1, j \in J$ then has a solution, where the unknown is $y$.
-    \end{proof}
+\quad Our goal for this section is to describe more precisely the transition that happens
+as the critical point of $f$ is passed, where $f$ is still a Morse continuous selection
+defined on $\mathbb{R}^m$ with $0$ as its only critical point.
+\medskip \newline
+The normal form of $f$ and theorem \ref{th:minmax} allows us to fully describe the behaviour
+of $f$ with purely combinatorial information, a smooth Morse index and a more complicated set
+representation. We can encode the combinatorial structure that appears in its non smooth part in a way
+that will give us topological and homotopical informations about the sublevel sets : define the
+simplical complex $K(S_1^c, ..., S_l^c)$ on $k+1$ vertices whose faces are given by the complements in
+$\llbracket 1, k+1 \rrbracket$ of the sets $S_i$ describing the non smooth part of $f$.
+\medskip \newline
+Another thing to note is that when put in normal form, $f$ is a quasi homogeneous function, i.e
+there exists some real numbers $\alpha_1, ..., \alpha_m > 0$ such that for all $t > 0, x \in \mathbb{R}^m$,
+we have
+\[ f(t^{\alpha_1} x_1, ..., t^{\alpha_m} x_m) = tf(x) \]
+In this case we have $f(ty, t^{1/2}z) = tf(y,z)$ if we assume that $f(0) = 0$, assumption we'll
+make without loss of generality. For a quasi homogenous function $h$, we'll denote $\delta_t$
+the power-scaling map such that $h(\delta_t x) = th(x)$. The following lemmas on quasi
+homogeneous functions will prove useful for describing the homotopy type of sublevel sets.
 
-    Because every $C_i$ is convex, their intersections are contractible. Applying Leray's nerve
-    theorem, $\lambda^{-1}(-1)$ has the homotopy type of the simplical complex given
-    by the nerve. By virtue of what we discussed, this complex is exactly $K(S_1^c, ..., S_l^c)$.
-    The homotopy type of $f^{-1}(-1)$ is then given by
-    \[ f^{-1}(-1) \simeq K(S_1^c, ..., S_l^c) * \mathbb{S}^{\mu} \]
+\begin{lem}\label{lem:pairconehomequiv}
+    Let $h : \mathbb{R}^m \rightarrow \mathbb{R}$ be a quasi homogeneous locally Lipschitz
+    function having only $0$ as a critical point. We have the following homotopy equivalence
+    \[ (M_1, M_{-1}) \simeq (C_{h^{-1}(-1)}, h^{-1}(-1)) \]
+    where $M_1, M_{-1}$ are the sublevel sets and $C_{h^{-1}(-1)}$ is the cone over $h^{-1}(-1)$.
+\end{lem}
 
-    By recalling that a join with a sphere is a suspension, we get the following result in homology.
+\begin{proof}
+    Let $\mathbb{S}$ denote the unit sphere. Define a smooth $V$ over $\mathbb{S}$ such that
+    for all $x \in \mathbb{S}$, $V(x) \in \mathbb{R}^m$ and $\langle \partial_x h, V(x) \rangle \leq -1$.
+    Extend $V$ into a vector field on $\mathbb{R}$ such that it commutes with $\delta_t$ for
+    all $t > 0$, i.e for $x \in \mathbb{S}$, $V(\delta_t x) = d_x \delta_t( V(x) )$. It
+    follows that $s \mapsto h(e^{sV} x)$ is strictly decreasing for all $x \neq 0$.
+    \medskip \newline
+    From this observation, we define similarly to proposition \ref{firstmorselem}, for all
+    $x \in h^{-1}(]-\infty, 0[)$, $p(x)$, the only point of the orbit of $x$ in $h^{-1}(-1)$.
+    We also define for all $x \in h^{-1}(-1), s \in [0, 1[$, $t(x,s)$ such that it verifies
+    $h(e^{-t(x,s)V}x) = h(x) + s$. If we then denote by
+    $\pi : [0,1] \times h^{-1}(-1) \rightarrow C_{h^{-1}(-1)}$ the projection map, where the
+    top of the cone is the point at height $s = 1$, the homotopy equivalence maps are the
+    following
+    \[ F : \begin{array}{cl}
+            M_1 & \longrightarrow C_{h^{-1}(-1)}                                \\
+            x   & \longmapsto \left\{ \begin{array}{cl}
+                                            \pi(0, p(x))      & x \in M_{-1}          \\
+                                            \pi(h(x)+1, p(x)) & x \in h^{-1}([-1, 0]) \\
+                                            \pi(1, 0)         & x \in h^{-1}([0, 1])
+                                        \end{array} \right.
+        \end{array}
+    \]
+    \vspace*{0.5cm}
+    \[ G : \begin{array}{cl}
+            C_{h^{-1}(-1)} & \longrightarrow M_1      \\
+            \pi(s, x)      & \longmapsto e^{-t(x,s)}x
+        \end{array}
+    \]
+    We can see that $F \circ G = \operatorname{id}_{C_{h^{-1}(-1)}}$. $G \circ F$ is homotopic
+    to the identity : we can use $V$ to contract $M_{-1}$ onto $h^{-1}(-1)$, and also to
+    contract $h^{-1}([0, 1])$ onto $h^{-1}(0)$.
+\end{proof}
 
-    \begin{theorem}
-        For $i \geq 0$, we have
-        \[ H_{i+\mu}(M_1, M_{-1}) = \tilde{H}_{i-1}(K(S_1^c, ..., S_k^c)) \]
-    \end{theorem}
+\quad If $X$ and $Y$ are two topological spaces, we define the join of $X$ and $Y$,
+denoted by $X * Y$, as the quotient space of $X \times Y \times [0, 1]$ by the following
+equivalence relation
+\[ \forall x, x' \in X, \forall y, y' \in Y, (x,y,0) \sim (x, y', 0) \text{ and } (x,y,1) \sim (x',y,1)\]
+Intuitively, we join together the spaces $X$ and $Y$ with all possible segments between the two.
+Some examples of join include $X * \{y\}$ wich is the cone of $X$,
+$X * \mathbb{S}^0$ which is the suspension of $X$. More generally the join of $X$ with $\mathbb{S}^n$
+is an $n+1$-fold suspension.
+\medskip \newline
+By using the same ideas as in lemma \ref{lem:pairconehomequiv}, one can prove the following
+useful lemma.
+
+\begin{lem}
+    Let $h : \mathbb{R}^k \times \mathbb{R}^{m-k} \rightarrow \mathbb{R}$ be a quasi homogeneous function such that
+    for all $(y, z) \in \mathbb{R}^m$, we have $h(y, z) = a(y) + b(z)$ where $a$ and $b$
+    are quasi-homogeneous locally Lipschitz with respective exponents $\alpha, \beta > 0$. We have the following
+    homotopy equivalence
+    \[ h^{-1}(-1) \simeq a^{-1}(-1) * b^{-1}(-1) \]
+\end{lem}
+
+\quad If we write $f(y, z) = \lambda(y) + q(z)$ as described by the normal form theorem,
+what remains to be done to understand the relative homology of $(M_1, M_{-1})$ is to
+describe $q^{-1}(-1)$ and $\lambda^{-1}(-1)$. The first one has the homotopy type of
+$\mathbb{S}^{\mu}$ where $\mu$ is the smooth Morse index of $f$, by classical Morse theory.
+\medskip \newline
+For the second, note that we have the following homotopy equivalence
+$\lambda^{-1}(-1) \simeq \lambda^{-1}(]-\infty, 0[)$. Using the min max form, we get
+\[ \lambda^{-1}(]-\infty, 0[) = \bigcup_i \bigcap_{j \in S_i} \lambda_j(]-\infty, 0[) \]
+Note that each intersection is a convex cone we'll denote by $C_i$. We'll
+relate this to the simplical complex $K(S_1^c, ..., S_l^c)$ by using the nerve of the
+family $C = (C_i)_i$, i.e we'll look at the following set
+\[ N(C) := \{ J \subset \llbracket 1, l \rrbracket \mid \bigcap_{j \in J} C_j \neq \varnothing\} \]
+From the next lemma, it follows that the nerve of $N(C)$ is exactly the one of the family of
+sets $S_1^c, ..., S_l^c$.
+
+\begin{lem}
+    Let $J \subset \llbracket 1, k+1 \rrbracket$. $J$ is the whole set if and only if
+    \[ \bigcap_{j \in J} \lambda_j^{-1}(]-\infty, 0[) = \varnothing \]
+\end{lem}
+
+\begin{proof}
+    We first show that if $J = \llbracket 1, k+1 \rrbracket$, we indeed get an empty intersection.
+    Recall that $0$ is a critical point of $f$, so it is a critical point of $\lambda$. We
+    then have
+    \[ 0 \in \partial_0 \lambda \subset \operatorname{conv}\{ \lambda_1, ..., \lambda_{k+1} \} \]
+    So there exists $\mu_1, ..., \mu_{k+1}$ with sum $1$ such that $0 = \sum_i \mu_i \lambda_i$.
+    We then see that all $\lambda_i$ cannot be strictly negative at the same time.
+    \medskip \newline
+    We now show that if $J \neq \llbracket 1, k+1 \rrbracket$, the intersection is not empty.
+    Condition \eqref{eq:morseCS3} gives us linear independance of the family $(\lambda_j)_{j \in J}$.
+    The linear system $\lambda_j(y) = -1, j \in J$ then has a solution, where the unknown is $y$.
+\end{proof}
+
+Because every $C_i$ is convex, their intersections are contractible. Applying Leray's nerve
+theorem, $\lambda^{-1}(-1)$ has the homotopy type of the simplical complex given
+by the nerve. By virtue of what we discussed, this complex is exactly $K(S_1^c, ..., S_l^c)$.
+The homotopy type of $f^{-1}(-1)$ is then given by
+\[ f^{-1}(-1) \simeq K(S_1^c, ..., S_l^c) * \mathbb{S}^{\mu} \]
+
+By recalling that a join with a sphere is a suspension, we get the following result in homology.
+
+\begin{theorem}
+    For $i \geq 0$, we have
+    \[ H_{i+\mu}(M_1, M_{-1}) = \tilde{H}_{i-1}(K(S_1^c, ..., S_k^c)) \]
+\end{theorem}
+
+\begin{proof}
+    By the previous discussion and by contractibility of the cone, we have for all $i \geq 0$ the exact sequence
+    \begin{center}
+        \begin{tikzcd}
+            0 \arrow[r] & H_{i+\mu}(C_{h^{-1}(-1)}, h^{-1}(-1)) \arrow[r] & \tilde{H}_{i+\mu-1}(h^{-1}(-1))
+            \arrow[r] & 0
+        \end{tikzcd}
+    \end{center}
+    which yields
+    \[ H_{i+\mu}(C_{h^{-1}(-1)}, h^{-1}(-1)) = \tilde{H}_{i-1+\mu}(K(S_1^c, ..., S_k^c) * \mathbb{S}^{\mu}) \]
+    hence by the fact that the join with a sphere is a suspension, we get the desired result.
+\end{proof}
+
+\bigskip
+
+\quad We now return to a general manifold $M$ and a continuous selection
+$f : M \rightarrow \mathbb{R}$. We will also assume that $f$ has compact sublevel
+sets. By excision, the results we got in homology in a chart around a critical point still
+hold. Then, using the same proofs as with classical Morse theory (cite Milnor), a relation of
+homology ranks.
+\medskip \newline
+For what follows, we will denote by $C(f)$ the set of critical points of $f$, that is finite.
+Then for all $x \in C(f)$ and $i \geq 0$, denote by $c_i(x)$ the rank of the homology group
+$H_i(M_{f(x) + \varepsilon}, M_{f(x) - \varepsilon})$ for some small $\varepsilon > 0$.
+
+\begin{prop}
+    We have the following relations for all $n \geq 0$
+    \[ \sum_{i=0}^n (-1)^{2n-i} b_{n-i} \leq \sum_{i=0}^{n} (-1)^{2n-i} \sum_{x \in C(f)} c_{n-i}(x) \]
+    from which we get
+    \[ b_i \leq \sum_{x \in C(f)} c_i(x) \]
+\end{prop}
 
 \end{flushleft}
 
@@ -945,9 +978,27 @@ will allow us to compute explicitly subdifferentials in a particular case.
 
 \begin{figure}[h]
 \caption{Illustration of theorem \ref{thm:subdiffdist}}
+    \begin{center}
+    \vspace*{0.2cm}
     \begin{tikzpicture}
-    
+        \coordinate (O) at (0, 0);
+        \coordinate (P1) at (-2*0.70710678118, -2*0.70710678118);
+        \coordinate (P2) at (0, 2);
+        \coordinate (P3) at (2*0.70710678118, -2*0.70710678118);
+
+        \draw[smooth, tension=0.5, very thick] plot coordinates {(-1, -3) (P1) (-3, 0) (-2, 2.5) (P2) (2, 2.5) (3, 0) (P3) (1, -3)};
+        \draw[color=blue, dashed] (O) ellipse (2cm and 2cm);
+        \fill[blue, opacity=0.3] (P1) -- (P2) -- (P3) -- cycle;
+        \draw[blue, thick] (P1) -- (P2) -- (P3) -- cycle;
+
+        \draw (-3, 0) node[above left] {$Y$};
+        \draw (0.25, 1) node[above right] {$-\partial_x \operatorname{dist}_Y$};
+        \fill (O) circle (2pt) node[above right] {$x$};
+        \fill (P1) circle (2pt);
+        \fill (P2) circle (2pt);
+        \fill (P3) circle (2pt);
     \end{tikzpicture}
+    \end{center}
 \end{figure}
 
 \subsection{Special points of the distance function}
@@ -1139,65 +1190,30 @@ $\varphi$ \cite{AntonioMorseThEuclDist}.
 
 \newpage
 
-\section{Algebraic point of view on the euclidean distance}
+\section{Algebraic degrees and critical points}
 
 \quad In this section, we still place ourselves in the euclidean space $\mathbb{R}^m$.
-We will consider $X, Y \subset \mathbb{R}^m$ algebraic manifolds.
-We still study the distance from $Y$ restricted to $X$, ${\operatorname{dist}_Y}_{\mid X}$, and
-more precisely, the critical points of this function from an algebraic point of view.
-We will consider $X, Y \subset \mathbb{R}^m$ algebraic manifolds.
-We still study the distance from $Y$ restricted to $X$, ${\operatorname{dist}_Y}_{\mid X}$, and
-more precisely, the critical points of this function from an algebraic point of view.
+We will consider algebraic submanifolds $X, Y \subset \mathbb{R}^m$ defined as zero sets
+of polynomials, and study critical points of functions over these. More precisely, we will
+focus on critical points of linear functions, and of ${\operatorname{dist}_Y}_{\mid X}$, and
+try to give an "algebraic count" of these, upper bounding the number of real critical points
+of these functions.
 
-\subsection{The critical point equation}
+\subsection{Constructions from metric algebraic geometry}
 
-\quad We first introduce some notation : $Y$ is defined by the zero set of polynomials
-$q_1, ..., q_n$, while $X$ is defined by the zero set of $p_1, ..., p_r$. We will assume
-as stated in the introduction that $X$ and $Y$ are smooth algebraic manifolds. 
-\bigskip \newline
-From theorem \ref{thm:subdiffdist} proved in the last section, we now that a point $x \in X$ is critical for the distance function
-iff there exists a number $k \geq 1$, $y_1, ..., y_k \in Y$ and $\lambda_1, ..., \lambda_k \in \mathbb{R}$
-such that :
-\begin{equation}\label{eq:TCP}\tag{TCP}
-    \begin{array}{cl}
-        \text{1.} & \text{The } y_i \text{ are all distinct}\\
-        \text{2.} & \forall i, |x - y_i| = \operatorname{dist}_Y(x)\\
-        \text{3.} & \sum_i \lambda_i \frac{x - y_i}{|x - y_i|} \in N_x X\\
-        \text{4.} & \forall i, \lambda_i \geq 0 \text{ and } \sum_i \lambda_i = 1
-    \end{array}
-\end{equation}
+\quad To give an algebraic count of critical points, that are defined through real polynomial
+equations, the standard thing to do is to complexify the set of equations i.e look
+for complex solutions of the real system of polynomials. A second step will be to "compactify"
+the set where the solutions live, which will be done by an embedding in complex projective
+space. Lastly, after the projectification step, we will introduce the tools we will need from
+intersection theory.
 
-We want to transform these into mostly algebraic equations, such that the solutions of these new
-equations include true critical points of the distance function. The following equations
-with unknowns $x, y_1, ..., y_k$ accomplish that
+\subsubsection{Complexification}
 
-\begin{equation}\label{eq:ACP}\tag{ACP}
-    \begin{array}{cl}
-        \text{1.} & \text{The } y_i \text{ are all distinct}                                              \\
-        \text{2.} & \forall i, j, |x-y_i|^2 = |x-y_j|^2 \text{ and } x-y_i \in N_{y_i} Y                  \\
-        \text{3.} & \text{The family } (x - y_i)_i \text{ is linearly dependent in } \mathbb{K}^m / N_x X
-    \end{array}
-\end{equation}
-
-where $\mathbb{K} = \mathbb{R}$ for now.\newline
-The first condition is an open one. The second one is algebraic because $N_{y_i} Y$
-is spanned by $\nabla_{y_i} q_1, ..., \nabla_{y_i} q_n$, so $x-y_i \in N_{y_i} Y$ is equivalent
-to asking that the family $\{x-y_i, \nabla_{y_i} q_1, ..., \nabla_{y_i} q_n\}$ is linearly
-dependent. The third condition is algebraic as well, as it amounts to ask
-\[ \operatorname{rk}(x-y_1, ..., x-y_k, \nabla_x p_1, ..., \nabla_x p_r) \leq
-\operatorname{rk}(\nabla_x p_1, ..., \nabla_x p_r) \]
-which can be checked via polynomials.\newline
-One also checks that solutions to \eqref{eq:TCP} are solutions of \eqref{eq:ACP} : condition
-1. stays the same, condition 2. from \eqref{eq:TCP} implies that $x - y_i \in N_{y_i} Y$ and
-equalities of the distances, and condition 3. and 4. imply that $x-y_i$ are linearly dependant
-in $\mathbb{R}^m / N_x X$.
-\bigskip
-
-\quad The next step to better understand these polynomials equations is to view them
-as complex. For that, we consider the complexification of $X$ and $Y$ : if we view
-$p_1, ..., p_r \in \mathbb{R}[x_1, ..., x_m] \subset \mathbb{C}[x_1, ..., x_m]$ as complex
-polynomials, we define $X_{\mathbb{C}}$ as the submanifold of $\mathbb{C}^m$ defined as the
-complex zero set of $p_1, ...p_r$, and similarly for $Y_{\mathbb{C}}$.\newline
+\quad Let $X \subset \mathbb{R}^m$ be an algebraic manifold defined as the zero set of
+the follows polynomials : $p_1, ..., p_r$. If we view $p_1, ..., p_r \in \mathbb{R}[x_1, ..., x_m] \subset \mathbb{C}[x_1, ..., x_m]$
+as complex polynomials, we define $X_{\mathbb{C}}$ as the submanifold of $\mathbb{C}^m$ defined as the
+complex zero set of $p_1, ...p_r$.\newline
 We also need to define what it means
 for some complex vector to be tangent or normal $X_{\mathbb{C}}$. We define the tangent bundle of
 $X_{\mathbb{C}}$ as follows :
@@ -1220,52 +1236,12 @@ Using this product to define $N(X_{\bbC})$ is the approach commonly followed in 
           which are still captured by this definition.
 \end{enumerate}
 This algebraic product has the added benefit that it generalizes the following identity
-\[ N_x (X_{\mathbb{C}})= \operatorname{span} \{\nabla_x p_1, ... \nabla_x p_n \} \]
+\[ N_x (X_{\mathbb{C}})= \operatorname{span} \{\nabla_x p_1, ... \nabla_x p_r \} \]
 for all $x \in X$. For what follows, we omit the subscript and directly write $X, Y \subset \mathbb{C}^m$,
 considering them as already complexified.
-\medskip \newline
-With these definitions and the generalized expression of the normal bundle, we can then replace $\mathbb{K}$ with $\mathbb{C}$ in \eqref{eq:ACP},
-and for what follows we will exclusively study this complex version.
-as complex. For that, we consider the complexification of $X$ and $Y$ : if we view
-$p_1, ..., p_r \in \mathbb{R}[x_1, ..., x_m] \subset \mathbb{C}[x_1, ..., x_m]$ as complex
-polynomials, we define $X_{\mathbb{C}}$ as the submanifold of $\mathbb{C}^m$ defined as the
-complex zero set of $p_1, ...p_r$, and similarly for $Y_{\mathbb{C}}$.\newline
-We also need to define what it means
-for some complex vector to be tangent or normal $X_{\mathbb{C}}$. We define the tangent bundle of
-$X_{\mathbb{C}}$ as follows :
-\begin{equation}\label{eq:TX}
-    T(X_{\mathbb{C}}) = \left\{ (x, v) \mid x \in X, v \in \ker \begin{pmatrix}\nabla_x p_1 \\ \vdots \\ \nabla_x p_r \end{pmatrix} \right\}
-\end{equation}
-and the normal bundle
-\begin{equation}\label{eq:NX}
-    N (X_{\mathbb{C}}) = \{ v \in \mathbb{C}^m \mid \forall w \in T_x X_{\mathbb{C}}, \sum_{i=1}^m v_i w_i = 0 \}
-\end{equation}
-Note that the product involved is not an inner product on $\mathbb{C}^m$. In particular, one has
-$N_x (X_{\bbC}) \cap T_x (X_{\bbC}) \neq 0$ for all $x \in X_{\bbC}$, as there is a whole $m-1$ dimensional quadric called
-the \textit{isotopic quadric} where this product vanishes :
-\[ Q = \{ (x_1, ..., x_m) \in \mathbb{C}^m \mid \sum_{i=1}^{m} x_i^2 = 0 \} \]
-Using this product to define $N(X_{\bbC})$ is the approach commonly followed in metric algebraic geometry for two reasons:
-\begin{enumerate}
-    \item A hermitian inner product such as $(x,y) \mapsto \bar x_1y_1+\dots+\bar x_my_m$
-          is not algebraic over $\bbC$, which would undermine the usage of algebraic geometry for these problems;
-    \item Even after complexification, in applications we are usually only interested in the real solutions,
-          which are still captured by this definition.
-\end{enumerate}
-This algebraic product has the added benefit that it generalizes the following identity
-\[ N_x (X_{\mathbb{C}})= \operatorname{span} \{\nabla_x p_1, ... \nabla_x p_n \} \]
-for all $x \in X$. For what follows, we omit the subscript and directly write $X, Y \subset \mathbb{C}^m$,
-considering them as already complexified.
-\medskip \newline
-With these definitions and the generalized expression of the normal bundle, we can then replace $\mathbb{K}$ with $\mathbb{C}$ in \eqref{eq:ACP},
-and for what follows we will exclusively study this complex version.
-\bigskip
 
-\quad In what follows, we will study particular cases of these equations and connect them
-to already existing notions on algebraic manifolds. The case where $Y = \{y\}$ will lead to
-the notion of \textit{euclidean distance degree}, and when $k = 2$ and $X = \mathbb{C}^m$ we
-will get the notion of \textit{bottleneck degree}.
 
-\subsection{Tangency and normality in projective space}\label{sec:tangnormInProj}
+\subsubsection{Tangency and normality in projective space}\label{sec:tangnormInProj}
 
 \quad Although complexification unlocks new tools for studying equations \eqref{eq:ACP},
 complex affine space is not ideal, one of the reasons being the fact it is not compact.
@@ -1497,6 +1473,276 @@ Then, in general the conditions that $X$ is $(H_\infty,Q_\infty)$-orthogonally g
 but if both conditions are satisfied then $\hat NX\simeq\calO_X(1)\oplus\calN_X^*(1)\simeq\hat N^cX$.
 Moreover, GEOMETRIC RELATIONSHIP BETWEEN $N^cX$ and $N^\infty X$, MAYBE USING PROJECTIONS OR SOME STUFF?
 
+\subsubsection{Chow ring and useful classes}
+
+\quad We now present some tools that will help us compute and define the algebraic degrees
+we will discuss.
+Let $X \subset \mathbb{P}^m$ be a reduced, irreducible complex projective variety.
+Let it be defined as the projective zero set of some polynomials, $p_1, ..., p_{m-n}$. $X$
+is then of dimension $n$.
+
+\begin{defi}
+    The group of $k$-cycles of $X$, where $k \leq n$ is the free abelian group generated
+    by the $Y \subset X$ that are closed, $k$-dimensional subvarieties denoted $Z_k(X)$.
+\end{defi}
+
+Consider $W \subset X$ a $k+1$-dimensional subvariety of $X$ and $f$ a rationnal function
+over $W$. One can, for $Z \subset W$ a $k$-dimensional variety, define the order of vanishing
+of $f$ along $Z$, denoted $\operatorname{ord}_Z(f)$ (cite) : intuitively it corresponds to
+the exponent $c \in \mathbb{Z}$ such that near a generic point $x$ in $Z$, $f$ behaves
+as some non zero factor times a degree $c$ monomial. One then defines the divisor of $f$
+as
+\[ \operatorname{div}(f) = \sum_{\substack{Z \subset W \\ \dim(Z) = k}} \operatorname{ord}_Z(f) Z \]
+If we denote $R_k(X)$ the subgroup of $Z_k(X)$ generated by the divisors of rationnal
+functions over some $k+1$ dimensional $W \subset X$, we get the following definition of
+the Chow group.
+
+\begin{defi}
+    The Chow group of $X$ is defined as
+    \[ A(X) = \bigoplus_k A_k(X) \]
+    where for all $k$, $A_k(X) = Z_k(X)/R_k(X)$
+\end{defi}
+
+As an example, if $X = \mathbb{P}^2$ then, $[\{x^2 + y^2 - z^2 = 0\}] = 2 [\{x = 0\}]$
+in $A(\mathbb{P}^2)$ because the following function, $f(x, y, z) = \frac{x^2 + y^2 - z^2}{x^2}$
+is a rationnal function over a subvariety of $\mathbb{P}^2$ such that its divisor
+gives exactly the difference of these two terms.
+\medskip \newline
+For our purpose, wich is computing the EDD, equivalently solving an intersection problem,
+we will denote $A^k(X) := A_{n-k}(X)$, the classes of cycles of codimension $k$. We say that
+two subvarieties, $Y, Z \subset X$ are generically transverse if for the generic intersection
+smooth point, we indeed have transversality. The following proposition allows us to turn the
+Chow group into the Chow ring with a structure compatible with intersection problems.
+
+\begin{prop}[Chow ring]
+    There is a unique multiplication making $A(X)$ into a ring such that for
+    $Y, Z \subset X$ subvarieties that are generically transverse, we have
+    \[ [Y] \cdot [Z] = [Y \cap Z] \]
+    Moreover the multiplication respects the grading of $A(X)$ i.e it sends
+    $A^i(X) \times A^j(X)$ onto $A^{i+j}(X)$ for all $i, j$.
+\end{prop}
+
+An important and motivating example is the case where $X = \mathbb{P}^m$ : the Chow ring is then
+exactly $\mathbb{Z}[h] / (h^{n+1})$ where $h$ is the class of a hyperplane. A
+subvariety $Y \subset \mathbb{P}^m$ of degree $d$ and codimension $k$ has the following
+class $[Y] = d.h^c$. We can for example retrive Bezout's theorem by multiplying the classes
+of two transversal curves. One can be more general and define a notion of degree for
+certain elements in the Chow ring.
+
+\begin{prop}[Degree of a class]
+    There is a unique morphism, $\deg : A_0 (X) \rightarrow \mathbb{Z}$ such
+    that $\deg([\p \cdot \p]) = 1$ and for all $Y, Z \subset X$ subvarieties of summed codimensions
+    $n$, we have
+    \[ |Y \cap Z| = \deg([Y][Z]) \]
+\end{prop}
+
+With the notion of the Chow ring, we can now introduce some useful classes that
+live in the Chow ring of some variety. The first are the Chern classes.
+\bigskip
+
+\quad Consider a complex vector bundle over $X$, $E \rightarrow X$ of rank $r$ where $X$
+is assumed to be smooth. We define the Chern classes of this bundle with the following
+proposition.
+\begin{prop}[Chern classes]
+    There is a unique way to assign a class $c(E) = c_0(E) + ... + c_r(E) \in A(X)$, where
+    $c_i(E) \in A^i(X)$ for all $i$, such that :
+    \begin{enumerate}
+        \item If $E$ is a line bundle, then $c(E) = 1 + c_1(E)$ and $c_1(E) = [\operatorname{div}(\tau)]$
+              where $\tau$ is a rationnal section of $E$
+        \item Let $s_1, ..., s_{r+k-1}$ be global sections of $E$. Their degeneracy locus
+              is the variety $W \subset X$ consisting of the points where all of these sections are
+              linearly dependant. If $\operatorname{codim}(W) = k$ (i.e the expected one), then $[W] = c_k(E)$.
+        \item (Whitney's formula) If we have an exact sequence
+              \[ 0 \rightarrow F \rightarrow G \rightarrow H \rightarrow 0\]
+              of vector bundles over $X$, then $c(F)c(H) = c(G)$.
+        \item (Functoriality) If $f : Y \rightarrow X$ is a morphism of smooth varieties,
+              then $f^*(c(E)) = c(f^*E)$ where $f^* E$ is the pullback bundle of $E$ and
+              \[ f^{*} : \begin{array}{cl}
+                      A(X)             & \longrightarrow A(Y)                 \\
+                      \left[ V \right] & \longmapsto \left[ f^{-1}(V) \right]
+                  \end{array}
+              \]
+    \end{enumerate}
+\end{prop}
+
+\bigskip
+
+\quad One other class of interest are polar classes. Recall $\hat{T}X$ the embedded tangent
+bundle defined in \eqref{eq:embeddedTX}.
+Also denote for $x \in X$, $\mathbb{P}(\hat{T}_x X)$ the projective embedding of $\hat{T}_x X$.
+Then for $L \subset \mathbb{P}^m$ a subspace, define the polar variety of $X$ with respect to $L$ as
+\[ P(X, L) = \overline{\{ x \in X \mid \dim(\mathbb{P}(\hat{T}_x X) \cap L) > n - \operatorname{codim}(L) \}} \subset X \]
+There is an intuitive example
+when $L$ is a point and $X$ an ellipsoid : place yourself at point $L$, and consider all the
+light rays arriving at your position. The light rays that form the "contour" of $X$ from
+your perspective intersect $X$ exactly at $P(X, L)$.
+\medskip \newline
+For generic $L$ of codimension $n+2-k$, the class $[P(X, L)] \in A^k(X)$ is constant,
+and we define the $k$-th polar class of $X$ as $p_k(X) = [P(X, L)]$. It turns out that
+polar classes are Chern classes of some bundle, more precisely $c_k(\hat{T}^*X) = p_k(X)$,
+where $\hat{T}^* X$ is the rank $n+1$ vector bundle whose fibers are dual to those of
+$\hat{T}X$.
+\medskip \newline
+To see it, we write $L = \bigcap_i \ker \alpha_i$ with $\alpha_1, ..., \alpha_{n+2-k} \in (\mathbb{C}^{m+1})^*$.
+For all $i$, the function
+\[ \begin{array}{cl}
+        X & \longrightarrow \hat{T}^*X                \\
+        x & \longmapsto {\alpha_i}_{\mid \hat{T}_x X}
+    \end{array} \]
+is a section of $\hat{T}^*X$. The degeneracy locus of all these sections is the set $W$ of
+all $x \in X$ such that ${\alpha_i}_{\mid \hat{T}_x X}$ are linearly dependant.
+This is equivalent to asking that $L \cap \mathbb{P}(\hat{T}X)$ has dimension
+greater than expected, i.e greater than $n - \operatorname{codim}(L)$. By condition $2.$,
+$c_k(\hat{T}^*X) = [W] = p_k(X)$.
+\bigskip
+
+\quad Lastly, we present Segre classes and link them to the other ones. Consider again
+a vector bundle $E \rightarrow X$ of rank $r$. We construct a projective bundle on
+$X$ i.e whose fibers are projective spaces of dimension $r-1$,
+$\mathbb{P}(E) \rightarrow X$, with projection map $p$, by projectifying the fiber over
+each point $x \in X$. In this way, we have for all $x \in X$, $p^{-1}(x) = \mathbb{P}(E_x)$.
+\medskip \newline
+From this projective bundle, we can construct a new vector bundle, the tautological line bundle
+over $\mathbb{P}(E)$
+\[ \mathcal{O}_{\mathbb{P}(E)}(-1) = \{ ((x, L), w) \in \mathbb{P}(E) \times \mathbb{C}^{m+1} \mid w \in L \} \]
+and $\mathcal{O}_{\mathbb{P}(E)}(1)$ its dual bundle.
+\medskip \newline
+Denote by $\xi = c_1(\mathcal{O}_{\mathbb{P}(E)}(1)) \in A^1(\mathbb{P}(E))$. We define
+the $k$-th Segre class of $E$ for $k \in \llbracket 0, r \rrbracket$ as
+\[ s_k(E) = p_{*}(\xi^{r-1+k}) \in A^k(X) \]
+where the pushforward $p_*$ is defined as follows : $p$ must be a proper map. If this is the case,
+$p_*$ is a linear map such that for $Y \subset X$ a subvariety, if $p(Y)$ has dimension strictly smaller than $Y$ then $p_*[Y] = 0$,
+if not $p_*[Y] = d [p(Y)]$ where $d$ is the degree of the map $p_{\mid Y}$.
+\newline
+Again, we have relations to the other classes : Segre classes are inverses of Chern classes i.e
+$s(E)c(E) = 1 \in A(X)$. Another important thing to note is that the bundle map $p$ embeds
+$A(X)$ into $A(\mathbb{P}(E))$ through $p^*$.
+
+\subsection{Linear optimization degree}
+
+\quad Let $X\subseteq\bbC^m$ be a smooth algebraic submanifold such that
+$\bar X\pitchfork H_\infty$ in $\bbP^m$. We will start with the easier case of critical points,
+the problem of linear optimization on $X$ : given a linear function $\alpha \in (\bbC^m)^*$,
+we will consider its critical points after restricting it to $X$.
+\medskip \newline
+We now show that the number of critical points is constant for generic choices of $\alpha$.
+There is a unique $u \in \mathbb{C}^m$ such that for $x \in \mathbb{C}^m$
+\[ \alpha(x) = \sum_i u_i x_i \]
+We also have that $x \in X$ is a critical point of $\alpha_{\mid X}$ iff
+\[ T_x X \subset \ker d_x \alpha = \ker \alpha \]
+Recalling the exact sequences of bundles in section \ref{sec:tangnormInProj} (which are also
+valid when working in $\bbC^m$), one has that $(x, \alpha) \in \mathcal{N}_X^*(1) \hookrightarrow X \times (\bbC^m)^*$
+and that the following diagram commutes
+
+\begin{center}
+\begin{tikzcd}
+    \mathcal{N}_X^*(1) \arrow[r, hook] \arrow[d, "\pi_1"] \arrow[dr, "\pi_2"] &
+    \bbC^m \times (\bbC^m)^* \cong \bbC^m \times \bbC^m \arrow[d, "\operatorname{pr}_2"]\\
+    X & (\bbC^m)^* \cong \bbC^m
+\end{tikzcd}
+\end{center}
+
+Because $(x, \alpha) \in \mathcal{N}_X^*(1)$, there is a one to one correspondance between critical
+points of $\alpha$ on $X$ and points in $\operatorname{pr}_2^{-1}(u) \cap \mathcal{N}_X^*(1)$.
+We then have two cases, if $\pi_2$ is dominant, because the $\mathcal{N}_X^*(1)$ has dimension
+$n$ and the image has too, the cardinality of the generic fiber is constant. If it is not
+dominant, the cardinality of the generic fiber is $0$, constant as well.
+\medskip \newline
+Thanks to this discussion, we define the linear optimization (LO) degree
+$\operatorname{LOdeg}(X)$ as the number of critical points of a generic linear functional
+$\alpha\in(\bbC^m)^*$ restricted to $X$.
+\bigskip
+
+% We immediately observe that the LO degree coincides with the degree of the second projection
+% \[NX\to\bbC^m,\]
+% so to express this number in terms of characteristic classes,
+% we can proceed as before by taking the appropriate compactification in $\bbP^m$ of $X$ and its bundles.
+\quad We will now express the LO degree in terms of characteristic classes. We will proceed
+by taking the appropriate compactification in $\bbP^m$ of $X$ and its bundles. We will
+without loss of generality choose the canonical compactification i.e induced by the
+canonical embedding $\mathbb{C}^m \hookrightarrow \mathbb{C}^{m} \times \{1\} \rightarrow \mathbb{P}^m$,
+where the hyperplane at infinity is given by $\bbC^m \times \{0\} \cong \bbC^m$.
+\medskip \newline
+The original problem can be framed as follows: given a generic vector hyperplane $H\subset\bbC^m$,
+we want to count for how many points $x\in X$ we have $H\supseteq T_xX$.
+This is the same as asking that $\bar H\supseteq\overline{T_xX}$ and equivalently that
+$\bar H\cap H_\infty\supseteq\overline{T_xX}\cap H_\infty$.
+Defining $T^\infty\bar X:=(\hat T\bar X)\cap(\bar X\times \bbC^m)$ (which is a bundle of rank $m$ by the transversality condition)
+so that
+\[\overline{T_xX}\cap H_\infty=\overline{\hat T_xX}\cap H_\infty=\bbP(\hat T_x\bar X)\cap H_\infty=\bbP(T^\infty_x\bar X)\]
+we have reduced the problem to the following:
+given a generic linear functional $\alpha\in(\bbC^m)^*$, count for how many points $x\in X$ we have that the corresponding
+section $\alpha\in(T^\infty_x\bar X)^*$ vanishes.
+Generically, there is no point at infinity $x\in\bar X\setminus X$ for which this is true,
+so that the number to be computed is really the degree of the zero locus of a generic section of $T^\infty\bar X$,
+which we know by Property 2.\ of Chern classes to be $\deg(c_n(T^\infty\bar X))$.
+\medskip \newline
+To calculate this value, notice that we have the exact sequence
+\[0\to T^\infty\bar X\to\hat T\bar X\to \bbC^1_{\bar X}\simeq\calO_{\bar X}\to0\]
+where fiberwise we use the isomorphism $\hat T_x\bar X/(\hat T_x\bar X\cap \bbC^m)\simeq \bbC$.
+Then, by Property 3.\ of Chern classes it follows that $c(\hat T\bar X)=c(T^\infty\bar X)c(\calO_{\bar X})=c(T^\infty\bar X)$
+and thus we conclude
+\[\operatorname{LOdeg}(X)=\deg(c_n(\hat T\bar X))=\deg(p_n(\bar X)),\]
+i.e.\ the LO degree is the degree of the top polar class of $\bar X$.
+\bigskip
+
+\quad Although we do not explain it here, the discussion around the LO degree can be extended
+to the case of singular varieties (cite sources Lorenzo + OG sources) and 
+
+% given a generic linear functional $\alpha\in(\bbC^m)^*$,
+% which induces a section $\alpha\in(T_xX)^*$, we want to find out in how many points this section vanishes.
+% This is equivalent to taking a generic linear functional $\alpha\in(V')^*$ which induces a section
+% $\alpha\in\overline{\hat TX}$
+
+\subsection{Critical points of the euclidean distance}
+
+\quad We first introduce some notation : $Y$ is defined by the zero set of polynomials
+$q_1, ..., q_n$, while $X$ is defined by the zero set of $p_1, ..., p_r$. We will assume
+as stated in the introduction that $X$ and $Y$ are smooth algebraic manifolds. 
+\bigskip \newline
+From theorem \ref{thm:subdiffdist} proved in the last section, we now that a point $x \in X$ is critical for the function
+${\operatorname{dist}_Y}_{\mid X}$
+iff there exists a number $k \geq 1$, $y_1, ..., y_k \in Y$ and $\lambda_1, ..., \lambda_k \in \mathbb{R}$
+such that :
+\begin{equation}\label{eq:TCP}\tag{TCP}
+    \begin{array}{cl}
+        \text{1.} & \text{The } y_i \text{ are all distinct}\\
+        \text{2.} & \forall i, |x - y_i| = \operatorname{dist}_Y(x)\\
+        \text{3.} & \sum_i \lambda_i \frac{x - y_i}{|x - y_i|} \in N_x X\\
+        \text{4.} & \forall i, \lambda_i \geq 0 \text{ and } \sum_i \lambda_i = 1
+    \end{array}
+\end{equation}
+
+We want to transform these into mostly algebraic equations, such that the solutions of these new
+equations include true critical points of the distance function. The following equations
+with unknowns $x, y_1, ..., y_k$ accomplish that
+
+\begin{equation}\label{eq:ACP}\tag{ACP}
+    \begin{array}{cl}
+        \text{1.} & \text{The } y_i \text{ are all distinct}                                              \\
+        \text{2.} & \forall i, j, |x-y_i|^2 = |x-y_j|^2 \text{ and } x-y_i \in N_{y_i} Y                  \\
+        \text{3.} & \text{The family } (x - y_i)_i \text{ is linearly dependent in } \mathbb{C}^m / N_x X
+    \end{array}
+\end{equation}
+
+The first condition is an open one. The second one is algebraic because $N_{y_i} Y$
+is spanned by $\nabla_{y_i} q_1, ..., \nabla_{y_i} q_n$, so $x-y_i \in N_{y_i} Y$ is equivalent
+to asking that the family $\{x-y_i, \nabla_{y_i} q_1, ..., \nabla_{y_i} q_n\}$ is linearly
+dependent. The third condition is algebraic as well, as it amounts to ask
+\[ \operatorname{rk}(x-y_1, ..., x-y_k, \nabla_x p_1, ..., \nabla_x p_r) \leq
+\operatorname{rk}(\nabla_x p_1, ..., \nabla_x p_r) \]
+which can be checked via polynomials.\newline
+One also checks that solutions to \eqref{eq:TCP} are solutions of \eqref{eq:ACP} : condition
+1. stays the same, condition 2. from \eqref{eq:TCP} implies that $x - y_i \in N_{y_i} Y$ and
+equalities of the distances, and condition 3. and 4. imply that $x-y_i$ are linearly dependant
+in $\mathbb{C}^m / N_x X$.
+\bigskip
+
+\quad In what follows, we will study particular cases of these equations and connect them
+to already existing notions on algebraic manifolds. The case where $Y = \{y\}$ will lead to
+the notion of \textit{euclidean distance degree}, and when $k = 2$ and $X = \mathbb{C}^m$ we
+will get the notion of \textit{bottleneck degree}.
+
 % We now construct the \textbf{Euclidean normal bundle}.
 % There are at least two possible interpretations for what constitutes the Euclidean normal bundle of a projective variety:
 % \begin{enumerate}
@@ -1504,9 +1750,7 @@ Moreover, GEOMETRIC RELATIONSHIP BETWEEN $N^cX$ and $N^\infty X$, MAYBE USING PR
 %           Then, it is reasonable
 % \end{enumerate}
 
-\subsection{Euclidean distance degree}
-
-\subsubsection{Definition and examples}
+\subsubsection{Euclidean distance degree}
 
 \quad As stated earlier, we consider the case where $Y = \{y\}$ and $X$ is some algebraic
 submanifold of $\mathbb{C}^m$. \eqref{eq:ACP} then simplifies to
@@ -1522,6 +1766,7 @@ that $\hat{N}X$ is of dimension $m$, one can show the following property.
     a constant number of elements.
 \end{prop}
 
+
 The \textit{euclidean distance degree} (EDD) of $X$ is then defined as this generic number of solutions
 to the critical point equation. It then gives an upper bound on the number of real solutions
 to \eqref{eq:ACP}.
@@ -1533,10 +1778,10 @@ by $X$, we get the maximum amount, $4$ real critical points, and only $2$ when $
 unbounded one.\newline
 Not all submanifolds $X$ can have as many real critical point as the euclidean distance degree,
 as can be seen with the parabola, of euclidean distance degree $4$ : for all points $y$,
-we have at most $3$ real critical points.
+we have at most $3$ real critical points. This is illustrated in figure \ref{fig:EDDSol}.
 
-\begin{figure}[h]
-    \caption{Examples of real solutions to the EDD equations}
+\begin{figure}[H]
+    \caption{Examples of real solutions to the EDD equations}\label{fig:EDDSol}
     \vspace*{0.5cm}
     \begin{center}
     \begin{tabular}{cc}
@@ -1607,162 +1852,9 @@ we have at most $3$ real critical points.
     \end{center}
 \end{figure}
 
-\subsubsection{Chow ring and useful classes}
-
-\quad We now present some tools that will help us compute the euclidean distance degree.
-Let $X \subset \mathbb{P}^m$ be a reduced, irreducible complex projective variety.
-Let $X \subset \mathbb{P}^m$ be a reduced, irreducible complex projective variety.
-Let it be defined as the projective zero set of some polynomials, $p_1, ..., p_{m-n}$. $X$
-is then of dimension $n$.
-
-\begin{defi}
-    The group of $k$-cycles of $X$, where $k \leq n$ is the free abelian group generated
-    by the $Y \subset X$ that are closed, $k$-dimensional subvarieties denoted $Z_k(X)$.
-\end{defi}
-
-Consider $W \subset X$ a $k+1$-dimensional subvariety of $X$ and $f$ a rationnal function
-over $W$. One can, for $Z \subset W$ a $k$-dimensional variety, define the order of vanishing
-of $f$ along $Z$, denoted $\operatorname{ord}_Z(f)$ (cite) : intuitively it corresponds to
-the exponent $c \in \mathbb{Z}$ such that near a generic point $x$ in $Z$, $f$ behaves
-as some non zero factor times a degree $c$ monomial. One then defines the divisor of $f$
-as
-\[ \operatorname{div}(f) = \sum_{\substack{Z \subset W \\ \dim(Z) = k}} \operatorname{ord}_Z(f) Z \]
-If we denote $R_k(X)$ the subgroup of $Z_k(X)$ generated by the divisors of rationnal
-functions over some $k+1$ dimensional $W \subset X$, we get the following definition of
-the Chow group.
-
-\begin{defi}
-    The Chow group of $X$ is defined as
-    \[ A(X) = \bigoplus_k A_k(X) \]
-    where for all $k$, $A_k(X) = Z_k(X)/R_k(X)$
-\end{defi}
-
-As an example, if $X = \mathbb{P}^2$ then, $[\{x^2 + y^2 - z^2 = 0\}] = 2 [\{x = 0\}]$
-in $A(\mathbb{P}^2)$ because the following function, $f(x, y, z) = \frac{x^2 + y^2 - z^2}{x^2}$
-is a rationnal function over a subvariety of $\mathbb{P}^2$ such that its divisor
-gives exactly the difference of these two terms.
-\medskip \newline
-For our purpose, wich is computing the EDD, equivalently solving an intersection problem,
-we will denote $A^k(X) := A_{n-k}(X)$, the classes of cycles of codimension $k$. We say that
-two subvarieties, $Y, Z \subset X$ are generically transverse if for the generic intersection
-smooth point, we indeed have transversality. The following proposition allows us to turn the
-Chow group into the Chow ring with a structure compatible with intersection problems.
-
-\begin{prop}[Chow ring]
-    There is a unique multiplication making $A(X)$ into a ring such that for
-    $Y, Z \subset X$ subvarieties that are generically transverse, we have
-    \[ [Y] \cdot [Z] = [Y \cap Z] \]
-    Moreover the multiplication respects the grading of $A(X)$ i.e it sends
-    $A^i(X) \times A^j(X)$ onto $A^{i+j}(X)$ for all $i, j$.
-\end{prop}
-
-An important and motivating example is the case where $X = \mathbb{P}^m$ : the Chow ring is then
-exactly $\mathbb{Z}[h] / (h^{n+1})$ where $h$ is the class of a hyperplane. A
-subvariety $Y \subset \mathbb{P}^m$ of degree $d$ and codimension $k$ has the following
-class $[Y] = d.h^c$. We can for example retrive Bezout's theorem by multiplying the classes
-of two transversal curves. One can be more general and define a notion of degree for
-certain elements in the Chow ring.
-
-\begin{prop}[Degree of a class]
-    There is a unique morphism, $\deg : A_0 (X) \rightarrow \mathbb{Z}$ such
-    that $\deg([\p \cdot \p]) = 1$ and for all $Y, Z \subset X$ subvarieties of summed codimensions
-    $n$, we have
-    \[ |Y \cap Z| = \deg([Y][Z]) \]
-\end{prop}
-
-With the notion of the Chow ring, we can now introduce some useful classes that
-live in the Chow ring of some variety. The first are the Chern classes.
 \bigskip
 
-\quad Consider a complex vector bundle over $X$, $E \rightarrow X$ of rank $r$ where $X$
-\quad Consider a complex vector bundle over $X$, $E \rightarrow X$ of rank $r$ where $X$
-is assumed to be smooth. We define the Chern classes of this bundle with the following
-proposition.
-\begin{prop}[Chern classes]
-    There is a unique way to assign a class $c(E) = c_0(E) + ... + c_r(E) \in A(X)$, where
-    $c_i(E) \in A^i(X)$ for all $i$, such that :
-    \begin{enumerate}
-        \item If $E$ is a line bundle, then $c(E) = 1 + c_1(E)$ and $c_1(E) = [\operatorname{div}(\tau)]$
-              where $\tau$ is a rationnal section of $E$
-        \item Let $s_1, ..., s_{r+k-1}$ be global sections of $E$. Their degeneracy locus
-              is the variety $W \subset X$ consisting of the points where all of these sections are
-              linearly dependant. If $\operatorname{codim}(W) = k$ (i.e the expected one), then $[W] = c_k(E)$.
-        \item (Whitney's formula) If we have an exact sequence
-              \[ 0 \rightarrow F \rightarrow G \rightarrow H \rightarrow 0\]
-              of vector bundles over $X$, then $c(F)c(H) = c(G)$.
-        \item (Functoriality) If $f : Y \rightarrow X$ is a morphism of smooth varieties,
-              then $f^*(c(E)) = c(f^*E)$ where $f^* E$ is the pullback bundle of $E$ and
-              \[ f^{*} : \begin{array}{cl}
-                      A(X)             & \longrightarrow A(Y)                 \\
-                      \left[ V \right] & \longmapsto \left[ f^{-1}(V) \right]
-                  \end{array}
-              \]
-    \end{enumerate}
-\end{prop}
-
-\bigskip
-
-\quad One other class of interest are polar classes. Recall $\hat{T}X$ the embedded tangent
-bundle defined in \eqref{eq:embeddedTX}.
-\quad One other class of interest are polar classes. Recall $\hat{T}X$ the embedded tangent
-bundle defined in \eqref{eq:embeddedTX}.
-Also denote for $x \in X$, $\mathbb{P}(\hat{T}_x X)$ the projective embedding of $\hat{T}_x X$.
-Then for $L \subset \mathbb{P}^m$ a subspace, define the polar variety of $X$ with respect to $L$ as
-\[ P(X, L) = \overline{\{ x \in X \mid \dim(\mathbb{P}(\hat{T}_x X) \cap L) > n - \operatorname{codim}(L) \}} \subset X \]
-There is an intuitive example
-when $L$ is a point and $X$ an ellipsoid : place yourself at point $L$, and consider all the
-light rays arriving at your position. The light rays that form the "contour" of $X$ from
-your perspective intersect $X$ exactly at $P(X, L)$.
-\medskip \newline
-For generic $L$ of codimension $n+2-k$, the class $[P(X, L)] \in A^k(X)$ is constant,
-and we define the $k$-th polar class of $X$ as $p_k(X) = [P(X, L)]$. It turns out that
-polar classes are Chern classes of some bundle, more precisely $c_k(\hat{T}^*X) = p_k(X)$,
-where $\hat{T}^* X$ is the rank $n+1$ vector bundle whose fibers are dual to those of
-$\hat{T}X$.
-\medskip \newline
-To see it, we write $L = \bigcap_i \ker \alpha_i$ with $\alpha_1, ..., \alpha_{n+2-k} \in (\mathbb{C}^{m+1})^*$.
-For all $i$, the function
-\[ \begin{array}{cl}
-        X & \longrightarrow \hat{T}^*X                \\
-        x & \longmapsto {\alpha_i}_{\mid \hat{T}_x X}
-    \end{array} \]
-is a section of $\hat{T}^*X$. The degeneracy locus of all these sections is the set $W$ of
-all $x \in X$ such that ${\alpha_i}_{\mid \hat{T}_x X}$ are linearly dependant.
-This is equivalent to asking that $L \cap \mathbb{P}(\hat{T}X)$ has dimension
-greater than expected, i.e greater than $n - \operatorname{codim}(L)$. By condition $2.$,
-$c_k(\hat{T}^*X) = [W] = p_k(X)$.
-\bigskip
-
-\quad Lastly, we present Segre classes and link them to the other ones. Consider again
-a vector bundle $E \rightarrow X$ of rank $r$. We construct a projective bundle on
-$X$ i.e whose fibers are projective spaces of dimension $r-1$,
-$\mathbb{P}(E) \rightarrow X$, with projection map $p$, by projectifying the fiber over
-each point $x \in X$. In this way, we have for all $x \in X$, $p^{-1}(x) = \mathbb{P}(E_x)$.
-\medskip \newline
-From this projective bundle, we can construct a new vector bundle, the tautological line bundle
-over $\mathbb{P}(E)$
-\[ \mathcal{O}_{\mathbb{P}(E)}(-1) = \{ ((x, L), w) \in \mathbb{P}(E) \times \mathbb{C}^{m+1} \mid w \in L \} \]
-and $\mathcal{O}_{\mathbb{P}(E)}(1)$ its dual bundle.
-\medskip \newline
-Denote by $\xi = c_1(\mathcal{O}_{\mathbb{P}(E)}(1)) \in A^1(\mathbb{P}(E))$. We define
-the $k$-th Segre class of $E$ for $k \in \llbracket 0, r \rrbracket$ as
-\[ s_k(E) = p_{*}(\xi^{r-1+k}) \in A^k(X) \]
-where the pushforward $p_*$ is defined as follows : $p$ must be a proper map. If this is the case,
-$p_*$ is a linear map such that for $Y \subset X$ a subvariety, if $p(Y)$ has dimension strictly smaller than $Y$ then $p_*[Y] = 0$,
-if not $p_*[Y] = d [p(Y)]$ where $d$ is the degree of the map $p_{\mid Y}$.
-\newline
-Again, we have relations to the other classes : Segre classes are inverses of Chern classes i.e
-$s(E)c(E) = 1 \in A(X)$. Another important thing to note is that the bundle map $p$ embeds
-$A(X)$ into $A(\mathbb{P}(E))$ through $p^*$.
-$A(X)$ into $A(\mathbb{P}(E))$ through $p^*$.
-
-\subsubsection{Computing the EDD}
-
-\quad We now return to the topic of computing the EDD of a smooth complexified algebraic
-manifold $X \subset \mathbb{C}^m$, defined by polynomials $p_1, ..., p_{m-n}$. We will
-give two ways of computing it, the first one will involve the degrees of the polynomials
-$p_1, ..., p_{m-n}$ via a Bezout type argument. The second will use Chern, Segre and polar
-classes following \cite{piene2015polar} \cite{catanese2000focal}.
+\quad We now want to compute the EDD of a smooth complexified algebraic
 manifold $X \subset \mathbb{C}^m$, defined by polynomials $p_1, ..., p_{m-n}$. We will
 give two ways of computing it, the first one will involve the degrees of the polynomials
 $p_1, ..., p_{m-n}$ via a Bezout type argument. The second will use Chern, Segre and polar
@@ -1774,25 +1866,8 @@ the degree of $X$ and the degree of the equation $x - y \in N_x X$. Writing it d
 of the gradients, one has the following result
 
 \begin{theorem}\cite{Breiding2024Metric}
-    If $X$ is a generic complete intersection, defined by polynomials $p_1, ..., p_{m-n}$
-    of degrees $d_1, ..., d_{m-n}$, then
-    \[ \operatorname{EDD}(X) = d_1 ... d_{m-n} \sum_{i_1 + ... + i_{m-n} \leq n} (d_1 - 1)^{i_1} ... (d_{m-n}-1)^{i_{m-n}} \]
-\end{theorem}
-
-\quad We now compute the EDD in terms of classes. Our tools for this requiring
-projective manifolds, we will take the "projective closure" of $X$ and its bundles
-of interest, as constructed in section \ref{sec:tangnormInProj}. In what follows,
-we assume that $\bar X$ is orthogonally general relative to the canonical embedding
-$\mathbb{C}^m \hookrightarrow \mathbb{P}^m$ and the canonical isotopic quadric used to define
-$NX$. We have the following maps from the euclidean normal bundle $\hat N \bar X$.
-If $X$ and $y$ are in generic positions, and because computing the EDD amounts to solving
-an intersection problem, $\operatorname{EDD}(X)$ can be expressed as the product of
-the degree of $X$ and the degree of the equation $x - y \in N_x X$. Writing it down in terms
-of the gradients, one has the following result
-
-\begin{theorem}\cite{Breiding2024Metric}
-    If $X$ is a generic complete intersection, defined by polynomials $p_1, ..., p_{m-n}$
-    of degrees $d_1, ..., d_{m-n}$, then
+    If $X \subset \mathbb{P}^m$ is a generic complete intersection, defined by polynomials
+    $p_1, ..., p_{m-n}$ of degrees $d_1, ..., d_{m-n}$, then
     \[ \operatorname{EDD}(X) = d_1 ... d_{m-n} \sum_{i_1 + ... + i_{m-n} \leq n} (d_1 - 1)^{i_1} ... (d_{m-n}-1)^{i_{m-n}} \]
 \end{theorem}
 
@@ -1839,22 +1914,8 @@ The tautological bundle over $\bar{X}$ is the bundle $\mathcal{O}_{\bar{X}}(-1)$
 whose fiber at $[x] \in \bar{X}$ is the line $\mathbb{C}x \subset \mathbb{C}^{m+1}$.
 By section \ref{sec:tangnormInProj} we have
 $\hat{N}\bar{X} \cong N^{\infty} \bar X \oplus \mathcal{O}_{\bar{X}}(-1)$.
-The tautological bundle over $\bar{X}$ is the bundle $\mathcal{O}_{\bar{X}}(-1)$
-whose fiber at $[x] \in \bar{X}$ is the line $\mathbb{C}x \subset \mathbb{C}^{m+1}$.
-By section \ref{sec:tangnormInProj} we have
-$\hat{N}\bar{X} \cong N^{\infty} \bar X \oplus \mathcal{O}_{\bar{X}}(-1)$.
 \medskip \newline
 Property 3. of Chern classes and the fact that Segre classes are their inverses yields
-$s(\hat{N}\bar{X}) = s(N^{\infty} \bar X)s(\mathcal{O}_{\bar{X}}(-1))$. One can show
-using the content of section \ref{sec:tangnormInProj} that $N^{\infty} \bar X$ verifies
-the following exact sequence
-\[ 0 \to N^{\infty} \bar X \to \bar X \times \mathbb{C}^{m+1} \to \hat{T}^* \bar X \to 0\]
-and from property 3. of Chern classes and the fact that Segre and Chern classes are inverses,
-we get
-\[ s(N^{\infty} \bar X)s(\hat{T}^* \bar{X}) = s(\bar{X} \times \mathbb{C}^{m+1}) \]
-For all $k \neq n$, $s_k(\bar{X} \times \mathbb{C}^{m+1}) = 0$, because $\xi^{m+1} = 0$.
-So $s(\bar{X} \times \mathbb{C}^{m+1}) = 1$, and we get
-$s(N^{\infty} \bar X) = c(\hat{T}^* \bar{X})$.\newline
 $s(\hat{N}\bar{X}) = s(N^{\infty} \bar X)s(\mathcal{O}_{\bar{X}}(-1))$. One can show
 using the content of section \ref{sec:tangnormInProj} that $N^{\infty} \bar X$ verifies
 the following exact sequence
@@ -1879,13 +1940,15 @@ so we conclude
 \[ \operatorname{EDD}(X) = \sum_{k=0}^n \deg_{\mathbb{P}^m}(p_k(X)) \]
 where $\deg_{\mathbb{P}^m}$ can be defined by the fact that $A(\mathbb{P}^m) = \mathbb{Z}[\xi]/(\xi^{m+1})$.
 
-\subsection{Bottleneck degree}
+\subsubsection{Bottleneck degree}
 
-\quad This section will be similar to the last one : we will define the
-bottleneck degree and then give an expression of it involving classes in a certain Chow ring.
-We will also reuse some notations from the last section.
+\quad In this section, our goal will be to study another particular case of the \eqref{eq:ACP}
+equations, where $k=2$, $X = \mathbb{C}^m$ and $Y \subset \mathbb{C}^m$ is an arbitrary
+algebraic submanifold. Our goal will be to upper bound the number of such solutions with an
+expression involving the degree of some classe in a particular Chow ring, which will
+be called the \textit{bottleneck degree} of $Y$.
 
-\subsubsection{Blow-ups}
+\paragraph{Blow-ups}
 
 \quad Consider $X \subset \mathbb{C}^m$ a complex variety and $Y \subset X$ a subvariety
 of $X$. The blow-up of $X$ at $Y$ is a construction involving of a variety
@@ -1895,7 +1958,7 @@ is an isomorphism away from $Y$ but can have non trivial fibers over $Y$.
 The algebraic construction of the-blow up is as follows : consider $q_0, ..., q_n$ homogeneous
 polynomials of the same degree and generating an ideal of saturation $I(Y)$ (the ideal of $Y$).
 Then $\operatorname{Bl}_Y(X)$ is the graph of the rationnal maps $[q_0 : ... : q_n]$.
-\bigskip
+\medskip
 
 \quad For what follows, we will consider $X$ and $Y$ to be smooth, although it is not strictly
 necessary. But by restricting to manifolds, we can give a more geometric description
@@ -1952,7 +2015,8 @@ we obtain a class in $A(M)$, $\mathbb{D}(f) := \eta_*[\tilde{D}(f)]$ such that i
 number of tuples $(y_1, y_2) \notin \Delta_M$ such that $f(y_1) = f(y_2)$ plus the number
 of tuples $(y, v)$ where $y \in M$ and $v \in T_y M$ is a vanishing direction of $d_y f$.
 
-\subsubsection{The bottleneck equation and a formula}
+\paragraph{The bottleneck equation and degree}
+\bigskip
 
 \quad Set $X = \mathbb{C}^m$ and $Y$ be an arbitrary algebraic manifold. A \textit{bottleneck}
 of $Y$ is a solution $x$ of \eqref{eq:TCP} when $k = 2$. To study these equations more easily,
@@ -1973,7 +2037,7 @@ in a certain sense.
 \bigskip
 
 \quad For what follows, we again assume $Y$ to be orthogonally general with respect to
-the usual hyperplane and quadric. We will especially make use of the bundle $N^{\infty} Y$.
+the usual hyperplane and quadric at infinity. We will especially make use of the bundle $N^{\infty} Y$.
 Recall that for $y \in Y$, $\mathbb{P}(\hat{N}_y \bar Y) = \overline{\hat{N}_y Y}$. In particular,
 by the construction
 \[ \mathbb{P}(N^{\infty} \bar Y) = \overline{\hat{N}_y Y} \cap H_{\infty}\]
@@ -1983,7 +2047,7 @@ not proportional \cite{di2020bottleneck}. With that, we introduce the following 
     \mathbb{P}(N^{\infty} \bar{Y}) & \longrightarrow G(2, m+1)\\
     (y, v) & \longmapsto \operatorname{span}\{y, v\}
 \end{array} \]
-where $G(2, m+1)$ is the Grassmannian of lines in $\mathbb{P}^m$ and the span of $x$ and $v$
+where $G(2, m+1)$ is the Grassmannian of lines in $\mathbb{P}^m$ and the span of $y$ and $v$
 is the unique projective line passing through both points. Note that we can rephrase the
 algebraic bottleneck equations with $f$ : for $y_1 \neq y_2 \in \bar{Y}$, there exists
 $v_1 \in \mathbb{P}(N^{\infty}_{y_1} \bar{Y})$ and
@@ -2078,50 +2142,9 @@ might lie in $Y_{\infty}$, this doesn't give us the bottleneck degree of $Y$. Ho
 one can fix that in the following way, as $Y_{\infty} \subset \mathbb{P}^{m-1}$
 
 \begin{defi}[Affine bottleneck degree]
-    If $Y \subset \mathbb{C}^m$ is bottleneck general, we define its bottleneck degree as
+    If $Y \subset \mathbb{C}^m$ is orthogonally general, we define its bottleneck degree as
     \[ \operatorname{BND}(Y) = \operatorname{BND}(\bar{Y}) - \operatorname{BND}(Y_{\infty}) \]
 \end{defi}
-
-\subsection{Linear optimization: the easy case}
-
-Let $X\subseteq\bbC^m$ be an affine nonsingular variety such that $\bar X\pitchfork H_\infty$ in $\bbP^m$.
-We define the linear optimization (LO) degree $\operatorname{LOdeg}(X)$ as the number of critical points
-of a generic linear functional $\alpha\in(\bbC^m)^*$ restricted to $X$.
-Later on we will be able to drop both the smoothness and transversality conditions,
-but we can illustrate this simple case through the tools we already have available.
-
-% We immediately observe that the LO degree coincides with the degree of the second projection
-% \[NX\to\bbC^m,\]
-% so to express this number in terms of characteristic classes,
-% we can proceed as before by taking the appropriate compactification in $\bbP^m$ of $X$ and its bundles.
-As before, to express the LO degree in terms of characteristic classes we can proceed as before
-by taking the appropriate compactification in $\bbP^m$ of $X$ and its bundles.
-In particular, the original problem can be framed as follows: given a generic vector hyperplane $H\subset\bbC^n$,
-we want to count for how many points $x\in X$ we have $H\supseteq T_xX$.
-This is the same as asking that $\bar H\supseteq\overline{T_xX}$ and equivalently that
-$\bar H\cap H_\infty\supseteq\overline{T_xX}\cap H_\infty$.
-Defining $T^\infty\bar X:=(\hat T\bar X)\cap(\bar X\times V')$ (which is a bundle of rank $n$ by the transversality condition)
-so that
-\[\overline{T_xX}\cap H_\infty=\overline{\hat T_xX}\cap H_\infty=\bbP(\hat T_x\bar X)\cap H_\infty=\bbP(T^\infty_x\bar X)\]
-we have reduced the problem to the following:
-given a generic linear functional $\alpha\in(V')^*$, count for how many points $x\in X$ we have that the corresponding
-section $\alpha\in(T^\infty_x\bar X)^*$ vanishes.
-Generically, there is no point at infinity $x\in\bar X\setminus X$ for which this is true,
-so that the number to be number to be computed is really the degree of the zero locus of a generic section of $T^\infty\bar X$,
-which we know by Property 2.\ of Chern classes to be $\deg(c_n(T^\infty\bar X))$.
-
-To calculate this value, notice that we have the exact sequence
-\[0\to T^\infty\bar X\to\hat T\bar X\to(V/V')_{\bar X}\simeq\calO_{\bar X}\to0\]
-where fiberwise we use the isomorphism $\hat T_x\bar X/(\hat T_x\bar X\cap V')\simeq V/V'$.
-Then, by Property 3.\ of Chern classes it follows that $c(\hat T\bar X)=c(T^\infty\bar X)c(\calO_{\bar X})=c(T^\infty\bar X)$
-and thus we conclude
-\[\operatorname{LOdeg}(X)=\deg(c_n(\hat T\bar X))=\deg(p_n(\bar X)),\]
-i.e.\ the LO degree is the degree of the top polar class of $\bar X$.
-
-% given a generic linear functional $\alpha\in(\bbC^m)^*$,
-% which induces a section $\alpha\in(T_xX)^*$, we want to find out in how many points this section vanishes.
-% This is equivalent to taking a generic linear functional $\alpha\in(V')^*$ which induces a section
-% $\alpha\in\overline{\hat TX}$
 
 
 \bibliographystyle{plain}
