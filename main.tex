@@ -1394,7 +1394,7 @@ Since its kernel is $\Ann(V')$, this happens if and only if
 \end{align*}
 Thus, the composition \eqref{eq:compNX} is an embedding if and only if $X\pitchfork H_\infty$.
 In this case, the image is a sub-bundle of $(V')_X$ of rank $c$ which we call the \textit{bundle of normal directions} $N^\infty X$.
-By definition, $N^\infty X\simeq\calN_X^*(1)$.
+By definition, $N^\infty X\cong\calN_X^*(1)$.
 For any $x\in X$, by definition the fiber is
 \begin{equation}\label{eq:Nhatinfty}
     N^\infty_xX=\{v'\in V'\mid B(v,\hat T_xX\cap V')=0\}=(\hat T_xX\cap V')^\perp
@@ -1447,12 +1447,14 @@ Thus, when $X\not\subset H_\infty$ the conditions for $\hat NX$ to be a bundle a
 
 Let $V$ be an $(m+1)$-dimensional vector space over $\bbC$, and denote by $\bbP^m:=\bbP(V)$.
 Fix a non-degenerate symmetric bilinear form $B$ on $V$, defining the \textit{isotropic quadric}
-\[Q:=\{x\in H_\infty\mid B(x,x)=0\}.\]
+\[Q:=\{x\in \bbP^m\mid B(x,x)=0\}.\]
 
 Then, the composition
 \[\calN_X^*(1)\hookrightarrow V_X^*\iso V_X\]
-is an embedding, whose image $N^cX$ is a sub-bundle of $V_X$ of rank $c$.
-For any $x\in X$, $N^cX=\Ann(\hat T_xX)$.
+is an embedding, whose image $N^cX$ is a sub-bundle of $V_X$ of rank $c$. Denote $L_V : V_X \iso V_X^*$
+sending $(x, v) \in V_X$ to $(x, B(v, \cdot))$. For any $x\in X$, $\calN_{X, x}^*(1)=\Ann(\hat T_xX)$, hence
+the fiber at $x \in X$ is described by
+\[ N^c_x X = L_V^{-1}(\Ann(\hat T_xX))) = (\hat T_x X)^{\perp} \]
 
 The natural map of bundles
 \begin{equation}\label{eq:sumNcX}
@@ -1468,10 +1470,25 @@ we see that this is precisely the case in which $X\subset H_\infty$ discussed be
 In this case, the image of \eqref{eq:sumNcX} is called the \textbf{cone Euclidean normal bundle} $\hat N^cX$,
 which is a sub-bundle of $V_X$ of rank $c+1$ isomorphic to $\calO_X(-1)\oplus\calN_X^*(1)$.
 
-Fix now the hyperplane at infinity $H_\infty$ such that $Q\pitchfork H_\infty$ and let $Q_\infty=Q\cap H_\infty$.
-Then, in general the conditions that $X$ is $(H_\infty,Q_\infty)$-orthogonally general and that $X\pitchfork Q_\infty$ are independent,
-but if both conditions are satisfied then $\hat NX\simeq\calO_X(1)\oplus\calN_X^*(1)\simeq\hat N^cX$.
-Moreover, GEOMETRIC RELATIONSHIP BETWEEN $N^cX$ and $N^\infty X$, MAYBE USING PROJECTIONS OR SOME STUFF?
+\bigskip
+
+\quad We now fix the hyperplane at infinity $H_\infty$ such that $Q\pitchfork H_\infty$ and let $Q_\infty=Q\cap H_\infty$.
+Then, in general the conditions that $X$ is $(H_\infty,Q_\infty)$-orthogonally general and that $X\pitchfork Q$ are independent,
+but if both conditions are satisfied then $\hat NX\cong\calO_X(-1)\oplus\calN_X^*(1)\cong\hat N^cX$.
+Moreover, there are geometric relationships between $N^cX$ and $N^\infty X$.
+\medskip \newline
+Let $e_1, ..., e_{m+1} \in V$ be a basis such that $V' = \{ v_{m+1} = 0 \}$ in these coordinates
+and $e_1, ..., e_m$ form a $B$-orthonormal basis of $V'$. We can then define a $B$-orthogonal
+projection onto $V'$ by the usual formula for $v \in V$
+\[ p_{V'}(v) = \sum_{i=1}^m B(v, e_i) e_i \]
+and check that it is self adjoint. Hence $p_{V'}(N_x^c X) \subset N^{\infty}_x X$ by using
+their definitions as orthogonal spaces, for $x \in X$. The other inclusion require additionnal
+assumptions, more precisely that $\ker p_{V'} \cap N_x^c X = 0$.
+\medskip \newline
+We obtain this if we assume that $V'$ is such that $e_1, ..., e_{m+1}$ form a $B$-orthonormal
+basis of $V$ (we exclude purely complex behaviour), which is the case for the canonical
+$B$ and $V'$ in $\bbC^{m+1}$. In this case $N^{\infty} X$ is the $B$-orthogonal projection
+of $N^c X$.
 
 \subsubsection{Chow ring and useful classes}
 
@@ -1621,7 +1638,7 @@ $A(X)$ into $A(\mathbb{P}(E))$ through $p^*$.
 \subsection{Linear optimization degree}
 
 \quad Let $X\subseteq\bbC^m$ be a smooth algebraic submanifold such that
-$\bar X\pitchfork H_\infty$ in $\bbP^m$. We will start with the easier case of critical points,
+$\bar X\pitchfork H_\infty$ in $\bbP^m$. We will start with the easiest case of critical points,
 the problem of linear optimization on $X$ : given a linear function $\alpha \in (\bbC^m)^*$,
 we will consider its critical points after restricting it to $X$.
 \medskip \newline
@@ -1678,8 +1695,8 @@ so that the number to be computed is really the degree of the zero locus of a ge
 which we know by Property 2.\ of Chern classes to be $\deg(c_n(T^\infty\bar X))$.
 \medskip \newline
 To calculate this value, notice that we have the exact sequence
-\[0\to T^\infty\bar X\to\hat T\bar X\to \bbC^1_{\bar X}\simeq\calO_{\bar X}\to0\]
-where fiberwise we use the isomorphism $\hat T_x\bar X/(\hat T_x\bar X\cap \bbC^m)\simeq \bbC$.
+\[0\to T^\infty\bar X\to\hat T\bar X\to \bbC^1_{\bar X}\cong\calO_{\bar X}\to0\]
+where fiberwise we use the isomorphism $\hat T_x\bar X/(\hat T_x\bar X\cap \bbC^m)\cong \bbC$.
 Then, by Property 3.\ of Chern classes it follows that $c(\hat T\bar X)=c(T^\infty\bar X)c(\calO_{\bar X})=c(T^\infty\bar X)$
 and thus we conclude
 \[\operatorname{LOdeg}(X)=\deg(c_n(\hat T\bar X))=\deg(p_n(\bar X)),\]
