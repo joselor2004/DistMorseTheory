@@ -1397,7 +1397,7 @@ In this case, the image is a sub-bundle of $(V')_X$ of rank $c$ which we call th
 By definition, $N^\infty X\cong\calN_X^*(1)$.
 For any $x\in X$, by definition the fiber is
 \begin{equation}\label{eq:Nhatinfty}
-    N^\infty_xX=\{v'\in V'\mid B(v,\hat T_xX\cap V')=0\}=(\hat T_xX\cap V')^\perp
+    N^\infty_xX=\{v'\in V'\mid B(v,\hat T_xX\cap V')=0\}=(\hat T_xX\cap V')^\perp \cap V'
 \end{equation}
 
 Another case which will be of interest to us is when the composition \eqref{eq:compNX} is not an embedding,
@@ -1486,7 +1486,7 @@ their definitions as orthogonal spaces, for $x \in X$. The other inclusion requi
 assumptions, more precisely that $\ker p_{V'} \cap N_x^c X = 0$.
 \medskip \newline
 We obtain this if we assume that $V'$ is such that $e_1, ..., e_{m+1}$ form a $B$-orthonormal
-basis of $V$ (we exclude purely complex behaviour), which is the case for the canonical
+basis of $V$, which is the case for the canonical
 $B$ and $V'$ in $\bbC^{m+1}$. In this case $N^{\infty} X$ is the $B$-orthogonal projection
 of $N^c X$.
 
@@ -1638,9 +1638,11 @@ $A(X)$ into $A(\mathbb{P}(E))$ through $p^*$.
 \subsection{Linear optimization degree}
 
 \quad Let $X\subseteq\bbC^m$ be a smooth algebraic submanifold such that
-$\bar X\pitchfork H_\infty$ in $\bbP^m$. We will start with the easiest case of critical points,
-the problem of linear optimization on $X$ : given a linear function $\alpha \in (\bbC^m)^*$,
-we will consider its critical points after restricting it to $X$.
+$\bar X$ is smooth and $\bar X\pitchfork H_\infty$ in $\bbP^m$. By section \ref{sec:tangnormInProj},
+one can define the bundle of normal directions to $\bar{X}$ at infinity, $N^{\infty}X$. We will
+start with the easiest case of critical points, the problem of linear optimization on $X$ :
+given a linear function $\alpha \in (\bbC^m)^*$, we will consider its critical points after
+restricting it to $X$.
 \medskip \newline
 We now show that the number of critical points is constant for generic choices of $\alpha$.
 There is a unique $u \in \mathbb{C}^m$ such that for $x \in \mathbb{C}^m$
@@ -1648,23 +1650,35 @@ There is a unique $u \in \mathbb{C}^m$ such that for $x \in \mathbb{C}^m$
 We also have that $x \in X$ is a critical point of $\alpha_{\mid X}$ iff
 \[ T_x X \subset \ker d_x \alpha = \ker \alpha \]
 Recalling the exact sequences of bundles in section \ref{sec:tangnormInProj} (which are also
-valid when working in $\bbC^m$), one has that $(x, \alpha) \in \mathcal{N}_X^*(1) \hookrightarrow X \times (\bbC^m)^*$
+valid when working in $\bbC^m$), one has that $(x, \alpha) \in \mathcal{N}_X^*(1) \cong N^{\infty} X \hookrightarrow X \times (\bbC^m)^*$
 and that the following diagram commutes
 
 \begin{center}
 \begin{tikzcd}
-    \mathcal{N}_X^*(1) \arrow[r, hook] \arrow[d, "\pi_1"] \arrow[dr, "\pi_2"] &
+    N^{\infty}X \arrow[r, hook] \arrow[d, "\pi_1"] \arrow[dr, "\pi_2"] &
     \bbC^m \times (\bbC^m)^* \cong \bbC^m \times \bbC^m \arrow[d, "\operatorname{pr}_2"]\\
     X & (\bbC^m)^* \cong \bbC^m
 \end{tikzcd}
 \end{center}
 
-Because $(x, \alpha) \in \mathcal{N}_X^*(1)$, there is a one to one correspondance between critical
-points of $\alpha$ on $X$ and points in $\operatorname{pr}_2^{-1}(u) \cap \mathcal{N}_X^*(1)$.
-We then have two cases, if $\pi_2$ is dominant, because the $\mathcal{N}_X^*(1)$ has dimension
-$n$ and the image has too, the cardinality of the generic fiber is constant. If it is not
-dominant, the cardinality of the generic fiber is $0$, constant as well.
-\medskip \newline
+Because $(x, \alpha) \in N^{\infty} X$, there is a one to one correspondance between critical
+points of $\alpha$ on $X$ and points in $\operatorname{pr}_2^{-1}(u) \cap N^{\infty} X$.
+Using this we show the following
+
+\begin{prop}\label{prop:genFiniteConst}
+    For generic $\alpha \in (\mathbb{C}^m)^*$, the number of critical points of $\alpha_{\mid X}$
+    is finite and constant.
+\end{prop}
+
+\begin{proof}
+    We show that for generic $u \in \bbC^m$, $\pi_2^{-1}(u)$ is finite and constant. Firstly,
+    $\dim(N^{\infty} X) = m$, hence by Sard's theorem, $\pi_2^{-1}(u)$ is generically finite.
+    By the generic smoothness theorem, there is a Zariski open subset $U \subset N^{\infty} X$
+    such that $(\pi_2)_{\mid U}$ is a submersion, and because it is proper, it is a cover.
+    $U$ being Zariski open, it is connected and dense in the usual topology, hence $\pi_2(U)$ is too,
+    hence the fibers over $U$ are generic fibers and of constant cardinality.
+\end{proof}
+
 Thanks to this discussion, we define the linear optimization (LO) degree
 $\operatorname{LOdeg}(X)$ as the number of critical points of a generic linear functional
 $\alpha\in(\bbC^m)^*$ restricted to $X$.
@@ -1677,34 +1691,35 @@ $\alpha\in(\bbC^m)^*$ restricted to $X$.
 \quad We will now express the LO degree in terms of characteristic classes. We will proceed
 by taking the appropriate compactification in $\bbP^m$ of $X$ and its bundles. We will
 without loss of generality choose the canonical compactification i.e induced by the
-canonical embedding $\mathbb{C}^m \hookrightarrow \mathbb{C}^{m} \times \{1\} \rightarrow \mathbb{P}^m$,
-where the hyperplane at infinity is given by $\bbC^m \times \{0\} \cong \bbC^m$.
+standard embedding $\mathbb{C}^m \hookrightarrow \mathbb{C}^{m} \times \{1\} \rightarrow \mathbb{P}^m$,
+where the hyperplane at infinity is given by $V' = \bbC^m \times \{0\}$.
 \medskip \newline
 The original problem can be framed as follows: given a generic vector hyperplane $H\subset\bbC^m$,
 we want to count for how many points $x\in X$ we have $H\supseteq T_xX$.
 This is the same as asking that $\bar H\supseteq\overline{T_xX}$ and equivalently that
 $\bar H\cap H_\infty\supseteq\overline{T_xX}\cap H_\infty$.
-Defining $T^\infty\bar X:=(\hat T\bar X)\cap(\bar X\times \bbC^m)$ (which is a bundle of rank $m$ by the transversality condition)
+Defining $T^\infty\bar X:=(\hat T\bar X)\cap(\bar X\times V')$ (which is a bundle of rank $m$ by the transversality condition)
 so that
 \[\overline{T_xX}\cap H_\infty=\overline{\hat T_xX}\cap H_\infty=\bbP(\hat T_x\bar X)\cap H_\infty=\bbP(T^\infty_x\bar X)\]
 we have reduced the problem to the following:
 given a generic linear functional $\alpha\in(\bbC^m)^*$, count for how many points $x\in X$ we have that the corresponding
 section $\alpha\in(T^\infty_x\bar X)^*$ vanishes.
 Generically, there is no point at infinity $x\in\bar X\setminus X$ for which this is true,
-so that the number to be computed is really the degree of the zero locus of a generic section of $T^\infty\bar X$,
-which we know by Property 2.\ of Chern classes to be $\deg(c_n(T^\infty\bar X))$.
+so that the number to be computed is really the degree of the zero locus of a generic section of $(T^\infty\bar X)^*$,
+which we know by Property 2.\ of Chern classes to be $\deg(c_n((T^\infty\bar X)^*))$.
 \medskip \newline
 To calculate this value, notice that we have the exact sequence
-\[0\to T^\infty\bar X\to\hat T\bar X\to \bbC^1_{\bar X}\cong\calO_{\bar X}\to0\]
-where fiberwise we use the isomorphism $\hat T_x\bar X/(\hat T_x\bar X\cap \bbC^m)\cong \bbC$.
-Then, by Property 3.\ of Chern classes it follows that $c(\hat T\bar X)=c(T^\infty\bar X)c(\calO_{\bar X})=c(T^\infty\bar X)$
+\[0\to T^\infty\bar X\to\hat T\bar X\to (\bbC^{m+1}/V')_{\bar X}\cong\calO_{\bar X}\to0\]
+where fiberwise we use the isomorphism $\hat T_x\bar X/(\hat T_x\bar X\cap V')\cong \bbC^{m+1}/V'$.
+Then, by Property 3.\ of Chern classes it follows that $c(\hat T^* \bar X)=c((T^\infty\bar X)^*)c(\calO_{\bar X}^*)=c((T^\infty\bar X)^*)$
 and thus we conclude
-\[\operatorname{LOdeg}(X)=\deg(c_n(\hat T\bar X))=\deg(p_n(\bar X)),\]
+\[\operatorname{LOdeg}(X)=\deg(c_n(\hat T^*\bar X))=\deg(p_n(\bar X)),\]
 i.e.\ the LO degree is the degree of the top polar class of $\bar X$.
 \bigskip
 
 \quad Although we do not explain it here, the discussion around the LO degree can be extended
-to the case of singular varieties (cite sources Lorenzo + OG sources) and 
+to the case of singular varieties through the use of Chern-Mather classes \cite{macphersonSingVar,linoptChernMather}
+(+ Lorenzo's thing).
 
 % given a generic linear functional $\alpha\in(\bbC^m)^*$,
 % which induces a section $\alpha\in(T_xX)^*$, we want to find out in how many points this section vanishes.
@@ -1775,15 +1790,10 @@ submanifold of $\mathbb{C}^m$. \eqref{eq:ACP} then simplifies to
 where the unknown is $x$. This is equivalent to asking that $y \in x + N_x X$ i.e
 $y \in \hat{N}_x X$ as defined in \eqref{eq:hatTNX}.
 This bundle has two natural projections $\pi_1 : \hat{N}X \rightarrow X$ and $\pi_2 : \hat{N}X \rightarrow \mathbb{C}^m$.
-The set of solutions to \eqref{eq:ACP} is then $\pi_1(\pi_2^{-1}(y))$. Using the fact
-that $\hat{N}X$ is of dimension $m$, one can show the following property.
-
-\begin{prop}
-    For generic $y \in \mathbb{C}^m$, the set $\pi_1(\pi_2^{-1}(y))$ is finite and it has
-    a constant number of elements.
-\end{prop}
-
-
+The set of solutions to \eqref{eq:ACP} is then $\pi_1(\pi_2^{-1}(y))$. By similar arguments
+as those used in proposition \ref{prop:genFiniteConst}, one can show that for
+generic $y \in \mathbb{C}^m$, $\pi_2^{-1}(y)$ is finite of constant cardinality.
+\medskip \newline
 The \textit{euclidean distance degree} (EDD) of $X$ is then defined as this generic number of solutions
 to the critical point equation. It then gives an upper bound on the number of real solutions
 to \eqref{eq:ACP}.
