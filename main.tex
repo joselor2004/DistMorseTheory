@@ -46,7 +46,7 @@
 \DeclareMathOperator{\img}{im}
 \DeclareMathOperator{\Ann}{Ann}
 
-\title{Metric algebraic critical point theory}
+\title{Morse theory of distance functions}
 
 \author{José Lorgeré}
 
@@ -183,26 +183,32 @@ behaviour and we retrieve this property.
 
 \subsubsection{The case of convex functions}\label{sec:subdiffconvex}
 
-\quad If we consider convex Lipschitz functions $f : U \subset \mathbb{R}^m \rightarrow \mathbb{R}$,
-where $U$ is a convex open set, the subdifferential can be understood much more precisely
-(in fact, this object was first invented for convex functions).
-\medskip \newline
-Consider a point $x \in U$ where $d_x f$ exists. By convexity, we have
-\[ \forall z \in U, f(z) \geq f(x) + d_x f(z-x) \]
-Denote $C_x$ the set of all linear maps verifying such property at a point $x$.
-The function $C : x \mapsto C_x$ is convex-valued, upper semi-continuous and contains
-$d_x f$ whenever it is defined. Moreover, at such points we have for $h$ small enough :
-\[ f(x+h) = f(x) + d_x f(h) + o(h) \geq f(x) + \varphi(h) \]
+\quad In this section we discuss the specific case of a locally Lipschitz convex function $f$ on
+a Riemannian manifold $(M, g)$, and give a simple expression of $\partial f$. We denote
+for all $x \in M$ the Riemannian exponential map at $x$ by $\exp_x$. We assume for convenience
+that $M$ is geodesic complete, although it is not strictly necessary.
+
+\begin{defi}[Geodesic convexity]
+    A function $f : U \subset M \rightarrow \mathbb{R}$ will be called convex (or geodesic convex),
+    if for all $x \in M, v \in T_x M$, the function $t \mapsto f(\exp_x(th))$ is convex where it is defined.
+\end{defi}
+
+Consider a point $x \in M$ where $d_x f$ exists. By convexity, we have
+\[ \forall v \in T_x M, f(\exp_x(v)) \geq f(x) + d_x f(v) \]
+Denote $C_x \subset T^*_x M$ the set of all cotangent vectors verifying this property at a point $x$.
+After restricting to a trivializing open set, $C : x \mapsto C_x$ is convex-valued, upper
+semi-continuous and contains $d_x f$ whenever it is defined, hence by minimality,
+$\partial f \subset C$. Moreover, when $d_x f$ is defined we have for $h$ small enough :
+\[ f(\exp_x(h)) = f(x) + d_x f(h) + o(h) \geq f(x) + \varphi(h) \]
 where $\varphi \in C_x$. We deduce $(\varphi - d_x f)(h) = o(h)$, so $\varphi = d_x f$.
-Upper semi-continuity gives us $C \subset \partial f$, and the reciprocal is given
-by minimality of $\partial f$. So for a convex function the subdifferential can be described
-as
-\[ \partial_x f = \{ \varphi \in (\mathbb{R}^m)^* \mid \forall z \in U, f(z) \geq f(x) + \varphi(z-x) \}\]
+Upper semi-continuity then gives us $C \subset \partial f$.
+So for a convex function the subdifferential can be described as
+\[ \partial_x f = \{ \varphi \in T_x^* M \mid \forall v \in T_x M, f(\exp_x(v)) \geq f(x) + \varphi(v) \}\]
 which gives a geometrical meaning to the name subdifferential.
 \bigskip \newline
 \quad Lastly, we connect the subdifferential to the directionnal derivatives of $f$. The
 directionnal derivative of $f$ at $x$ in direction $v \in \mathbb{R}^m$ is given by
-\[ D_x f(v) = \lim_{t \rightarrow 0^+} \frac{f(x+tv)-f(x)}{t} \]
+\[ D_x f(v) = \lim_{t \rightarrow 0^+} \frac{f(\exp_x(tv))-f(x)}{t} \]
 and is always defined since $f$ is convex. The two concepts are related by the following
 formula
 \[ D_x f(v) = \max_{l \in \partial f} \langle l, v \rangle \]
@@ -812,17 +818,23 @@ $H_i(M_{f(x) + \varepsilon}, M_{f(x) - \varepsilon})$ for some small $\varepsilo
 
 \section{First properties of the euclidean distance}
 
-\quad In this section, we will work in the euclidean space $\mathbb{R}^m$. Some of what
-we'll do here can be generalized to a more general Riemannian manifold. All throughout,
-$X \subset \mathbb{R}^m$ will be a smooth manifold unless specified otherwise,
-$Y \subset \mathbb{R}^m$ a closed set.
+\quad In this section, we will work on a connected Riemmannian manifold $(M, g)$ of dimension $m$,
+that we will assume to be geodesically complete for convenience, although not it is not strictly
+necessary.
+All throughout, $X \subset M$ will be a smooth manifold unless specified otherwise,
+$Y \subset M$ a closed set.
 \medskip \newline
-The main function we will study is the euclidean distance from $Y$ restricted to $X$, i.e
-\[ \forall x \in X, \operatorname{dist}_Y(x) = \min_{y \in Y} |x - y| \]
-where $|\cdot|$ is the euclidean norm. This function is locally Lipschitz. In what will
-follow, we identify $(\mathbb{R}^m)^*$ with $\mathbb{R}^m$ via the euclidean structure.
-$\partial_x ({\operatorname{dist}_Y}_{\mid X})$ will sometimes be identified with a subset of $T_x X$,
-where $x \in X$.
+Recall that $M$ has a natural metric structure compatible with its topology, where the
+distance between two points $x, y \in M$ is given by
+\[ d(x,y) := \min_{\gamma \in \mathcal{P}_x^y} \sqrt{\int_0^1 |\dot{\gamma}(t)|^2_g dt } \]
+where $\mathcal{P}_x^y$ is the set of piecewise $C^1$ paths from $x$ to $y$. Classical results
+give us that there is indeed a minimizing path, and that it is given by a geodesic.
+\medskip \newline
+The main function we will study is the Riemannian distance from $Y$ restricted to $X$, i.e
+\[ \forall x \in X, \operatorname{dist}_Y(x) = \min_{y \in Y} d(x,y) \]
+This function is locally Lipschitz. In what will follow, we identify $T^*M$ with $TM$ via the
+Riemannian structure. $\partial_x ({\operatorname{dist}_Y}_{\mid X})$ will sometimes be
+identified with a subset of $T_x X$, where $x \in X$.
 \medskip \newline
 Our main objectives will be to understand the subdifferential of this function and to find
 a setting where Morse theory of continuous selections can be applied.
@@ -834,10 +846,11 @@ ${\operatorname{dist}_Y}_{\mid X}$, which gives rise to a very nice and intuitiv
 picture. We first require some results on "infinite
 continuous selections", which is indeed how $\operatorname{dist}_Y$ is defined.
 \medskip \newline
-Let $\varphi : \mathbb{R}^m \times Z \rightarrow \mathbb{R}$ be a continuous function,
-where $Z$ is a compact space. We can define a family $(\varphi_z)_{z \in Z}$ of continuous
-functions, where $\varphi_z = \varphi(\cdot, z)$. Similar to the finite case we can define
-a "compact continuous selection" as a continuous $f$ such that for all $x \in \mathbb{R}^m$
+Let $Z$ be a compact space and $\varphi : M \times Z \rightarrow \mathbb{R}$ be a continuous function.
+We can then define a family $(\varphi_z)_{z \in Z}$ of continuous functions, where
+$\varphi_z = \varphi(\cdot, z)$. Similar to the finite case we can define
+a "compact continuous selection" as a continuous $f : M \rightarrow \mathbb{R}$ such that
+for all $x \in M$
 \[ f(x) \in \{ \varphi_z(x) \mid z \in Z \} \]
 Similarly to the finite case, we define the set of active indices at $x$, $Z(x)$ as the set
 of all $z$ that take the value of $f$ at $x$. The following result is a useful generalization of
@@ -852,8 +865,8 @@ a property of finite continuous selections.
     Consider for all $n \in \mathbb{N}$ the closed ball $B_n$ of center $x$ and radius
     $2^{-n}$. Set
     \[ A_n = \{ z \in Z \mid \exists y \in B_n, \varphi_z(y) = f(y)\} \]
-    $A_n$ is closed : indeed if we write $g := \varphi - f$, we can write $A_n$ as
-    $\operatorname{proj}_Z(g^{-1}(0) \cap (B_n \times Z))$, and $g^{-1}(0) \cap (B_n \times Z)$ is compact
+    $A_n$ is closed : indeed if we write $h := \varphi - f$, we can write $A_n$ as
+    $\operatorname{proj}_Z(h^{-1}(0) \cap (B_n \times Z))$, and $h^{-1}(0) \cap (B_n \times Z)$ is compact
     so we get what we want.
     \medskip \newline
     Note that the intersection $\bigcap_n (A_n \backslash V)$ is empty : if there was a point $z$
@@ -864,18 +877,21 @@ a property of finite continuous selections.
     so we get the desired result.
 \end{proof}
 
-The following theorem, which is a slightly modified version of Danskin's theorem,
-will allow us to compute explicitly subdifferentials in a particular case.
+The following theorem, which is a modified version of Danskin's theorem \cite{DanskinsProof},
+will allow us to compute explicitly subdifferentials in a particular case. For $x \in M$,
+$\exp_x$ will denote the Riemannian exponential map at $x$.
 
-\begin{theorem}[Danskin's \cite{DanskinsProof}]\label{thm:DanskinPlus}
-    Assume that for all $z$, $\varphi_z$ is $C^1$, $z \mapsto d_x \varphi_z$ is
-    continuous and $f = \max_{z \in Z} \varphi_z$.
+\begin{theorem}\label{thm:DanskinPlus}
+    Assume that for all $x \in M$ there is an open chart $U_x$ such that for all $z \in Z$,
+    ${\varphi_z}_{\mid U_x}$ is Lipschitz. Also assume that for all $z$,
+    $\varphi_z$ is convex, that $z \mapsto \partial_x \varphi_z$ is upper semi-continuous
+    and $f = \max_{z \in Z} \varphi_z$. Then
     \begin{enumerate}
-        \item $f$ is convex and for all $x, v \in \mathbb{R}^m$
-              \[ D_x f(v) = \max_{z \in Z(x)} d_x \varphi_z(v) \]
+        \item $f$ is convex and for all $x \in M, v \in T_x M$
+              \[ D_x f(v) = \max_{z \in Z(x)} D_x \varphi_z(v) \]
 
         \item $f$ is locally Lipschitz and we have
-              \[ \partial_x f = \operatorname{conv}\{ d_x \varphi_z(v) \mid z \in Z(x) \} \]
+              \[ \partial_x f = \operatorname{conv} \left\{ \bigcup_{z \in Z(x)} \partial_x \varphi_z \right\} \]
     \end{enumerate}
 
 \end{theorem}
@@ -885,38 +901,74 @@ will allow us to compute explicitly subdifferentials in a particular case.
     \begin{enumerate}
         \item The convexity of $f$ is a classical result from convex analysis. Notice that
               for $t > 0$
-              \[ \frac{f(x + tv) - f(x)}{t} \geq \frac{\varphi_z(x+tv) - \varphi_z(x)}{t} \]
-              for $z \in Z(x)$, so we get $D_x f(v) \geq d_x \varphi_z(v)$. For the other inequality,
-              consider a positive sequence $t_n \rightarrow 0$. For all $n$, select $z_n \in Z(x+t_nv)$,
-              by compactness assume it converges to $z^* \in Z$. By maximality of $f$, we have
+              \[ \frac{f(\exp_x(tv)) - f(x)}{t} \geq \frac{\varphi_z(\exp_x(tv)) - \varphi_z(x)}{t} \]
+              for $z \in Z(x)$, so we get $D_x f(v) \geq D_x \varphi_z(v)$. For the other inequality,
+              consider a positive sequence $t_n \rightarrow 0$. For all $n$, define $x_n = \exp_x(t_n v)$
+              and select $z_n \in Z(x_n)$, by compactness assume it converges to $z^* \in Z$. By maximality of $f$, we have
               $\varphi_{z^*}(x) \geq \varphi_z(x), z \in Z$, so $z^* \in Z(x)$. By convexity of $f$
               and $\varphi_{z_n}$, we get
               \begin{align*}
-                  D_x f(v) & \leq \frac{f(x+t_n v) - f(x)}{t_n}                                          \\
-                           & = \frac{\varphi_{z_n}(x+t_n v) - \varphi_z^*(x)}{t_n}                       \\
-                           & \leq \frac{\varphi_{z_n}(x+t_n v) - \varphi_{z_n}((x+ t_n v) - t_n v)}{t_n} \\
-                           & \leq d_x \varphi_{z_n}(v)                                                   \\
-                           & \rightarrow d_x \varphi_{z^*}(v)
+                  D_x f(v) & \leq \frac{f(x_n) - f(x)}{t_n}                                          \\
+                           & = \frac{\varphi_{z_n}(x_n) - \varphi_{z^*}(x)}{t_n}                       \\
+                           & \leq \frac{\varphi_{z_n}(x_n) - \varphi_{z_n}(\exp_{x_n}(-t_n v))}{t_n} \\
+                           & \leq D_{x_n} \varphi_{z_n}(v)
               \end{align*}
-              so $D_x f(v)$ is indeed the maximum.
+              We finish the proof by showing that for all $n$, we have
+              \[ D_{x_n} \varphi_{z_n}(v) \leq D_x \varphi_{z^*} (v) \]
+              which implies that $D_x f(v)$ is indeed the maximum.\newline
+              If it is not the case, then there is some $n$ such that
+              \[ D_{x_n} \varphi_{z_n} (v) > D_x \varphi_{z^*}(v) \]
+              Using that $D_x f (v) \geq d_x \varphi_{z^*}(v)$, one has using convexity that
+              \begin{align*}
+                f(x) \leq f(x_n) - D_x f (t_n v) &\leq f(x_n) - D_x \varphi_{z^*}(t_nv)\\
+                &< f(x_n) - D_{x_n} \varphi_{z_n} (t_nv)\\
+                &= \varphi_{z_n}(x_n) - D_{x_n} \varphi_{z_n} (t_nv)\\
+                &\leq \varphi_{z_n}(x)
+              \end{align*}
+              which is a contradiction as $f(x) \geq \varphi_{z_n}(x)$.
 
-        \item All $\varphi_z$ are locally Lipschitz. By compactness of $Z$, we can find a Lipschitz
-              constant for $f$.
+
+        \item Let $x \in M$. By assumption we can find a Lipschitz constant for each $\varphi_z$
+              on $F_z \cap U_x$. Because $Z$ is compact, one finds a Lipschitz constant for $f$ on $U_x$.
               \medskip \newline
               We now show the equality involving $\partial f$. For that we use the results of the
               discussion in section \ref{sec:subdiffconvex}. For the right to left inclusion,
               it suffices to observe that in virtue of 1., for $z \in Z(x)$
-              \[ \forall v \in \mathbb{R}^m, f(x+v) \geq f(x) + d_x \varphi_z(v) \]
-              Assume that there is some $l \in \partial_x f$ not in the convex hull of $d_x \varphi_z$,
-              $z \in Z(x)$. Because this convex hull is compact, we choose a strictly separating
-              hyperplane : we choose $v$ and $c$ such that
-              \[ \langle l, v \rangle > c > \langle d_x \varphi_z, v \rangle, z \in Z(x) \]
+              \[ \forall v \in T_x M, f(\exp_x(v)) \geq f(x) + D_x \varphi_z(v) \]
+              For the reverse inclusion, we first show that $A_x = \bigcup_{z \in Z(x)} \partial_x \varphi_z$
+              is compact. Consider a sequence $(h_n)$ in $A_x$. For each $n$, set $z_n \in Z(x)$ such that
+              $h_n \in \partial_x \varphi_{z_n}$. Up to extraction, $z_n \rightarrow z^* \in Z(x)$. Then
+              by semi-continuity of $\partial_x \varphi_{z^*}$, every limit extracted from $h_n$ is contained in
+              this set, hence $A_x$ is compact.
+              \medskip \newline
+              With that in hand, assume for contradiction that there is some $l \in \partial_x f$ not
+              contained in $\operatorname{conv}(A_x)$. By compactness and convexity of this set, we
+              find a strictly separating hyperplane, i.e $v \in T_x M$ such that
+              \[ \langle l, v \rangle > c > \langle h , v \rangle, h \in A_x \]
               This contradicts the fact that $D_x f (v) = \max_{h \in \partial_x f} \langle h, v \rangle$,
-              because $D_x f(v) = \max_{z \in Z(x)} \langle d_x \varphi_z, v \rangle$
+              because 
+              \[ D_x f(v) = \max_{z \in Z(x)} D_x \varphi_z(v) =
+              \max_{\substack{z \in Z(x) \\ h \in \partial_x \varphi_z}} \langle h, v \rangle
+              = \max_{h \in A_x} \langle h, v \rangle\]
     \end{enumerate}
 \end{proof}
 
-\quad We are now ready to compute the subdifferential of ${\operatorname{dist}_Y}_{\mid X}$.
+\quad We will use this theorem to compute the subdifferential of ${\operatorname{dist}_{Y}}_{\mid X}$.
+By definition, this is the min over $y \in Y$ of $d(\cdot, y)$. We then compute the subdifferential
+of these functions.
+
+\begin{lem}
+    Let $x \neq y \in M$. The function $\operatorname{dist}_{y} = d(\cdot, y)$ is concave and
+    \[ \partial_x (\operatorname{dist}_{y}) = \operatorname{conv}\left\{ -\frac{v}{|v|} \mid v \in T_x M, \exp_x(v) = y \right\} \]
+\end{lem}
+ 
+\begin{proof}
+    Fix $y \in M$. We first prove concavity. Let $x \neq y, h \in T_x M$. Let $r > 0$ be such that
+    for all $|t| \leq r$, the shortest path between $x$ and $\exp_x(th)$ is the geodesic
+    segment $s \in [0, 1] \mapsto \exp_x(sth)$. Then, $d(x, \exp_x(th)) = t|h|$. Hence
+    for such $t, t'$, $s \in [0, 1]$, denoting $f(t) = \exp_x(th)$, one has
+    \[ f() \]
+\end{proof}
 
 \begin{theorem}\label{thm:subdiffdist}
     Let $x \in X \backslash Y$. We have
@@ -1211,9 +1263,9 @@ intersection theory.
 \subsubsection{Complexification}
 
 \quad Let $X \subset \mathbb{R}^m$ be an algebraic manifold defined as the zero set of
-the follows polynomials : $p_1, ..., p_r$. If we view $p_1, ..., p_r \in \mathbb{R}[x_1, ..., x_m] \subset \mathbb{C}[x_1, ..., x_m]$
+the following polynomials : $p_1, ..., p_r$. If we view $p_1, ..., p_r \in \mathbb{R}[x_1, ..., x_m] \subset \mathbb{C}[x_1, ..., x_m]$
 as complex polynomials, we define $X_{\mathbb{C}}$ as the submanifold of $\mathbb{C}^m$ defined as the
-complex zero set of $p_1, ...p_r$.\newline
+complex zero set of $p_1, ...p_r$ (we assume here that $X_{\mathbb{C}}$ is smooth).\newline
 We also need to define what it means
 for some complex vector to be tangent or normal $X_{\mathbb{C}}$. We define the tangent bundle of
 $X_{\mathbb{C}}$ as follows :
@@ -1224,9 +1276,10 @@ and the normal bundle
 \begin{equation}\label{eq:NX}
     N (X_{\mathbb{C}}) = \{ v \in \mathbb{C}^m \mid \forall w \in T_x X_{\mathbb{C}}, \sum_{i=1}^m v_i w_i = 0 \}
 \end{equation}
-Note that the product involved is not an inner product on $\mathbb{C}^m$. In particular, one has
-$N_x (X_{\bbC}) \cap T_x (X_{\bbC}) \neq 0$ for all $x \in X_{\bbC}$, as there is a whole $m-1$ dimensional quadric called
-the \textit{isotopic quadric} where this product vanishes :
+Note that $X$ need not be smooth for these definitions to make sense, and that the product involved is not
+an inner product on $\mathbb{C}^m$. In particular, one can have $N_x (X_{\bbC}) \cap T_x (X_{\bbC}) \neq 0$
+for some $x \in X_{\bbC}$, as there is a whole $m-1$ dimensional quadric called the
+\textit{isotopic quadric} where this product vanishes :
 \[ Q = \{ (x_1, ..., x_m) \in \mathbb{C}^m \mid \sum_{i=1}^{m} x_i^2 = 0 \} \]
 Using this product to define $N(X_{\bbC})$ is the approach commonly followed in metric algebraic geometry for two reasons:
 \begin{enumerate}
@@ -1729,8 +1782,8 @@ to the case of singular varieties through the use of Chern-Mather classes \cite{
 \subsection{Critical points of the euclidean distance}
 
 \quad We first introduce some notation : $Y$ is defined by the zero set of polynomials
-$q_1, ..., q_n$, while $X$ is defined by the zero set of $p_1, ..., p_r$. We will assume
-as stated in the introduction that $X$ and $Y$ are smooth algebraic manifolds. 
+$q_1, ..., q_n$, while $X$ is defined by the zero set of $p_1, ..., p_r$. We also assume that
+$X$ and $Y$ are smooth.
 \bigskip \newline
 From theorem \ref{thm:subdiffdist} proved in the last section, we now that a point $x \in X$ is critical for the function
 ${\operatorname{dist}_Y}_{\mid X}$
@@ -1768,10 +1821,14 @@ One also checks that solutions to \eqref{eq:TCP} are solutions of \eqref{eq:ACP}
 1. stays the same, condition 2. from \eqref{eq:TCP} implies that $x - y_i \in N_{y_i} Y$ and
 equalities of the distances, and condition 3. and 4. imply that $x-y_i$ are linearly dependant
 in $\mathbb{C}^m / N_x X$.
+\medskip \newline
+Lastly, note that both \eqref{eq:ACP} and \eqref{eq:TCP} still make sense if $X$ and $Y$
+are singular, as one can use the definitions of tangent and normal from \eqref{eq:TX} and
+\eqref{eq:NX}.
 \bigskip
 
 \quad In what follows, we will study particular cases of these equations and connect them
-to already existing notions on algebraic manifolds. The case where $Y = \{y\}$ will lead to
+to already existing notions on algebraic manifolds. The case where $Y = \{y\}$ (hence $k=1$) will lead to
 the notion of \textit{euclidean distance degree}, and when $k = 2$ and $X = \mathbb{C}^m$ we
 will get the notion of \textit{bottleneck degree}.
 
@@ -1782,21 +1839,25 @@ will get the notion of \textit{bottleneck degree}.
 %           Then, it is reasonable
 % \end{enumerate}
 
-\subsubsection{Euclidean distance degree}
+\subsubsection{Affine euclidean distance degree}
 
-\quad As stated earlier, we consider the case where $Y = \{y\}$ and $X$ is some algebraic
-submanifold of $\mathbb{C}^m$. \eqref{eq:ACP} then simplifies to
+\quad As stated earlier, we consider the case where $Y = \{y\}$ and $X$ is some complexified
+smooth algebraic subvariety of $\mathbb{C}^m$. Note that for such $X$ and $Y$,
+\eqref{eq:ACP} and \eqref{eq:TCP} are equivalent and simplify to the following
 \[ x - y \in N_x X \]
 where the unknown is $x$. This is equivalent to asking that $y \in x + N_x X$ i.e
 $y \in \hat{N}_x X$ as defined in \eqref{eq:hatTNX}.
 This bundle has two natural projections $\pi_1 : \hat{N}X \rightarrow X$ and $\pi_2 : \hat{N}X \rightarrow \mathbb{C}^m$.
 The set of solutions to \eqref{eq:ACP} is then $\pi_1(\pi_2^{-1}(y))$. By similar arguments
 as those used in proposition \ref{prop:genFiniteConst}, one can show that for
-generic $y \in \mathbb{C}^m$, $\pi_2^{-1}(y)$ is finite of constant cardinality.
+generic $y \in \mathbb{C}^m$, $\pi_2^{-1}(y)$ is finite of constant cardinality. Note that
+smoothness of $X$ isn't necessary to prove this, as almost every point in $X$ is a smooth
+point.
 \medskip \newline
 The \textit{euclidean distance degree} (EDD) of $X$ is then defined as this generic number of solutions
 to the critical point equation. It then gives an upper bound on the number of real solutions
-to \eqref{eq:ACP}.
+to \eqref{eq:ACP}. Note that by the the preceding remarks, the EDD can also be defined in the case
+where $X$ is not smooth.
 \medskip \newline
 Consider the example where $X \subset \mathbb{C}^2$ is an ellipse. It is then defined by a
 degree $2$ polynomial and we will show later that the euclidean distance degree of $X$ is $4$.
@@ -1966,6 +2027,72 @@ We then get
 so we conclude
 \[ \operatorname{EDD}(X) = \sum_{k=0}^n \deg_{\mathbb{P}^m}(p_k(X)) \]
 where $\deg_{\mathbb{P}^m}$ can be defined by the fact that $A(\mathbb{P}^m) = \mathbb{Z}[\xi]/(\xi^{m+1})$.
+
+\subsubsection{The EDD in real projective space}
+
+\quad In this section, we extend the EDD definitions and discussion to real projective space.
+We will consider $X \subset \mathbb{RP}^m$ smooth, $Y = \{y\} \subset \mathbb{RP}^m$,
+where $X$ is defined as the zero set of homogeneous real polynomials $p_1, ..., p_{m-n}$.
+\medskip \newline
+We put on $\mathbb{RP}^m$ the Fubini-Study metric, i.e the one induced by the sphere
+metric and the projection $\pi : \mathbb{S}^m \rightarrow \mathbb{RP}^m$. This allows us
+to define a distance function from $y$, $\operatorname{dist}_y^{FS}$ by considering the minimul
+length of a geodesic. Our goal will be to upper bound the number of critical points of the restriction
+$(\operatorname{dist}_y^{FS})_{\mid X}$ by an algebraic degree. (precision over the nature of
+critical points in Riemannian).
+\medskip \newline
+For that, consider $CX \subset \mathbb{R}^{m+1}$ the cone of $X$ in $\mathbb{R}^{m+1}$, i.e
+\[ CX = \{ (x_1, ..., x_{m+1}) \in \mathbb{R}^{m+1} \mid [x_1 : ... : x_{m+1}] \in X \} \]
+Note that it is the zero set of the homogeneous polynomials $p_1, ..., p_{m-n}$ but where the
+equations are solved in affine space. With that in mind we can define an euclidean distance
+degree of $X$ as
+\[ \operatorname{EDD}_{\mathbb{RP}^m}(X) := \operatorname{EDD}_{\mathbb{R}^{m+1}}(CX) \]
+For $\tilde{y} \in \mathbb{R}^{m+1}$, we denote
+$S(\tilde{y}) \subset CX$ the set of solutions to the EDD equations for $\tilde{y}$.
+The following lemma motivates the above definition of projective EDD.
+
+\begin{lem}
+    For generic $y \in \mathbb{RP}^m$, and $\tilde{y} \in \mathbb{R}^{m+1} \backslash \{0\}$
+    such that $[\tilde{y}] = y$ :
+    \begin{enumerate}
+        \item $S(\tilde{y})$ avoids $0$
+        \item The projection map $\mathbb{R}^{m+1} \rightarrow \mathbb{RP}^m$ induces a
+        one to one correspondance between $S(\tilde{y})$ and critical points of
+        ${\operatorname{dist}_{y}^{FS}}_{\mid X}$.
+    \end{enumerate}
+\end{lem}
+
+\begin{proof}
+    \0
+    \begin{enumerate}
+        \item We will show the following statement : there is a proper linear subspace
+        $L \subset \mathbb{R}^{m+1}$ such that if $0 \in S(\tilde{y})$, then $\tilde{y} \in L$.
+        Assume $0 \in S(\tilde{y})$. Then $\tilde{y} \in N_0 (CX)$, defined as the span of $\nabla_0 p_i$
+        for all $i$. Because for every $[\tilde{x}] \in X$ and $t \in \bbR$, $p_i(t \tilde{x}) = 0$ for all
+        $i$, we have that $\tilde{y}$ is orthogonal to $\tilde{x}$. Hence $\tilde{y}$ is
+        orthogonal to $CX$. We then set $L = (CX)^{\perp}$ and we have what we want, as the
+        generic line isn't in $L$.
+
+        \item We first show that the map is surjective. Because the map
+        \[ \begin{array}{cl}
+            \mathbb{R}^{m+1} \backslash \{0\} &\longrightarrow \mathbb{S}^m\\
+            z &\longmapsto \frac{z}{|z|}
+        \end{array} \]
+        is a Riemannian submersion, the image of an affine geodesic is a sphere
+        geodesic. By definition, the image of a sphere geodesic by the quotient map is
+        a projective geodesic. This leads to surjectivity, as for $\tilde{x} \in S(\tilde{y})$,
+        there is an affine geodesic normal to $CX$ at $\tilde{x}$ passing through $\tilde{y}$.
+        By taking the image, we end up with a projective geodesic normal to $X$ at $[\tilde{x}]$
+        passing through $y$, i.e $[\tilde{x}]$ is a critical point of the distance function.
+        \medskip \newline
+        For injectivity, note that if $\tilde{x}_0, \tilde{x}_1 \in CX$ are distinct non zero
+        points such that $[\tilde{x}_0] = [\tilde{x}_1]$, then for any
+        $\tilde{y} \in \mathbb{R}^{m+1}$, we cannot have $\tilde{x}_0 - \tilde{y} \in N_{\tilde{x}_0} (CX)$
+        and the same with $\tilde{x}_1$ simultaneously, as the affine lines $\mathbb{R} \tilde{x}_0$
+        and $\tilde{y} + \mathbb{R}(\tilde{x}_0 - \tilde{y})$ meet in at most one point.
+
+    \end{enumerate}
+\end{proof}
 
 \subsubsection{Bottleneck degree}
 
