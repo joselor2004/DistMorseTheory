@@ -1782,7 +1782,7 @@ will get the notion of \textit{bottleneck degree}.
 %           Then, it is reasonable
 % \end{enumerate}
 
-\subsubsection{Euclidean distance degree}
+\subsubsection{Affine euclidean distance degree}
 
 \quad As stated earlier, we consider the case where $Y = \{y\}$ and $X$ is some algebraic
 submanifold of $\mathbb{C}^m$. \eqref{eq:ACP} then simplifies to
@@ -1966,6 +1966,72 @@ We then get
 so we conclude
 \[ \operatorname{EDD}(X) = \sum_{k=0}^n \deg_{\mathbb{P}^m}(p_k(X)) \]
 where $\deg_{\mathbb{P}^m}$ can be defined by the fact that $A(\mathbb{P}^m) = \mathbb{Z}[\xi]/(\xi^{m+1})$.
+
+\subsubsection{The EDD in real projective space}
+
+\quad In this section, we extend the EDD definitions and discussion to real projective space.
+We will consider $X \subset \mathbb{RP}^m$ smooth, $Y = \{y\} \subset \mathbb{RP}^m$,
+where $X$ is defined as the zero set of homogeneous real polynomials $p_1, ..., p_{m-n}$.
+\medskip \newline
+We put on $\mathbb{RP}^m$ the Fubini-Study metric, i.e the one induced by the sphere
+metric and the projection $\pi : \mathbb{S}^m \rightarrow \mathbb{RP}^m$. This allows us
+to define a distance function from $y$, $\operatorname{dist}_y^{FS}$ by considering the minimul
+length of a geodesic. Our goal will be to upper bound the number of critical points of the restriction
+$(\operatorname{dist}_y^{FS})_{\mid X}$ by an algebraic degree.
+\medskip \newline
+For that, consider $CX \subset \mathbb{R}^{m+1}$ the cone of $X$ in $\mathbb{R}^{m+1}$, i.e
+\[ CX = \{ (x_1, ..., x_{m+1}) \in \mathbb{R}^{m+1} \mid [x_1 : ... : x_{m+1}] \in X \} \]
+Note that it is the zero set of the homogeneous polynomials $p_1, ..., p_{m-n}$ but where the
+equations are solved in affine space. With that in mind we can define an euclidean distance
+degree of $X$ as
+\[ \operatorname{EDD}_{\mathbb{RP}^m}(X) := \operatorname{EDD}_{\mathbb{R}^{m+1}}(CX) \]
+For $\tilde{y} \in \mathbb{R}^{m+1}$, we denote
+$S(\tilde{y}) \subset CX$ the set of solutions to the EDD equations for $\tilde{y}$.
+The following lemma motivates the above definition of projective EDD.
+
+\begin{lem}
+    For generic $y \in \mathbb{RP}^m$, and $\tilde{y} \in \mathbb{R}^{m+1} \backslash \{0\}$
+    such that $[\tilde{y}] = y$ :
+    \begin{enumerate}
+        \item $S(\tilde{y})$ avoids $0$
+        \item The projection map $\mathbb{R}^{m+1} \rightarrow \mathbb{RP}^m$ induces a
+        one to one correspondance between $S(\tilde{y})$ and critical points of
+        ${\operatorname{dist}_{y}^{FS}}_{\mid X}$.
+    \end{enumerate}
+\end{lem}
+
+\begin{proof}
+    \0
+    \begin{enumerate}
+        \item We will show the following statement : there is a proper linear subspace
+        $L \subset \mathbb{R}^{m+1}$ such that if $0 \in S(\tilde{y})$, then $\tilde{y} \in L$.
+        Assume $0 \in S(\tilde{y})$. Then $\tilde{y} \in N_0 (CX)$, defined as the span of $\nabla_0 p_i$
+        for all $i$. Because for every $[\tilde{x}] \in X$ and $t \in \bbR$, $p_i(t \tilde{x}) = 0$ for all
+        $i$, we have that $\tilde{y}$ is orthogonal to $\tilde{x}$. Hence $\tilde{y}$ is
+        orthogonal to $CX$. We then set $L = (CX)^{\perp}$ and we have what we want, as the
+        generic line isn't in $L$.
+
+        \item We first show that the map is surjective. Because the map
+        \[ \begin{array}{cl}
+            \mathbb{R}^{m+1} \backslash \{0\} &\longrightarrow \mathbb{S}^m\\
+            z &\longmapsto \frac{z}{|z|}
+        \end{array} \]
+        is a Riemannian submersion, the image of an affine geodesic is a sphere
+        geodesic. By definition, the image of a sphere geodesic by the quotient map is
+        a projective geodesic. This leads to surjectivity, as for $\tilde{x} \in S(\tilde{y})$,
+        there is an affine geodesic normal to $CX$ at $\tilde{x}$ passing through $\tilde{y}$.
+        By taking the image, we end up with a projective geodesic normal to $X$ at $[\tilde{x}]$
+        passing through $y$, i.e $[\tilde{x}]$ is a critical point of the distance function.
+        \medskip \newline
+        For injectivity, note that if $\tilde{x}_0, \tilde{x}_1 \in CX$ are distinct non zero
+        points such that $[\tilde{x}_0] = [\tilde{x}_1]$, then for any
+        $\tilde{y} \in \mathbb{R}^{m+1}$, we cannot have $\tilde{x}_0 - \tilde{y} \in N_{\tilde{x}_0} (CX)$
+        and the same with $\tilde{x}_1$ simultaneously, as the affine lines $\mathbb{R} \tilde{x}_0$
+        and $\tilde{y} + \mathbb{R}(\tilde{x}_0 - \tilde{y})$ meet in at most one point.
+
+    \end{enumerate}
+\end{proof}
+
 
 \subsubsection{Bottleneck degree}
 
