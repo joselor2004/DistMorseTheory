@@ -46,7 +46,7 @@
 \DeclareMathOperator{\img}{im}
 \DeclareMathOperator{\Ann}{Ann}
 
-\title{Metric algebraic critical point theory}
+\title{Morse theory of distance functions}
 
 \author{José Lorgeré}
 
@@ -181,31 +181,38 @@ However, the functions we'll
 study, for example continuous selections (see Section \ref{sec:ContSelec}) have much nicer
 behaviour and we retrieve this property.
 
-\subsubsection{The case of convex functions}\label{sec:subdiffconvex}
+\subsubsection{The generalized derivative}
 
-\quad If we consider convex Lipschitz functions $f : U \subset \mathbb{R}^m \rightarrow \mathbb{R}$,
-where $U$ is a convex open set, the subdifferential can be understood much more precisely
-(in fact, this object was first invented for convex functions).
-\medskip \newline
-Consider a point $x \in U$ where $d_x f$ exists. By convexity, we have
-\[ \forall z \in U, f(z) \geq f(x) + d_x f(z-x) \]
-Denote $C_x$ the set of all linear maps verifying such property at a point $x$.
-The function $C : x \mapsto C_x$ is convex-valued, upper semi-continuous and contains
-$d_x f$ whenever it is defined. Moreover, at such points we have for $h$ small enough :
-\[ f(x+h) = f(x) + d_x f(h) + o(h) \geq f(x) + \varphi(h) \]
-where $\varphi \in C_x$. We deduce $(\varphi - d_x f)(h) = o(h)$, so $\varphi = d_x f$.
-Upper semi-continuity gives us $C \subset \partial f$, and the reciprocal is given
-by minimality of $\partial f$. So for a convex function the subdifferential can be described
-as
-\[ \partial_x f = \{ \varphi \in (\mathbb{R}^m)^* \mid \forall z \in U, f(z) \geq f(x) + \varphi(z-x) \}\]
-which gives a geometrical meaning to the name subdifferential.
-\bigskip \newline
-\quad Lastly, we connect the subdifferential to the directionnal derivatives of $f$. The
-directionnal derivative of $f$ at $x$ in direction $v \in \mathbb{R}^m$ is given by
-\[ D_x f(v) = \lim_{t \rightarrow 0^+} \frac{f(x+tv)-f(x)}{t} \]
-and is always defined since $f$ is convex. The two concepts are related by the following
-formula
-\[ D_x f(v) = \max_{l \in \partial f} \langle l, v \rangle \]
+\quad We now consider $f : U \subset \mathbb{R}^m \rightarrow \mathbb{R}$ a Lipschitz function.
+By Rademacher's theorem, for all $x \in U$ and $v \in \mathbb{R}^m$, the following limit
+exists
+\[ D_x f (v) = \limsup_{\substack{y \rightarrow x \\ t \rightarrow 0^+}} \frac{f(y + tv) - f(y)}{t} \]
+and is called Clarke's generalized derivative \cite{ClarkeFirst}. It is connected to the
+subdifferential of $f$ through the following formula
+
+\begin{prop}\label{prop:genDerSubdiff}\cite{ClarkeFirst}
+    For $x \in U$, $v \in \mathbb{R}^m$, we have
+    \[ D_x f (v) = \max_{l \in \partial_x f} \langle l, v \rangle \]
+\end{prop}
+
+From this, one deduces that $D_x f$ is convex and linear on each positive axis, i.e
+$D_x f(\lambda v) = \lambda D_x f(v)$ for $\lambda \geq 0$. We also get the following useful
+result regarding differentiability points of $f$.
+
+\begin{cor}\label{cor:singletonDiff}
+    $\partial_x f$ is a singleton iff $f$ is differentiable at $x$ and $df$ is continuous
+    at $x$ relatively to the set where it exists.
+\end{cor}
+
+\begin{proof}
+    If $d_x f$ exists and $df$ verifies the assumption, the fact that $\partial_x f$ is
+    a singleton is evident from its definition.
+    \medskip \newline
+    If $\partial_x f$ is a singleton $\{l\}$, proposition \ref{prop:genDerSubdiff} tells us
+    that $f$ is differentiable at $x$ of differential $d_x f = l$. Continuity follows from
+    the fact that any limit of the form $d_{x_k} f$, $x_k \rightarrow x$ ends up in $\partial_x f$
+    by definition, hence equals $d_x f$.
+\end{proof}
 
 \subsection{Generalized differential theorems}
 
@@ -812,17 +819,23 @@ $H_i(M_{f(x) + \varepsilon}, M_{f(x) - \varepsilon})$ for some small $\varepsilo
 
 \section{First properties of the euclidean distance}
 
-\quad In this section, we will work in the euclidean space $\mathbb{R}^m$. Some of what
-we'll do here can be generalized to a more general Riemannian manifold. All throughout,
-$X \subset \mathbb{R}^m$ will be a smooth manifold unless specified otherwise,
-$Y \subset \mathbb{R}^m$ a closed set.
+\quad In this section, we will work on a smooth connected Riemmannian manifold $(M, g)$ of dimension $m$,
+that we will assume to be geodesically complete for convenience, although it is not strictly
+necessary.
+All throughout, $X \subset M$ will be a smooth manifold unless specified otherwise,
+$Y \subset M$ a closed set.
 \medskip \newline
-The main function we will study is the euclidean distance from $Y$ restricted to $X$, i.e
-\[ \forall x \in X, \operatorname{dist}_Y(x) = \min_{y \in Y} |x - y| \]
-where $|\cdot|$ is the euclidean norm. This function is locally Lipschitz. In what will
-follow, we identify $(\mathbb{R}^m)^*$ with $\mathbb{R}^m$ via the euclidean structure.
-$\partial_x ({\operatorname{dist}_Y}_{\mid X})$ will sometimes be identified with a subset of $T_x X$,
-where $x \in X$.
+Recall that $M$ has a natural metric structure compatible with its topology, where the
+distance between two points $x, y \in M$ is given by
+\[ d(x,y) := \min_{\gamma \in \mathcal{P}_x^y} \sqrt{\int_0^1 |\dot{\gamma}(t)|^2_g dt } \]
+where $\mathcal{P}_x^y$ is the set of piecewise $C^1$ paths from $x$ to $y$. Classical results
+from Riemannian geometry give us that the minimizing paths are geodesics.
+\medskip \newline
+The main function we will study is the Riemannian distance from $Y$ restricted to $X$, i.e
+\[ \forall x \in X, \operatorname{dist}_Y(x) = \min_{y \in Y} d(x,y) \]
+This function is locally Lipschitz. In what will follow, we identify $T^*M$ with $TM$ via the
+Riemannian structure. $\partial_x ({\operatorname{dist}_Y}_{\mid X})$ will sometimes be
+identified with a subset of $T_x X$, where $x \in X$.
 \medskip \newline
 Our main objectives will be to understand the subdifferential of this function and to find
 a setting where Morse theory of continuous selections can be applied.
@@ -831,126 +844,100 @@ a setting where Morse theory of continuous selections can be applied.
 
 \quad Our goal in this section will be to compute explicitly the subdifferential of
 ${\operatorname{dist}_Y}_{\mid X}$, which gives rise to a very nice and intuitive geometric
-picture. We first require some results on "infinite
-continuous selections", which is indeed how $\operatorname{dist}_Y$ is defined.
-\medskip \newline
-Let $\varphi : \mathbb{R}^m \times Z \rightarrow \mathbb{R}$ be a continuous function,
-where $Z$ is a compact space. We can define a family $(\varphi_z)_{z \in Z}$ of continuous
-functions, where $\varphi_z = \varphi(\cdot, z)$. Similar to the finite case we can define
-a "compact continuous selection" as a continuous $f$ such that for all $x \in \mathbb{R}^m$
-\[ f(x) \in \{ \varphi_z(x) \mid z \in Z \} \]
-Similarly to the finite case, we define the set of active indices at $x$, $Z(x)$ as the set
-of all $z$ that take the value of $f$ at $x$. The following result is a useful generalization of
-a property of finite continuous selections.
+picture. For every $x \in M$, we define
+\[ DY(x) = \{ v \in T_x M \mid \exp_x(v) \in Y, |v| = \operatorname{dist}_Y(x) \} \]
+i.e the set of minimal displacements required to reach $Y$ from $x$, and
+\[ Y(x) = \{ y \in Y \mid d(x,y) = \operatorname{dist}_Y(x) \} \]
+The following results about $DY$ will be essential for better understanding $\operatorname{dist}_Y$
+in $M$
 
-\begin{lem}
-    The function $x \mapsto Z(x)$ is upper semi-continuous.
+\begin{lem}\label{lem:fundamentalDY}
+    Let $x \in M \backslash Y$, $v \in DY(x)$, and $t \in ]0, 1[$. Denote $x' = \exp_x(tv)$.
+    The set $DY(\exp_{x'}(tv))$ only has a single element $v'$ and $\exp_x(v) = \exp_{x'}(v')$
 \end{lem}
 
 \begin{proof}
-    Let $x \in \mathbb{R}^m$ and let $V$ be an open neighbourhood of $Z(x)$.
-    Consider for all $n \in \mathbb{N}$ the closed ball $B_n$ of center $x$ and radius
-    $2^{-n}$. Set
-    \[ A_n = \{ z \in Z \mid \exists y \in B_n, \varphi_z(y) = f(y)\} \]
-    $A_n$ is closed : indeed if we write $g := \varphi - f$, we can write $A_n$ as
-    $\operatorname{proj}_Z(g^{-1}(0) \cap (B_n \times Z))$, and $g^{-1}(0) \cap (B_n \times Z)$ is compact
-    so we get what we want.
+    Set $x' = \exp_x(tv)$. The set $DY(x')$ has at least one element as $M$ is connected. Now assume for contradiction
+    that there is $v_1 \neq v_2 \in DY(x')$, and that $v_1$ is the derivative at $s = t$ of
+    the geodesic $s \mapsto \exp_x(sv)$. They are non zero as $t < 1$. Denote
+    $y_1 = \exp_{x'}(v_1), y_2 = \exp_{x'}(v_2) \in Y(x)$.
     \medskip \newline
-    Note that the intersection $\bigcap_n (A_n \backslash V)$ is empty : if there was a point $z$
-    in such intersection, there would be a sequence $x_k \rightarrow x$ along which $\varphi_z(x_k) = f(x_k)$,
-    so $z \in Z(x) \subset V$. By compactness, and because $(A_n)$ is decreasing, there is
-    some $n$ such that $A_n \subset V$. Let $y \in B_n$ for such $n$. We have
-    \[ Z(y) \subset A_n \subset V \]
-    so we get the desired result.
+    By the definition of $v_1$, one has that $d(x, y_1) = d(x, x') + |v_1| = d(x, x') + d(x, y_1)$.
+    Because $v_2$ is not positively proportionnal to $v_1$, the path composed of the geodesic
+    segment from $x$ to $x'$, followed by the geodesic from $x'$ to $y_2$ with direction $v_2$,
+    is not a geodesic. Hence it is not a length minimizer. So $d(x, y_2) < d(x, x') + d(x', y_2)$.
+    But $d(x', y_1) = d(x, y_2)$, so one gets $d(x, y_2) < d(x, y_1)$ which is a contradiction
+    as $\operatorname{dist}_Y(x) = d(x, y_1)$.
 \end{proof}
 
-The following theorem, which is a slightly modified version of Danskin's theorem,
-will allow us to compute explicitly subdifferentials in a particular case.
-
-\begin{theorem}[Danskin's \cite{DanskinsProof}]\label{thm:DanskinPlus}
-    Assume that for all $z$, $\varphi_z$ is $C^1$, $z \mapsto d_x \varphi_z$ is
-    continuous and $f = \max_{z \in Z} \varphi_z$.
-    \begin{enumerate}
-        \item $f$ is convex and for all $x, v \in \mathbb{R}^m$
-              \[ D_x f(v) = \max_{z \in Z(x)} d_x \varphi_z(v) \]
-
-        \item $f$ is locally Lipschitz and we have
-              \[ \partial_x f = \operatorname{conv}\{ d_x \varphi_z(v) \mid z \in Z(x) \} \]
-    \end{enumerate}
-
-\end{theorem}
+\begin{lem}\label{lem:DYupSemcont}
+    The function $x \mapsto DY(x)$ is upper semi-continuous.
+\end{lem}
 
 \begin{proof}
-    We'll need 1. for 2.
-    \begin{enumerate}
-        \item The convexity of $f$ is a classical result from convex analysis. Notice that
-              for $t > 0$
-              \[ \frac{f(x + tv) - f(x)}{t} \geq \frac{\varphi_z(x+tv) - \varphi_z(x)}{t} \]
-              for $z \in Z(x)$, so we get $D_x f(v) \geq d_x \varphi_z(v)$. For the other inequality,
-              consider a positive sequence $t_n \rightarrow 0$. For all $n$, select $z_n \in Z(x+t_nv)$,
-              by compactness assume it converges to $z^* \in Z$. By maximality of $f$, we have
-              $\varphi_{z^*}(x) \geq \varphi_z(x), z \in Z$, so $z^* \in Z(x)$. By convexity of $f$
-              and $\varphi_{z_n}$, we get
-              \begin{align*}
-                  D_x f(v) & \leq \frac{f(x+t_n v) - f(x)}{t_n}                                          \\
-                           & = \frac{\varphi_{z_n}(x+t_n v) - \varphi_z^*(x)}{t_n}                       \\
-                           & \leq \frac{\varphi_{z_n}(x+t_n v) - \varphi_{z_n}((x+ t_n v) - t_n v)}{t_n} \\
-                           & \leq d_x \varphi_{z_n}(v)                                                   \\
-                           & \rightarrow d_x \varphi_{z^*}(v)
-              \end{align*}
-              so $D_x f(v)$ is indeed the maximum.
-
-        \item All $\varphi_z$ are locally Lipschitz. By compactness of $Z$, we can find a Lipschitz
-              constant for $f$.
-              \medskip \newline
-              We now show the equality involving $\partial f$. For that we use the results of the
-              discussion in section \ref{sec:subdiffconvex}. For the right to left inclusion,
-              it suffices to observe that in virtue of 1., for $z \in Z(x)$
-              \[ \forall v \in \mathbb{R}^m, f(x+v) \geq f(x) + d_x \varphi_z(v) \]
-              Assume that there is some $l \in \partial_x f$ not in the convex hull of $d_x \varphi_z$,
-              $z \in Z(x)$. Because this convex hull is compact, we choose a strictly separating
-              hyperplane : we choose $v$ and $c$ such that
-              \[ \langle l, v \rangle > c > \langle d_x \varphi_z, v \rangle, z \in Z(x) \]
-              This contradicts the fact that $D_x f (v) = \max_{h \in \partial_x f} \langle h, v \rangle$,
-              because $D_x f(v) = \max_{z \in Z(x)} \langle d_x \varphi_z, v \rangle$
-    \end{enumerate}
+    Let $x \in M$ and $U \supset DY(x)$ be an open neighbourhood of $DY(x)$ in $TM$.
+    Assume there is a sequence $(x_k)$ converging to $x$ such that for all $k$ there is
+    $v_k \in DY(x_k)$ not in $U$. Up to extraction, $v_k \rightarrow v \in T_x M$. By definition
+    we have for all $k$, $\exp_{x_k}(v_k) \in Y$ and $|v_k| = \operatorname{dist}_Y(x_k)$.
+    By continuity this also holds for $v$, hence $v \in DY(x)$, so $v_k$ enters $U$ eventually,
+    which is a contradiction.
 \end{proof}
 
-\quad We are now ready to compute the subdifferential of ${\operatorname{dist}_Y}_{\mid X}$.
+We now compute the differential of $\operatorname{dist}_Y$ when defined as a first step
+towards computing its subdifferential.
+
+\begin{lem}\label{lem:gradDistY}
+    For $x \in M \backslash Y$ such that $d_x \operatorname{dist}_Y$ is defined one has
+    \[ \nabla_x \operatorname{dist}_Y = -\frac{v}{|v|} \]
+    where $v \in DY(x)$.
+\end{lem}
+
+\begin{proof}
+    Let $u \in T_x M$ be a unit vector. Because geodesic are short-time minimizers,
+    and $d_0 \exp_x = \operatorname{id}$, one has for $y \in Y(x)$ and unitary $h \in T_x M$
+    \begin{align*}
+        d_x \operatorname{dist}_Y(h) &= \lim_{t \rightarrow 0}\frac{\operatorname{dist}_Y(\exp_x(th)) - \operatorname{dist}_Y(x)}{t}\\
+        &\leq \lim_{t \rightarrow 0} \frac{d(\exp_x(th), y) - d(x, y)}{t}\\
+        &\leq \lim_{t \rightarrow 0} \frac{d(\exp_x(th), x)}{t}\\
+        &= 1
+    \end{align*}
+    By duality, there is a vector $w \in T_x M$ such that $d_x \operatorname{dist}_Y = g(w, \cdot)$,
+    and the last inequality gives us $|w| \leq 1$.
+    Note that for $v \in DY(x)$ and small $t > 0$, one has by applying lemma \ref{lem:fundamentalDY}
+    \[ \operatorname{dist}_Y(\exp_x(tv/|v|)) = \operatorname{dist}_Y(x) - t \]
+    Hence $d_x \operatorname{dist}_Y(-v/|v|) = 1 = g(w, -v/|v|)$, and by Cauchy-Schwarz equality case,
+    $w = -v/|v|$. 
+\end{proof}
+
+\quad With these lemmas in hand, we are now ready to compute the subdifferential of
+${\operatorname{dist}_Y}_{\mid X}$.
 
 \begin{theorem}\label{thm:subdiffdist}
     Let $x \in X \backslash Y$. We have
-    \[ \partial_x ({\operatorname{dist}_Y}_{\mid X}) = \operatorname{proj}_{T_x X} \left( \operatorname{conv}\left\{ \frac{x-y}{|x-y|}
-        \mid y \in Y(x) \right\} \right)\]
+    \[ \partial_x ({\operatorname{dist}_Y}_{\mid X}) = \operatorname{proj}_{T_x X} \left( \operatorname{conv}\left\{ -\frac{v}{|v|}
+        \mid v \in DY(x) \right\} \right)\]
     where $\operatorname{proj}_{T_x X}$ is the orthogonal projection onto $T_x X$.
 \end{theorem}
 
 \begin{proof}
-    We first compute the subdifferential in the case where $X = \mathbb{R}^m$, and we
-    deduce the general case.
+    We first compute the subdifferential in the case where $X = M$, and we
+    deduce the general case. We then show that for $x \in M \backslash Y$
+    \[ \partial_x \operatorname{dist}_Y = \operatorname{conv} \left\{ -\frac{v}{|v|} \mid v \in DY(x) \right\} \]
+    For the left to right inclusion, we use the minimality of $\partial_x \operatorname{dist}_Y$ :
+    the convex hull on the right is an upper semi-continuous function of $x$ by lemma \ref{lem:DYupSemcont},
+    containing the gradient of $\operatorname{dist}_Y$ whenever defined as shown in lemma \ref{lem:gradDistY}.
     \medskip \newline
-    Let $\eta_Y = \frac{1}{2} \operatorname{dist}^2_Y$. We write for $x \in \mathbb{R}^m \backslash Y$
-    \[
-        \eta_Y(x) = \frac{1}{2} |x|^2 - \left( \max_{y \in Y} \langle x, y \rangle - \frac{1}{2} |y|^2 \right)
-    \]
-    The function $\varphi_y(x) = \langle x, y \rangle - \frac{1}{2} |y|^2$ is convex. If we denote
-    by $h(x)$ the term in parenthesis, theorem \ref{thm:DanskinPlus} yields
-    \[ \partial_x h = \operatorname{conv}\{\nabla_x \varphi_y \mid y \in Y(x)\}
-        = \operatorname{conv}(Y(x)) \]
-    We can apply the theorem because in a small neighbourhood of $x$, the active indices stay
-    confined to a compact set.\newline
-    By using that $\eta_Y = \frac{1}{2} | \cdot | - h$, we get
-    \[ \partial_x \eta_Y = \{x - y \mid y \in Y(x) \} \]
-    If we now write $\operatorname{dist}_Y = \sqrt{2\eta_Y}$, and use the subdifferential chain
-    rule applied to the diffeomorphism $\sqrt{\cdot}$ (because $\eta_Y(x) \neq 0$, $x \notin Y$) we get
-    \begin{align*}
-        \partial_x \operatorname{dist}_Y & = \frac{1}{\sqrt{2\eta_Y(x)}} \operatorname{conv}\{x-y \mid y \in Y(x) \} \\
-                                         & = \operatorname{conv}\left\{ \frac{x-y}{|x-y|} \mid y \in Y(x) \right\}
-    \end{align*}
-    because $\eta_Y(x) = \frac{1}{2}|y-x|^2$ for all $y \in Y(x)$.
+    For the right to left one, by corollary \ref{cor:singletonDiff}, if for some $x \in M \backslash Y$,
+    $\partial_x \operatorname{dist}_Y$ is a singleton, then $\operatorname{dist}_Y$ is differentiable
+    at $x$. Now fix $x \in M \backslash Y$ and $v \in DY(x)$. From lemma \ref{lem:fundamentalDY},
+    for $t > 0$ small enough, one has that $DY(\exp_x(tv))$ is a singleton, hence $\operatorname{dist}_Y$
+    is differentiable at these points. Denote $v_t$ the derivative at $s = t$ of $s \mapsto \exp_x(sv)$.
+    By lemma \ref{lem:gradDistY}, $\nabla_{\exp_x(tv)} \operatorname{dist}_Y = -\frac{v_t}{|v_t|}$,
+    hence taking the limit $t \rightarrow 0$, one gets that $-\frac{v}{|v|} \in \partial_x \operatorname{dist}_Y$,
+    and we get equality.
     \bigskip \newline
-    Denote $g = \operatorname{dist}_Y$, and $f = {\operatorname{dist}_Y}_{\mid X}$.
-    We will show that $\partial_x f = \operatorname{proj}_{T_x X} (\partial_x g)$.
+    We now return to the case of general $X$. Denote $h = \operatorname{dist}_Y$, and $f = {\operatorname{dist}_Y}_{\mid X}$.
+    We will show that $\partial_x f = \operatorname{proj}_{T_x X} (\partial_x h)$.
     \medskip \newline
     We start from left to right.
     We want to show that $x \mapsto \operatorname{proj}_{T_x X} (\partial_x \operatorname{dist}_Y)$
@@ -958,12 +945,12 @@ will allow us to compute explicitly subdifferentials in a particular case.
     defined. The first part is easy by semi-continuity of the original function. For the
     second, we assume $\nabla_x f$ is defined for some $x \in X$. By the computations made
     earlier and Danskin's theorem, we write
-    \[ D_x g (v) = \min_{y \in Y(x)} \langle \nabla_x g_y, v \rangle \]
-    where $g_y(x) = |x - y|$. Note that because $\nabla_x f$ exists, this is linear if
-    restricted to $T_x X$. By using linearity, we find that there is $y \in Y(x)$ such that for all
-    $v \in T_x X$
-    \[ D_x g (v) = \langle \nabla_x g_y, v \rangle = \langle \nabla_x f, v \rangle \]
-    Hence $\nabla_x g_y$ projects onto $\nabla_x f$, so we have what we want. The inclusion
+    \[ D_x h (w) = \max_{v \in DY(x)} -\frac{1}{|v|}g (w, v ) \]
+    Note that because $\nabla_x f$ exists, this is linear if
+    restricted to $T_x X$. By using linearity, we find that there is $v \in DY(x)$ such that for all
+    $w \in T_x X$
+    \[ D_x h (w) = -\frac{1}{|v|}g(v, w) = g(\nabla_x f, w) \]
+    Hence the orthogonal projection of $v$ onto $T_x X$ is $\nabla_x f$, so we have what we want. The inclusion
     then follows from minimality of subdifferentials.
     \medskip \newline
     For the inclusion from right to left, we consider $x_k \rightarrow x \in X$ a sequence
@@ -976,8 +963,20 @@ will allow us to compute explicitly subdifferentials in a particular case.
     equality.
 \end{proof}
 
+\quad To get a sense of this result, we first consider $M = \mathbb{R}^m$ with the flat metric.
+Then in this case, for all $x \in \mathbb{R}^m \backslash Y$, one has
+\[ DY(x) = \left\{ \frac{x - y}{|x - y|} \mid y \in Y(x) \right\} \]
+as the geodesics are straight segments. The opposite of $\partial_x \operatorname{dist}_Y$ can
+then be visualized this way : consider a growing circle with center $x$. When it intersects
+$Y$ for the first time, recall all the intersection points, and form the convex hull of these
+points.
+\medskip \newline
+The intuition is essentially the same for general $M$, although one doesn't recall the
+intersection points with $Y$, but the directions from $x$ leading to these first intersection
+points. 
+
 \begin{figure}[h]
-\caption{Illustration of theorem \ref{thm:subdiffdist}}
+\caption{Illustration of theorem \ref{thm:subdiffdist} for $Y \subset \mathbb{R}^m$, $X = \{x\}$}
     \begin{center}
     \vspace*{0.2cm}
     \begin{tikzpicture}
@@ -1003,22 +1002,41 @@ will allow us to compute explicitly subdifferentials in a particular case.
 
 \subsection{Special points of the distance function}
 
-\quad We now consider $X \subset \mathbb{R}^m$ to be some non specific submanifold.
-We denote in this section $g : (a, b) \mapsto |a - b|^2$ and $g_a : x \mapsto |a - x|^2$
-for all $a \in \mathbb{R}^m$.\newline
+\quad In this section we try to further describe the differentiability points of $\operatorname{dist}_Y$.
 Following \cite{AntonioMorseThEuclDist}, we define
 
 \begin{defi}[Medial axis]
     We define $M_Y$, the medial axis of $Y$ as
-    \[ M_Y = \{ x \in \mathbb{R}^m \mid |Y(x)| \geq 2 \} \]
+    \[ M_Y = \{ x \in M \mid |DY(x)| \geq 2 \} \]
 \end{defi}
 
-Some other special points of the distance function include the cut-locus of $Y$, that we'll
+Note that if $M$ is not $\mathbb{R}^m$ with the flat metric, even when $Y$ is a point, $M_Y$
+may be non empty. For instance, taking $M = \mathbb{S}^m$ with the sphere metric, the medial
+axis of a point is the diametrically opposite point.\newline
+From theorem \ref{thm:subdiffdist}, one sees that $\operatorname{dist}_Y$ is differentiable
+outside of $Y \cup M_Y$. The following lemma gives us a bit more.
+
+\begin{prop}\label{prop:medialProp}
+    The function $\operatorname{dist}_Y$ is $C^1$ on $M \backslash (Y \cup \overline{M_Y})$.
+\end{prop}
+
+\begin{proof}
+    Let $x \in M \backslash (Y \cup \overline{M_Y})$. Let $U$ be a neighbourhood of
+    $x$ contained in $M \backslash Y \cup \overline{M_Y}$. We can then define a function
+    $\eta : U \rightarrow DY$ that to each $z \in U$ associates the unique
+    $v \in DY(z)$. Upper semi-continuity of $DY$ showed in lemma \ref{lem:DYupSemcont}
+    shows that $\eta$ is continuous. It then suffices to write the gradient of
+    $\operatorname{dist}_Y$ to get the desired result :
+    \[ \nabla_z \operatorname{dist}_Y = -\frac{\eta(z)}{|\eta(z)|}\]
+\end{proof}
+
+
+\quad Some other special points of the distance function include the cut-locus of $Y$, that we'll
 denote $\operatorname{CLoc}(Y)$ and the central set of $Y$ that we denote
 $C(Y)$, introduced respectively by Thom \cite{ThomCutLocus} and Milman \cite{MilmanMedialCut}.
 \begin{defi}[Central set]
-    An open ball $B \subset \mathbb{R}^m \backslash Y$ will be called maximal if there is no
-    open ball in $\mathbb{R}^m \backslash Y$ strictly containing $B$. The central set $C(Y)$ is
+    An open ball $B \subset M \backslash Y$ will be called maximal if there is no
+    open ball in $M \backslash Y$ strictly containing $B$. The central set $C(Y)$ is
     then the set of the centers of all maximal balls.
 \end{defi}
 
@@ -1026,10 +1044,10 @@ If $Y$ is smooth we can also define the following set
 
 \begin{defi}[Cut-locus]
     The cut-locus of $Y$ is defined as follows
-    \[ \operatorname{CLoc}(Y) = M_Y \cup \{ x \in \mathbb{R}^n \mid {g_x}_{\mid Y} \text{ has a degenerate global minimum} \} \]
+    \[ \operatorname{CLoc}(Y) = M_Y \cup \{ x \in M \mid {g_x}_{\mid Y} \text{ has a degenerate global minimum} \} \]
 \end{defi}
 
-If we assume that $Y$ is a submanifold of $\mathbb{R}^m$, we can link these seemingly
+If we assume that $X$ and $Y$ are submanifolds of $M = \mathbb{R}^m$, we can link these seemingly
 differents concepts by the following proposition, generalizing the arguments from \cite{MilmanMedialCut}.
 
 \begin{prop}\label{prop:equalitySpecialPoints}
@@ -1068,8 +1086,8 @@ differents concepts by the following proposition, generalizing the arguments fro
     Lastly, we show that $C(Y) \subset \overline{M_Y}$. Assume for contradiction that there
     is some $x \in C(Y)$ not in $\overline{M_Y}$. We find $\varepsilon > 0$ such that for
     $z \in B := B(x, \varepsilon)$, $Y(z)$ is a singleton. We can define
-    $\eta : B \rightarrow Y$ that to a point $z$ associates the unique point
-    in $Y(z)$. This is a continuous function by semi continuity of $Y(z)$.
+    $\eta : B \rightarrow Y$ that to a point $z$ continuously associates the unique point
+    in $Y(z)$.
     \medskip \newline
     Denote $z_0, z_1 \in \partial B$ respectively the closest and farthest intersection of
     the line passing through $y$ and $x$. Observe that because $x \in C(Y)$,
@@ -1093,29 +1111,10 @@ differents concepts by the following proposition, generalizing the arguments fro
     what we found.
 \end{proof}
 
-\quad We now relate these special sets of points to differentiability of $\operatorname{dist}_Y$.
-Using similar computations as in theorem \ref{thm:subdiffdist}, we can show,
-because $\operatorname{dist}_Y$ and its square have the same differentiability points
-out of $Y$, that outside of $Y \cup M_Y$ by Danskin's theorem, $\operatorname{dist}_Y$
-is differentiable. In fact we have the following stronger statement.
-
-\begin{prop}\label{prop:medialProp}
-    The function $\operatorname{dist}_Y$ is $C^1$ on $\mathbb{R}^m \backslash (Y \cup \overline{M_Y})$.
-\end{prop}
-
-\begin{proof}
-    Let $x \in \mathbb{R}^m \backslash (Y \cup \overline{M_Y})$. Let $U$ be a neighbourhood of
-    $x$ contained in $Y \cup \overline{M_Y}$. Similarly to proposition \ref{prop:equalitySpecialPoints}
-    we can then define a continuous function $\eta : U \rightarrow Y$ that to each $z \in U$ associates the unique
-    $y \in Y(z)$. $\operatorname{dist}_Y$ is differentiable on $U$. Using the first part of
-    Danskin's theorem and similar computations to theorem \ref{thm:subdiffdist}, we get
-    \[ d_z \operatorname{dist}_Y = d_z g_{\eta(z)} \]
-    From this, we deduce that $d \operatorname{dist}_Y$ is continuous on $U$.
-\end{proof}
-
 \subsection{Reducing to local continuous selections}
 
-\quad In this section, $Y \subset \mathbb{R}^m$ will be a smooth submanifold, as $X$.
+\quad In this section, $X, Y \subset \mathbb{R}^m$ will be a smooth submanifold of $M = \mathbb{R}^m$
+with the flat metric.
 Our goal will be to show that under certain assumptions, the distance function is
 locally a continuous selection of finitely many $C^2$ functions, and so enters the Morse theory
 framework developped in section \ref{sec:ContSelec}.
@@ -1211,9 +1210,9 @@ intersection theory.
 \subsubsection{Complexification}
 
 \quad Let $X \subset \mathbb{R}^m$ be an algebraic manifold defined as the zero set of
-the follows polynomials : $p_1, ..., p_r$. If we view $p_1, ..., p_r \in \mathbb{R}[x_1, ..., x_m] \subset \mathbb{C}[x_1, ..., x_m]$
+the following polynomials : $p_1, ..., p_r$. If we view $p_1, ..., p_r \in \mathbb{R}[x_1, ..., x_m] \subset \mathbb{C}[x_1, ..., x_m]$
 as complex polynomials, we define $X_{\mathbb{C}}$ as the submanifold of $\mathbb{C}^m$ defined as the
-complex zero set of $p_1, ...p_r$.\newline
+complex zero set of $p_1, ...p_r$ (we assume here that $X_{\mathbb{C}}$ is smooth).\newline
 We also need to define what it means
 for some complex vector to be tangent or normal $X_{\mathbb{C}}$. We define the tangent bundle of
 $X_{\mathbb{C}}$ as follows :
@@ -1224,9 +1223,10 @@ and the normal bundle
 \begin{equation}\label{eq:NX}
     N (X_{\mathbb{C}}) = \{ v \in \mathbb{C}^m \mid \forall w \in T_x X_{\mathbb{C}}, \sum_{i=1}^m v_i w_i = 0 \}
 \end{equation}
-Note that the product involved is not an inner product on $\mathbb{C}^m$. In particular, one has
-$N_x (X_{\bbC}) \cap T_x (X_{\bbC}) \neq 0$ for all $x \in X_{\bbC}$, as there is a whole $m-1$ dimensional quadric called
-the \textit{isotopic quadric} where this product vanishes :
+Note that $X$ need not be smooth for these definitions to make sense, and that the product involved is not
+an inner product on $\mathbb{C}^m$. In particular, one can have $N_x (X_{\bbC}) \cap T_x (X_{\bbC}) \neq 0$
+for some $x \in X_{\bbC}$, as there is a whole $m-1$ dimensional quadric called the
+\textit{isotopic quadric} where this product vanishes :
 \[ Q = \{ (x_1, ..., x_m) \in \mathbb{C}^m \mid \sum_{i=1}^{m} x_i^2 = 0 \} \]
 Using this product to define $N(X_{\bbC})$ is the approach commonly followed in metric algebraic geometry for two reasons:
 \begin{enumerate}
@@ -1729,8 +1729,8 @@ to the case of singular varieties through the use of Chern-Mather classes \cite{
 \subsection{Critical points of the euclidean distance}
 
 \quad We first introduce some notation : $Y$ is defined by the zero set of polynomials
-$q_1, ..., q_n$, while $X$ is defined by the zero set of $p_1, ..., p_r$. We will assume
-as stated in the introduction that $X$ and $Y$ are smooth algebraic manifolds. 
+$q_1, ..., q_n$, while $X$ is defined by the zero set of $p_1, ..., p_r$. We also assume that
+$X$ and $Y$ are smooth.
 \bigskip \newline
 From theorem \ref{thm:subdiffdist} proved in the last section, we now that a point $x \in X$ is critical for the function
 ${\operatorname{dist}_Y}_{\mid X}$
@@ -1768,10 +1768,14 @@ One also checks that solutions to \eqref{eq:TCP} are solutions of \eqref{eq:ACP}
 1. stays the same, condition 2. from \eqref{eq:TCP} implies that $x - y_i \in N_{y_i} Y$ and
 equalities of the distances, and condition 3. and 4. imply that $x-y_i$ are linearly dependant
 in $\mathbb{C}^m / N_x X$.
+\medskip \newline
+Lastly, note that both \eqref{eq:ACP} and \eqref{eq:TCP} still make sense if $X$ and $Y$
+are singular, as one can use the definitions of tangent and normal from \eqref{eq:TX} and
+\eqref{eq:NX}.
 \bigskip
 
 \quad In what follows, we will study particular cases of these equations and connect them
-to already existing notions on algebraic manifolds. The case where $Y = \{y\}$ will lead to
+to already existing notions on algebraic manifolds. The case where $Y = \{y\}$ (hence $k=1$) will lead to
 the notion of \textit{euclidean distance degree}, and when $k = 2$ and $X = \mathbb{C}^m$ we
 will get the notion of \textit{bottleneck degree}.
 
@@ -1784,19 +1788,23 @@ will get the notion of \textit{bottleneck degree}.
 
 \subsubsection{Affine euclidean distance degree}
 
-\quad As stated earlier, we consider the case where $Y = \{y\}$ and $X$ is some algebraic
-submanifold of $\mathbb{C}^m$. \eqref{eq:ACP} then simplifies to
+\quad As stated earlier, we consider the case where $Y = \{y\}$ and $X$ is some complexified
+smooth algebraic subvariety of $\mathbb{C}^m$. Note that for such $X$ and $Y$,
+\eqref{eq:ACP} and \eqref{eq:TCP} are equivalent and simplify to the following
 \[ x - y \in N_x X \]
 where the unknown is $x$. This is equivalent to asking that $y \in x + N_x X$ i.e
 $y \in \hat{N}_x X$ as defined in \eqref{eq:hatTNX}.
 This bundle has two natural projections $\pi_1 : \hat{N}X \rightarrow X$ and $\pi_2 : \hat{N}X \rightarrow \mathbb{C}^m$.
 The set of solutions to \eqref{eq:ACP} is then $\pi_1(\pi_2^{-1}(y))$. By similar arguments
 as those used in proposition \ref{prop:genFiniteConst}, one can show that for
-generic $y \in \mathbb{C}^m$, $\pi_2^{-1}(y)$ is finite of constant cardinality.
+generic $y \in \mathbb{C}^m$, $\pi_2^{-1}(y)$ is finite of constant cardinality. Note that
+smoothness of $X$ isn't necessary to prove this, as almost every point in $X$ is a smooth
+point.
 \medskip \newline
 The \textit{euclidean distance degree} (EDD) of $X$ is then defined as this generic number of solutions
 to the critical point equation. It then gives an upper bound on the number of real solutions
-to \eqref{eq:ACP}.
+to \eqref{eq:ACP}. Note that by the the preceding remarks, the EDD can also be defined in the case
+where $X$ is not smooth.
 \medskip \newline
 Consider the example where $X \subset \mathbb{C}^2$ is an ellipse. It is then defined by a
 degree $2$ polynomial and we will show later that the euclidean distance degree of $X$ is $4$.
@@ -1977,7 +1985,12 @@ We put on $\mathbb{RP}^m$ the Fubini-Study metric, i.e the one induced by the sp
 metric and the projection $\pi : \mathbb{S}^m \rightarrow \mathbb{RP}^m$. This allows us
 to define a distance function from $y$, $\operatorname{dist}_y^{FS}$ by considering the minimul
 length of a geodesic. Our goal will be to upper bound the number of critical points of the restriction
+<<<<<<< HEAD
+$(\operatorname{dist}_y^{FS})_{\mid X}$ by an algebraic degree. (precision over the nature of
+critical points in Riemannian).
+=======
 $(\operatorname{dist}_y^{FS})_{\mid X}$ by an algebraic degree.
+>>>>>>> main
 \medskip \newline
 For that, consider $CX \subset \mathbb{R}^{m+1}$ the cone of $X$ in $\mathbb{R}^{m+1}$, i.e
 \[ CX = \{ (x_1, ..., x_{m+1}) \in \mathbb{R}^{m+1} \mid [x_1 : ... : x_{m+1}] \in X \} \]
