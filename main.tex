@@ -43,6 +43,8 @@
 \newcommand*{\calN}{\mathcal{N}}
 \newcommand*{\calT}{\mathcal{T}}
 
+\newcommand*{\dist}[2][]{{\operatorname{dist}^{#1}_{#2}}}
+
 \DeclareMathOperator{\img}{im}
 \DeclareMathOperator{\Ann}{Ann}
 
@@ -159,6 +161,33 @@ allows us to do that.
     \[ \partial_x f = \partial_x (h^{-1} \circ h \circ f)
         \subset d_{h \circ f (x)} h^{-1} \circ \partial_x (h \circ f) \subset \partial_x f \]
     so we have equalities, and the result follows.
+\end{proof}
+
+As a consequence, if $X \subset \mathbb{R}^m$ is a smooth submanifold, we get the following
+generalized property of subdifferentials.
+
+\begin{cor}\label{cor:restrSubdiff}
+    For $x \in X$, one has
+    \[ \partial_x (f_{\mid X}) = r_{T_x X} (\partial_x f) \]
+    where $r_{T_x X} : \mathcal{L}(\mathbb{R}^m, \mathbb{R}^n) \rightarrow \mathcal{L}(T_x X, \mathbb{R}^n)$ is the restriction
+    map, and $\mathcal{L}$ is the space of linear maps between from the left space to the right one.
+\end{cor}
+
+\begin{proof}
+    If $\iota : X \hookrightarrow \mathbb{R}^m$ is the inclusion, then $f_{\mid X} = f \circ \iota$.
+    By doing the same proof as in the last proposition, one gets the chain rule
+    \[ \partial_x (f \circ \iota) \subset \partial_x f \circ d_x \iota = r_{T_x X} (\partial_x f)\]
+    It remains to show the other inclusion. Note that the map
+    $(x, l) \mapsto r_{T_x X}(l)$ is smooth. Take an open
+    neighbourhood $U$ of $x$ such that one has
+    \[ T_{\mid U} X \cong (U \times \{0\}) \times (\mathbb{R}^k \times \mathbb{R}^{m-k}) \]
+    where $k = \dim(X)$. Now, consider $x_k \rightarrow x$ a sequence in $U$ such that
+    $d_{x_k} f$ exists and converges to some map $l$. Let $(V_k)$ be a sequence of decreasing
+    neighbrouhoods of $\partial_x (f_{\mid X})$ in $\mathcal{L}(\mathbb{R}^k, \mathbb{R}^n)$
+    converging to it. By semi-continuity of $\partial_x f$, we have up to extraction that
+    $d_{x_k} f \in V_k + \mathcal{L}(\mathbb{R}^{m-k}, \mathbb{R}^n)$. Hence the restriction
+    of $d_{x_k} f$ to $T_{x_k} X = \mathbb{R}^k$ is in $V_k$ for all $k$, hence $r_{T_x X} (l) \in \partial_x (f_{\mid X})$.
+    We indeed get the reverse inclusion.
 \end{proof}
 
 Although some important differentiablity related results can be obtained with locally
@@ -832,9 +861,9 @@ where $\mathcal{P}_x^y$ is the set of piecewise $C^1$ paths from $x$ to $y$. Cla
 from Riemannian geometry give us that the minimizing paths are geodesics.
 \medskip \newline
 The main function we will study is the Riemannian distance from $Y$ restricted to $X$, i.e
-\[ \forall x \in X, \operatorname{dist}_Y(x) = \min_{y \in Y} d(x,y) \]
+\[ \forall x \in X, \dist{Y}(x) = \min_{y \in Y} d(x,y) \]
 This function is locally Lipschitz. In what will follow, we identify $T^*M$ with $TM$ via the
-Riemannian structure. $\partial_x ({\operatorname{dist}_Y}_{\mid X})$ will sometimes be
+Riemannian structure. $\partial_x ({\dist{Y}}_{\mid X})$ will sometimes be
 identified with a subset of $T_x X$, where $x \in X$.
 \medskip \newline
 Our main objectives will be to understand the subdifferential of this function and to find
@@ -842,13 +871,15 @@ a setting where Morse theory of continuous selections can be applied.
 
 \subsection{The subdifferential of the distance function}
 
+\subsubsection{Computing the subdifferential}
+
 \quad Our goal in this section will be to compute explicitly the subdifferential of
-${\operatorname{dist}_Y}_{\mid X}$, which gives rise to a very nice and intuitive geometric
+${\dist{Y}}_{\mid X}$, which gives rise to a very nice and intuitive geometric
 picture. For every $x \in M$, we define
-\[ DY(x) = \{ v \in T_x M \mid \exp_x(v) \in Y, |v| = \operatorname{dist}_Y(x) \} \]
+\[ DY(x) = \{ v \in T_x M \mid \exp_x(v) \in Y, |v| = \dist{Y}(x) \} \]
 i.e the set of minimal displacements required to reach $Y$ from $x$, and
-\[ Y(x) = \{ y \in Y \mid d(x,y) = \operatorname{dist}_Y(x) \} \]
-The following results about $DY$ will be essential for better understanding $\operatorname{dist}_Y$
+\[ Y(x) = \{ y \in Y \mid d(x,y) = \dist{Y}(x) \} \]
+The following results about $DY$ will be essential for better understanding $\dist{Y}$
 in $M$
 
 \begin{lem}\label{lem:fundamentalDY}
@@ -867,7 +898,7 @@ in $M$
     segment from $x$ to $x'$, followed by the geodesic from $x'$ to $y_2$ with direction $v_2$,
     is not a geodesic. Hence it is not a length minimizer. So $d(x, y_2) < d(x, x') + d(x', y_2)$.
     But $d(x', y_1) = d(x, y_2)$, so one gets $d(x, y_2) < d(x, y_1)$ which is a contradiction
-    as $\operatorname{dist}_Y(x) = d(x, y_1)$.
+    as $\dist{Y}(x) = d(x, y_1)$.
 \end{proof}
 
 \begin{lem}\label{lem:DYupSemcont}
@@ -878,17 +909,17 @@ in $M$
     Let $x \in M$ and $U \supset DY(x)$ be an open neighbourhood of $DY(x)$ in $TM$.
     Assume there is a sequence $(x_k)$ converging to $x$ such that for all $k$ there is
     $v_k \in DY(x_k)$ not in $U$. Up to extraction, $v_k \rightarrow v \in T_x M$. By definition
-    we have for all $k$, $\exp_{x_k}(v_k) \in Y$ and $|v_k| = \operatorname{dist}_Y(x_k)$.
+    we have for all $k$, $\exp_{x_k}(v_k) \in Y$ and $|v_k| = \dist{Y}(x_k)$.
     By continuity this also holds for $v$, hence $v \in DY(x)$, so $v_k$ enters $U$ eventually,
     which is a contradiction.
 \end{proof}
 
-We now compute the differential of $\operatorname{dist}_Y$ when defined as a first step
+We now compute the differential of $\dist{Y}$ when defined as a first step
 towards computing its subdifferential.
 
 \begin{lem}\label{lem:gradDistY}
-    For $x \in M \backslash Y$ such that $d_x \operatorname{dist}_Y$ is defined one has
-    \[ \nabla_x \operatorname{dist}_Y = -\frac{v}{|v|} \]
+    For $x \in M \backslash Y$ such that $d_x \dist{Y}$ is defined one has
+    \[ \nabla_x \dist{Y} = -\frac{v}{|v|} \]
     where $v \in DY(x)$.
 \end{lem}
 
@@ -896,25 +927,25 @@ towards computing its subdifferential.
     Let $u \in T_x M$ be a unit vector. Because geodesic are short-time minimizers,
     and $d_0 \exp_x = \operatorname{id}$, one has for $y \in Y(x)$ and unitary $h \in T_x M$
     \begin{align*}
-        d_x \operatorname{dist}_Y(h) &= \lim_{t \rightarrow 0}\frac{\operatorname{dist}_Y(\exp_x(th)) - \operatorname{dist}_Y(x)}{t}\\
+        d_x \dist{Y}(h) &= \lim_{t \rightarrow 0}\frac{\dist{Y}(\exp_x(th)) - \dist{Y}(x)}{t}\\
         &\leq \lim_{t \rightarrow 0} \frac{d(\exp_x(th), y) - d(x, y)}{t}\\
         &\leq \lim_{t \rightarrow 0} \frac{d(\exp_x(th), x)}{t}\\
         &= 1
     \end{align*}
-    By duality, there is a vector $w \in T_x M$ such that $d_x \operatorname{dist}_Y = g(w, \cdot)$,
+    By duality, there is a vector $w \in T_x M$ such that $d_x \dist{Y} = g(w, \cdot)$,
     and the last inequality gives us $|w| \leq 1$.
     Note that for $v \in DY(x)$ and small $t > 0$, one has by applying lemma \ref{lem:fundamentalDY}
-    \[ \operatorname{dist}_Y(\exp_x(tv/|v|)) = \operatorname{dist}_Y(x) - t \]
-    Hence $d_x \operatorname{dist}_Y(-v/|v|) = 1 = g(w, -v/|v|)$, and by Cauchy-Schwarz equality case,
+    \[ \dist{Y}(\exp_x(tv/|v|)) = \dist{Y}(x) - t \]
+    Hence $d_x \dist{Y}(-v/|v|) = 1 = g(w, -v/|v|)$, and by Cauchy-Schwarz equality case,
     $w = -v/|v|$. 
 \end{proof}
 
 \quad With these lemmas in hand, we are now ready to compute the subdifferential of
-${\operatorname{dist}_Y}_{\mid X}$.
+${\dist{Y}}_{\mid X}$.
 
 \begin{theorem}\label{thm:subdiffdist}
     Let $x \in X \backslash Y$. We have
-    \[ \partial_x ({\operatorname{dist}_Y}_{\mid X}) = \operatorname{proj}_{T_x X} \left( \operatorname{conv}\left\{ -\frac{v}{|v|}
+    \[ \partial_x ({\dist{Y}}_{\mid X}) = \operatorname{proj}_{T_x X} \left( \operatorname{conv}\left\{ -\frac{v}{|v|}
         \mid v \in DY(x) \right\} \right)\]
     where $\operatorname{proj}_{T_x X}$ is the orthogonal projection onto $T_x X$.
 \end{theorem}
@@ -922,58 +953,38 @@ ${\operatorname{dist}_Y}_{\mid X}$.
 \begin{proof}
     We first compute the subdifferential in the case where $X = M$, and we
     deduce the general case. We then show that for $x \in M \backslash Y$
-    \[ \partial_x \operatorname{dist}_Y = \operatorname{conv} \left\{ -\frac{v}{|v|} \mid v \in DY(x) \right\} \]
-    For the left to right inclusion, we use the minimality of $\partial_x \operatorname{dist}_Y$ :
+    \[ \partial_x \dist{Y} = \operatorname{conv} \left\{ -\frac{v}{|v|} \mid v \in DY(x) \right\} \]
+    For the left to right inclusion, we use the minimality of $\partial_x \dist{Y}$ :
     the convex hull on the right is an upper semi-continuous function of $x$ by lemma \ref{lem:DYupSemcont},
-    containing the gradient of $\operatorname{dist}_Y$ whenever defined as shown in lemma \ref{lem:gradDistY}.
+    containing the gradient of $\dist{Y}$ whenever defined as shown in lemma \ref{lem:gradDistY}.
     \medskip \newline
     For the right to left one, by corollary \ref{cor:singletonDiff}, if for some $x \in M \backslash Y$,
-    $\partial_x \operatorname{dist}_Y$ is a singleton, then $\operatorname{dist}_Y$ is differentiable
+    $\partial_x \dist{Y}$ is a singleton, then $\dist{Y}$ is differentiable
     at $x$. Now fix $x \in M \backslash Y$ and $v \in DY(x)$. From lemma \ref{lem:fundamentalDY},
-    for $t > 0$ small enough, one has that $DY(\exp_x(tv))$ is a singleton, hence $\operatorname{dist}_Y$
+    for $t > 0$ small enough, one has that $DY(\exp_x(tv))$ is a singleton, hence $\dist{Y}$
     is differentiable at these points. Denote $v_t$ the derivative at $s = t$ of $s \mapsto \exp_x(sv)$.
-    By lemma \ref{lem:gradDistY}, $\nabla_{\exp_x(tv)} \operatorname{dist}_Y = -\frac{v_t}{|v_t|}$,
-    hence taking the limit $t \rightarrow 0$, one gets that $-\frac{v}{|v|} \in \partial_x \operatorname{dist}_Y$,
+    By lemma \ref{lem:gradDistY}, $\nabla_{\exp_x(tv)} \dist{Y} = -\frac{v_t}{|v_t|}$,
+    hence taking the limit $t \rightarrow 0$, one gets that $-\frac{v}{|v|} \in \partial_x \dist{Y}$,
     and we get equality.
-    \bigskip \newline
-    We now return to the case of general $X$. Denote $h = \operatorname{dist}_Y$, and $f = {\operatorname{dist}_Y}_{\mid X}$.
-    We will show that $\partial_x f = \operatorname{proj}_{T_x X} (\partial_x h)$.
     \medskip \newline
-    We start from left to right.
-    We want to show that $x \mapsto \operatorname{proj}_{T_x X} (\partial_x \operatorname{dist}_Y)$
-    is upper-semi continuous (where the set is seen in $TX$), and contains $\nabla_x f$ whenever
-    defined. The first part is easy by semi-continuity of the original function. For the
-    second, we assume $\nabla_x f$ is defined for some $x \in X$. By the computations made
-    earlier and Danskin's theorem, we write
-    \[ D_x h (w) = \max_{v \in DY(x)} -\frac{1}{|v|}g (w, v ) \]
-    Note that because $\nabla_x f$ exists, this is linear if
-    restricted to $T_x X$. By using linearity, we find that there is $v \in DY(x)$ such that for all
-    $w \in T_x X$
-    \[ D_x h (w) = -\frac{1}{|v|}g(v, w) = g(\nabla_x f, w) \]
-    Hence the orthogonal projection of $v$ onto $T_x X$ is $\nabla_x f$, so we have what we want. The inclusion
-    then follows from minimality of subdifferentials.
-    \medskip \newline
-    For the inclusion from right to left, we consider $x_k \rightarrow x \in X$ a sequence
-    such that $\nabla_{x_k} g$ is well defined and converges, and we will show that it
-    is a subgradient of ${\operatorname{dist}_{Y}}_{\mid X}$ up to projection. We consider
-    up to restricting to a neighbourhood of $x$, that $X = \mathbb{R}^{n}$ where $n = \dim(X)$.
-    Let $(V_k)_k$ be a decrasing sequence of open neighbourhoods of $\partial_x f$ converging
-    to it. By semi-continuity of $\partial g$ and up to extracting, $\nabla_{x_k} g \in V_k \times \mathbb{R}^{m-n}$,
-    So the projection of $\nabla_{x_k} g$ converges to a point in $\partial_x f$, we got
-    equality.
+    Lastly, in virtue of corollary \ref{cor:restrSubdiff}, because restriction is dual to
+    the orthogonal projection through $g$, we get the desired result.
 \end{proof}
 
-\quad To get a sense of this result, we first consider $M = \mathbb{R}^m$ with the flat metric.
+\subsubsection{Examples and critical points}\label{sec:exAndCritPoints}
+
+\quad In this section, we try to put the results from theorem \ref{thm:subdiffdist} into perspective,
+and discuss some useful examples and scenarios.
+\medskip \newline
+To get a first sense of the result, we consider $M = \mathbb{R}^m$ with the flat metric.
 Then in this case, for all $x \in \mathbb{R}^m \backslash Y$, one has
-\[ DY(x) = \left\{ \frac{x - y}{|x - y|} \mid y \in Y(x) \right\} \]
-as the geodesics are straight segments. The opposite of $\partial_x \operatorname{dist}_Y$ can
+\[ DY(x) = \left\{ y - x \mid y \in Y(x) \right\} \]
+hence by theorem \ref{thm:subdiffdist}
+\[ \partial_x \dist{Y} = \left\{ \frac{x - y}{|x - y|} \mid y \in Y(x) \right\} \]
+as the geodesics are straight segments. The opposite of $\partial_x \dist{Y}$ can
 then be visualized this way : consider a growing circle with center $x$. When it intersects
 $Y$ for the first time, recall all the intersection points, and form the convex hull of these
 points.
-\medskip \newline
-The intuition is essentially the same for general $M$, although one doesn't recall the
-intersection points with $Y$, but the directions from $x$ leading to these first intersection
-points. 
 
 \begin{figure}[h]
 \caption{Illustration of theorem \ref{thm:subdiffdist} for $Y \subset \mathbb{R}^m$, $X = \{x\}$}
@@ -991,7 +1002,7 @@ points.
         \draw[blue, thick] (P1) -- (P2) -- (P3) -- cycle;
 
         \draw (-3, 0) node[above left] {$Y$};
-        \draw (0.25, 1) node[above right] {$-\partial_x \operatorname{dist}_Y$};
+        \draw (0.25, 1) node[above right] {$-\partial_x \dist{Y}$};
         \fill (O) circle (2pt) node[above right] {$x$};
         \fill (P1) circle (2pt);
         \fill (P2) circle (2pt);
@@ -1000,10 +1011,52 @@ points.
     \end{center}
 \end{figure}
 
+The intuition is essentially the same for general $M$, although one doesn't recall the
+intersection points with $Y$, but the directions from $x$ leading to these first intersection
+points, and the convex hull is taken in $T_x M$.
+\medskip \newline
+As an example, taking $M = \mathbb{S}^m$, $Y = \{y := (-1, 0, ..., 0)\}$, one has at $x = (1, 0, ..., 0)$
+that
+\[ DY(x) = \{ v \in T_x \mathbb{S}^m \mid |v| = \pi\} \]
+and so $\partial_x \dist{y}$ is a disk of radius $\pi$ in $T_x \mathbb{S}^m$.
+\bigskip
+
+\quad Another important consequence of theorem \ref{thm:subdiffdist} is that it informs us on
+the nature of critical points of ${\dist{Y}}_{\mid X}$ : $x \in X$ is a critical
+point iff there is a normal vector to $X$ at $x$ that is in the convex hull of the directions
+of the shortest paths from $x$ to $Y$.
+\medskip \newline
+The easiest example we will see is with $M = \mathbb{R}^m$ and $Y = \{y\}$. A point $x \in X \backslash \{y\}$
+is then critical if the line segment from $y$ to $x$ is orthogonal to $X$ at $x$. The number
+of such points will be discussed later as the \textit{euclidean distance degree} (see 
+section cite).\newline
+Another case is with $M = \mathbb{S}^m$, and again $Y$ reduced to a point. We distinguish
+two cases : if $x = -y$, then it is a critical point. Elsewhere, $x \in X \backslash \{y\}$ is critical if
+and only if the great circle passing through $x$ and $y$ is normal to $x$ at $X$. Indeed,
+the shortest path from $x$ to $y$ is contained in this great circle, and there is only one
+such path when $x \neq -y$.
+\medskip \newline
+Lastly, we discuss $M = \mathbb{RP}^m$ with the Fubini-Study metric, i.e the one induced
+by the quotient map $\mathbb{S}^m \rightarrow \mathbb{RP}^m$ such that this maps becomes an
+isometry. Given two points $a \neq b \in \mathbb{RP}^m$ there is a single geodesic line passing
+through both : this is true because for any geodesic line $\gamma$ passing through $a$ and $b$,
+there is a smooth lift $\tilde{\gamma}$ passing through $\tilde{a}$ and $\tilde{b}$, pre-images
+of $a$ and $b$. Because the quotient is an isometry, $\tilde{\gamma}$ is also a geodesic.
+No matter the choices of $\tilde{a}, \tilde{b}, \tilde{\gamma}$, as they only differ by sign
+and because $\tilde{a}, \tilde{b}$ aren't diametrically opposed,
+we always get the same great circle. So every geodesic line passing through $a$ and $b$
+is the image of this great circle.\newline
+With that in mind, we can then caracterize critical points of
+${\dist{y}^{FS}}_{\mid X}$, the Fubini-Study distance from $Y = \{ y \}$.
+Because there is at most two shortest paths between $x \neq y$ and $y$, and that they both
+lie on the same geodesic line, a point $x \in X \backslash \{y\}$ is critical iff there is a
+geodesic line normal to $X$ at $x$ passing through $y$.
+
 \subsection{Special points of the distance function}
 
-\quad In this section we try to further describe the differentiability points of $\operatorname{dist}_Y$.
-Following \cite{AntonioMorseThEuclDist}, we define
+\quad As seen the last sections, the distance function from $Y$, even when $Y$ is smooth or
+a single point, is not necessarily very regular. In this section we try to further describe the
+differentiability points of $\dist{Y}$. Following \cite{AntonioMorseThEuclDist}, we define
 
 \begin{defi}[Medial axis]
     We define $M_Y$, the medial axis of $Y$ as
@@ -1013,11 +1066,11 @@ Following \cite{AntonioMorseThEuclDist}, we define
 Note that if $M$ is not $\mathbb{R}^m$ with the flat metric, even when $Y$ is a point, $M_Y$
 may be non empty. For instance, taking $M = \mathbb{S}^m$ with the sphere metric, the medial
 axis of a point is the diametrically opposite point.\newline
-From theorem \ref{thm:subdiffdist}, one sees that $\operatorname{dist}_Y$ is differentiable
+From theorem \ref{thm:subdiffdist}, one sees that $\dist{Y}$ is differentiable
 outside of $Y \cup M_Y$. The following lemma gives us a bit more.
 
 \begin{prop}\label{prop:medialProp}
-    The function $\operatorname{dist}_Y$ is $C^1$ on $M \backslash (Y \cup \overline{M_Y})$.
+    The function $\dist{Y}$ is $C^1$ on $M \backslash (Y \cup \overline{M_Y})$.
 \end{prop}
 
 \begin{proof}
@@ -1026,8 +1079,8 @@ outside of $Y \cup M_Y$. The following lemma gives us a bit more.
     $\eta : U \rightarrow DY$ that to each $z \in U$ associates the unique
     $v \in DY(z)$. Upper semi-continuity of $DY$ showed in lemma \ref{lem:DYupSemcont}
     shows that $\eta$ is continuous. It then suffices to write the gradient of
-    $\operatorname{dist}_Y$ to get the desired result :
-    \[ \nabla_z \operatorname{dist}_Y = -\frac{\eta(z)}{|\eta(z)|}\]
+    $\dist{Y}$ to get the desired result :
+    \[ \nabla_z \dist{Y} = -\frac{\eta(z)}{|\eta(z)|}\]
 \end{proof}
 
 
@@ -1063,7 +1116,7 @@ differents concepts by the following proposition, generalizing the arguments fro
     an extracted limit of $\frac{y_k - y'_k}{|y_k - y'_k|}$. Hence $x \in \operatorname{CLoc}(Y)$.
     \bigskip \newline
     We now show $\operatorname{CLoc}(Y) \subset C(Y)$. We have $M_Y \subset C(Y)$ : indeed
-    if for $x \in M_Y$ there is a ball $B'$ containing $B := B(x, \operatorname{dist}_Y(x))$,
+    if for $x \in M_Y$ there is a ball $B'$ containing $B := B(x, \dist{Y}(x))$,
     then $\partial B'$ and $\partial B$ must intersect tangentially at $Y(x)$. This set has
     at least two points so we find that the center of $B'$ must be $x$, so $x \in C(Y)$.
     \medskip \newline
@@ -1121,7 +1174,7 @@ framework developped in section \ref{sec:ContSelec}.
 \medskip \newline
 We'll denote by $\varphi$ the Riemannian exponential map restricted to $NY$, i.e for $(y, v) \in NY$,
 $\varphi(y, v) = y + v$. The following proposition from \cite{AntonioMorseThEuclDist} uses
-this map to find points where $\operatorname{dist}_Y$ is locally a continuous selection.
+this map to find points where $\dist{Y}$ is locally a continuous selection.
 
 \begin{prop}
     Assume $Y$ is smooth and let $x \in \mathbb{R}^m$ be a regular value of $\varphi$.
@@ -1132,8 +1185,8 @@ this map to find points where $\operatorname{dist}_Y$ is locally a continuous se
               disjoint
     \end{itemize}
     that verify
-    \[ \forall z \in V, \operatorname{dist}_Y(z) = \min_i \operatorname{dist}_{Y \cap \overline{W_i}}(z) \]
-    and all $\operatorname{dist}_{Y \cap \overline{W_i}}$ are smooth on $V$.
+    \[ \forall z \in V, \dist{Y}(z) = \min_i \dist{Y \cap \overline{W_i}}(z) \]
+    and all $\dist{Y \cap \overline{W_i}}$ are smooth on $V$.
 \end{prop}
 
 \begin{proof}
@@ -1153,18 +1206,18 @@ this map to find points where $\operatorname{dist}_Y$ is locally a continuous se
     $z - y$ is close to $x - y_i$ for all $y \in W_i \cap Y$. So if it happens that $z - y \in N_{y} Y$,
     then $z - y \in U_i$. From that observation, and the induced diffeomorphism, we deduce
     that there is only one such $y$. From that we get
-    \[ \forall z \in V, \operatorname{dist}_{Y \cap \overline{W_i}}(z) = |\pi(\varphi_i^{-1}(z)) - z| \]
+    \[ \forall z \in V, \dist{Y \cap \overline{W_i}}(z) = |\pi(\varphi_i^{-1}(z)) - z| \]
     where $\varphi_i := \varphi_{\mid (W_i \cap Y) \times U_i}$. So the distance is indeed
     a smooth function on $V$.
     \medskip \newline
     Lastly, by semi-continuity of $x \mapsto Y(x)$, we can assume that $V$ is small enough such
     that for $z \in V$, $Y(z) \subset \bigcup_i W_i$. Hence
-    \[ \operatorname{dist}_Y(z) = \min_i \operatorname{dist}_{Y \cap \overline{W_i}}(z) \]
+    \[ \dist{Y}(z) = \min_i \dist{Y \cap \overline{W_i}}(z) \]
 \end{proof}
 
 \quad A natural question following this result would be to consider how restrictive is
 the condition of being a regular value of $\varphi$, i.e what are these points,
-is it likely that a critical point of ${\operatorname{dist}_Y}_{\mid X}$ is not a regular
+is it likely that a critical point of ${\dist{Y}}_{\mid X}$ is not a regular
 value and what can we say in this case.
 \medskip \newline
 We can first observe that critical values of $\varphi$ are points in $\mathbb{R}^m$
@@ -1176,11 +1229,11 @@ though, as a regular value $x$ of $\varphi$ can be such that $Y(x)$ is not a sin
 If we try to generalize the statement by dropping the regular value condition,
 we can still show using the semi-continuity of the active
 index and compactness that there is finitely many neighbourhoods $W_i$ such that for
-$z$ close enough to $x$, $\operatorname{dist}_Y(z)$ can still be obtained by minimizing
-over $\operatorname{dist}_{Y \cap \overline{W_i}}(z)$.\newline
+$z$ close enough to $x$, $\dist{Y}(z)$ can still be obtained by minimizing
+over $\dist{Y \cap \overline{W_i}}(z)$.\newline
 We do not get smoothness of these distances near $x$ for arbitrary $Y$, a counterexample
 is given by $Y = \mathbb{S}^{m-1}$ and $x = 0$ : if for some choice of $W_i$, the distances
-were smooth, then $\partial_0 (\operatorname{dist}_{\mathbb{S}^{m-1} \cap \overline{W_i}})$ would
+were smooth, then $\partial_0 (\dist{\mathbb{S}^{m-1} \cap \overline{W_i}})$ would
 consist of a single point, which is not the case by theorem \ref{thm:subdiffdist}.
 \medskip \newline
 On the "likelyhood" side, it is shown that when $Y$ is algebraic, then
@@ -1194,7 +1247,7 @@ $\varphi$ \cite{AntonioMorseThEuclDist}.
 \quad In this section, we still place ourselves in the euclidean space $\mathbb{R}^m$.
 We will consider algebraic submanifolds $X, Y \subset \mathbb{R}^m$ defined as zero sets
 of polynomials, and study critical points of functions over these. More precisely, we will
-focus on critical points of linear functions, and of ${\operatorname{dist}_Y}_{\mid X}$, and
+focus on critical points of linear functions, and of ${\dist{Y}}_{\mid X}$, and
 try to give an "algebraic count" of these, upper bounding the number of real critical points
 of these functions.
 
@@ -1733,13 +1786,13 @@ $q_1, ..., q_n$, while $X$ is defined by the zero set of $p_1, ..., p_r$. We als
 $X$ and $Y$ are smooth.
 \bigskip \newline
 From theorem \ref{thm:subdiffdist} proved in the last section, we now that a point $x \in X$ is critical for the function
-${\operatorname{dist}_Y}_{\mid X}$
+${\dist{Y}}_{\mid X}$
 iff there exists a number $k \geq 1$, $y_1, ..., y_k \in Y$ and $\lambda_1, ..., \lambda_k \in \mathbb{R}$
 such that :
 \begin{equation}\label{eq:TCP}\tag{TCP}
     \begin{array}{cl}
         \text{1.} & \text{The } y_i \text{ are all distinct}\\
-        \text{2.} & \forall i, |x - y_i| = \operatorname{dist}_Y(x)\\
+        \text{2.} & \forall i, |x - y_i| = \dist{Y}(x)\\
         \text{3.} & \sum_i \lambda_i \frac{x - y_i}{|x - y_i|} \in N_x X\\
         \text{4.} & \forall i, \lambda_i \geq 0 \text{ and } \sum_i \lambda_i = 1
     \end{array}
@@ -1983,16 +2036,16 @@ where $X$ is defined as the zero set of homogeneous real polynomials $p_1, ..., 
 \medskip \newline
 We put on $\mathbb{RP}^m$ the Fubini-Study metric, i.e the one induced by the sphere
 metric and the projection $\pi : \mathbb{S}^m \rightarrow \mathbb{RP}^m$. This allows us
-to define a distance function from $y$, $\operatorname{dist}_y^{FS}$ by considering the minimul
+to define a distance function from $y$, $\dist[FS]{y}$ by considering the minimul
 length of a geodesic. Our goal will be to upper bound the number of critical points of the restriction
-<<<<<<< HEAD
-$(\operatorname{dist}_y^{FS})_{\mid X}$ by an algebraic degree. (precision over the nature of
-critical points in Riemannian).
-=======
-$(\operatorname{dist}_y^{FS})_{\mid X}$ by an algebraic degree.
->>>>>>> main
+$(\dist[FS]{y})_{\mid X}$ by an algebraic degree, for generic $y$.
 \medskip \newline
-For that, consider $CX \subset \mathbb{R}^{m+1}$ the cone of $X$ in $\mathbb{R}^{m+1}$, i.e
+Recall that by the discussion in section \ref{sec:exAndCritPoints}, critical points of this
+function are $x \in X$ such that there is a geodesic line passing through $x$ and $y$ and normal
+to $X$ at $x$.
+\bigskip
+
+\quad Consider $CX \subset \mathbb{R}^{m+1}$ the cone of $X$ in $\mathbb{R}^{m+1}$, i.e
 \[ CX = \{ (x_1, ..., x_{m+1}) \in \mathbb{R}^{m+1} \mid [x_1 : ... : x_{m+1}] \in X \} \]
 Note that it is the zero set of the homogeneous polynomials $p_1, ..., p_{m-n}$ but where the
 equations are solved in affine space. With that in mind we can define an euclidean distance
@@ -2007,9 +2060,9 @@ The following lemma motivates the above definition of projective EDD.
     such that $[\tilde{y}] = y$ :
     \begin{enumerate}
         \item $S(\tilde{y})$ avoids $0$
-        \item The projection map $\mathbb{R}^{m+1} \rightarrow \mathbb{RP}^m$ induces a
+        \item The quotient map $\mathbb{R}^{m+1} \rightarrow \mathbb{RP}^m$ induces a
         one to one correspondance between $S(\tilde{y})$ and critical points of
-        ${\operatorname{dist}_{y}^{FS}}_{\mid X}$.
+        ${\dist[FS]{y}}_{\mid X}$.
     \end{enumerate}
 \end{lem}
 
@@ -2024,18 +2077,24 @@ The following lemma motivates the above definition of projective EDD.
         orthogonal to $CX$. We then set $L = (CX)^{\perp}$ and we have what we want, as the
         generic line isn't in $L$.
 
-        \item We first show that the map is surjective. Because the map
-        \[ \begin{array}{cl}
+        \item We first show that the map is well defined. To do that we first show that the following
+        Riemannian submersion
+        \[ \pi : \begin{array}{cl}
             \mathbb{R}^{m+1} \backslash \{0\} &\longrightarrow \mathbb{S}^m\\
             z &\longmapsto \frac{z}{|z|}
         \end{array} \]
-        is a Riemannian submersion, the image of an affine geodesic is a sphere
-        geodesic. By definition, the image of a sphere geodesic by the quotient map is
-        a projective geodesic. This leads to surjectivity, as for $\tilde{x} \in S(\tilde{y})$,
-        there is an affine geodesic normal to $CX$ at $\tilde{x}$ passing through $\tilde{y}$.
-        By taking the image, we end up with a projective geodesic normal to $X$ at $[\tilde{x}]$
-        passing through $y$, i.e $[\tilde{x}]$ is a critical point of the distance function.
+        sends straight lines to sphere geodesics. Consider an affine line $z + \mathbb{R}v$ that
+        doesn't contain $0$. It spans a $2$-dimensional linear plane $P$. The image
+        $\pi(z + \mathbb{R}v)$ is then contained in $P \cap \mathbb{S}^n$, and from that it
+        is the intersection of a great circle with an open hemisphere.\newline
+        If we now consider $\tilde{x} \in S(\tilde{y})$, the affine
+        line passing through $\tilde{x}$ and $\tilde{y}$ maps to a projective
+        geodesic passing through $[\tilde{x}] \in X$ and $y$, normal to $X$ at $[\tilde{x}]$,
+        hence $[\tilde{x}]$ is a critical point.
         \medskip \newline
+        Surjectivity is easy, as for any $x \neq y$, there is always a point $\tilde{x}$
+        such that $[\tilde{x}] = x$ and such that the affine line from $\tilde{y}$ to 
+        $\tilde{x}$ is normal to the line represented by $x$.\newline
         For injectivity, note that if $\tilde{x}_0, \tilde{x}_1 \in CX$ are distinct non zero
         points such that $[\tilde{x}_0] = [\tilde{x}_1]$, then for any
         $\tilde{y} \in \mathbb{R}^{m+1}$, we cannot have $\tilde{x}_0 - \tilde{y} \in N_{\tilde{x}_0} (CX)$
@@ -2252,6 +2311,384 @@ one can fix that in the following way, as $Y_{\infty} \subset \mathbb{P}^{m-1}$
     \[ \operatorname{BND}(Y) = \operatorname{BND}(\bar{Y}) - \operatorname{BND}(Y_{\infty}) \]
 \end{defi}
 
+
+
+\newpage
+
+\section{Absolute curvature of submanifolds}
+
+\quad In this section, we consider an ambient Riemannian manifold $(N, g)$ of dimension
+$n$, and $M \subset N$ a compact oriented submanifold of dimension $n < m$. The goal of this section will
+be to define, for some choices of $N$, the absolute curvature of $M$, and link it to the
+topology of $M$ and of the embedding $M \hookrightarrow N$.
+
+\subsection{The special case of linear space}
+
+\quad Here, we take $N = \mathbb{R}^n$ with the flat metric. Consider the sphere normal bundle
+of $M$, denoted by $SM$ and consisting of all normal vectors of unit length. For $x \in M$,
+$\nu \in S_x M$, define the second fundamental form of $M$ in direction $\nu$, $\operatorname{II}_{\nu}$,
+as the following symetric bilinear form on $T_x M$
+
+\[ \operatorname{II}_{\nu}(u, v) = \langle d_x U(v), \nu \rangle \]
+
+where $U$ is any tangent vector field on $M$ near $x$ extending $u$. One can show that this
+well defines $\operatorname{II}_{\nu}$ and that it makes it a symetric form.\newline
+We can now introduce the absolute curvature of $M$ in $\bbR^n$
+
+\begin{defi}[\cite{chernLashTotalcurvature2}]
+    The absolute curvature of a compact submanifold $M \subset \mathbb{R}^n$ is defined as
+    the following integral
+
+    \[ \tau(M) := \frac{1}{\operatorname{vol}(\mathbb{S}^{n-1})}\int_{SM} |\det (\operatorname{II}_{\nu})| dx d\nu \]
+
+\end{defi}
+
+The normalization factor in front of the integral is important, as we get the following
+invariance property.
+
+\begin{lem}\label{lem:invarianceAffineCurv}
+    Let $n < k$. Denote $\tau_n(M)$ and $\tau_k(M)$ the total absolute curvature of $M$
+    respectively seen as a submanifold of $\bbR^n$ and $\bbR^k \supset \bbR^n$. Then
+    \[ \tau_n(M) = \tau_k(M) \]
+\end{lem}
+For convenience, we also introduce the shape operator at $\nu$, $A_{\nu} : T_x M \rightarrow T_x M$ :
+extend $\nu$ locally to a normal vector field to $M$, then for $v \in T_x M$, define
+
+\[ A_{\nu}(v) = -\operatorname{proj}_{T_x M} (d_x \nu (v)) \] 
+
+By differentiating the equality $\langle \nu, U \rangle = 0$ on $M$, one has for $v \in T_x M$
+\[
+    \langle d_x \nu (v), U(x) \rangle + \langle \nu(x), d_x U(v) \rangle = 0
+\]
+from which follows, for all $u, v \in T_x M$
+\[ \operatorname{II}_{\nu}(u, v) = \langle A_{\nu}(u), v \rangle \]
+
+so $\det(A_{\nu}) = \det(\operatorname{II}_{\nu})$.
+
+\bigskip
+
+\quad Define the projection map $\pi : SM \rightarrow \mathbb{S}^{n-1}$ which projects the
+normal vector to $M$ onto a point on the sphere. One can link the "volume" of the image
+$\pi(SM)$ to the absolute curvature.
+\medskip \newline
+Indeed, one has $\det(d_{(x, \nu)} \pi) = \det(A_{\nu})$, $(x, \nu) \in SM$. To see that
+we show that we have the following isomorphism
+\[ \begin{array}{cl}
+    T_x M \oplus (N_x M \cap \nu^{\perp}) &\longrightarrow T_{(x, \nu)} SM \\
+    (v, \eta) &\longmapsto (v, A_{\nu}(v) + \eta)
+\end{array} \]
+If $(v, \xi)$ is tangent to $SM$ at $(x, \nu)$, then differentiating the constant length
+condition, one has $\langle \xi, \nu \rangle = 0$. Then for all tangent vector fields $U$
+to $M$, differentiating the equality $\langle \nu, U \rangle = 0$, yields
+\[ \langle \xi, U(x) \rangle + \langle \nu, d_x U(v) \rangle = 0 \]
+Hence for all $u \in T_x M$, one has $\langle \xi, u \rangle = \langle A_{\nu}(v), u \rangle $, and this proves
+the isomorphism because of dimensions. We can then describe through this identification
+the differential of $\pi$ as
+\[ d_{(x, \nu)} \pi (v, \eta) = A_{\nu}(v) + \eta \]
+and from that follows the equality of determinants. In the end, we have thanks to the
+change of variables formula
+
+\begin{equation}\label{eq:curvPreimglin}
+    \tau(M) = \frac{1}{\operatorname{vol}(\mathbb{S}^{n-1})} \int_{SM} |\det (d_{(x, \nu)} \pi)| dx d\nu =
+\frac{1}{\operatorname{vol}(\mathbb{S}^{n-1})} \int_{\mathbb{S}^{n-1}} |\pi^{-1}(\nu)| d\nu
+\end{equation}
+
+Finally, we introduce for all $\nu \in \mathbb{S}^{n-1}$ the linear function
+$f_{\nu} : x \mapsto \langle \nu, x \rangle$. The following theorem will use Morse theory
+applied to these functions to relate the absolute curvature to the topology of $M$.
+
+\begin{theorem}\label{thm:chernLashof}[Chern-Lashof, \cite{chernlashTotalcurvature1,chernLashTotalcurvature2}]
+    For all $i \geq 0$, denote $b_i(M)$ the $i$-th Betti number of $M$. Assuming $M$
+    is compact and oriented, we have
+    \begin{enumerate}
+        \item $\tau(M) \geq \sum_i b_i(M)$. In particular $\tau(M) \geq 2$.
+        \item If $\tau(M) < 3$, then $M$ is homeomorphic to $\mathbb{S}^m$.
+        \item $\tau(M) = 2$ iff $M$ is contained in an $m+1$ dimensional affine subspace
+        of $\bbR^n$ and is the boundary of a convex hypersurface in this space.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \0
+    \begin{enumerate}
+        \item Note that a point $\nu \in \mathbb{S}^{n-1}$
+    is a normal vector to $M$ at $x \in M$ if and only if the linear function
+    $f_{\nu}$ has $x$ as a critical point when restricted to $M$. So for all
+    $\nu \in \mathbb{S}^{n-1}$, the number $|\pi^{-1}(\nu)|$ equals the number of critical
+    points of ${f_{\nu}}_{\mid M}$. It now rests to show that almost all $\nu$ are such that ${f_{\nu}}_{\mid M}$
+    is Morse.
+    \medskip \newline
+    Denote the gradient of ${f_{\nu}}_{\mid M}$ at $x \in M$, $\nabla_x f_{\nu} \in T_x M$.
+    It verifies the following equality for all tangent vector fields $U$ on $M$
+    \[ \langle \nabla_x f_{\nu}, U(x) \rangle = \langle \nu, U(x) \rangle \]
+    Differentiating this relatively to $x$ yields, for all $v \in T_x M$
+    \[ \langle H_x f_{\nu}(v), U(x) \rangle = \langle \nabla_x f_{\nu} - \nu, d_x U(v) \rangle \]
+    where $H_x f_{\nu}$ is the hessian of ${f_{\nu}}_{\mid M}$ i.e the differential of $\nabla f_{\nu}$.
+    If $x$ is a critical point of ${f_{\nu}}_{\mid M}$, the gradient is zero, $\nu \in S_xM$, and using the definition
+    of $A_{\nu}$ we have for all $u, v \in T_x M$
+    \[ \langle H_x f_{\nu}(v), u \rangle = -\langle A_{\nu}(v), u \rangle \]
+    so $H_x f_{\nu} = -A_{\nu}$.
+    \medskip \newline
+    Recalling the expression of $d\pi$, we see that critical points of $\pi$ are
+    those such that $A_{\nu}$ is degenerate. Then, the set of points $\nu \in \mathbb{S}^{n-1}$
+    such that $f_{\nu}$ is not Morse i.e has a degenerate critical point is contained in the
+    set of critical values of $\pi$. By Sard's theorem, it is of measure $0$, so almost every
+    $f_{\nu}$ is Morse, and we can then use \eqref{eq:curvPreimglin} then Morse inequalities in the
+    integral to get the result. One has $\tau(M) \geq 2$ because $M$ is compact and oriented.
+
+        \item If $\tau(M) < 3$, then by what was discussed in 1.
+    \[ \frac{1}{\operatorname{vol}(\mathbb{S}^{n-1})} \int_{\mathbb{S}^{n-1}} |\operatorname{crit}({f_{\nu}}_{\mid M})| d\nu < 3 \]
+    Hence there a subset $A \subset \mathbb{S}^{n-1}$ of positive measure such that for $\nu \in A$,
+    $f_{\nu}$ has at most $2$ critical points on $M$. Because the set of vectors such that
+    $f_{\nu}$ is Morse on $M$ is of full measure, there is a Morse function $f_{\nu'}$ on $M$
+    with at most $2$ critical points. Because $\sum_i b_i (M) = 2$ and using Morse inequalities,
+    $f_{\nu'}$ has exactly two critical points on $M$. The conclusion is given by
+    the following theorem.
+
+    \begin{theorem*}[Reeb]
+        Let $M$ be a compact manifold such that there exists a Morse function $\varphi : M \rightarrow \bbR$
+        with only two critical points. Then $M$ is homeomorphic to a sphere.
+    \end{theorem*}
+        \item We only prove here that if $\tau(M) = 2$ then $M$ is contained in
+    an $m+1$ dimensonal subspace.\newline
+    Let $\nu_0 \in \mathbb{S}^{n-1}$ be such that there is
+    $x \in M$ such that $\nu_0 \in S_x M$ and $\det(A_{\nu_0}) = 0$ (these exists thanks to the discussion and result
+    of 1.). We then choose an orthonormal basis of $\bbR^n$ given by
+    $e_1, ..., e_n$, such that the first $m$ vectors are tangent to $M$, the last ones
+    are normal, and $e_n = \nu_0$.
+    \medskip \newline
+    We will now show that if $n \geq m+2$, $M$ must belong to an affine hyperplane.
+    We will consider the normal vectors $\nu(\theta) \in S_x M$ defined as
+    \[ \nu(\theta) = \cos\theta E_n(x) + \sin\theta E_{n-1}(x) \]
+    Then set $h(\theta) = \det(A_{\nu(\theta)})$. Because $\nu \mapsto A_{\nu}$ is linear,
+    $h(\theta)$ is then a polynomial in $\sin\theta$ and $\cos\theta$. $h$ is then an analytic
+    function that is not identically $0$ because $h(0) = \det(A_{\nu_0}) \neq 0$.
+    \medskip \newline
+    Now assume for contradiction that $M$ isn't contained in an affine hyperplane of $\bbR^n$.
+    For all $\theta$, denote $H_{\theta}$ the affine hyperplane normal to $\nu(\theta)$ containing
+    $x$. By assumption, there are $\theta_1 < \theta_2$, $z_1, z_2 \in M$ such that
+    $z_1$ is in $H_{\theta_1}$ but not in $H_{\theta_2}$ and $z_2$ is in $H_{\theta_2}$ but not
+    $H_{\theta_1}$. One then deduces that there is $\theta_3$ such that $H_{\theta_3}$ separates
+    $z_1$ from $z_2$. Because $h$ is analytic and not $0$, we can choose $\theta_3$ such that
+    it is not a zero of $h$. We then choose $V$ a neighbourhood $(x, \nu(\theta_3))$ in
+    $SM$ such that for all $(z, \nu') \in V$, $\det(A_{\nu'}) \neq 0$ and the affine plane
+    containing $z$ normal to $\nu'$ separates $z_1$ from $z_2$. Then, for all such $(z, \nu')$,
+    ${f_{\nu'}}_{\mid M}$ is Morse and has $z$ as a critical point. But because there is
+    a hyperplane separating $z_1$ from $z_2$, $z$ cannot be the minimum neither the maximum,
+    so there are at least $3$ critical points. Because $V$ has non zero measure in $SM$, it then
+    follows that
+    \[ \frac{1}{\operatorname{vol}(\mathbb{S}^{n-1})} \int_{\mathbb{S}^{n-1}} |\operatorname{crit}({f_{\nu}}_{\mid M})| d\nu > 2 \]
+    which is a contradiction.
+    \medskip \newline
+    We then proceed by induction, proving that $M$ lies in a hyperplane inside the previous
+    hyperplane, as the total absolute curvature doesn't change if the same embedding of
+    $M$ is viewed in different dimensional affine spaces.
+    \end{enumerate}
+\end{proof}
+
+Note that this theorem can be strengthened in many directions : firstly, statement 3. can
+be strengthened to say that $M$ is in fact embedded as a convex hypersurface in the linear
+subspace it inhabits, and that the converse is also true. One can also generalize the whole
+discussion to considering $M$ not to be a submanifold of $\bbR^n$ but rather an immersed
+submanifold and one gets the same results.
+
+(DO FARY MILNOR)
+
+\subsection{The absolute curvature in the compact setting}
+
+\quad We now want to define the absolute curvature of $M \subset N$, where $M, N$ are compact
+and $M$ oriented. For that purpose, we introduce the following, more general defintions
+of the fundamental form and shape operator. For $x \in M, \nu \in S_xM$, we define
+for all $u, v \in T_x M$
+\begin{equation*}
+    \begin{split}
+        \operatorname{II}_{\nu}(u, v) &= \langle \nabla_v U, \nu \rangle\\
+        A_{\nu}(v) &= -\operatorname{proj}_{T_x M}(\nabla_v \nu)
+    \end{split}
+\end{equation*}
+where $U$ is any tangent vector field extending $u$ and $\nabla$ is the connection on $N$.
+This coincides with the definitions given for affine space, and previous formulas generalize
+to this more general Riemannian setting.
+\bigskip
+
+\quad We first tackle the case of $N = \mathbb{S}^n$, following (cite), and generalize from this example.
+We would like, similarly to lemma \ref{lem:invarianceAffineCurv}, that the total absolute
+curvatures of $M$, if seen in $\mathbb{S}^n$ or in $\mathbb{R}^{n+1}$ through the usual
+embedding $\mathbb{S}^{n} \subset \mathbb{R}^{n+1}$, coincide.\newline
+Moreover, we would like for the proof of theorem \ref{thm:chernLashof} to apply in
+$\mathbb{S}^n$ by considering a family of functions on it, such that restricting to
+$M$ gives generically a Morse function.
+\medskip \newline
+A good candidate is the family $(\dist[\mathbb{S}^n]{\nu})_{\nu \in \mathbb{S}^n}$ :
+each one is smooth on $\mathbb{S}^n$ except for two antipodal points, and non degenerate critical
+points of $\dist[\mathbb{S}^n]{\nu}_{\mid M}$ coincide with those of
+${f_{\nu}}_{\mid M}$ where $\pm \nu \notin M$ : indeed we know that for $x \neq \pm \nu$,
+$\nabla_x \dist[\mathbb{S}^n]{\nu} = -\frac{v}{|v|}$ where $v \in D\nu(x)$.
+$v$ being proportionnal to
+$\operatorname{proj}_{T_x \mathbb{S}^n}(\nu - x) = \operatorname{proj}_{T_x \mathbb{S}^n}(\nu)$
+one then has
+
+\[ \nabla_x \dist[\mathbb{S}^n]{\nu} =
+-\frac{\operatorname{proj}_{T_x \mathbb{S}^n}(\nu)}{|\operatorname{proj}_{T_x \mathbb{S}^n}(\nu)|}
+= -h(x) \nabla_x ({f_{\nu}}_{\mid \mathbb{S}^n}) \]
+
+where $h(x)$ denotes the inverse norm of the projection of $\nu$. Hence at a critical point
+of $\dist[\mathbb{S}^n]{\nu}_{\mid M}$ one has for $v \in T_x M$, where $\nabla^{\mathbb{S}^n}$
+is the connection on $\mathbb{S}^n$ :
+\begin{align*}
+    H_x (\dist[\mathbb{S}^n]{\nu}_{\mid M})(v) &= \nabla^{\mathbb{S}^n}_v (\dist[\mathbb{S}^n]{\nu}_{\mid M})\\
+    &= -\nabla^{\mathbb{S}^n}_v (h \nabla ({f_{\nu}}_{\mid M}))\\
+    &= -d_x h(v) \nabla_x ({f_{\nu}}_{\mid M}) - h(x) H_x ({f_{\nu}}_{\mid M})(v)\\
+    &= -h(x) H_x ({f_{\nu}}_{\mid M})(v)
+\end{align*}
+as both functions have the same critical points on $M$, their gradient lines being the same.
+\medskip \newline
+Hence we may define the total absolute curvature of
+$M$ seen in $\mathbb{S}^n$ as
+\[ \tau_{\mathbb{S}^n}(M) := \frac{1}{\operatorname{vol}(\mathbb{S}^n)} \int_{\mathbb{S}^n}
+    |\operatorname{crit}({\dist[\mathbb{S}^n]{\nu}}_{\mid M})| d\nu \]
+In the spirit of the proof of theorem \ref{thm:chernLashof}, we try to connect the number
+of critical points of $\dist[\mathbb{S}^n]{\nu}$ to the number of pre-images
+of some function on the normal bundle of $M$. Let $\nu \in \mathbb{S}^n$ be such that
+$\pm \nu \notin M$. Then by theorem \ref{thm:subdiffdist}, every critical point of
+$(\dist[\mathbb{S}^n]{\nu})_{\mid M}$ is a point $x \in M$ such that the
+shortest path from $x$ to $\nu$ is normal to $M$ at $x$, so $x$ is a pre-image of $\nu$
+through the normal exponential map $\exp^{\perp} : N^{<\pi}M \rightarrow \mathbb{S}^n$,
+where we restrict it to the ball normal bundle of open radius $\pi$ to avoid double counting,
+as $\pi$ is the geodesic radius of $\mathbb{S}^n$.
+Then one has
+\[ |(\exp^{\perp})^{-1}(\nu)| = |\operatorname{crit}(\dist[\mathbb{S}^n]{\nu}_{\mid M})| \]
+Hence with computations similar to the previous section, one has
+\begin{equation}
+    \tau_{\mathbb{S}^n}(M) = \frac{1}{\operatorname{vol}(\mathbb{S}^n)}
+    \int_{\mathbb{S}^n} |(\exp^{\perp})^{-1}(\nu)|d\nu
+    = \frac{1}{\operatorname{vol}(\mathbb{S}^n)} \int_{N^{<\pi}M} |\det(d_{(x, v)}\exp^{\perp})|dxdv
+\end{equation}
+By the remarks on the functions $\dist[\mathbb{S}^n]{\nu}$, we can slightly
+modify the proof of theorem \ref{thm:chernLashof} to get almost the same result, where in
+point 3. the manifold $M$ is contained in a totally geodesic subsphere of dimension $m+1$
+and is the boundary of a geodesic ball. We also get that $\tau_{\bbR^{n+1}}(M) = \tau_{\mathbb{S}^n}(M)$
+from the same remarks.
+\medskip \newline
+Lastly, we also get a formula for $\tau_{\mathbb{S}^n}(M)$ in terms of the second fundamental
+form of $M$ in $\mathbb{S}^n$ form (cite)
+\[ \tau_{\mathbb{S}^n}(M) = \frac{1}{\operatorname{vol}(\mathbb{S}^n)}
+\int_{N^{<\pi}M} \left|\det \left( \cos(|v|)\operatorname{id}_{T_x M} - \frac{\sin(|v|)}{|v|} A_v \right) \right|
+\left( \frac{\sin(|v|)}{|v|} \right)^{n - m - 1} dxdv\]
+
+\bigskip
+
+\quad (BIG MAYBE ON THE DEF. TO DISCUSS) We now try to generalize these ideas to a more general compact Riemannian manifold $N$.
+We will denote $\exp^{\perp} : NM \rightarrow N$ the unrestricted normal exponential map.
+We would like, as in the spherical case, to average a number related to pre-images of
+$\exp^{\perp}$ of points $y \in N$. Denoting $\pi : NM \rightarrow M$ the projection,
+we define
+
+\[ \tau_N(M) := \frac{1}{\operatorname{vol}(N)} \int_N |\pi((\exp^{\perp})^{-1}(y))| dy \]
+
+wich coincides with the spherical curvature (and complex projective one defined in (cite)).
+We show the following regarding this definition (MAYBE ??? BIG QUESTION HERE)
+
+\begin{lem}
+    For $M$ a compact submanifold of $N$, also compact, $\tau_N(M)$ is a finite quantity.
+\end{lem}
+
+\begin{proof}
+    First, by Sard's theorem, the regular values of $\exp^{\perp}$ are a full measure set of
+    $N$.
+\end{proof}
+
+\subsection{Linear functions as distance functions}
+
+\textit{
+(Positive results : weighted pre-image integral on $\bbR^2$ seems coincide with the absolute
+curvature. Geodesics = straight lines through the gnomonic projection)}
+\bigskip
+
+\quad As we saw in the last sections, there are two different but similar frameworks for
+the absolute total curvature, the affine case, where linear functions are used, and the compact case,
+where the case of the sphere $\mathbb{S}^n$ is well studied and where distance functions are used.
+We finish this section by relating those two frameworks.
+\medskip \newline
+We introduce the embedding
+\[
+    \iota : \begin{array}{cl}
+        \bbR^n &\longrightarrow \mathbb{S}^n\\
+        x &\longmapsto \frac{1}{\sqrt{1 + |x|^2}}(x_1, ..., x_n, 1)
+    \end{array}
+\]
+It is the inverse of the gnomonic projection of the upper hemisphere of $\mathbb{S}^n$
+defined as follows : for a point $z = (z_1, ..., z_{n+1}) \in \mathbb{S}^n$,
+$z_{n+1} > 0$, draw the line from the origin to $z$. The intersection point of this line
+and the tangent hyperplane at the north pole is $\iota^{-1}(z)$.
+\medskip \newline
+The main feature of this embedding is that it preserves geodesics up to reparametrization :
+to see this, let $x \in \mathbb{R}^n$, $v \in \mathbb{S}^{n-1}$, and $t \in \bbR$. By computing
+some $3\times3$ determinants, the points $\iota(x), \iota(x + tv), (v_1, ..., v_n, 0)$ lie on a plane,
+hence the trajectory $\iota(x + tv)$ is a reparametrized sphere geodesic.
+Thanks to this we establish a correspondance between the linear and compact frameworks.
+\bigskip
+
+\quad The first part of the correspondance is that for $\nu \in \mathbb{S}^{n-1}$,
+gradient lines of $f_{\nu}$ in $\mathbb{R}^n$, i.e affine lines with direction $\nu$,
+coincide with pulled back gradient lines of $\dist[\mathbb{S}^n]{-\nu}$ through $\iota$, in
+virtue of the discussion on geodesics. This implies that the proof of
+theorem \ref{thm:chernLashof} can be done in the framework of distance functions discussed in
+in the last section.\newline
+Moreover, one can directly relate the distance function on the sphere to the linear functions
+$f_{\nu}$ through the following proposition.
+
+\begin{prop}
+    Let $\nu \in \mathbb{S}^{n-1}$ and $x \in \bbR^n$. Then one has
+    \[ \dist[\mathbb{S}^n]{-\nu}(\iota(x)) = \arctan\left( \frac{f_{\nu}(x)}{\sqrt{1 + |x - f_{\nu}(x)\nu|^2}}\right)
+    + \frac{\pi}{2} \]
+\end{prop}
+
+\begin{proof}
+    We prove the statement for $\nu = \partial_1$. We denote $h(x) = \dist[\mathbb{S}^n]{-\nu}(\iota(x))$
+    for $x \in \bbR^n$. We will first differentiate $h$ with respect to $\partial_1$ in order to
+    get the result.
+    \medskip \newline
+    By the chain rule and theorem \ref{thm:subdiffdist}, for $v \in D\{-\nu\}(x)$ :
+    \[ \frac{\partial h}{\partial x_1}(x) = \left\langle \nabla_{\iota(x)} \dist[\mathbb{S}^n]{-\partial_1}, \frac{\partial \iota}{\partial x_1}(x) \right\rangle
+    = - \frac{1}{|v|} \left\langle v, \frac{\partial \iota}{\partial x_1}(x) \right\rangle\]
+    As done in the previous section, taking $v = -\operatorname{proj}_{T_{\iota(x)}\mathbb{S}^n}(\partial_1)$ works.
+    We also have that
+    \[ \langle \partial_1, \iota(x) \rangle^2 + |\operatorname{proj}_{T_{\iota(x)}\mathbb{S}^n}(\partial_1)|^2 = 1 \]
+    So $|\operatorname{proj}_{T_{\iota(x)}\mathbb{S}^n}(\partial_1)| = \sqrt{\frac{1 + x_2^2 + ... + x_n^2}{1 + |x|^2}}$.
+    Setting $c = \sqrt{1 + x_2^2 + ... + x_n^2}$, one has
+    \begin{align*}
+        \frac{\partial h}{\partial x_1}(x) &= \frac{\sqrt{1 + |x|^2}}{c}
+        \left\langle \partial_1, \frac{\partial \iota}{\partial x_1}(x) \right\rangle\\
+        &= \frac{\sqrt{1 + |x|^2}}{c} \frac{c^2}{(1 + |x|^2)^{3/2}}\\
+        &= \frac{c}{x_1^2 + c^2}
+    \end{align*}
+    Lastly, note that when $x_1 \rightarrow -\infty$, $\iota(x)$ goes to $-\partial_1$, and so
+    $h(x)$ goes to $0$. Hence by integrating $\frac{\partial h}{\partial x_1}$ along the first
+    coordinate axis, one has
+    \[ h(x) = \arctan(x_1/c) + \frac{\pi}{2} = \arctan\left(\frac{x_1}{\sqrt{1 + |x - x_1\partial_1|^2}} \right) + \frac{\pi}{2}\]
+\end{proof}
+
+The second part of the correspondance relates the curvature to pre-images of the
+normal exponential map in $\bbR^n$, and will allow us to view the computations made in
+the first section as shadows of the computations made in the last section.
+\medskip \newline
+For that, we first consider the Riemannian structure induced on $\bbR^n$ by $\iota$.
+The induced metric $g$ has the following matrix form in the canonical basis of $\bbR^n$ :
+
+\[ g = \frac{1}{(1 + |x|^2)^4} \left[ (1+|x|^2)I_n - x x^{T} \right] \]
+
+From that, one computes the induced volume form on $\bbR^n$ to be
+$\frac{\operatorname{Vol}_{\bbR^n}}{(1 + |x|^2)^{n+1}}$. PERSONNALLY, I would expect
+something like this to hold, where $\exp^{\perp} : NM \rightarrow \bbR^n$ is the unrestricted
+normal exponential :
+
+\[ \tau_{\mathbb{S}^n}(\iota(M)) = \frac{2}{\operatorname{vol}(\mathbb{S}^n)} \int_{\bbR^n} \frac{|(\exp^{\perp})^{-1}(x)|}{(1 + |x|^2)^{n+1}} dx = \tau_{\bbR^m}(M) \]
+
+where the first equality is easy and the second one quite hard (don't have proof).\newline
+A positive result is that it works for $M = \mathbb{S}^k$ and $M = \mathbb{T}^2$.
+
+\newpage
 
 \bibliographystyle{plain}
 \bibliography{morseBib}
