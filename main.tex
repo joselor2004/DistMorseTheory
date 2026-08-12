@@ -2382,7 +2382,7 @@ invariance property.
     \[ \tau_n(M) = \tau_k(M) \]
 \end{lem}
 For convenience, we also introduce the shape operator at $\nu$, $A_{\nu} : T_x M \rightarrow T_x M$ :
-extend $\nu$ locally to a normal vector field to $M$, then for $v \in T_x M$, define
+extend $\nu$ locally to a unit normal vector field to $M$, then for $v \in T_x M$, define
 
 \[ A_{\nu}(v) = -\operatorname{proj}_{T_x M} (d_x \nu (v)) \] 
 
@@ -2621,23 +2621,18 @@ form of $M$ in $\mathbb{S}^n$ from \cite{Hoisington2022}.
 \[ \tau_{\mathbb{S}^n}(M) = \frac{1}{\operatorname{vol}(\mathbb{S}^n)}
 \int_{N^{<\pi}M} \left|\det \left( \cos(|v|)\operatorname{id}_{T_x M} - \frac{\sin(|v|)}{|v|} A_v \right) \right|
 \left( \frac{\sin(|v|)}{|v|} \right)^{n - m - 1} dxdv\]
-Similar results also hold for real manifolds $M$ embedded in $N = \mathbb{RP}^n$, but also when $M$ is
-a holomorphic manifold embedded in $\mathbb{CP}^m$ as discussed in \cite{Hoisington2022}.
-In particular, an analog of \eqref{eq:curvPreImgExp} also holds in this case.
-\medskip \newline
-\textit{Parallel discussion, in this paper about $\mathbb{CP}^n$, they state that they cannot
-use Morse theory of distance functions in $\mathbb{CP}^n$ as the cut locus of a point is quite big and might
-intersect the manifold generically (this also
-happens in $\mathbb{RP}^n$ by the way). The thing is, we have developped tools and broad ideas
-about some alternative Morse theories that might be able to get at those non smooth points.
-This could be an interesting research direction, as we saw that the results from that paper are not
-the tightest they could be.\newline
-I just don't know what to make of this in these notes, do I talk about this or suggest this
-direction ?}
-
 \bigskip
 
-\quad 
+\quad Similar results also hold for real manifolds $M$ embedded in $N = \mathbb{RP}^n$, but also when $M$ is
+a holomorphic manifold embedded in $\mathbb{CP}^n$ as discussed in \cite{Hoisington2022}.
+In particular, an analog of \eqref{eq:curvPreImgExp} also holds in this case. A Chern-Lashof type result also exists in complex projective
+space, although it is not tight and doesn't use Morse theory of distance functions on $\mathbb{CP}^n$. The reason being that the
+non differentiability points of $\dist[\mathbb{CP}^n]{p}$ (or even $\dist[\mathbb{RP}^n]{p}$ for that matter) can intersect $M$
+for a subset of points $p$ of positive measure.
+\medskip \newline
+A possible research direction could be to use or develop a Morse theory suiting these kinds of distance functions, as we began to do in section
+\ref{sec:ContSelec} and using it to try to prove some Chern-Lashof type results for a more general choice of ambiant Riemannian manifold
+$N$.
 
 \subsection{Connecting the linear and geodesic frameworks}
 
