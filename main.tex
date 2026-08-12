@@ -509,14 +509,14 @@ in $\partial_x f$.
     of $\mathbb{R}^m$. This observation motivates the following lemma, in the spirit of
     Thom isotopy theory.
 
-\begin{lem}\label{lem:prepNormForm}
-    Let $h : \mathbb{R}^k \times \mathbb{R} \rightarrow \mathbb{R}$ be a continuous selection
-    of at most $k+1$ smooth functions verifying condition \eqref{eq:morseCS1}.
+\begin{lem}[\cite{proofNormalForm}]\label{lem:prepNormForm}
+    Let $h : \mathbb{R}^d \times \mathbb{R} \rightarrow \mathbb{R}$ be a continuous selection
+    of at most $k+1$ smooth functions verifying condition \eqref{eq:morseCS1} and with $d \geq k$.
     There exists a neighbourhood $U$ of $0$ and $\varepsilon > 0$, a vector field
-    $X : U \times ]-\varepsilon, \varepsilon[ \rightarrow \mathbb{R}^k \times \mathbb{R}$ verifying
+    $X : U \times ]-\varepsilon, \varepsilon[ \rightarrow \mathbb{R}^k \times \mathbb{R}^{d-k+1}$ verifying
     \begin{enumerate}
         \item For $x \in U, t \in ]-\varepsilon, \varepsilon[$ we have
-        \[ X(x, t) = (\tilde{X}(x, t), 1) \]
+        \[ X(x, t) = (X_1(x, t), ..., X_k(x, t), 0, ..., 0, 1) \]
         \item If $(x,t) \in W_I$ for some active index set $I$, then $X$
         is tangent to $W_I$ at all times and the restriction to $W_I$ is $C^1$
         \item $(x, t) \mapsto h(x, t)$ is constant along integral curves of $X$
@@ -568,7 +568,8 @@ in $\partial_x f$.
 
 \bigskip
 
-We are now ready to prove the main result of this section.
+We are now ready to prove the main result of this section, following \cite{proofNormalForm}.
+We denote $W := W_{I(0)}$ and recall that it is a submanifold of $\mathbb{R}^m$ of codimension $k$.
 
 \begin{theorem}[Normal form]
     If $0$ is a critical point of $f$, then there exists continuous local coordinates around $0$,
@@ -581,7 +582,7 @@ We are now ready to prove the main result of this section.
 
 \begin{proof}
     We first restrict ourselves to $O$ a neighbourhood of $0$ such that $W$ can be considered
-    rectified in some smooth coordinates i.e, $W \cap O = 0 \times \mathbb{R}^{m-k}$. By \eqref{eq:morseCS2}
+    rectified in some smooth coordinates i.e, $W \cap O = \{0\} \times \mathbb{R}^{m-k} \cap O$. By \eqref{eq:morseCS2}
     we can also use the smooth Morse lemma to get $f(0, z) = q(z)$. For $(y, z) \in \mathbb{R}^m$,
     write $f^0(y, z) = f(y, z) - f(0, z)$. We will build
     a locally invertible map $\psi : \mathbb{R}^m \rightarrow \mathbb{R}^m$ such that
@@ -595,14 +596,16 @@ We are now ready to prove the main result of this section.
     a neighbourhood of $0$. The last $\varphi_{k+1}$ could still depend on $z$.
     \medskip \newline
     To fix this we apply lemma \ref{lem:prepNormForm} to
-    $f^0 : \mathbb{R}^{m+k-1} \times \mathbb{R} \rightarrow \mathbb{R}$.
+    $f^0 : \mathbb{R}^{m-1} \times \mathbb{R} \rightarrow \mathbb{R}$.
     Denote $\Phi(s, y, z)$ the point obtained by integrating $X$ for time $s$ starting at
     $(y, z)$. The following local homeomorphism
     \begin{equation}\label{eq:constrPhiNormform}
         \phi(y, z) = \Phi(-z_{m-k}, y, z) + (0, ..., 0, z_{m-k})
     \end{equation}
-    verifies $f^0 \circ \phi^{-1}(y, z) = f^0(y, z_1, ..., z_{m-k-1}, 0)$. By repeating the process
-    we eliminiate the dependance in $z$.
+    verifies $f^0 \circ \phi^{-1}(y, z) = f^0(y, z_1, ..., z_{m-k-1}, 0)$ and doesn't act on the $z$ coordinates.
+    By repeating the process, we eliminate the dependance in $z$. Hence in these new coordinates,
+    $f^0$ is a function of $y$ that is a continuous selection of $dy_1, ..., dy_k, \varphi_{k+1}$
+    (although the way the selection is made might have changed).
     \bigskip \newline
     Note that in the new coordinates, $\varphi_i = dy_i$ for $i < k + 1$. To write $f^0$ as
     a continuous selection of linear functions, it suffices to linearize $\varphi_{k+1}$.
@@ -615,7 +618,7 @@ We are now ready to prove the main result of this section.
     a continuous selection of $dy_1, ..., dy_k, \varphi_{k+1}^t$ such that
     it equals $f^0$ at $t=0$.
     \medskip \newline
-    We then apply lemma \ref{lem:prepNormForm}
+    We then apply lemma \ref{lem:prepNormForm} to $h$
     and get $U$ an even smaller neighbourhood and $X$ a vector field on a neighbourhood
     of $(0, 0)$. Up to shrinking $U$, we can assume that for all $t^*$ there is a
     time $s(t^*) > 0$ such that for all $y \in U$, we can integrate $(y, t^*)$ for time
@@ -1182,8 +1185,8 @@ Our goal will be to show that under certain assumptions, the distance function i
 locally a continuous selection of finitely many $C^2$ functions, and so enters the Morse theory
 framework developped in section \ref{sec:ContSelec}.
 \medskip \newline
-We'll denote by $\varphi$ the Riemannian exponential map restricted to $NY$, i.e for $(y, v) \in NY$,
-$\varphi(y, v) = y + v$. The following proposition from \cite{AntonioMorseThEuclDist} uses
+We'll denote by $\exp^{\perp}$ the Riemannian exponential map restricted to $NY$, i.e for $(y, v) \in NY$,
+$\exp^{\perp}(y, v) = y + v$. The following proposition from \cite{AntonioMorseThEuclDist} uses
 this map to find points where $\dist{Y}$ is locally a continuous selection.
 
 \begin{prop}
@@ -1201,8 +1204,8 @@ this map to find points where $\dist{Y}$ is locally a continuous selection.
 
 \begin{proof}
     We first prove that $Y(x)$ is finite. This set is compact. If we write $\pi : NY \rightarrow Y$
-    the natural projection, we get $Y(x) \subset \pi(\varphi^{-1}(x))$. But note that $x$
-    being a regular value, $\varphi^{-1}(x)$ is of codimension $m$ in $NY$, hence it is a set
+    the natural projection, we get $Y(x) \subset \pi({\exp^{\perp}}^{-1}(x))$. But note that $x$
+    being a regular value, ${\exp^{\perp}}^{-1}(x)$ is of codimension $m$ in $NY$, hence it is a set
     of disjoint points. The same applies after applying $\pi$, so $Y(x)$ is finite.
     \bigskip \newline
     We now construct the neighbourhoods : denote $Y(x) = \{y_1, ..., y_n\}$. For all $i$,
@@ -1210,14 +1213,14 @@ this map to find points where $\dist{Y}$ is locally a continuous selection.
     $\mathbb{R}^{m - \dim(Y)} \cong N_{y_i} Y$, $W_i$ a neighbourhood of $y_i$ in $\mathbb{R}^m$, and
     $V_i$ a neighbourhood of $x$ in $\mathbb{R}^m$ such that, up to trivialization,
     $(W_i \cap Y) \times U_i \subset NY$, and
-    $\varphi : (W_i \cap Y) \times U_i \rightarrow V_i$ is a diffeomorphism.
+    $\exp^{\perp} : (W_i \cap Y) \times U_i \rightarrow V_i$ is a diffeomorphism.
     \medskip \newline
     Now note that for all $z$ in some neighbourhood $V \subset \bigcap_i V_i$ of $x$,
     $z - y$ is close to $x - y_i$ for all $y \in W_i \cap Y$. So if it happens that $z - y \in N_{y} Y$,
     then $z - y \in U_i$. From that observation, and the induced diffeomorphism, we deduce
     that there is only one such $y$. From that we get
     \[ \forall z \in V, \dist{Y \cap \overline{W_i}}(z) = |\pi(\varphi_i^{-1}(z)) - z| \]
-    where $\varphi_i := \varphi_{\mid (W_i \cap Y) \times U_i}$. So the distance is indeed
+    where $\varphi_i := {\exp^{\perp}}_{\mid (W_i \cap Y) \times U_i}$. So the distance is indeed
     a smooth function on $V$.
     \medskip \newline
     Lastly, by semi-continuity of $x \mapsto Y(x)$, we can assume that $V$ is small enough such
@@ -1249,6 +1252,14 @@ consist of a single point, which is not the case by theorem \ref{thm:subdiffdist
 On the "likelyhood" side, it is shown that when $Y$ is algebraic, then
 in the generic case, critical points of the distance do not intersect critical values of
 $\varphi$ \cite{AntonioMorseThEuclDist}.
+
+\bigskip
+
+\quad We see from these results on distance functions and relations with continuous selections
+that the framework developped in \ref{sec:ContSelec} doesn't fit exactly distance functions,
+even though there are some nice cases. Further progress in using distance functions as Morse functions
+might be better achieved by developping a special theory for them, reusing ideas from Lipschitz
+geometry and continous selections.
 
 \newpage
 
@@ -1784,7 +1795,6 @@ i.e.\ the LO degree is the degree of the top polar class of $\bar X$.
 
 \quad Although we do not explain it here, the discussion around the LO degree can be extended
 to the case of singular varieties through the use of Chern-Mather classes \cite{macphersonSingVar,linoptChernMather}
-(+ Lorenzo's thing).
 
 % given a generic linear functional $\alpha\in(\bbC^m)^*$,
 % which induces a section $\alpha\in(T_xX)^*$, we want to find out in how many points this section vanishes.
@@ -1797,8 +1807,8 @@ to the case of singular varieties through the use of Chern-Mather classes \cite{
 $q_1, ..., q_n$, while $X$ is defined by the zero set of $p_1, ..., p_r$. We also assume that
 $X$ and $Y$ are smooth.
 \bigskip \newline
-From theorem \ref{thm:subdiffdist} proved in the last section, we now that a point $x \in X$ is critical for the function
-${\dist{Y}}_{\mid X}$
+A point $x \in X$ is critical for ${\dist{Y}}_{\mid X}$ either if it is in $Y$ or if it verifies that $0$ belongs to the
+subdifferential described by theorem \ref{thm:subdiffdist}. Either way, it is critical
 iff there exists a number $k \geq 1$, $y_1, ..., y_k \in Y$ and $\lambda_1, ..., \lambda_k \in \mathbb{R}$
 such that :
 % FUSE COND 3-4
@@ -1807,8 +1817,8 @@ such that :
     \begin{array}{cl}
         \text{1.} & \text{The } y_i \text{ are all distinct}\\
         \text{2.} & \forall i, |x - y_i| = \dist{Y}(x)\\
-        \text{3.} & \sum_i \lambda_i \frac{x - y_i}{|x - y_i|} \in N_x X\\
-        \text{4.} & \forall i, \lambda_i \geq 0 \text{ and } \sum_i \lambda_i = 1
+        \text{3.} & \sum_i \lambda_i \frac{x - y_i}{|x - y_i|} \in N_x X \text{ and }
+        \forall i, \lambda_i \geq 0 \text{ and } \sum_i \lambda_i = 1
     \end{array}
 \end{equation}
 
@@ -1824,6 +1834,12 @@ with unknowns $x, y_1, ..., y_k$ accomplish that
     \end{array}
 \end{equation}
 
+Note that \eqref{eq:ACP} is obtained from \eqref{eq:TCP} by dropping the inequality constraints :
+the second condition from \eqref{eq:TCP} can be rewritten as 
+\[ \forall i, j, |x-y_i|^2 = |x-y_j|^2 \text{ and } \forall y \in Y, |x - y_1| \leq |x - y| \]
+and from that it is clear that \eqref{eq:ACP} is obtained in this way.
+\medskip \newline
+We now check that \eqref{eq:ACP} is mostly composed of algebraic equations.
 The first condition is an open one. The second one is algebraic because $N_{y_i} Y$
 is spanned by $\nabla_{y_i} q_1, ..., \nabla_{y_i} q_n$, so $x-y_i \in N_{y_i} Y$ is equivalent
 to asking that the family $\{x-y_i, \nabla_{y_i} q_1, ..., \nabla_{y_i} q_n\}$ is linearly
@@ -2239,7 +2255,7 @@ By the previous discussion, we can relate the number of algebraic bottlenecks of
 to $\deg \mathbb{D}(f)$. This number then counts
 \begin{itemize}
     \item Tuples $(y_1, v_1), (y_2, v_2)$ such that $f(y_1, v_1) = f(y_2, v_2)$ i.e algebraic bottlenecks of $\bar{Y}$
-    \item Points $(y, v, w)$, where $(y, v) \in \mathbb{P}(N^{\infty} \bar{Y})$ and $w$ a tangent line to $N_{\infty} \bar{Y}$
+    \item Points $(y, v, w)$, where $(y, v) \in \mathbb{P}(N^{\infty} \bar{Y})$ and $w$ a tangent line to $N^{\infty} \bar{Y}$
     at $(y, v)$ such that $d_{(y,v)}f (w) = 0$.  
 \end{itemize}
 
@@ -2505,8 +2521,18 @@ be strengthened to say that $M$ is in fact embedded as a convex hypersurface in 
 subspace it inhabits, and that the converse is also true. One can also generalize the whole
 discussion to considering $M$ not to be a submanifold of $\bbR^n$ but rather an immersed
 submanifold and one gets the same results.
+\medskip \newline
+Lastly, some other important results on absolute curvature exist, such as the following
+foundational result for the study of this quantity, relating to knots :
 
-(DO FARY MILNOR)
+\begin{theorem}[Fáry-Milnor]
+    If $\gamma$ is a smooth (or at least $C^2$) closed curve in $\mathbb{R}^3$ such that
+    $\tau(\gamma) \leq 4$, then $\gamma$ is unknotted. Assuming $\gamma$ is parametrized
+    by arc-length, the inequality condition becomes
+    \[ \int |\gamma''(t)| dt \leq 4 \pi \]
+\end{theorem}
+
+
 
 \subsection{The absolute curvature in the compact setting}
 
@@ -2525,7 +2551,7 @@ This coincides with the definitions given for affine space, and previous formula
 to this more general Riemannian setting.
 \bigskip
 
-\quad We mostly treat the case of $N = \mathbb{S}^n$, following (cite), and generalize from this example.
+\quad We mostly treat the case of $N = \mathbb{S}^n$, following \cite{Hoisington2022}.
 We would like, similarly to lemma \ref{lem:invarianceAffineCurv}, that the total absolute
 curvatures of $M$, if seen in $\mathbb{S}^n$ or in $\mathbb{R}^{n+1}$ through the usual
 embedding $\mathbb{S}^{n} \subset \mathbb{R}^{n+1}$, coincide.\newline
@@ -2580,8 +2606,8 @@ Hence with computations similar to the previous section, one has
 \end{equation}
 By the remarks on the functions $\dist[\mathbb{S}^n]{\nu}$, we can slightly
 modify the proof of theorem \ref{thm:chernLashof} to get almost the same result in
-the spherical setting (cite)
-\begin{theorem}[cite]
+the spherical setting \cite{Hoisington2022}
+\begin{theorem}[\cite{Hoisington2022}]
     If $M \subset \mathbb{S}^n$ is compact oriented, then 1. and 2. from theorem \ref{thm:chernLashof}
     hold and $\tau_{\mathbb{S}^n}(M) = 2$ iff $M$ is contained in a totally geodesic
     submanifold of $\mathbb{S}^n$ of dimension $m+1$ and $M$ is the boundary of a geodesic
@@ -2591,11 +2617,12 @@ the spherical setting (cite)
 We also get that $\tau_{\bbR^{n+1}}(M) = \tau_{\mathbb{S}^n}(M)$ from the same remarks.
 \medskip \newline
 Lastly, we also get a formula for $\tau_{\mathbb{S}^n}(M)$ in terms of the second fundamental
-form of $M$ in $\mathbb{S}^n$ form (cite)
+form of $M$ in $\mathbb{S}^n$ from \cite{Hoisington2022}.
 \[ \tau_{\mathbb{S}^n}(M) = \frac{1}{\operatorname{vol}(\mathbb{S}^n)}
 \int_{N^{<\pi}M} \left|\det \left( \cos(|v|)\operatorname{id}_{T_x M} - \frac{\sin(|v|)}{|v|} A_v \right) \right|
 \left( \frac{\sin(|v|)}{|v|} \right)^{n - m - 1} dxdv\]
-Similar results also hold for holomorphic manifolds $M$ embedded in $N = \mathbb{CP}^n$ as discussed in (cite).
+Similar results also hold for real manifolds $M$ embedded in $N = \mathbb{RP}^n$, but also when $M$ is
+a holomorphic manifold embedded in $\mathbb{CP}^m$ as discussed in \cite{Hoisington2022}.
 In particular, an analog of \eqref{eq:curvPreImgExp} also holds in this case.
 \medskip \newline
 \textit{Parallel discussion, in this paper about $\mathbb{CP}^n$, they state that they cannot
